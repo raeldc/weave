@@ -1,0 +1,13 @@
+{
+  "name": "Alchemy",
+  "version": "1.0.0",
+  "main": "",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.x",
+    "react": "0.12.x"
+  }
+}

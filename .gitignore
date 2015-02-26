@@ -1,0 +1,7 @@
+bower_components
+node_modules
+application/components/js/*
+application/components.js
+public/css/*.css
+public/js
+public/fonts
