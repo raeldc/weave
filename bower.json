@@ -8,6 +8,7 @@
   ],
   "dependencies": {
     "bootstrap": "3.3.x",
-    "react": "0.12.x"
+    "react": "0.12.x",
+    "underscore": "1.8.x"
   }
 }

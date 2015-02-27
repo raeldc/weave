@@ -1,7 +1,8 @@
 var js = [
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
-    'bower_components/react/react-with-addons.min.js'
+    'bower_components/react/react-with-addons.min.js',
+    'bower_components/underscore/underscore-min.js'
 ];
 
 module.exports = {
