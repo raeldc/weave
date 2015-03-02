@@ -5,6 +5,6 @@ module.exports = {
     dist: {
         files: {
             'public/js/app.js': ['application/**/*.js']
-        },
+        }
     },
 }

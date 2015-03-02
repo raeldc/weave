@@ -36,3 +36,5 @@ Alchemy.initialize([
         },
     }
 ], document.getElementById('body'));
+
+global.Alchemy = Alchemy;
