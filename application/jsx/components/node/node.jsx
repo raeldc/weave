@@ -1,4 +1,6 @@
-Alchemy.Node = React.createClass({
+var React = require('react');
+
+module.exports = React.createClass({
     getInitialState: function(){
         return Alchemy.Properties.get(this.props.id);
     },
@@ -10,7 +12,7 @@ Alchemy.Node = React.createClass({
     },
 
     render: function() {
-        var children = Alchemy.createChildNodes(this.state.children) || this.state.text || '';
+        var children = Alchemy.createChildNodes(this.state.children) || this.state.text || null;
 
         return React.createElement(this.state.element  || 'div', {
             key      : this.state.id,

@@ -1,7 +1,5 @@
 bower_components
 node_modules
-application/components/js/*
-application/components.js
+application/js/*
 public/css/*.css
 public/js
-public/fonts

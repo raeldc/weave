@@ -1,9 +1,11 @@
-var _properties = {};
-var _nodes  = {};
+var _ = require('underscore');
 
-Alchemy.Properties = {
+var _properties = [];
+var _nodes      = {};
+
+module.exports = {
     initialize: function(properties) {
-        _properties = properties || {};
+        _properties = properties;
     },
 
     get: function(id) {

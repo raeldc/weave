@@ -15,8 +15,6 @@
         <div id="body">
         </div>
 
-        <script src="/js/lib.js"></script>
-        <script src="/js/components.js"></script>
         <script src="/js/app.js"></script>
     </body>
 </html>

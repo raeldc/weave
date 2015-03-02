@@ -1,6 +1,17 @@
-var Alchemy = {
+var React = require('react');
+var _     = require('underscore');
+
+var Node       = require('application/components/node/node.js');
+var Properties = require('./properties.js');
+var API        = require('./api.js');
+
+module.exports = {
+    Node       : Node,
+    API        : API,
+    Properties : Properties,
+
     initialize: function(properties, container) {
-        Alchemy.Properties.initialize(properties);
+        Properties.initialize(properties);
 
         React.render(
             this.createNode('root'),
@@ -9,11 +20,12 @@ var Alchemy = {
     },
 
     createNode: function(id) {
-        var nodeProperties = Alchemy.Properties.get(id);
+        var nodeProperties = Properties.get(id);
 
         if(nodeProperties) {
-            return React.createElement(Alchemy.Node, {
-                id: nodeProperties.id
+            return React.createElement(Node, {
+                id : nodeProperties.id,
+                key: nodeProperties.id
             });
         }
 

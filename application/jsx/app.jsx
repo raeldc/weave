@@ -1,3 +1,5 @@
+Alchemy = require('./alchemy/alchemy.js');
+
 Alchemy.initialize([
     {
         id: 'root',

@@ -4,14 +4,14 @@ function config(name) {
 
 module.exports = function(grunt) {
     grunt.initConfig({
-        concat        : config('concat'),
         // jshint        : config('jshint'),
-        uglify        : config('uglify'),
-        less          : config('less'),
         // cssmin        : config('cssmin'),
-        copy          : config('copy'),
-        watch         : config('watch'),
-        react         : config('react')
+        // copy          : config('copy'),
+        uglify    : config('uglify'),
+        less      : config('less'),
+        watch     : config('watch'),
+        react     : config('react'),
+        browserify: config('browserify')
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -22,7 +22,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-react');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('dist', ['less', 'react', 'concat', 'copy', 'uglify']);
+    grunt.registerTask('dist', ['less', 'react', 'browserify', 'uglify']);
     grunt.registerTask('default', ['watch']);
 };
