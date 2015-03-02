@@ -1,4 +1,4 @@
-Alchemy = require('./alchemy/alchemy.js');
+var Alchemy = require('./alchemy/alchemy.js');
 
 Alchemy.initialize([
     {

@@ -24,8 +24,9 @@ module.exports = {
 
         if(nodeProperties) {
             return React.createElement(Node, {
-                id : nodeProperties.id,
-                key: nodeProperties.id
+                id     : nodeProperties.id,
+                key    : nodeProperties.id,
+                Alchemy: this
             });
         }
 
