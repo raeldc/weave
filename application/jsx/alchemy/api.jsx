@@ -4,7 +4,7 @@ module.exports = {
     addNode: function(parent, properties, reference, position) {
         var parent     = Alchemy.Properties.get(parent || 'root');
         var properties = properties || {element: 'div'};
-        var reference  = reference  || _.size(parent.children) - 1;
+        var reference  = reference  || _.last(parent.children);
         var position   = position   || 'after';
         var children   = [];
 
@@ -16,7 +16,7 @@ module.exports = {
 
         if(_.size(parent.children) > 0){
             _.each(parent.children || [], function(value, index){
-                if(index === reference) {
+                if(value === reference) {
                     if(position === 'before') {
                         children.push(properties.id);
                         children.push(value);
