@@ -28,6 +28,14 @@ module.exports = _.extend({
         }
     },
 
+    add: function(properties) {
+        _properties.push(properties);
+    },
+
+    count: function(){
+        return _.size(_properties);
+    },
+
     addChangeListener: function(id, callback) {
         this.on(EVENT_CHANGED + '_' + id, callback);
     },

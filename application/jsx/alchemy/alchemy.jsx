@@ -36,7 +36,7 @@ module.exports = {
     createChildNodes: function(children) {
         var childNodes = [];
 
-        if(!_.isArray(children)){
+        if(!_.isArray(children) || _.size(children) === 0){
             return null;
         }
 
