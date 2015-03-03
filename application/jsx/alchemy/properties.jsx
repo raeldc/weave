@@ -3,6 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 
 var _properties   = [];
 var EVENT_CHANGED = 'changed';
+var EVENT_REMOVED = 'removed';
 
 module.exports = _.extend({
     initialize: function(properties) {
@@ -32,6 +33,20 @@ module.exports = _.extend({
         _properties.push(properties);
     },
 
+    remove: function(id) {
+        if(id === 'root') {
+            return;
+        }
+
+        var node   = this.get(id);
+        var parent = this.get(node.parent);
+
+        parent.children =  _.without(parent.children, id);
+        _properties     = _.without(_properties, node);
+
+        this.emit(EVENT_REMOVED + '_' + id);
+    },
+
     count: function(){
         return _.size(_properties);
     },
@@ -42,5 +57,13 @@ module.exports = _.extend({
 
     removeChangeListener: function(id, callback) {
         this.removeListener(EVENT_CHANGED + '_' + id, callback);
+    },
+
+    addRemoveistener: function(id, callback) {
+        this.on(EVENT_REMOVED + '_' + id, callback);
+    },
+
+    removeRemoveistener: function(id, callback) {
+        this.removeListener(EVENT_REMOVED + '_' + id, callback);
     },
 }, EventEmitter.prototype);

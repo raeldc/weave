@@ -2,17 +2,25 @@ var _ = require('underscore');
 
 module.exports = {
     addNode: function(parent, properties, reference, position) {
-        var parent     = Alchemy.Properties.get(parent || 'root');
-        var properties = properties || {element: 'div'};
-        var reference  = reference  || _.last(parent.children);
-        var position   = position   || 'after';
-        var children   = [];
+        var properties    = properties || {element: 'div'};
+        properties.id     = new Date().getTime();
+        properties.parent = parent || 'root';
 
-        // Check if this node is new, then give it an id
+        Alchemy.Properties.add(properties);
+
+        this.insertNode(parent, properties, reference, position)
+    },
+
+    insertNode: function(parent, properties, reference, position) {
         if(properties.id === undefined) {
-            properties.id = new Date().getTime();
-            Alchemy.Properties.add(properties);
+            return this.addNode(parent, properties, reference, position);
         }
+
+        var parent        = Alchemy.Properties.get(parent);
+        var reference     = reference  || _.last(parent.children);
+        var position      = position   || 'after';
+        var children      = [];
+        properties.parent = parent.id;
 
         if(_.size(parent.children) > 0){
             _.each(parent.children || [], function(value, index){
@@ -32,8 +40,22 @@ module.exports = {
             children.push(properties.id);
         }
 
-        parent.children = children;
+        Alchemy.Properties.set(parent.id, {children: children});
+        console.log(children);
+    },
 
-        Alchemy.Properties.set(parent.id, parent);
+    removeNode: function(id) {
+        Alchemy.Properties.remove(id);
+    },
+
+    moveNode: function(id, parent, reference, position) {
+        var node       = Alchemy.Properties.get(id);
+        var prevparent = Alchemy.Properties.get(node.parent);
+
+        // Remove the node from the previous parent
+        Alchemy.Properties.set(node.parent, {children: _.without(prevparent.children, id)})
+
+        // Insert the node to the new parent
+        this.insertNode(parent, node, reference, position);
     }
 };

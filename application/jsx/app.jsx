@@ -8,7 +8,7 @@ Alchemy.initialize([
         style: {
             margin: '10px',
             border: '1px solid green',
-        },
+        }
     }
 ], document.getElementById('body'));
 
