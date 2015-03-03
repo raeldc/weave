@@ -38,12 +38,11 @@ module.exports = _.extend({
             return;
         }
 
-        var node   = this.get(id);
-        var parent = this.get(node.parent);
+        var node    = this.get(id);
+        var parent  = this.get(node.parent);
+        _properties = _.without(_properties, node);
 
-        parent.children =  _.without(parent.children, id);
-        _properties     = _.without(_properties, node);
-
+        this.set(parent.id, {children: _.without(parent.children, id)});
         this.emit(EVENT_REMOVED + '_' + id);
     },
 
