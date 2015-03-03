@@ -41,7 +41,6 @@ module.exports = {
         }
 
         Alchemy.Properties.set(parent.id, {children: children});
-        console.log(children);
     },
 
     removeNode: function(id) {
