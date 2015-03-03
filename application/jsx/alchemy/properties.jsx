@@ -35,12 +35,4 @@ module.exports = _.extend({
     removeChangeListener: function(id, callback) {
         this.removeListener(EVENT_CHANGED + '_' + id, callback);
     },
-
-    addNode: function(node) {
-        _nodes[node.props.id] = node;
-    },
-
-    removeNode: function(node) {
-        delete _nodes[node.props.id];
-    }
 }, EventEmitter.prototype);
