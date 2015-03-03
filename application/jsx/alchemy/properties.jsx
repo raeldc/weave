@@ -1,9 +1,10 @@
-var _ = require('underscore');
+var _            = require('underscore');
+var EventEmitter = require('events').EventEmitter;
 
-var _properties = [];
-var _nodes      = {};
+var _properties   = [];
+var EVENT_CHANGED = 'changed';
 
-module.exports = {
+module.exports = _.extend({
     initialize: function(properties) {
         _properties = properties;
     },
@@ -23,16 +24,16 @@ module.exports = {
 
         if(_.isObject(_properties[index])){
             _.extend(_properties[index], properties);
-            this.changed(id);
+            this.emit(EVENT_CHANGED + '_' + id);
         }
     },
 
-    changed: function(id) {
-        var node = _nodes[id];
+    addChangeListener: function(id, callback) {
+        this.on(EVENT_CHANGED + '_' + id, callback);
+    },
 
-        if(node){
-            node.setState(this.get(id));
-        }
+    removeChangeListener: function(id, callback) {
+        this.removeListener(EVENT_CHANGED + '_' + id, callback);
     },
 
     addNode: function(node) {
@@ -42,4 +43,4 @@ module.exports = {
     removeNode: function(node) {
         delete _nodes[node.props.id];
     }
-};
+}, EventEmitter.prototype);
