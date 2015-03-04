@@ -63,11 +63,11 @@ module.exports = _.extend({
         this.removeListener(CONST.EVENT_CHANGED + '_' + id, callback);
     },
 
-    addRemoveistener: function(id, callback) {
-        this.on(EVENT_REMOVED + '_' + id, callback);
+    addRemoveListener: function(id, callback) {
+        this.on(CONST.EVENT_REMOVED + '_' + id, callback);
     },
 
-    removeRemoveistener: function(id, callback) {
+    removeRemoveListener: function(id, callback) {
         this.removeListener(CONST.EVENT_REMOVED + '_' + id, callback);
     },
 }, EventEmitter.prototype);
