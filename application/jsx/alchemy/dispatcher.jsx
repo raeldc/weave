@@ -1,9 +1,10 @@
-var _ = require('underscore');
+var _          = require('underscore');
+var Dispatcher = require('flux').Dispatcher;
 
-module.exports = {
+_.extend(Dispatcher.prototype, {
     addNode: function(parent, properties, reference, position) {
         var properties    = properties || {element: 'div'};
-        properties.id     = new Date().getTime();
+        properties.id     = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
         properties.parent = parent || 'root';
 
         Alchemy.Properties.add(properties);
@@ -57,4 +58,6 @@ module.exports = {
         // Insert the node to the new parent
         this.insertNode(parent, node, reference, position);
     }
-};
+});
+
+module.exports = Dispatcher;

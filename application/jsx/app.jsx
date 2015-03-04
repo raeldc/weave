@@ -1,15 +1,26 @@
-var Alchemy = require('./alchemy/alchemy.js');
-
-Alchemy.initialize([
+// Node Properties
+var _nodes = [
     {
         id: 'root',
-        element: 'div',
         className: 'row',
-        style: {
-            margin: '10px',
-            border: '1px solid green',
-        }
+        children: [1, 2, 3]
     }
-], document.getElementById('body'));
+];
 
-global.Alchemy = Alchemy;
+// Declare global variables
+window._       = require('underscore');
+window.React   = require('react');
+window.Alchemy = {};
+
+Alchemy.Dispatcher = require('application/alchemy/dispatcher.js');
+Alchemy.Nodes      = require('application/alchemy/nodes.js');
+Alchemy.Factory    = require('application/components/node/factory.js');
+
+// Set Dependencies
+Alchemy.Nodes.setDispatcher(Alchemy.Dispatcher).setNodes(_nodes);
+Alchemy.Factory.setNodes(Alchemy.Nodes);
+
+React.render(
+    Alchemy.Factory.createNode('root'),
+    document.getElementById('alchemy-body')
+);
