@@ -10,27 +10,27 @@ var _nodes       = [];
  * NOTE: Doesn't trigger an Event. So calling this directly won't trigger a re-render
  * @param {object} properties Properties of the node.
  */
-function addNode(properties) {
-    properties = _.isObject(properties) ? properties : {};
+function addNode(node) {
+    node = _.isObject(node) ? node : {};
     var parent;
 
-    if(properties.id === undefined) {
-        properties.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    if(node.id === undefined) {
+        node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     }
 
-    if(properties.parent === undefined) {
-        properties.parent = 'root';
+    if(node.parent === undefined) {
+        node.parent = 'root';
     }
 
-    if(!_.isArray(properties.children)) {
-        properties.children = [];
+    if(!_.isArray(node.children)) {
+        node.children = [];
     }
 
-    if(_.findIndex(_nodes, {id: properties.id}) === -1 ) {
-        _nodes.push(properties);
+    if(_.findIndex(_nodes, {id: node.id}) === -1 ) {
+        _nodes.push(node);
     }
 
-    return properties;
+    return node;
 }
 
 module.exports = _.extend({
