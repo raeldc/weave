@@ -44,6 +44,11 @@ module.exports = _.extend({
         return this;
     },
 
+    getAll: function() {
+        // Clone so that _nodes remain private
+        return _.clone(_nodes);
+    },
+
     get: function(id) {
         var index = _.findIndex(_nodes, {id: id});
 
