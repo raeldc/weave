@@ -3,5 +3,5 @@ module.exports = {
         'public/css/less/**/*.less',
         'application/**/*.jsx',
     ],
-    tasks: ['less', 'react', 'watchify']
+    tasks: ['less', 'react', 'watchify', 'copy']
 }

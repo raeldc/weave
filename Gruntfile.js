@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // jshint        : config('jshint'),
         // cssmin        : config('cssmin'),
-        // copy          : config('copy'),
+        copy      : config('copy'),
         uglify    : config('uglify'),
         less      : config('less'),
         watch     : config('watch'),
@@ -24,6 +24,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-watchify');
 
-    grunt.registerTask('dist', ['less', 'react', 'watchify', 'uglify']);
+    grunt.registerTask('dist', ['less', 'react', 'watchify', 'uglify', 'copy']);
     grunt.registerTask('default', ['watch']);
 };

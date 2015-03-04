@@ -4,7 +4,8 @@
     "private": true,
     "dependencies": {
         "react"     : "0.12.x",
-        "underscore": "1.8.x"
+        "underscore": "1.8.x",
+        "jquery"    : "2.1.x"
     },
     "devDependencies": {
         "grunt"                  : "~0.4.2",
