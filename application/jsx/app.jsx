@@ -3,7 +3,8 @@ var _nodes = [
     {
         id: 'root',
         className: 'row',
-        children: [1, 2, 3]
+        children: [],
+        text : ''
     }
 ];
 

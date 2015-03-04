@@ -12,7 +12,7 @@ module.exports = {
         this.props.nodes.removeChangeListener(this.props.id, this.onChange);
     },
     onChange: function() {
-        this.setState(this.nodes.get(this.props.id));
+        this.setState(this.props.nodes.get(this.props.id));
     },
     getChildren: function() {
         return this.props.factory.createChildNodes(this.state.children) || this.state.text || null;

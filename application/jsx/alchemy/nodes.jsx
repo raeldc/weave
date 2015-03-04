@@ -4,6 +4,35 @@ var CONST        = require('./constants/nodes.js');
 var _dispatcher  = require('application/alchemy/dispatcher.js');
 var _nodes       = [];
 
+/**
+ * Adds a node to the nodes. 
+ *
+ * NOTE: Doesn't trigger an Event. So calling this directly won't trigger a re-render
+ * @param {object} properties Properties of the node.
+ */
+function addNode(properties) {
+    properties = _.isObject(properties) ? properties : {};
+    var parent;
+
+    if(properties.id === undefined) {
+        properties.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    }
+
+    if(properties.parent === undefined) {
+        properties.parent = 'root';
+    }
+
+    if(!_.isArray(properties.children)) {
+        properties.children = [];
+    }
+
+    if(_.findIndex(_nodes, {id: properties.id}) === -1 ) {
+        _nodes.push(properties);
+    }
+
+    return properties;
+}
+
 module.exports = _.extend({
     setNodes: function(nodes) {
         _nodes = nodes;
@@ -22,7 +51,7 @@ module.exports = _.extend({
             return _nodes[index];
         }
 
-        return {};
+        return undefined;
     },
 
     set: function(id, properties) {
@@ -34,8 +63,63 @@ module.exports = _.extend({
         }
     },
 
-    add: function(properties) {
-        _nodes.push(properties);
+    appendChild: function(parent, properties) {
+        parent = this.get(parent);
+
+        if(parent) {
+            parent.children.push(addNode(properties).id);
+            this.emit(CONST.EVENT_CHANGED + '_' + parent.id);
+        }
+    },
+
+    prependChild: function(parent, properties) {
+        parent = this.get(parent);
+
+        if(parent) {
+            parent.children.unshift(addNode(properties).id);
+            this.emit(CONST.EVENT_CHANGED + '_' + parent.id);
+        }
+    },
+
+    insertSibling: function(node, sibling, position) {
+        var children   = [];
+        var sibling    = this.get(sibling);
+        var parent     = this.get(sibling.parent);
+        var node       = _.isString(node) ? this.get(node) || addNode() : addNode(node);
+
+        if(sibling === undefined) {
+            throw new Error('Sibling does not exist');
+        }
+
+        node.parent = parent.id;
+
+        if(_.size(parent.children) > 0){
+            _.each(parent.children || [], function(value, index){
+                if(value === sibling.id) {
+                    if(position === 'before') {
+                        children.push(node.id);
+                        if(value !== node.id) children.push(value);
+                    }else {
+                        if(value !== node.id) children.push(value);
+                        children.push(node.id);
+                    }
+                }else if(value !== node.id) {
+                    children.push(value);
+                }
+            });
+        }else {
+            children.push(node.id);
+        }
+
+        this.set(parent.id, {children: children});
+    },
+
+    insertBeforeSibling: function(node, sibling) {
+        this.insertSibling(node, sibling, 'before');
+    },
+
+    insertAfterSibling: function(node, sibling) {
+        this.insertSibling(node, sibling, 'after');
     },
 
     remove: function(id) {
@@ -48,7 +132,7 @@ module.exports = _.extend({
         _nodes = _.without(_nodes, node);
 
         this.set(parent.id, {children: _.without(parent.children, id)});
-        this.emit(EVENT_REMOVED + '_' + id);
+        this.emit(CONST.EVENT_REMOVED + '_' + id);
     },
 
     count: function(){
