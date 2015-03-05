@@ -1,4 +1,5 @@
-var Nodes = require('application/stores/nodes.js');
+var Factory = require('application/components/node/factory.js');
+var Nodes   = require('application/stores/nodes.js');
 
 module.exports = {
     getInitialState: function() {
@@ -14,6 +15,6 @@ module.exports = {
         this.setState(Nodes.get(this.props.id));
     },
     getChildren: function() {
-        return this.props.factory.createChildNodes(this.state.children) || this.state.text || null;
+        return Factory.createChildNodes(this.state.children) || this.state.text || null;
     }
 }

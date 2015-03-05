@@ -7,9 +7,8 @@ var Factory = {
 
         if(properties) {
             return React.createElement(this.getComponent(properties.element || 'default'), {
-                id     : properties.id,
-                key    : properties.id,
-                factory: this,
+                id : properties.id,
+                key: properties.id
             });
         }
 
