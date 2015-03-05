@@ -1,5 +1,5 @@
 var EventEmitter = require('events').EventEmitter;
-var CONST        = require('./constants/nodes.js');
+var CONST        = require('application/constants/nodes.js');
 var _dispatcher  = require('application/alchemy/dispatcher.js');
 var _nodes       = [];
 

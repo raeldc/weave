@@ -1,4 +1,4 @@
-var Nodes      = require('application/alchemy/nodes.js');
+var Nodes      = require('application/stores/nodes.js');
 var Components = {};
 
 var Factory = {

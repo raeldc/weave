@@ -14,7 +14,7 @@ window.React   = require('react');
 window.Alchemy = {};
 
 Alchemy.Dispatcher = require('application/alchemy/dispatcher.js');
-Alchemy.Nodes      = require('application/alchemy/nodes.js');
+Alchemy.Nodes      = require('application/stores/nodes.js');
 Alchemy.Factory    = require('application/components/node/factory.js');
 
 // Set Dependencies
