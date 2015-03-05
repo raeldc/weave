@@ -45,7 +45,7 @@ var Factory = {
 
             throw new Error('Node Component not found!');
         }else {
-            return name;
+            return Components['default'];
         }
     }
 };
