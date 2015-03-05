@@ -1,13 +1,3 @@
-// Node Properties
-var _nodes = [
-    {
-        id: 'root',
-        className: 'row',
-        children: [],
-        text : ''
-    }
-];
-
 // Declare global variables
 window._       = require('underscore');
 window.React   = require('react');
@@ -18,7 +8,7 @@ Alchemy.Nodes      = require('application/stores/nodes.js');
 Alchemy.Factory    = require('application/components/node/factory.js');
 
 // Set Dependencies
-Alchemy.Nodes.setDispatcher(Alchemy.Dispatcher).setNodes(_nodes);
+Alchemy.Nodes.initialize(require('./demodata.js'));
 
 // Register Node Components
 Alchemy.Factory.registerComponent('default', require('application/components/node/node.js'));
