@@ -1,4 +1,3 @@
-var _          = require('underscore');
 var Dispatcher = require('flux').Dispatcher;
 
 _.extend(Dispatcher.prototype, {

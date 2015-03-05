@@ -1,4 +1,3 @@
-_              = require('underscore');
 var Nodes      = require('application/alchemy/nodes.js');
 var Components = {};
 

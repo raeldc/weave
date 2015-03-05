@@ -1,9 +1,9 @@
 module.exports = {
     options: {
-        separator: '\n',
+        separator: '\n'
     },
     dist: {
-        src : './application/**/*.js',
+        src : './application/js/app.js',
         dest: 'public/js/app.js'
     },
 }
