@@ -5,7 +5,6 @@ module.exports = React.createClass({
 
     render: function() {
         return React.createElement(this.state.element  || 'div', {
-            key      : this.state.id,
             style    : this.state.style,
             className: this.state.className
         }, this.getChildren());
