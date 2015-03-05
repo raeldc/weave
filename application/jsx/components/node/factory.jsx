@@ -2,11 +2,6 @@ var Nodes      = require('application/stores/nodes.js');
 var Components = {};
 
 var Factory = {
-    setNodes: function(nodes) {
-        Nodes = nodes;
-        return this;
-    },
-
     createNode: function(id) {
         var properties = Nodes.get(id);
 
@@ -15,7 +10,6 @@ var Factory = {
                 id     : properties.id,
                 key    : properties.id,
                 factory: this,
-                nodes  : Nodes,
             });
         }
 
@@ -45,14 +39,16 @@ var Factory = {
     },
 
     getComponent: function(name) {
-        if(Components[name] === undefined) {
-            name = 'default';
-        }
+        if(React.DOM[name] === undefined) {
+            if(Components[name] !== undefined) {
+                return Components[name];
+            }
 
-        return Components[name];
+            throw new Error('Node Component not found!');
+        }else {
+            return name;
+        }
     }
 };
-
-Factory.registerComponent('default', require('application/components/node/node.js'));
 
 module.exports = Factory;

@@ -19,7 +19,9 @@ Alchemy.Factory    = require('application/components/node/factory.js');
 
 // Set Dependencies
 Alchemy.Nodes.setDispatcher(Alchemy.Dispatcher).setNodes(_nodes);
-Alchemy.Factory.setNodes(Alchemy.Nodes);
+
+// Register Node Components
+Alchemy.Factory.registerComponent('default', require('application/components/node/node.js'));
 
 React.render(
     Alchemy.Factory.createNode('root'),
