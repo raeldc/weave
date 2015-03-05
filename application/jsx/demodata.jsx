@@ -1,7 +1,6 @@
 module.exports = [
     {
         id: 'root',
-        is_editing: true,
         children: ['header', 'body', 'footer'],
     },
     {
@@ -40,11 +39,16 @@ module.exports = [
     {
         id: 'sidebar',
         className: 'col-md-4',
-        text: 'Sidebar Left',
         parent: 'body',
+        children: ['actions'],
         style: {
             textAlign: 'center'
         }
+    },
+    {
+        id: 'actions',
+        element: 'ui-components',
+        parent: 'sidebar',
     },
     {
         id: 'content',

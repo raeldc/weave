@@ -6,7 +6,8 @@
         "react"     : "0.12.x",
         "underscore": "1.8.x",
         "jquery"    : "2.1.x",
-        "flux"      : "2.0.x"
+        "flux"      : "2.0.x",
+        "keymirror" : "~0.1.0"
     },
     "devDependencies": {
         "grunt"                  : "~0.4.2",

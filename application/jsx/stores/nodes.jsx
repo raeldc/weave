@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
+var Dispatcher   = require('application/alchemy/dispatcher.js');
 var CONST        = require('application/constants/nodes.js');
-var _dispatcher  = require('application/alchemy/dispatcher.js');
 var _nodes       = [];
 
 /**
@@ -32,7 +32,7 @@ function addNode(node) {
     return node;
 }
 
-module.exports = _.extend({
+var Nodes = _.extend({
     initialize: function(nodes) {
         _nodes = nodes;
         return this;
@@ -58,7 +58,7 @@ module.exports = _.extend({
 
         if(_.isObject(_nodes[index])){
             _.extend(_nodes[index], properties);
-            this.emit(CONST.EVENT_CHANGED + '_' + id);
+            this.emit(CONST.NODE_CHANGED + '_' + id);
         }
     },
 
@@ -74,7 +74,7 @@ module.exports = _.extend({
                 parent.children.push(properties.id);
             }
 
-            this.emit(CONST.EVENT_CHANGED + '_' + parent.id);
+            this.emit(CONST.NODE_CHANGED + '_' + parent.id);
             return properties;
         }
 
@@ -142,7 +142,7 @@ module.exports = _.extend({
         _nodes = _.without(_nodes, node);
 
         this.set(parent.id, {children: _.without(parent.children, id)});
-        this.emit(CONST.EVENT_REMOVED + '_' + id);
+        this.emit(CONST.NODE_REMOVED + '_' + id);
     },
 
     count: function(){
@@ -150,18 +150,35 @@ module.exports = _.extend({
     },
 
     addChangeListener: function(id, callback) {
-        this.on(CONST.EVENT_CHANGED + '_' + id, callback);
+        this.on(CONST.NODE_CHANGED + '_' + id, callback);
     },
 
     removeChangeListener: function(id, callback) {
-        this.removeListener(CONST.EVENT_CHANGED + '_' + id, callback);
+        this.removeListener(CONST.NODE_CHANGED + '_' + id, callback);
     },
 
     addRemoveListener: function(id, callback) {
-        this.on(CONST.EVENT_REMOVED + '_' + id, callback);
+        this.on(CONST.NODE_REMOVED + '_' + id, callback);
     },
 
     removeRemoveListener: function(id, callback) {
-        this.removeListener(CONST.EVENT_REMOVED + '_' + id, callback);
+        this.removeListener(CONST.NODE_REMOVED + '_' + id, callback);
     },
 }, EventEmitter.prototype);
+
+Nodes.dispatchToken = Dispatcher.register(function(command) {
+    switch(command.action) {
+        case CONST.NODE_ACTION_EDITMODE_ON:
+            Nodes.set(command.subject, {
+                editmode_on: true,
+            });
+        break;
+        case CONST.NODE_ACTION_EDITMODE_OFF:
+            Nodes.set(command.subject, {
+                editmode_on: false,
+            });
+        break;
+    }
+});
+
+module.exports = Nodes;
