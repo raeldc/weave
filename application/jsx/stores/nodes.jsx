@@ -33,13 +33,8 @@ function addNode(node) {
 }
 
 module.exports = _.extend({
-    setNodes: function(nodes) {
+    initialize: function(nodes) {
         _nodes = nodes;
-        return this;
-    },
-
-    setDispatcher: function(dispatcher) {
-        _dispatcher = dispatcher;
         return this;
     },
 
