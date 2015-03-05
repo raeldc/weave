@@ -9,7 +9,7 @@ module.exports = React.createClass({
         return React.createElement(this.state.element  || 'div', {
             style    : this.state.style,
             className: cx({
-                'editmode_on': this.state.editmode_on
+                'editmode': this.state.editmode
             }) + ' ' + this.state.className,
             onMouseOver: this.editModeOn,
             onMouseOut: this.editModeOff
