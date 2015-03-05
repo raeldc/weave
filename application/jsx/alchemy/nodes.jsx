@@ -67,22 +67,33 @@ module.exports = _.extend({
         }
     },
 
-    appendChild: function(parent, properties) {
-        parent = this.get(parent);
+    addChild: function(properties, position) {
+        var parent = this.get(properties.parent) || this.get('root');
 
         if(parent) {
-            parent.children.push(addNode(properties).id);
+            addNode(properties);
+
+            if(position === 'first') {
+                parent.children.unshift(properties.id);
+            }else{
+                parent.children.push(properties.id);
+            }
+
             this.emit(CONST.EVENT_CHANGED + '_' + parent.id);
+            return properties;
         }
+
+        throw new Error('Parent does not exist');
     },
 
-    prependChild: function(parent, properties) {
-        parent = this.get(parent);
+    addFirstChild: function(parent, properties) {
+        properties.parent = parent;
+        return this.addChild(properties, 'first');
+    },
 
-        if(parent) {
-            parent.children.unshift(addNode(properties).id);
-            this.emit(CONST.EVENT_CHANGED + '_' + parent.id);
-        }
+    addLastChild: function(parent, properties) {
+        properties.parent = parent;
+        return this.addChild(properties, 'last');
     },
 
     insertSibling: function(node, sibling, position) {
