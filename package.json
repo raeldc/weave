@@ -2,6 +2,7 @@
     "name": "Alchemy",
     "version": "0.1.0",
     "private": true,
+    "main": "application/js/index.js",
     "dependencies": {
         "react"     : "0.12.x",
         "underscore": "1.8.x",

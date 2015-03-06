@@ -75,7 +75,7 @@ function addNodeAsFirstChild(parent, node) {
     return addChildNode(node, 'first');
 }
 
-function addLastChild(parent, node) {
+function addNodeAsLastChild(parent, node) {
     node.parent = parent;
     return addChildNode(node, 'last');
 }
@@ -171,12 +171,7 @@ var Nodes = _.extend({
 
 Nodes.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
-        case CONST.NODE_ACTION_EDITMODE_ON:
-
-        break;
-        case CONST.NODE_ACTION_EDITMODE_OFF:
-            
-        break;
+        
     }
 });
 

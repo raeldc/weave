@@ -11,9 +11,15 @@ Alchemy.Factory    = require('application/components/node/factory.js');
 Alchemy.Nodes.initialize(require('./demodata.js'));
 
 // Register Node Components
-Alchemy.Factory.registerComponent('default', require('application/components/node/node.js'));
-Alchemy.Factory.registerComponent('ui-components', require('application/ui/components.js'));
+Alchemy.Factory.registerComponent('default', require('application/components/node'));
 
+// Render the UI
+React.render(
+    React.createElement(require('application/ui')),
+    document.getElementById('alchemy-ui')
+);
+
+// Render the Theme
 React.render(
     Alchemy.Factory.createNode('root'),
     document.getElementById('alchemy-body')

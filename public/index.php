@@ -12,8 +12,8 @@
     </head>
 
     <body>
-        <div id="alchemy-body">
-        </div>
+        <div id="alchemy-body"></div>
+        <div id="alchemy-ui"></div>
         <script src="/js/jquery.min.js"></script>
         <script src="/js/app.js"></script>
     </body>

@@ -8,9 +8,7 @@ module.exports = React.createClass({
     render: function() {
         return React.createElement(this.state.element  || 'div', {
             style    : this.state.style,
-            className: cx({
-                'editmode': this.state.editmode
-            }) + ' ' + this.state.className,
+            className: this.state.className,
             onMouseOver: this.editModeOn,
             onMouseOut: this.editModeOff
         }, this.getChildren());

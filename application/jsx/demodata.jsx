@@ -46,11 +46,6 @@ module.exports = [
         }
     },
     {
-        id: 'actions',
-        element: 'ui-components',
-        parent: 'sidebar',
-    },
-    {
         id: 'content',
         className: 'col-md-8',
         parent: 'body',
