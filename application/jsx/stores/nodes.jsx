@@ -170,20 +170,8 @@ var Nodes = _.extend({
 }, EventEmitter.prototype);
 
 Nodes.dispatchToken = Dispatcher.register(function(command) {
-
     switch(command.action) {
-        case CONST.UI_TOGGLE_QUICK_EDIT_MODE:
-            updateNode('root', {
-                quick_edit_on : command.quick_edit_on,
-                layout_edit_on: false
-            });
-        break;
-        case CONST.UI_TOGGLE_LAYOUT_EDIT_MODE:
-            updateNode('root', {
-                layout_edit_on: command.layout_edit_on,
-                quick_edit_on : false
-            });
-        break;
+
     }
 });
 
