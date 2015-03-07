@@ -1,4 +1,4 @@
-var Factory = require('application/components/node/factory.js');
+var Factory = require('application/components/factory.js');
 var Nodes   = require('application/stores/nodes.js');
 
 module.exports = {
