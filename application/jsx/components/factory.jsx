@@ -1,4 +1,6 @@
 var Nodes      = require('application/stores/nodes.js');
+var UIConfig   = require('application/stores/uiconfig.js');
+var Controls   = require('application/ui/controls/overlay.js');
 var Components = {};
 
 var Factory = {
@@ -7,8 +9,8 @@ var Factory = {
 
         if(properties) {
             return React.createElement(this.getComponent(properties.element || 'default'), {
-                id        : properties.id,
-                key       : properties.id
+                id : properties.id,
+                key: properties.id
             });
         }
 

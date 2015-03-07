@@ -84,6 +84,7 @@ module.exports = [
         text: 'Footer 1',
         parent: 'footer',
         style: {
+            backgroundColor: '#cfcfcf',
             textAlign: 'center'
         }
     },

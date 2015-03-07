@@ -1,5 +1,8 @@
-var Factory = require('application/components/factory.js');
-var Nodes   = require('application/stores/nodes.js');
+var Dispatcher = require('application/alchemy/dispatcher.js');
+var Factory    = require('application/components/factory.js');
+var Nodes      = require('application/stores/nodes.js');
+var DOM        = require('application/stores/dom.js');
+var CONST      = require('application/constants/dom.js');
 
 module.exports = {
     getInitialState: function() {
@@ -7,9 +10,11 @@ module.exports = {
     },
     componentDidMount: function() {
         Nodes.addChangeListener(this.props.id, this.onChange);
+        DOM.insert(this.props.id, this.getDOMNode());
     },
     componentWillUnmount: function() { 
         Nodes.removeChangeListener(this.props.id, this.onChange);
+        DOM.remove(this.props.id);
     },
     onChange: function() {
         this.setState(Nodes.get(this.props.id));
