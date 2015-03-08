@@ -8,12 +8,20 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        return (
-            <form>
+        var FormElements = [];
+
+        if(this.state.element === 'p') {
+            FormElements.push((
                 <div className="form-group">
                     <label htmlFor={"textarea-" + this.state.id}>{this.state.id}</label>
                     <textarea className="form-control" id={"textarea-" + this.state.id} rows="3" value={this.state.text} onChange={this.onChange} />
                 </div>
+            ));
+        }
+
+        return (
+            <form>
+                {FormElements}
             </form>
         );
     },
