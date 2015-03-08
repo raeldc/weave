@@ -3,6 +3,13 @@
 
 .ui-control-overlay {
     position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
 
     > .controls {  
         opacity: 0;
@@ -11,6 +18,7 @@
         height: 100%;
 
         > .buttons {
+            visibility      : hidden;
             position        : absolute;
             top             : 0;
             right           : 0;
@@ -41,14 +49,6 @@
     position: relative;
     overflow: auto;
     width: 100%;
-
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: default;
 }
 
 #content {

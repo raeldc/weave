@@ -171,7 +171,11 @@ var Nodes = _.extend({
 
 Nodes.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
-
+        case CONST.NODE_ACTION_UPDATE_NODE:
+            updateNode(command.node, command.properties);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node);
+            Nodes.emit(CONST.NODE_CHANGED);
+        break;
     }
 });
 

@@ -12,7 +12,7 @@ Alchemy.Factory     = require('application/components/factory.js');
 Alchemy.Nodes.initialize(require('./demodata.js'));
 
 // Register Node Components
-Alchemy.Factory.registerComponent('default', require('application/components/node'));
+Alchemy.Factory.registerComponent('node', require('application/components/node'));
 Alchemy.Factory.registerComponent('controls-overlay', require('application/ui/controls/overlay.js'));
 
 require('application/lib/contentloaded.js').ready(window, function(){

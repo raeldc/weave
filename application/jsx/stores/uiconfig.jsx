@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var Dispatcher   = require('application/alchemy/dispatcher.js');
-var CONST        = require('application/constants/ui.js');
+var CONST        = require('application/constants/all.js');
 var _config      = {};
 
 function setConfig(key, value) {
@@ -35,6 +35,7 @@ UIConfig.dispatchToken = Dispatcher.register(function(command) {
             UIConfig.emit(CONST.UI_TOGGLE_QUICK_EDIT_MODE);
             UIConfig.emit(CONST.UI_CONFIG_CHANGED);
         break;
+
         case CONST.UI_TOGGLE_LAYOUT_EDIT_MODE:
             setConfig({
                 layout_edit_on: !UIConfig.getConfig('layout_edit_on'),
@@ -43,6 +44,12 @@ UIConfig.dispatchToken = Dispatcher.register(function(command) {
 
             UIConfig.emit(CONST.UI_TOGGLE_QUICK_EDIT_MODE);
             UIConfig.emit(CONST.UI_CONFIG_CHANGED);
+        break;
+
+        case CONST.NODE_SELECTED:
+            setConfig('selected_node', command.id);
+
+            UIConfig.emit(CONST.NODE_SELECTED);
         break;
     }
 });

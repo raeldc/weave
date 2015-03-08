@@ -11,7 +11,7 @@ var Factory = {
                 id : properties.id,
                 key: properties.id
             }, [
-                React.createElement(this.getComponent(properties.element || 'default'), {
+                React.createElement(this.getComponent(properties.element || 'node'), {
                     id           : properties.id,
                     key          : properties.id,
                     insideOverlay: true,
@@ -52,7 +52,7 @@ var Factory = {
 
             throw new Error('Node Component not found!');
         }else {
-            return Components['default'];
+            return Components['node'];
         }
     }
 };
