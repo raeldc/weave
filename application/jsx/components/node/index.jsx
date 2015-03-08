@@ -8,9 +8,7 @@ module.exports = React.createClass({
     render: function() {
         return React.createElement(this.state.element  || 'div', {
             style      : this.state.style,
-            className  : this.state.className,
-            onMouseOver: this.onMouseOver,
-            onMouseOut : this.onMouseOut
+            className  : this.state.className
         }, this.getChildren());
     },
 
