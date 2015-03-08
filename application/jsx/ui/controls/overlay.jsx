@@ -11,10 +11,24 @@ var Controls = React.createClass({
     mixins: [PureRenderMixin],
 
     render: function(){
+        var selectedClassName = this.props.selectedClassName || '';
+
         return (
-            <div className="controls" key="controls" onMouseDown={this.onMouseDown}>
-                <div className="buttons">These are buttons</div>
+            <div className={"controls" + selectedClassName}>
+                <span className="fa fa-arrows grab"></span>
+                <span className="resize-width"></span>
+                <span className="resize-height"></span>
             </div>
+        );
+    }
+});
+
+var Overlay = React.createClass({
+    mixins: [PureRenderMixin],
+
+    render: function(){
+        return (
+            <div className="overlay" onMouseDown={this.onMouseDown} />
         );
     },
 
@@ -28,12 +42,13 @@ module.exports = React.createClass({
     mixins: [LifeCycleMixin],
 
     render: function() {
-        var className = this.state.className || '';
+        var className         = this.state.className || '';
+        var selectedClassName = this.state.selectedClassName || '';
 
         return (
             <div style={this.state.style} className={'ui-control-overlay ' + className} id={this.props.id}>
-                <Controls key="controls" node={this.props.id} ref="controls" />
-                <div className={"selected-overlay" + this.state.selectedClass}></div>
+                <Controls selectedClassName={selectedClassName} key="controls" />
+                <Overlay key="overlay" node={this.props.id}/>
                 {this.props.children}
             </div>
         );
@@ -42,14 +57,14 @@ module.exports = React.createClass({
     onSelectNode: function(node){
         if(node === this.props.id) {
             this.setState({
-                selectedClass: ' selected'
+                selectedClassName: ' selected'
             });
         }
     },
 
     onUnSelectNode: function(node){
         this.setState({
-            selectedClass: ''
+            selectedClassName: ''
         });
     },
 
