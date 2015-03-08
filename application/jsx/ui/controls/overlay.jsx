@@ -3,7 +3,7 @@ var DOM        = require('application/stores/dom.js');
 var CONST      = require('application/constants/all.js');
 var cx         = require('react/lib/cx');
 var dispatcherToken;
-var detectMouseLocationTimeout;
+var detectCursorLocationTimeout;
 
 var initialStyle = {
     visibility: 'hidden',
@@ -24,33 +24,8 @@ module.exports = React.createClass({
         );
     },
 
-    checkMouseCoordinates: function(event){
-        var self = this;
-        clearTimeout(detectMouseLocationTimeout);
-        detectMouseLocationTimeout = setInterval(function(){
-            var hits;
-            clearTimeout(detectMouseLocationTimeout);
-
-            hits = DOM.getNodesHitByCursor(event.pageX, event.pageY);
-            if(hits.length) {
-                self.hoverOnNode(hits.shift());
-            }
-        }, 50);
-    },
-
-    hoverOnNode: function(node){
-        this.setState({style:{
-            visibility: 'visible',
-            width     : node.width,
-            height    : node.height,
-            top       : node.top,
-            left      : node.left
-        }});
-    },
-
     componentWillMount: function() {
         var component = this;
-        jQuery(window).on('mousemove', this.checkMouseCoordinates);
     },
 
     componentDidUnmount: function() {

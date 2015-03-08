@@ -13,17 +13,7 @@ var DOM = {
 
     insert: function(id, node) {
         if(node.nodeName) {
-            var $node   = jQuery(node);
-            var offset = $node.offset();
-
-            _DOM[id] = {
-                id  : id,
-                node  : $node,
-                left  : offset.left,
-                top   : offset.top,
-                width : $node.width(),
-                height: $node.height()
-            };
+            _DOM[id] = node;
 
             return this;
         }
@@ -34,18 +24,6 @@ var DOM = {
     remove: function(id) {
         delete _DOM[id];
         return this;
-    },
-
-    getNodesHitByCursor: function(x, y) {
-        var nodes = [];
-
-        _.each(_DOM, function(node, index){
-            if(x >= node.left && x <= node.left + node.width && y >= node.top && y <= node.top + node.height) {
-                nodes.push(node);
-            }
-        });
-
-        return nodes;
     }
 };
 

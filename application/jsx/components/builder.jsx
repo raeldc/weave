@@ -22,10 +22,8 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        UIConfig.on(CONST.UI_TOGGLE_QUICK_EDIT_MODE, this.configChanged);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.UI_TOGGLE_QUICK_EDIT_MODE, this.configChanged);
     }
 });

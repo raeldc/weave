@@ -1,7 +1,7 @@
 var EventEmitter = require('events').EventEmitter;
 var Dispatcher   = require('application/alchemy/dispatcher.js');
 var CONST        = require('application/constants/ui.js');
-var _config        = {};
+var _config      = {};
 
 function setConfig(key, value) {
     if(_.isObject(key)) {

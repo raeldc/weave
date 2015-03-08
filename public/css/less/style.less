@@ -13,15 +13,18 @@
 }
 
 #alchemy-ui {
-    position: absolute;
-    min-height: 75px;
+    position  : absolute;
     border-top: 1px solid #aaa;
-    width: 100%;
-    bottom: 0;
+    width     : 100%;
+    min-height: 100px;
+    height    : 150px;
+    bottom    : 0;
     background: #ebeced;
 }
 
 #alchemy-body {
+    overflow: auto;
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -29,4 +32,8 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default;
+}
+
+#content {
+    height: 1000px;
 }
