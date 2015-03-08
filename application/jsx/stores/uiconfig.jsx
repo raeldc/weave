@@ -24,6 +24,9 @@ var UIConfig = _.extend({
 
 }, EventEmitter.prototype);
 
+// A lot of components could be listening to this store.
+UIConfig.setMaxListeners(0);
+
 UIConfig.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
         case CONST.UI_TOGGLE_QUICK_EDIT_MODE:
@@ -47,9 +50,14 @@ UIConfig.dispatchToken = Dispatcher.register(function(command) {
         break;
 
         case CONST.NODE_SELECTED:
+            var previousSelected = UIConfig.getConfig('selected_node');
+            UIConfig.emit(CONST.NODE_UNSELECTED + '_' + previousSelected, previousSelected);
+            UIConfig.emit(CONST.NODE_UNSELECTED, previousSelected);
+
             setConfig('selected_node', command.id);
 
-            UIConfig.emit(CONST.NODE_SELECTED);
+            UIConfig.emit(CONST.NODE_SELECTED + '_' + command.id, command.id);
+            UIConfig.emit(CONST.NODE_SELECTED, command.id);
         break;
     }
 });
