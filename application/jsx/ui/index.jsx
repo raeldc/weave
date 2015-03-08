@@ -1,5 +1,4 @@
 var Dispatcher      = require('application/alchemy/dispatcher.js');
-var ControlsOverlay = require('application/ui/controls/overlay.js');
 var UIConfig        = require('application/stores/uiconfig.js');
 var CONST           = require('application/constants/all.js');
 
@@ -11,7 +10,6 @@ var UI = React.createClass({
     render: function() {
         return (
             <div id="alchemy-ui">
-                <ControlsOverlay />
                 <div className="row">
                     <div className="col-md-8">Node Tree</div>
                     <div className="col-md-4">Configuration</div>

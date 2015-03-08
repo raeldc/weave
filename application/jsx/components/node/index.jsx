@@ -6,11 +6,12 @@ module.exports = React.createClass({
     mixins: [LifeCycleMixin, MouseEventsMixin],
 
     render: function() {
-        var className = this.state.className || '';
+        var className = this.state.className || '' ;
+
         return React.createElement(this.state.element  || 'div', {
-            style    : this.state.style,
-            className: className,
-            id       : this.props.id
+            style    : this.props.insideOverlay ? {}  : this.state.style,
+            className: this.props.insideOverlay ? ''  : this.state.className,
+            id       : this.props.insideOverlay ? null: this.props.id
         }, this.getChildren());
     },
 

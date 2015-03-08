@@ -1,15 +1,30 @@
 @import "bootstrap/bootstrap.less";
 @import "lib/elements.less";
 
-#ui-control-overlay {
-    position  : fixed;
-    visibility: hidden;
-    top       : 0;
-    left      : 0;
-    width     : 0;
-    height    : 0;
-    z-index: 1000;
-    border: 1px dashed grey;
+.ui-control-overlay {
+    position: relative;
+
+    > .controls {  
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        > .buttons {
+            position        : absolute;
+            top             : 0;
+            right           : 0;
+            display         : inline-block;
+            z-index         : 1000;
+            background-color: #4c9ed9;
+        }
+
+        &:hover {
+            opacity: 1;
+            border: 1px dashed grey;
+            background-color: rgba(76, 158, 217, .2);
+        }
+    }
 }
 
 #alchemy-ui {
@@ -23,7 +38,9 @@
 }
 
 #alchemy-body {
+    position: relative;
     overflow: auto;
+    width: 100%;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;

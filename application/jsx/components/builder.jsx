@@ -17,10 +17,6 @@ module.exports = React.createClass({
         );
     },
 
-    configChanged: function(){
-        this.setState({quick_edit_on:UIConfig.getConfig('quick_edit_on')});
-    },
-
     componentDidMount: function() {
     },
 

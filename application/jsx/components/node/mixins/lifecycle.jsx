@@ -1,4 +1,3 @@
-var Dispatcher = require('application/alchemy/dispatcher.js');
 var Factory    = require('application/components/factory.js');
 var Nodes      = require('application/stores/nodes.js');
 var DOM        = require('application/stores/dom.js');

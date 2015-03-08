@@ -1,6 +1,7 @@
 module.exports = [
     {
         id: 'root',
+        className: 'container',
         children: ['header', 'body', 'footer'],
     },
     {

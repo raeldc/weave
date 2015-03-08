@@ -1,34 +1,34 @@
-var Dispatcher = require('application/alchemy/dispatcher.js');
-var DOM        = require('application/stores/dom.js');
-var CONST      = require('application/constants/all.js');
-var cx         = require('react/lib/cx');
-var dispatcherToken;
-var detectCursorLocationTimeout;
-
-var initialStyle = {
-    visibility: 'hidden',
-    width     : 0,
-    height    : 0,
-    top       : 0,
-    left      : 0,
-};
+var Factory        = require('application/components/factory.js');
+var LifeCycleMixin = require('application/components/node/mixins/lifecycle.js');
+var CONST          = require('application/constants/all.js');
+var cx             = require('react/lib/cx');
 
 module.exports = React.createClass({
-    getInitialState: function(){
-        return {style: initialStyle};
-    },
+    mixins: [LifeCycleMixin],
 
     render: function() {
-        return (
-            <div style={this.state.style} id="ui-control-overlay"></div>
+        var className = this.state.className || '';
+
+        this.props.children.unshift(
+            <div className="controls" key="controls">
+                <div className="buttons">These are buttons</div>
+            </div>
         );
+
+        return React.createElement('div', {
+            style      : this.state.style,
+            className  : 'ui-control-overlay' + ' ' + className,
+            id         : this.props.id
+        }, this.props.children);
     },
 
-    componentWillMount: function() {
-        var component = this;
+    onMouseOver: function(event) {
+
+        event.stopPropagation();
     },
 
-    componentDidUnmount: function() {
-        Dispatcher.unregister(dispatcherToken);
+    onMouseOut: function(event) {
+
+        event.stopPropagation();
     }
 });
