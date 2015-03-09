@@ -35,6 +35,8 @@ var Controls = React.createClass({
         return (
             <a className={className}>
                 <span className="fa fa-arrows grab"></span>
+                <span className="fa fa-long-arrow-left resize-width"></span>
+                <span className="fa fa-long-arrow-up resize-height"></span>
             </a>
         );
     },

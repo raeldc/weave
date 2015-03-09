@@ -9,6 +9,7 @@
     -ms-user-select      : none;
     user-select          : none;
     position             : relative;
+    overflow: hidden;
 
     > .ui-controls {
         visibility: hidden;
@@ -23,7 +24,7 @@
             visibility: visible;
             box-sizing: border-box;
             opacity: 1;
-            .box-shadow(0 1px 20px #4c9ed9);
+            background: rgba(76, 158, 217, .5);
 
             &> span {
                 visibility: visible;
@@ -43,25 +44,21 @@
             &.grab {
                 cursor: pointer;
                 top : 0;
-                left: -22px;
+                left: 0;
             }
 
             &.resize-width {
-                opacity: 0;
+                right    : -12px;
+                top      : 50%;
+                transform: translateY(-50%);
                 cursor: ew-resize;
-                width: 2px;
-                height: 100%;
-                right: -2px;
-                background-color: transparent;
             }
 
             &.resize-height {
-                opacity: 0;
                 cursor: ns-resize;
-                bottom: -6px;
-                height: 2px;
-                width: 100%;
-                background-color: transparent;
+                bottom: -12px;
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
     }
