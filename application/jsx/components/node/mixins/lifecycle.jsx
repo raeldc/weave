@@ -8,12 +8,16 @@ module.exports = {
         return Nodes.get(this.props.id);
     },
     componentDidMount: function() {
-        Nodes.addChangeListener(this.props.id, this.onChange);
-        DOM.insert(this.props.id, this.getDOMNode());
+        if(!this.props.insideOverlay) {
+            Nodes.addChangeListener(this.props.id, this.onChange);
+            DOM.insert(this.props.id, this.getDOMNode());
+        }
     },
     componentWillUnmount: function() { 
-        Nodes.removeChangeListener(this.props.id, this.onChange);
-        DOM.remove(this.props.id);
+        if(!this.props.insideOverlay) {
+            Nodes.removeChangeListener(this.props.id, this.onChange);
+            DOM.remove(this.props.id);
+        }
     },
     onChange: function() {
         this.setState(Nodes.get(this.props.id));
