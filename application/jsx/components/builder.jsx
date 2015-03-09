@@ -15,11 +15,5 @@ module.exports = React.createClass({
                 {Factory.createNode('root')}
             </div>
         );
-    },
-
-    componentDidMount: function() {
-    },
-
-    componentWillUnmount: function() {
     }
 });

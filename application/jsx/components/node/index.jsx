@@ -13,23 +13,23 @@ module.exports = React.createClass({
 
     render: function() {
         var className = this.state.className || '' ;
-        var children  = this.getChildren();
+        var children  = this.children  || null;
         var html;
 
+        props = {
+            id       : this.props.insideOverlay ? null: this.props.id,
+            style    : this.props.insideOverlay ? {}  : this.state.style,
+            className: this.props.insideOverlay ? ''  : this.state.className,
+        };
+
         if(_.isString(children)) {
-            html = {
+            props.dangerouslySetInnerHTML = {
                 __html: children
             };
 
             children = null;
         }
 
-        return React.createElement(this.state.element  || 'div', {
-            style                  : this.props.insideOverlay ? {}  : this.state.style,
-            className              : this.props.insideOverlay ? ''  : this.state.className,
-            id                     : this.props.insideOverlay ? null: this.props.id,
-            dangerouslySetInnerHTML: html
-        }, children);
-    },
-
+        return React.createElement(this.state.element  || 'div', props, children);
+    }
 });

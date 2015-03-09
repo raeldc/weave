@@ -23,16 +23,46 @@ var resizeData = {
 var Controls = React.createClass({
     mixins: [PureRenderMixin],
 
+    getInitialState: function() {
+        return {
+            isSelected: false
+        };
+    },
+
     render: function(){
-        var selectedClassName = this.props.selectedClassName || '';
+        var className = this.state.isSelected ? 'ui-controls selected' : 'ui-controls';
 
         return (
-            <div className={"controls" + selectedClassName}>
+            <a className={className}>
                 <span className="fa fa-arrows grab"></span>
                 <span className="resize-width"></span>
                 <span className="resize-height" draggable onDragStart={this.initializeResizeForHeight} onDrag={this.resizeHeight} onDragEnd={this.onDragEnd}></span>
-            </div>
+            </a>
         );
+    },
+
+    componentDidMount: function(){
+        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
+        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnSelectNode);
+    },
+
+    componentWillUnmount: function(){
+        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
+        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnSelectNode);
+    },
+
+    onSelectNode: function(node){
+        if(node === this.props.node) {
+            this.setState({
+                isSelected: true
+            });
+        }
+    },
+
+    onUnSelectNode: function(node){
+        this.setState({
+            isSelected: false
+        });
     },
 
     initializeResize: function(event, propertyToResize) {
@@ -100,7 +130,7 @@ var Overlay = React.createClass({
 
     render: function(){
         return (
-            <div className="overlay" onMouseDown={this.onMouseDown} />
+            <a className="ui-overlay" onMouseDown={this.onMouseDown} />
         );
     },
 
@@ -110,43 +140,7 @@ var Overlay = React.createClass({
     },
 });
 
-module.exports = React.createClass({
-    mixins: [LifeCycleMixin],
-
-    render: function() {
-        var className         = this.state.className || '';
-        var selectedClassName = this.state.selectedClassName || '';
-
-        return (
-            <div style={this.state.style} className={'ui-control-overlay ' + className} id={this.props.id}>
-                <Controls selectedClassName={selectedClassName} key="controls" node={this.props.id} />
-                <Overlay key="overlay" node={this.props.id}/>
-                {this.props.children}
-            </div>
-        );
-    },
-
-    onSelectNode: function(node){
-        if(node === this.props.id) {
-            this.setState({
-                selectedClassName: ' selected'
-            });
-        }
-    },
-
-    onUnSelectNode: function(node){
-        this.setState({
-            selectedClassName: ''
-        });
-    },
-
-    componentDidMount: function(){
-        UIConfig.on(CONST.NODE_SELECTED + '_' + this.props.id, this.onSelectNode);
-        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.id, this.onUnSelectNode);
-    },
-
-    componentWillUnmount: function(){
-        UIConfig.removeListener(CONST.NODE_SELECTED + '_' + this.props.id, this.onSelectNode);
-        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.id, this.onUnSelectNode);
-    }
-});
+module.exports = {
+    Controls: Controls,
+    Overlay : Overlay
+}

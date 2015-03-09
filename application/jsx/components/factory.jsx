@@ -7,16 +7,11 @@ var Factory = {
         var properties = Nodes.get(id);
 
         if(properties) {
-            return React.createElement(this.getComponent('controls-overlay'), {
-                id : properties.id,
-                key: properties.id
-            }, [
-                React.createElement(this.getComponent(properties.element || 'node'), {
-                    id           : properties.id,
-                    key          : properties.id,
-                    insideOverlay: true,
-                })
-            ]);
+            return React.createElement(this.getComponent(properties.element || 'node'), {
+                id      : properties.id,
+                key     : properties.id,
+                editMode: true,
+            });
         }
 
         return null;
