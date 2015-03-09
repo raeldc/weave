@@ -10,13 +10,19 @@ module.exports = {
         });
     },
 
+    changeWidth: function(id, width) {
+        Dispatcher.dispatch({
+            action: CONST.NODE_ACTION_UPDATE_NODE_STYLE,
+            node  : id,
+            style : {width: width}
+        });
+    },
+
     changeHeight: function(id, height) {
         Dispatcher.dispatch({
-            action    : CONST.NODE_ACTION_UPDATE_NODE,
-            node      : id,
-            properties: {
-                style: {height: height}
-            }
+            action: CONST.NODE_ACTION_UPDATE_NODE_STYLE,
+            node  : id,
+            style : {height: height}
         });
     }
 }

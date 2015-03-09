@@ -12,24 +12,16 @@ module.exports = React.createClass({
     mixins: [LifeCycleMixin, MouseEventsMixin],
 
     render: function() {
-        var className = this.state.className || '' ;
+        var className = this.properties.className || '' ;
         var children  = this.children  || null;
         var html;
 
         props = {
-            id       : this.props.insideOverlay ? null: this.props.id,
-            style    : this.props.insideOverlay ? {}  : this.state.style,
-            className: this.props.insideOverlay ? ''  : this.state.className,
+            id       : this.props.id,
+            style    : this.properties.style,
+            className: this.properties.className,
         };
 
-        if(_.isString(children)) {
-            props.dangerouslySetInnerHTML = {
-                __html: children
-            };
-
-            children = null;
-        }
-
-        return React.createElement(this.state.element  || 'div', props, children);
+        return React.createElement(this.properties.element  || 'div', props, children);
     }
 });

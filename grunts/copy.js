@@ -9,6 +9,10 @@ module.exports = {
                 src: 'node_modules/jquery/dist/jquery.min.map',
                 dest: 'public/js/jquery.min.map'
             },
+            {
+                src: 'node_modules/interact.js/interact.min.js',
+                dest: 'public/js/interact.js'
+            },
             /*
             {
                 src: 'node_modules/underscore/underscore-min.map',

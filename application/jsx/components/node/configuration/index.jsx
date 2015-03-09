@@ -26,11 +26,11 @@ module.exports = React.createClass({
         );
     },
 
-    componentWillMount: function() {
+    componentDidMount: function() {
         Nodes.addChangeListener(this.props.node, this.onNodeChanged);
     },
 
-    componentDidUnmount: function() {
+    componentWillUnmount: function() {
         Nodes.removeChangeListener(this.props.node, this.onNodeChanged);
     },
 

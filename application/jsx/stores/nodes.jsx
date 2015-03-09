@@ -42,11 +42,16 @@ function findNode(id) {
     return undefined;
 }
 
-function updateNode(id, properties) {
+function updateNode(id, properties, nested_properties) {
     var index = _.findIndex(_nodes, {id: id});
 
     if(_.isObject(_nodes[index])){
-        return _.extend(_nodes[index], properties);
+        if(_.isString(properties)) {
+            _nodes[index][properties] = _nodes[index][properties] || {};
+            return _.extend(_nodes[index][properties], nested_properties);
+        }else if(_.isObject(properties)) {
+            return _.extend(_nodes[index], properties);
+        }
     }
 
     throw new Error('Error in updating node');
@@ -173,6 +178,11 @@ Nodes.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
         case CONST.NODE_ACTION_UPDATE_NODE:
             updateNode(command.node, command.properties);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node);
+            Nodes.emit(CONST.NODE_CHANGED);
+        break;
+        case CONST.NODE_ACTION_UPDATE_NODE_STYLE:
+            updateNode(command.node, 'style', command.style);
             Nodes.emit(CONST.NODE_CHANGED + '_' + command.node);
             Nodes.emit(CONST.NODE_CHANGED);
         break;

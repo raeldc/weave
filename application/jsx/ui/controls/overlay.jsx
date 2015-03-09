@@ -35,8 +35,6 @@ var Controls = React.createClass({
         return (
             <a className={className}>
                 <span className="fa fa-arrows grab"></span>
-                <span className="resize-width"></span>
-                <span className="resize-height" draggable onDragStart={this.initializeResizeForHeight} onDrag={this.resizeHeight} onDragEnd={this.onDragEnd}></span>
             </a>
         );
     },
@@ -53,6 +51,7 @@ var Controls = React.createClass({
 
     onSelectNode: function(node){
         if(node === this.props.node) {
+            this.initiateResize();
             this.setState({
                 isSelected: true
             });
@@ -60,69 +59,41 @@ var Controls = React.createClass({
     },
 
     onUnSelectNode: function(node){
+        this.disableResize();
         this.setState({
             isSelected: false
         });
     },
 
-    initializeResize: function(event, propertyToResize) {
+    initiateResize: function() {
         var node    = Nodes.get(this.props.node);
+        var parent  = DOM.get(node.parent);
         var $node   = jQuery(DOM.get(node.id));
-        var $parent = jQuery(DOM.get(node.parent));
+        var $parent = jQuery(parent);
 
-        resizeData.$node            = $node;
-        resizeData.$parent          = $parent;
-        resizeData.startX           = event.clientX || event.pageX;
-        resizeData.startY           = event.clientY || event.pageY;
-        resizeData.boundsX          = $parent.offset().left + $parent.width();
-        resizeData.boundsY          = $parent.offset().top + $parent.height();
-        resizeData.currentWidth     = $node.width();
-        resizeData.currentHeight    = $node.height();
-        resizeData.propertyToResize = propertyToResize;
+        interact(this.getDOMNode())
+        .resizable({
+            edges   : { left: false, right: true, bottom: true, top: false },
+            restrict: {
+                restriction: parent,
+                endOnly    : false
+            }
+        })
+        .on('resizemove', function (event) {
+            // update the element's style
+            if(event.edges.right) {
+                OverlayActions.changeWidth(node.id, event.rect.width);
+            }
 
-        event.stopPropagation();
+            if(event.edges.bottom){
+                OverlayActions.changeHeight(node.id, event.rect.height);
+            }
+        });
     },
 
-    initializeResizeForHeight: function(event) {
-        this.initializeResize(event, 'height');
-    },
-
-    onDragEnd: function(event) {
-        switch(resizeData.propertyToResize) {
-            case 'height':
-                OverlayActions.changeHeight(this.props.node, resizeData.newHeight);
-            break;
-            case 'width':
-
-            break;
-        }
-
-        event.stopPropagation();
-    },
-
-    resizeHeight: function(event) {
-        this.setCurrentResizeData(event);
-
-        resizeData.$node.height(resizeData.newHeight);
-
-        event.stopPropagation();
-    },
-
-    setCurrentResizeData: function(event) {
-        var currentX = event.clientX || event.pageX;
-        var currentY = event.clientY || event.pageY;
-
-        if(currentX < resizeData.boundsX && currentX !== 0) {
-            resizeData.currentX = currentX;
-        }
-
-        if(currentY < resizeData.boundsY && currentY !== 0) {
-            resizeData.currentY = currentY;
-        }
-
-        resizeData.newHeight = resizeData.currentHeight + (resizeData.currentY - resizeData.startY);
-        resizeData.newWidth  = resizeData.currentWidth + (resizeData.currentX - resizeData.startX);
-    },
+    disableResize: function() {
+        interact(this.getDOMNode()).unset();
+    }
 });
 
 var Overlay = React.createClass({
@@ -130,14 +101,14 @@ var Overlay = React.createClass({
 
     render: function(){
         return (
-            <a className="ui-overlay" onMouseDown={this.onMouseDown} />
+            <a className="ui-overlay" onClick={this.selectNode} />
         );
     },
 
-    onMouseDown: function(event) {
+    selectNode: function(event) {
         OverlayActions.selectNode(this.props.node);
         event.stopPropagation();
-    },
+    }
 });
 
 module.exports = {

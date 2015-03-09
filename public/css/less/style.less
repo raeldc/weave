@@ -8,7 +8,6 @@
     -moz-user-select     : none;
     -ms-user-select      : none;
     user-select          : none;
-    cursor               : default;
     position             : relative;
 
     > .ui-controls {
@@ -22,6 +21,7 @@
 
         &.selected {
             visibility: visible;
+            box-sizing: border-box;
             opacity: 1;
             .box-shadow(0 1px 20px #4c9ed9);
 
@@ -47,19 +47,19 @@
             }
 
             &.resize-width {
+                opacity: 0;
                 cursor: ew-resize;
-                width: 5px;
+                width: 2px;
                 height: 100%;
-                right: 0;
-                color: #4c9ed9;
+                right: -2px;
                 background-color: transparent;
             }
 
             &.resize-height {
+                opacity: 0;
                 cursor: ns-resize;
-                bottom: 0;
-                color: #4c9ed9;
-                height: 5px;
+                bottom: -6px;
+                height: 2px;
                 width: 100%;
                 background-color: transparent;
             }

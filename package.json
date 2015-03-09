@@ -4,11 +4,12 @@
     "private": true,
     "main": "application/js/index.js",
     "dependencies": {
-        "react"     : "0.12.x",
-        "underscore": "1.8.x",
-        "jquery"    : "2.1.x",
-        "flux"      : "2.0.x",
-        "keymirror" : "~0.1.0"
+        "react"      : "0.12.x",
+        "underscore" : "1.8.x",
+        "jquery"     : "2.1.x",
+        "flux"       : "2.0.x",
+        "keymirror"  : "~0.1.0",
+        "interact.js": "~1.2.x"
     },
     "devDependencies": {
         "grunt"                  : "~0.4.2",

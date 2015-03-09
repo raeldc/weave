@@ -11,6 +11,7 @@
         <link href="/css/style.css" rel="stylesheet">
 
         <script src="/js/jquery.min.js"></script>
+        <script src="/js/interact.js"></script>
         <script src="/js/app.js"></script>
     </head>
     <body></body>

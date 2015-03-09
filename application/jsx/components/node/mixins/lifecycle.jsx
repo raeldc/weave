@@ -5,8 +5,11 @@ var DOM        = require('application/stores/dom.js');
 var CONST      = require('application/constants/dom.js');
 
 module.exports = {
+    properties: {},
+
     getInitialState: function() {
-        return Nodes.get(this.props.id);
+        this.properties = Nodes.get(this.props.id);
+        return {};
     },
 
     componentWillMount: function() {
@@ -34,28 +37,29 @@ module.exports = {
         if(this.props.editMode) {
             Nodes.removeChangeListener(this.props.id, this.onChange);
             DOM.remove(this.props.id);
-            $node.removeClass('ui-control-overlay');
+            $node.removeClass('ui-editmode');
         }
     },
 
     onChange: function() {
-        this.setState(Nodes.get(this.props.id));
+        this.properties = Nodes.get(this.props.id);
+        this.forceUpdate();
     },
 
     getChildren: function() {
-        this.children = Factory.createChildNodes(this.state.children) || this.state.text || null;
+        this.children = Factory.createChildNodes(this.properties.children) || this.properties.text || [];
+
+        if(_.isString(this.children)) {
+            var html = {
+                __html: this.children
+            };
+
+            this.children = [
+                <span key="content" dangerouslySetInnerHTML={html} />
+            ];
+        }
 
         if(this.props.editMode) {
-            if(_.isString(this.children)) {
-                var html = {
-                    __html: this.children
-                };
-
-                this.children = [
-                    <span dangerouslySetInnerHTML={html} key="content" />
-                ];
-            }
-
             this.children.unshift(<UIEditMode.Controls key="controls" node={this.props.id} />);
             this.children.unshift(<UIEditMode.Overlay  key="overlay"  node={this.props.id} />);
         }
