@@ -178,13 +178,13 @@ Nodes.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
         case CONST.NODE_ACTION_UPDATE_NODE:
             updateNode(command.node, command.properties);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node);
-            Nodes.emit(CONST.NODE_CHANGED);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
+            Nodes.emit(CONST.NODE_CHANGED, command.node);
         break;
         case CONST.NODE_ACTION_UPDATE_NODE_STYLE:
             updateNode(command.node, 'style', command.style);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node);
-            Nodes.emit(CONST.NODE_CHANGED);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
+            Nodes.emit(CONST.NODE_CHANGED, command.node);
         break;
     }
 });

@@ -61,7 +61,8 @@ module.exports = [
         parent: 'content',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis distinctio tenetur ex atque labore esse ea excepturi minima, iste minus inventore accusamus magni voluptate rem odit animi quasi porro molestiae!',
         style: {
-            padding: '40px'
+            padding: 40,
+            margin: 40
         }
     },
     {

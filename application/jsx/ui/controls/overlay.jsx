@@ -43,12 +43,12 @@ var Controls = React.createClass({
 
     componentDidMount: function(){
         UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
-        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnSelectNode);
+        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnselectNode);
     },
 
     componentWillUnmount: function(){
         UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
-        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnSelectNode);
+        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnselectNode);
     },
 
     onSelectNode: function(node){
@@ -60,7 +60,7 @@ var Controls = React.createClass({
         }
     },
 
-    onUnSelectNode: function(node){
+    onUnselectNode: function(node){
         this.disableResize();
         this.setState({
             isSelected: false
@@ -98,7 +98,7 @@ var Controls = React.createClass({
     }
 });
 
-var Overlay = React.createClass({
+var HoverOverlay = React.createClass({
     mixins: [PureRenderMixin],
 
     render: function(){
@@ -113,7 +113,70 @@ var Overlay = React.createClass({
     }
 });
 
+// This sits on the parent so that it stays under the node that it is connected to.
+var MarginBox = React.createClass({
+    getDefaultProps: function() {
+        return {
+            children: []
+        }
+    },
+
+    getInitialState: function() {
+        return {
+            position  : 'absolute',
+            visibility: 'hidden',
+            top       : 0,
+            left      : 0,
+            width     : 0,
+            height    : 0,
+            margin    : 0,
+            padding   : 0
+        }
+    },
+
+    render: function(){
+        return <a className="ui-margin-box" style={this.state} />
+    },
+
+    componentDidMount: function() {
+        var self = this;
+        _.each(this.props.children, function(child, index){
+            UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.wrapChildNode);
+            UIConfig.on(CONST.NODE_UNSELECTED + '_' + child, self.onUnselectChild);
+            Nodes.addChangeListener(child, self.wrapChildNode);
+        });
+    },
+
+    componentWillUnmount: function() {
+        var self = this;
+        _.each(this.props.children, function(child, index){
+            UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + child, self.wrapChildNode);
+            UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + child, self.onUnselectChild);
+            Nodes.removeChangeListener(child, self.wrapChildNode);
+        });
+    },
+
+    wrapChildNode: function(node) {
+        var child    = DOM.get(node);
+        var $child   = jQuery(child);
+        var position = $child.position();
+
+        this.setState({
+            visibility: 'visible',
+            width : $child.outerWidth(true),
+            height: $child.outerHeight(true),
+            top   : position.top,
+            left  : position.left
+        });
+    },
+
+    onUnselectChild: function(node) {
+        this.setState(this.getInitialState());
+    },
+});
+
 module.exports = {
-    Controls: Controls,
-    Overlay : Overlay
+    Controls    : Controls,
+    HoverOverlay: HoverOverlay,
+    MarginBox   : MarginBox,
 }
