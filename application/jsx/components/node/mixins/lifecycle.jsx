@@ -63,6 +63,7 @@ module.exports = {
             this.children.unshift(<UIEditMode.Controls key="controls" node={this.props.id} />);
             this.children.unshift(<UIEditMode.HoverOverlay  key="overlay"  node={this.props.id} />);
             this.children.unshift(<UIEditMode.MarginBox key="magin-box" children={this.properties.children} />);
+            this.children.unshift(<UIEditMode.PaddingBox key="padding-box" node={this.props.id} />);
         }
 
         return this.children;

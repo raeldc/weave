@@ -141,28 +141,38 @@ var MarginBox = React.createClass({
     componentDidMount: function() {
         var self = this;
         _.each(this.props.children, function(child, index){
-            UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.wrapChildNode);
-            UIConfig.on(CONST.NODE_UNSELECTED + '_' + child, self.onUnselectChild);
-            Nodes.addChangeListener(child, self.wrapChildNode);
+            UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.showBox);
+            UIConfig.on(CONST.NODE_UNSELECTED + '_' + child, self.hideBox);
+            Nodes.addChangeListener(child, self.adjustBox);
         });
     },
 
     componentWillUnmount: function() {
         var self = this;
         _.each(this.props.children, function(child, index){
-            UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + child, self.wrapChildNode);
-            UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + child, self.onUnselectChild);
-            Nodes.removeChangeListener(child, self.wrapChildNode);
+            UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + child, self.showBox);
+            UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + child, self.hideBox);
+            Nodes.removeChangeListener(child, self.adjustBox);
         });
     },
 
-    wrapChildNode: function(node) {
+    showBox: function(node) {
+        this.setState({
+            visibility: 'visible'
+        }, this.adjustBox.bind(this, node));
+    },
+
+
+    adjustBox: function(node) {
+        if(this.state.visibility !== 'visible') {
+            return;
+        }
+
         var child    = DOM.get(node);
         var $child   = jQuery(child);
         var position = $child.position();
 
         this.setState({
-            visibility: 'visible',
             width : $child.outerWidth(true),
             height: $child.outerHeight(true),
             top   : position.top,
@@ -170,7 +180,67 @@ var MarginBox = React.createClass({
         });
     },
 
-    onUnselectChild: function(node) {
+    hideBox: function(node) {
+        this.setState(this.getInitialState());
+    },
+});
+
+var PaddingBox = React.createClass({
+    getInitialState: function() {
+        return {
+            position  : 'absolute',
+            visibility: 'hidden',
+            top       : 0,
+            left      : 0,
+            width     : 0,
+            height    : 0,
+            margin    : 0,
+            padding   : 0
+        }
+    },
+
+    render: function(){
+        return <a className="ui-padding-box" style={this.state} />
+    },
+
+    componentDidMount: function() {
+        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
+        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
+        Nodes.addChangeListener(this.props.node, this.adjustBox);
+    },
+
+    componentWillUnmount: function() {
+        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
+        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
+        Nodes.removeChangeListener(this.props.node, this.adjustBox);
+    },
+
+    showBox: function(node) {
+        this.setState({
+            visibility: 'visible'
+        }, this.adjustBox.bind(this, node));
+    },
+
+    adjustBox: function(node) {
+        if(this.state.visibility !== 'visible') {
+            return;
+        }
+
+        var $node         = jQuery(DOM.get(node));
+        var paddingLeft   = parseInt($node.css('padding-left'));
+        var paddingRight  = parseInt($node.css('padding-right'));
+        var paddingTop    = parseInt($node.css('padding-top'));
+        var paddingBottom = parseInt($node.css('padding-bottom'));
+
+        this.setState({
+            top       : paddingTop,
+            left      : paddingLeft,
+            width     : $node.width(),
+            height    : $node.height()
+        });
+    },
+
+    hideBox: function(node) {
         this.setState(this.getInitialState());
     },
 });
@@ -179,4 +249,5 @@ module.exports = {
     Controls    : Controls,
     HoverOverlay: HoverOverlay,
     MarginBox   : MarginBox,
+    PaddingBox  : PaddingBox,
 }
