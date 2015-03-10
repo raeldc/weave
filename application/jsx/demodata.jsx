@@ -41,7 +41,7 @@ module.exports = [
         id: 'sidebar',
         className: 'col-md-4',
         parent: 'body',
-        children: ['actions'],
+        text: 'Sidebar here',
         style: {
             textAlign: 'center'
         }

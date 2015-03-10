@@ -33,11 +33,7 @@ var Controls = React.createClass({
         var className = this.state.isSelected ? 'ui-controls selected' : 'ui-controls';
 
         return (
-            <a className={className}>
-                <span className="fa fa-arrows grab"></span>
-                <span className="fa fa-long-arrow-left resize-width"></span>
-                <span className="fa fa-long-arrow-up resize-height"></span>
-            </a>
+            <a className={className} />
         );
     },
 
@@ -161,7 +157,6 @@ var MarginBox = React.createClass({
             visibility: 'visible'
         }, this.adjustBox.bind(this, node));
     },
-
 
     adjustBox: function(node) {
         if(this.state.visibility !== 'visible') {
