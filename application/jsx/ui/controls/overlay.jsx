@@ -111,6 +111,8 @@ var HoverOverlay = React.createClass({
 
 // This sits on the parent so that it stays under the node that it is connected to.
 var MarginBox = React.createClass({
+    isVisible: false,
+
     getDefaultProps: function() {
         return {
             children: []
@@ -153,13 +155,12 @@ var MarginBox = React.createClass({
     },
 
     showBox: function(node) {
-        this.setState({
-            visibility: 'visible'
-        }, this.adjustBox.bind(this, node));
+        this.isVisible = true;
+        this.adjustBox(node);
     },
 
     adjustBox: function(node) {
-        if(this.state.visibility !== 'visible') {
+        if(!this.isVisible) {
             return;
         }
 
@@ -168,6 +169,7 @@ var MarginBox = React.createClass({
         var position = $child.position();
 
         this.setState({
+            visibility: 'visible',
             width : $child.outerWidth(true),
             height: $child.outerHeight(true),
             top   : position.top,
@@ -176,11 +178,14 @@ var MarginBox = React.createClass({
     },
 
     hideBox: function(node) {
+        this.isVisible = false;
         this.setState(this.getInitialState());
     },
 });
 
 var PaddingBox = React.createClass({
+    isVisible: false,
+
     getInitialState: function() {
         return {
             position  : 'absolute',
@@ -211,13 +216,12 @@ var PaddingBox = React.createClass({
     },
 
     showBox: function(node) {
-        this.setState({
-            visibility: 'visible'
-        }, this.adjustBox.bind(this, node));
+        this.isVisible = true;
+        this.adjustBox(node);
     },
 
     adjustBox: function(node) {
-        if(this.state.visibility !== 'visible') {
+        if(!this.isVisible) {
             return;
         }
 
@@ -228,6 +232,7 @@ var PaddingBox = React.createClass({
         var paddingBottom = parseInt($node.css('padding-bottom'));
 
         this.setState({
+            visibility: 'visible',
             top       : paddingTop,
             left      : paddingLeft,
             width     : $node.width(),
@@ -236,6 +241,7 @@ var PaddingBox = React.createClass({
     },
 
     hideBox: function(node) {
+        this.isVisible = false;
         this.setState(this.getInitialState());
     },
 });
