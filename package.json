@@ -4,7 +4,7 @@
     "private": true,
     "main": "application/js/index.js",
     "dependencies": {
-        "react"      : "0.12.x",
+        "react"      : "0.13.x",
         "underscore" : "1.8.x",
         "jquery"     : "2.1.x",
         "flux"       : "2.0.x",
