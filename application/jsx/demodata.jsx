@@ -50,10 +50,16 @@ module.exports = [
         id: 'content',
         className: 'col-md-8',
         parent: 'body',
-        children: ['p1', 'p2', 'p3'],
+        children: ['title', 'p1', 'p2', 'p3'],
         style: {
             textAlign: 'justified'
         }
+    },
+    {
+        id: 'title',
+        element: 'h1',
+        parent: 'content',
+        text: 'Alchemy - Build WordPress Themes and Pages!'
     },
     {
         id: 'p1',

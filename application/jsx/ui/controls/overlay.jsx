@@ -33,7 +33,10 @@ var Controls = React.createClass({
         var className = this.state.isSelected ? 'ui-controls selected' : 'ui-controls';
 
         return (
-            <a className={className} />
+            <a className={className}>
+                <span className="fa fa-long-arrow-left resize-width"></span>
+                <span className="fa fa-long-arrow-up resize-height"></span>
+            </a>
         );
     },
 
@@ -111,8 +114,6 @@ var HoverOverlay = React.createClass({
 
 // This sits on the parent so that it stays under the node that it is connected to.
 var MarginBox = React.createClass({
-    isVisible: false,
-
     getDefaultProps: function() {
         return {
             children: []
@@ -159,7 +160,7 @@ var MarginBox = React.createClass({
         this.adjustBox(node);
     },
 
-    adjustBox: function(node) {
+    adjustBox: function(node, visible) {
         if(!this.isVisible) {
             return;
         }
@@ -184,8 +185,6 @@ var MarginBox = React.createClass({
 });
 
 var PaddingBox = React.createClass({
-    isVisible: false,
-
     getInitialState: function() {
         return {
             position  : 'absolute',

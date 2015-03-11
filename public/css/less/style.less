@@ -25,7 +25,6 @@
             box-sizing: border-box;
             opacity: 1;
             background: rgba(76, 158, 217, .05);
-            border: 1px solid rgba(76, 158, 217, 1);
 
             &> span {
                 visibility: visible;
@@ -38,9 +37,10 @@
             display   : inline-block;
             z-index   : 1;
             color     : white;
+            font-size : 8px;
+            overflow: hidden;
 
-            background-color: #4c9ed9;
-            padding: 4px;
+            background-color: rgba(76, 158, 217, 1);
 
             &.grab {
                 cursor: pointer;
@@ -49,17 +49,20 @@
             }
 
             &.resize-width {
-                right    : -12px;
+                right    : 0;
                 top      : 50%;
                 transform: translateY(-50%);
-                cursor: ew-resize;
+                z-index: -1;
+                padding: 5px 0 5px 2px;
+
             }
 
             &.resize-height {
-                cursor: ns-resize;
-                bottom: -12px;
+                bottom: 0;
                 left: 50%;
                 transform: translateX(-50%);
+                z-index: -1;
+                padding: 2px 5px 0 5px;
             }
         }
     }
@@ -101,8 +104,7 @@
         height    : 0;
         margin    : 0;
         padding   : 0;
-        border    : 1px dotted rgba(76, 158, 217, 1);
-        background: rgba(76, 158, 217, .05)
+        background: rgba(76, 158, 217, .1)
     }
 }
 

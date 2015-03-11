@@ -7,6 +7,7 @@ var cx               = require('react/lib/cx');
 // Register the config for this item
 Factory.registerComponent('component-config-node', NodeConfig);
 Factory.registerComponent('component-config-p', NodeConfig);
+Factory.registerComponent('component-config-h1', NodeConfig);
 
 module.exports = React.createClass({
     mixins: [LifeCycleMixin, MouseEventsMixin],
