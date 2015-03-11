@@ -124,7 +124,7 @@ var HoverOverlay = React.createClass({
     },
 
     enableAfterDrag: function() {
-        return this.getInitialState();
+        this.setState(this.getInitialState());
     }
 });
 
