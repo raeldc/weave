@@ -59,6 +59,15 @@ UIConfig.dispatchToken = Dispatcher.register(function(command) {
             UIConfig.emit(CONST.NODE_SELECTED + '_' + command.id, command.id);
             UIConfig.emit(CONST.NODE_SELECTED, command.id);
         break;
+
+        case CONST.NODE_UNSELECTED:
+            var unselected = command.id || UIConfig.getConfig('selected_node');
+
+            setConfig('selected_node', null);
+
+            UIConfig.emit(CONST.NODE_UNSELECTED + '_' + unselected, unselected);
+            UIConfig.emit(CONST.NODE_UNSELECTED, unselected);
+        break;
     }
 });
 

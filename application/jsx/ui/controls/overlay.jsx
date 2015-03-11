@@ -9,17 +9,6 @@ var OverlayActions  = require('application/ui/actions/overlay.js');
 var CONST           = require('application/constants/all.js');
 var cx              = require('react/lib/cx');
 
-var resizeData = {
-    startX       : 0,
-    startY       : 0,
-    currentX     : 0,
-    currentY     : 0,
-    currentHeight: 0,
-    currentWidth : 0,
-    newHeight    : 0,
-    newWidth     : 0
-}
-
 var Controls = React.createClass({
     mixins: [PureRenderMixin],
 
@@ -61,6 +50,7 @@ var Controls = React.createClass({
 
     onUnselectNode: function(node){
         this.disableResize();
+
         this.setState({
             isSelected: false
         });
@@ -100,15 +90,41 @@ var Controls = React.createClass({
 var HoverOverlay = React.createClass({
     mixins: [PureRenderMixin],
 
+    getInitialState: function() {
+        return {
+            display: 'inline-block'
+        };
+    },
+
     render: function(){
         return (
-            <a className="ui-overlay" onClick={this.selectNode} />
+            <a className="ui-overlay" onClick={this.selectNode} style={this.state} />
         );
     },
 
     selectNode: function(event) {
         OverlayActions.selectNode(this.props.node);
         event.stopPropagation();
+    },
+
+    componentDidMount: function() {
+        UIConfig.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIConfig.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+    },
+
+    componentWillUnmount: function() {
+        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+    },
+
+    disableOnDrag: function () {
+        this.setState({
+            display: 'none'
+        });
+    },
+
+    enableAfterDrag: function() {
+        return this.getInitialState();
     }
 });
 
@@ -245,9 +261,53 @@ var PaddingBox = React.createClass({
     },
 });
 
+var DropArea = React.createClass({
+    getInitialState: function() {
+        return {
+            display: 'none'
+        }
+    },
+
+    render: function() {
+        return <a className={"ui-drop-area" + " " + this.props.position} style={this.state} onDragOver={this.allowDrop} onDrop={this.onDrop}>Drop Here {this.props.position} {this.props.node}</a>
+    },
+
+    componentDidMount: function() {
+        UIConfig.on(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
+        UIConfig.on(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
+    },
+
+    componentWillUnmount: function() {
+        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
+        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
+    },
+
+    showDropArea: function(event, component) {
+        this.setState({
+            display: 'block'
+        });
+    },
+
+    hideDropArea: function(event, component) {
+        this.setState({
+            display: 'none'
+        });
+    },
+
+    allowDrop: function(event) {
+        event.preventDefault();
+    },
+
+    onDrop: function(event) {
+        console.log('dropped');
+    }
+
+});
+
 module.exports = {
     Controls    : Controls,
     HoverOverlay: HoverOverlay,
     MarginBox   : MarginBox,
     PaddingBox  : PaddingBox,
+    DropArea    : DropArea
 }

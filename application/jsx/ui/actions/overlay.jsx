@@ -10,6 +10,13 @@ module.exports = {
         });
     },
 
+    unselectNode: function(id) {
+        Dispatcher.dispatch({
+            action: CONST.NODE_UNSELECTED,
+            id: id
+        });
+    },
+
     changeWidth: function(id, width) {
         Dispatcher.dispatch({
             action: CONST.NODE_ACTION_UPDATE_NODE_STYLE,

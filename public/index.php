@@ -9,7 +9,6 @@
         <title>Alchemy v0.01 Prototype</title>
 
         <link href="/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/interact.js"></script>
