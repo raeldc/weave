@@ -18,8 +18,8 @@ module.exports = React.createClass({
     },
 
     adjustLayout: function(){
-        var $ui      = jQuery(this.refs.ui.getDOMNode());
-        var $builder = jQuery(this.refs.builder.getDOMNode());
+        var $ui      = jQuery(React.findDOMNode(this.refs.ui));
+        var $builder = jQuery(React.findDOMNode(this.refs.builder));
 
         $builder.height(jQuery(window).height() - $ui.height());
     }

@@ -22,7 +22,7 @@ module.exports = {
 
     componentDidMount: function() {
         if(this.props.editMode) {
-            var node  = this.getDOMNode();
+            var node  = React.findDOMNode(this);
             var $node = jQuery(node);
 
             // Temporary

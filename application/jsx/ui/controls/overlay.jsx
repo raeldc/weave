@@ -72,7 +72,7 @@ var Controls = React.createClass({
         var $node   = jQuery(DOM.get(node.id));
         var $parent = jQuery(parent);
 
-        interact(this.getDOMNode())
+        interact(React.findDOMNode(this))
         .resizable({
             edges   : { left: false, right: true, bottom: true, top: false },
             restrict: {
@@ -93,7 +93,7 @@ var Controls = React.createClass({
     },
 
     disableResize: function() {
-        interact(this.getDOMNode()).unset();
+        interact(React.findDOMNode(this)).unset();
     }
 });
 
