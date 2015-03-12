@@ -1,9 +1,9 @@
 module.exports = {
     name            : 'title',
     group           : 'content',
-    title           : 'Title',
-    description     : 'Title',
-    iconClass       : 'fa fa-header',
+    title           : 'Header Title',
+    description     : 'Header Title',
+    iconClass       : 'glyphicon glyphicon-header',
     reactClass      : require('../node/component.js'),
     reactConfigClass: require('../node/configuration'),
     defaults: {

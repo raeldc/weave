@@ -3,7 +3,7 @@ module.exports = {
     group           : 'content',
     title           : 'Text',
     description     : 'A paragraph of text',
-    iconClass       : 'fa fa-align-left',
+    iconClass       : 'glyphicon glyphicon-align-left',
     reactClass      : require('../node/component.js'),
     reactConfigClass: require('../node/configuration'),
     defaults: {

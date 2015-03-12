@@ -15,7 +15,9 @@ module.exports = React.createClass({
 
         if(node) {
             var ConfigUI = Components.getReactConfigClass(node.component);
-            return <ConfigUI node={this.state.selected_node} key={this.state.selected_node} />;
+            if(ConfigUI) {
+                return <ConfigUI node={this.state.selected_node} key={this.state.selected_node} />;
+            }
         }
 
         return <div />;

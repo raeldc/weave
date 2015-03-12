@@ -10,14 +10,12 @@ module.exports = React.createClass({
     render: function() {
         var FormElements = [];
 
-        if(this.state.element === 'p') {
-            FormElements.push((
-                <div className="form-group" key={"textarea-" + this.state.id}>
-                    <label htmlFor={"textarea-" + this.state.id}>{this.state.id}</label>
-                    <textarea className="form-control" id={"textarea-" + this.state.id} rows="3" value={this.state.text} onChange={this.onChange} />
-                </div>
-            ));
-        }
+        FormElements.push((
+            <div className="form-group" key={"textarea-" + this.state.id}>
+                <label htmlFor={"textarea-" + this.state.id}>{this.state.id}</label>
+                <textarea className="form-control" id={"textarea-" + this.state.id} rows="3" value={this.state.text} onChange={this.onChange} />
+            </div>
+        ));
 
         return (
             <form>

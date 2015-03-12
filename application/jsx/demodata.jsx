@@ -8,6 +8,7 @@ module.exports = [
     {
         id: 'header',
         component: 'container',
+        element: 'header',
         className: 'row',
         children: ['logo', 'navigation'],
         parent: 'root'
@@ -25,6 +26,7 @@ module.exports = [
     {
         id: 'navigation',
         component: 'container',
+        element: 'nav',
         className: 'col-md-10',
         text: 'Navigation',
         parent: 'header',
@@ -65,7 +67,6 @@ module.exports = [
     {
         id: 'title',
         component: 'title',
-        element: 'h1',
         parent: 'content',
         text: 'Alchemy - Build WordPress Themes and Pages!'
     },

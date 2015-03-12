@@ -22,9 +22,9 @@ module.exports = {
             action: CONST.NODE_ACTION_ADDNODE,
             parent : parent,
             properties: {
-                element: component,
-                parent : parent, 
-                text   : 'This is a paragraph of text...'
+                component: component,
+                parent   : parent, 
+                text     : 'This is a paragraph of text...'
             }
         });
     },
