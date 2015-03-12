@@ -2,30 +2,34 @@ var Dispatcher      = require('application/alchemy/dispatcher.js');
 var Factory         = require('application/components/factory.js');
 var UIConfig        = require('application/stores/uiconfig.js');
 var Nodes           = require('application/stores/nodes.js');
+var Components      = require('application/stores/components.js');
 var DOM             = require('application/stores/dom.js');
 var LifeCycleMixin  = require('application/components/node/mixins/lifecycle.js');
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 var OverlayActions  = require('application/ui/actions/overlay.js');
 var CONST           = require('application/constants/all.js');
-var cx              = require('react/lib/cx');
 
 var Controls = React.createClass({
     mixins: [PureRenderMixin],
 
     getInitialState: function() {
         return {
-            isSelected: false
+            isSelected: false,
+            configurables: Components.get(Nodes.get(this.props.node).component).configurables || {}
         };
     },
 
     render: function(){
         var className = this.state.isSelected ? 'ui-controls selected' : 'ui-controls';
+        var controls = [];
+
+        if(this.state.configurables.resize) {
+            controls.push(<span key="resize-width"  className="fa fa-long-arrow-left resize-width"></span>);
+            controls.push(<span key="resize-height" className="fa fa-long-arrow-up resize-height"></span>)
+        }
 
         return (
-            <a className={className}>
-                <span className="fa fa-long-arrow-left resize-width"></span>
-                <span className="fa fa-long-arrow-up resize-height"></span>
-            </a>
+            <a className={className}>{controls}</a>
         );
     },
 
@@ -98,13 +102,17 @@ var HoverOverlay = React.createClass({
 
     render: function(){
         return (
-            <a className="ui-overlay" onClick={this.selectNode} style={this.state} />
+            <a className="ui-overlay" onClick={this.selectNode} onDoubleClick={this.doubleClick} style={this.state} />
         );
     },
 
     selectNode: function(event) {
         OverlayActions.selectNode(this.props.node);
         event.stopPropagation();
+    },
+
+    doubleClick: function(event) {
+        console.log('double click!');
     },
 
     componentDidMount: function() {
@@ -128,14 +136,7 @@ var HoverOverlay = React.createClass({
     }
 });
 
-// This sits on the parent so that it stays under the node that it is connected to.
-var MarginBox = React.createClass({
-    getDefaultProps: function() {
-        return {
-            children: []
-        }
-    },
-
+var SelectNodeMixin = {
     getInitialState: function() {
         return {
             position  : 'absolute',
@@ -147,10 +148,6 @@ var MarginBox = React.createClass({
             margin    : 0,
             padding   : 0
         }
-    },
-
-    render: function(){
-        return <a className="ui-margin-box" style={this.state} />
     },
 
     componentDidMount: function() {
@@ -166,8 +163,19 @@ var MarginBox = React.createClass({
         this.removeSelectionListener();
     },
 
+    showBox: function(node) {
+        this.isVisible = true;
+        this.adjustBox(node);
+    },
+
+    hideBox: function(node) {
+        this.isVisible = false;
+        this.setState(this.getInitialState());
+    },
+
     addSelectionListener: function() {
         var self = this;
+
         _.each(this.props.children, function(child, index){
             UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.showBox);
             UIConfig.on(CONST.NODE_UNSELECTED + '_' + child, self.hideBox);
@@ -183,11 +191,22 @@ var MarginBox = React.createClass({
             Nodes.removeChangeListener(child, self.adjustBox);
         });
     },
+}
 
-    showBox: function(node) {
-        this.isVisible = true;
-        this.adjustBox(node);
+// This sits on the parent so that it stays under the node that it is connected to.
+var MarginBox = React.createClass({
+    mixins: [SelectNodeMixin],
+
+    getDefaultProps: function() {
+        return {
+            children: []
+        }
     },
+
+    render: function(){
+        return <a className="ui-margin-box" style={this.state} />
+    },
+
 
     adjustBox: function(node, visible) {
         if(!this.isVisible) {
@@ -206,46 +225,13 @@ var MarginBox = React.createClass({
             left  : position.left
         });
     },
-
-    hideBox: function(node) {
-        this.isVisible = false;
-        this.setState(this.getInitialState());
-    },
 });
 
 var PaddingBox = React.createClass({
-    getInitialState: function() {
-        return {
-            position  : 'absolute',
-            visibility: 'hidden',
-            top       : 0,
-            left      : 0,
-            width     : 0,
-            height    : 0,
-            margin    : 0,
-            padding   : 0
-        }
-    },
+    mixins: [SelectNodeMixin],
 
     render: function(){
         return <a className="ui-padding-box" style={this.state} />
-    },
-
-    componentDidMount: function() {
-        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
-        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
-        Nodes.addChangeListener(this.props.node, this.adjustBox);
-    },
-
-    componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
-        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
-        Nodes.removeChangeListener(this.props.node, this.adjustBox);
-    },
-
-    showBox: function(node) {
-        this.isVisible = true;
-        this.adjustBox(node);
     },
 
     adjustBox: function(node) {
@@ -266,11 +252,6 @@ var PaddingBox = React.createClass({
             width     : $node.width(),
             height    : $node.height()
         });
-    },
-
-    hideBox: function(node) {
-        this.isVisible = false;
-        this.setState(this.getInitialState());
     },
 });
 

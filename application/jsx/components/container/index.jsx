@@ -9,5 +9,9 @@ module.exports = {
     defaults: {
         element: 'div',
         text   : 'Container'
+    },
+    configurables: {
+        resize: true,
+        text: false,
     }
 }

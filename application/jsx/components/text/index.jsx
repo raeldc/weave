@@ -9,5 +9,9 @@ module.exports = {
     defaults: {
         element: 'p',
         text   : 'Double click here to edit'
+    },
+    configurables: {
+        resize: false,
+        text: true,
     }
 }

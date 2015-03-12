@@ -9,5 +9,9 @@ module.exports = {
     defaults: {
         element: 'h1',
         text   : 'Title (click here to edit)'
+    },
+    configurables: {
+        resize: false,
+        text: true,
     }
 }
