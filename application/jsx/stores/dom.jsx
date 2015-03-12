@@ -27,4 +27,4 @@ var DOM = {
     }
 };
 
-module.exports = Object.freeze(DOM);
+module.exports = DOM;

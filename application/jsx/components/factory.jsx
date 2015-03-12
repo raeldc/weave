@@ -1,16 +1,21 @@
 var Nodes      = require('application/stores/nodes.js');
+var Components = require('application/stores/components.js');
 var UIConfig   = require('application/stores/uiconfig.js');
-var Components = {};
 
 var Factory = {
     createNode: function(id) {
         var properties = Nodes.get(id);
 
         if(properties) {
-            return React.createElement(this.getComponent(properties.element || 'node'), {
-                id      : properties.id,
-                key     : properties.id,
-                editMode: true,
+            var component = Components.get(properties.component);
+
+            return React.createElement(component.reactClass, {
+                id             : properties.id,
+                key            : properties.id,
+                component      : component.name,
+                allowedChildren: component.allowedChildren || [],
+                defaults       : component.defaults || {},
+                editMode       : true,
             });
         }
 
@@ -32,23 +37,6 @@ var Factory = {
         }.bind(this));
 
         return childNodes;
-    },
-
-    registerComponent: function(name, component) {
-        Components[name] = component;
-        return this;
-    },
-
-    getComponent: function(name) {
-        if(React.DOM[name] === undefined) {
-            if(Components[name] !== undefined) {
-                return Components[name];
-            }
-
-            throw new Error('Node Component not found!');
-        }else {
-            return Components['node'];
-        }
     }
 };
 

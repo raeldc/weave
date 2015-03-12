@@ -25,7 +25,7 @@ module.exports = {
             var node  = React.findDOMNode(this);
             var $node = jQuery(node);
 
-            // Temporary
+            // Temporary, add the class ui-editmode classname on this.property.className
             $node.addClass('ui-editmode');
 
             Nodes.addChangeListener(this.props.id, this.onChange);
@@ -37,7 +37,6 @@ module.exports = {
         if(this.props.editMode) {
             Nodes.removeChangeListener(this.props.id, this.onChange);
             DOM.remove(this.props.id);
-            $node.removeClass('ui-editmode');
         }
     },
 
