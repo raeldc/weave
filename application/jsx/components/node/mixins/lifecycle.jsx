@@ -56,7 +56,7 @@ module.exports = {
             this.children = [
                 <span key="content" dangerouslySetInnerHTML={html} />
             ];
-        }else {
+        }else if(this.props.editMode){
             this.children.push(<UIEditMode.DropArea key={"drop-area-inside-" + this.props.id} position="inside" node={this.props.id} />);
         }
 

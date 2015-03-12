@@ -154,6 +154,19 @@ var MarginBox = React.createClass({
     },
 
     componentDidMount: function() {
+        this.addSelectionListener();
+    },
+
+    componentWillUpdate: function() {
+        this.removeSelectionListener();
+        this.addSelectionListener();
+    },
+
+    componentWillUnmount: function() {
+        this.removeSelectionListener();
+    },
+
+    addSelectionListener: function() {
         var self = this;
         _.each(this.props.children, function(child, index){
             UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.showBox);
@@ -162,7 +175,7 @@ var MarginBox = React.createClass({
         });
     },
 
-    componentWillUnmount: function() {
+    removeSelectionListener: function() {
         var self = this;
         _.each(this.props.children, function(child, index){
             UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + child, self.showBox);
