@@ -299,7 +299,8 @@ var DropArea = React.createClass({
     },
 
     onDrop: function(event) {
-        console.log('dropped');
+        var component = event.dataTransfer.getData('component');
+        OverlayActions.insertComponentAsNode(component, this.props.node);
     }
 
 });

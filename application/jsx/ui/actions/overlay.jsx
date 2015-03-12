@@ -17,6 +17,18 @@ module.exports = {
         });
     },
 
+    insertComponentAsNode: function(component, parent) {
+        Dispatcher.dispatch({
+            action: CONST.NODE_ACTION_ADDNODE,
+            parent : parent,
+            properties: {
+                element: component,
+                parent : parent, 
+                text   : 'This is a paragraph of text...'
+            }
+        });
+    },
+
     changeWidth: function(id, width) {
         Dispatcher.dispatch({
             action: CONST.NODE_ACTION_UPDATE_NODE_STYLE,

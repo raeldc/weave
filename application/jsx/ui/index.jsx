@@ -11,22 +11,16 @@ var Component = React.createClass({
 
     onDragStart: function(event) {
         event.dataTransfer.effectAllowed = "move";
-        event.dataTransfer.setData("node", 1);
+        event.dataTransfer.setData("component", 'p');
         OverlayActions.unselectNode();
 
         UIConfig.emit(CONST.UI_COMPONENT_DRAG_START, event, 'node');
     },
 
     onDragEnd: function(event) {
-        console.log('drag end');
         UIConfig.emit(CONST.UI_COMPONENT_DRAG_END, event, 'node');
         event.stopPropagation();
-    },
-
-    onDragOver: function(event) {
-        console.log('drag over');
-        event.preventDefault();
-    },
+    }
 });
 
 var UI = React.createClass({

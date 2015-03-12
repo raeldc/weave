@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var Dispatcher   = require('application/alchemy/dispatcher.js');
-var CONST        = _.extend(require('application/constants/nodes.js'), require('application/constants/ui.js'));
+var CONST        = require('application/constants/all.js');
 var _nodes       = [];
 
 /**
@@ -185,6 +185,15 @@ Nodes.dispatchToken = Dispatcher.register(function(command) {
             updateNode(command.node, 'style', command.style);
             Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
             Nodes.emit(CONST.NODE_CHANGED, command.node);
+        break;
+        case CONST.NODE_ACTION_ADDNODE:
+            command.properties        = command.properties || {};
+            command.properties.parent = command.parent || command.properties.parent;
+
+            addChildNode(command.properties, command.position);
+
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.properties.parent, command.properties.parent);
+            Nodes.emit(CONST.NODE_CHANGED, command.properties.parent);
         break;
     }
 });
