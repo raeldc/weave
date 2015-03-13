@@ -102,17 +102,12 @@ var HoverOverlay = React.createClass({
 
     render: function(){
         return (
-            <a className="ui-overlay" onClick={this.selectNode} onDoubleClick={this.doubleClick} style={this.state} />
+            <a className="ui-overlay" onClick={this.selectNode} style={this.state} />
         );
     },
 
     selectNode: function(event) {
         OverlayActions.selectNode(this.props.node);
-        event.stopPropagation();
-    },
-
-    doubleClick: function(event) {
-        console.log('double click!');
     },
 
     componentDidMount: function() {
@@ -173,6 +168,50 @@ var SelectNodeMixin = {
         this.setState(this.getInitialState());
     },
 
+    adjustBox: function(node) {
+        if(!this.isVisible) {
+            return;
+        }
+
+        var node     = DOM.get(node);
+        var $node    = jQuery(node);
+
+        var state = {
+            visibility: 'visible',
+        };
+
+        if(this.props.type === 'padding') {
+            state.width  = $node.width();
+            state.height = $node.height();
+            state.top    = parseInt($node.css('padding-top'));
+            state.left   = parseInt($node.css('padding-left'));
+        } else {
+            var position = $node.position();
+            state.width  = $node.outerWidth(true);
+            state.height = $node.outerHeight(true);
+            state.top    = position.top;
+            state.left   = position.left;
+        }
+
+        this.setState(state);
+    },
+}
+
+// This sits on the parent so that it stays under the node that it is connected to.
+var MarginBox = React.createClass({
+    mixins: [SelectNodeMixin],
+
+    getDefaultProps: function() {
+        return {
+            type    : 'margin',
+            children: []
+        }
+    },
+
+    render: function(){
+        return <a className="ui-margin-box" style={this.state} />
+    },
+
     addSelectionListener: function() {
         var self = this;
 
@@ -191,67 +230,31 @@ var SelectNodeMixin = {
             Nodes.removeChangeListener(child, self.adjustBox);
         });
     },
-}
-
-// This sits on the parent so that it stays under the node that it is connected to.
-var MarginBox = React.createClass({
-    mixins: [SelectNodeMixin],
-
-    getDefaultProps: function() {
-        return {
-            children: []
-        }
-    },
-
-    render: function(){
-        return <a className="ui-margin-box" style={this.state} />
-    },
-
-
-    adjustBox: function(node, visible) {
-        if(!this.isVisible) {
-            return;
-        }
-
-        var child    = DOM.get(node);
-        var $child   = jQuery(child);
-        var position = $child.position();
-
-        this.setState({
-            visibility: 'visible',
-            width : $child.outerWidth(true),
-            height: $child.outerHeight(true),
-            top   : position.top,
-            left  : position.left
-        });
-    },
 });
 
 var PaddingBox = React.createClass({
     mixins: [SelectNodeMixin],
 
+    getDefaultProps: function() {
+        return {
+            type: 'padding',
+        }
+    },
+
     render: function(){
         return <a className="ui-padding-box" style={this.state} />
     },
 
-    adjustBox: function(node) {
-        if(!this.isVisible) {
-            return;
-        }
+    addSelectionListener: function() {
+        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
+        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
+        Nodes.addChangeListener(this.props.node, this.adjustBox);
+    },
 
-        var $node         = jQuery(DOM.get(node));
-        var paddingLeft   = parseInt($node.css('padding-left'));
-        var paddingRight  = parseInt($node.css('padding-right'));
-        var paddingTop    = parseInt($node.css('padding-top'));
-        var paddingBottom = parseInt($node.css('padding-bottom'));
-
-        this.setState({
-            visibility: 'visible',
-            top       : paddingTop,
-            left      : paddingLeft,
-            width     : $node.width(),
-            height    : $node.height()
-        });
+    removeSelectionListener: function() {
+        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
+        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
+        Nodes.removeChangeListener(this.props.node, this.adjustBox);
     },
 });
 
