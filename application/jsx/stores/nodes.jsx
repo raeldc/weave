@@ -1,7 +1,7 @@
 var EventEmitter = require('events').EventEmitter;
 var Dispatcher   = require('application/alchemy/dispatcher.js');
 var CONST        = require('application/constants/all.js');
-var _nodes       = [];
+var _nodes       = {};
 
 /**
  * Adds a node to the nodes. 
@@ -26,31 +26,27 @@ function addNode(node) {
     }
 
     if(_.findIndex(_nodes, {id: node.id}) === -1 ) {
-        _nodes.push(node);
+        _nodes[node.id];
     }
 
     return node;
 }
 
 function findNode(id) {
-    var index = _.findIndex(_nodes, {id: id});
-
-    if(_.isObject(_nodes[index])){
-        return _nodes[index];
+    if(_.isObject(_nodes[id])){
+        return _nodes[id];
     }
 
     return undefined;
 }
 
 function updateNode(id, properties, nested_properties) {
-    var index = _.findIndex(_nodes, {id: id});
-
-    if(_.isObject(_nodes[index])){
+    if(_.isObject(_nodes[id])){
         if(_.isString(properties)) {
-            _nodes[index][properties] = _nodes[index][properties] || {};
-            return _.extend(_nodes[index][properties], nested_properties);
+            _nodes[id][properties] = _nodes[id][properties] || {};
+            return _.extend(_nodes[id][properties], nested_properties);
         }else if(_.isObject(properties)) {
-            return _.extend(_nodes[index], properties);
+            return _.extend(_nodes[id], properties);
         }
     }
 
@@ -133,9 +129,10 @@ function deleteNode(id) {
 
     var node    = findNode(id);
     var parent  = findNode(node.parent);
-    _nodes = _.without(_nodes, node);
 
     updateNode(parent.id, {children: _.without(parent.children, id)});
+
+    delete nodes[id];
 }
 
 var Nodes = _.extend({

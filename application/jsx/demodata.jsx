@@ -1,11 +1,11 @@
-module.exports = [
-    {
+module.exports ={
+    'root' : {
         id: 'root',
         component: 'container',
         className: 'container',
         children : ['header', 'body', 'footer'],
     },
-    {
+    'header': {
         id: 'header',
         component: 'container',
         element: 'header',
@@ -13,7 +13,7 @@ module.exports = [
         children: ['logo', 'navigation'],
         parent: 'root'
     },
-    {
+    'logo': {
         id: 'logo',
         component: 'container',
         className: 'col-md-2',
@@ -23,7 +23,7 @@ module.exports = [
             textAlign: 'center',
         }
     },
-    {
+    'navigation': {
         id: 'navigation',
         component: 'container',
         element: 'nav',
@@ -34,7 +34,7 @@ module.exports = [
             textAlign: 'center'
         }
     },
-    {
+    'body': {
         id: 'body',
         component: 'container',
         className: 'row',
@@ -44,7 +44,7 @@ module.exports = [
             minWidth: '1024px'
         }
     },
-    {
+    'sidebar': {
         id: 'sidebar',
         component: 'container',
         className: 'col-md-4',
@@ -54,7 +54,7 @@ module.exports = [
             textAlign: 'center'
         }
     },
-    {
+    'content': {
         id: 'content',
         component: 'container',
         className: 'col-md-8',
@@ -64,13 +64,13 @@ module.exports = [
             textAlign: 'justified'
         }
     },
-    {
+    'title': {
         id: 'title',
         component: 'title',
         parent: 'content',
         text: 'Alchemy - Build WordPress Themes and Pages!'
     },
-    {
+    'p1': {
         id: 'p1',
         component: 'text',
         parent: 'content',
@@ -80,19 +80,19 @@ module.exports = [
             margin: 40
         }
     },
-    {
+    'p2': {
         id: 'p2',
         component: 'text',
         parent: 'content',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis distinctio tenetur ex atque labore esse ea excepturi minima, iste minus inventore accusamus magni voluptate rem odit animi quasi porro molestiae!'
     },
-    {
+    'p3': {
         id: 'p3',
         component: 'text',
         parent: 'content',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis distinctio tenetur ex atque labore esse ea excepturi minima, iste minus inventore accusamus magni voluptate rem odit animi quasi porro molestiae!'
     },
-    {
+    'footer': {
         id: 'footer',
         component: 'container',
         element: 'footer',
@@ -100,7 +100,7 @@ module.exports = [
         children: ['f1', 'f2', 'f3'],
         parent: 'root'
     },
-    {
+    'f1': {
         id: 'f1',
         component: 'container',
         className: 'col-md-4',
@@ -111,7 +111,7 @@ module.exports = [
             textAlign: 'center'
         }
     },
-    {
+    'f2': {
         id: 'f2',
         component: 'container',
         className: 'col-md-4',
@@ -121,7 +121,7 @@ module.exports = [
             textAlign: 'center'
         }
     },
-    {
+    'f3': {
         id: 'f3',
         component: 'container',
         className: 'col-md-4',
@@ -131,4 +131,4 @@ module.exports = [
             textAlign: 'center'
         }
     },
-];
+};
