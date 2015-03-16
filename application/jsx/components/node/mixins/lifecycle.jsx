@@ -5,11 +5,12 @@ var DOM        = require('application/stores/dom.js');
 var CONST      = require('application/constants/dom.js');
 
 module.exports = {
-    properties: {},
-
     getInitialState: function() {
-        this.properties = Nodes.get(this.props.id);
-        return {};
+        var state = _.extend(Nodes.get(this.props.id));
+
+        state.contentEditable = false;
+        
+        return state;
     },
 
     componentWillMount: function() {
@@ -41,12 +42,24 @@ module.exports = {
     },
 
     onChange: function() {
-        this.properties = Nodes.get(this.props.id);
+        _.extend(this.state, Nodes.get(this.props.id));
         this.forceUpdate();
     },
 
+    onQuickEdit: function() {
+        this.setState({
+            contentEditable: true
+        });
+    },
+
+    onQuickEditOff: function() {
+        this.setState({
+            contentEditable: false
+        });
+    },
+
     getChildren: function() {
-        this.children = Factory.createChildNodes(this.properties.children) || this.properties.text || [];
+        this.children = Factory.createChildNodes(this.state.children) || this.state.text || [];
 
         if(_.isString(this.children)) {
             var html = {
@@ -63,7 +76,7 @@ module.exports = {
         if(this.props.editMode) {
             this.children.unshift(<UIEditMode.Controls key="controls" node={this.props.id} />);
             this.children.unshift(<UIEditMode.HoverOverlay  key="overlay"  node={this.props.id} />);
-            this.children.unshift(<UIEditMode.MarginBox key="magin-box" children={this.properties.children} />);
+            this.children.unshift(<UIEditMode.MarginBox key="magin-box" children={this.state.children} />);
             this.children.unshift(<UIEditMode.PaddingBox key="padding-box" node={this.props.id} />);
         }
 
