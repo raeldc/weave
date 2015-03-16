@@ -29,45 +29,7 @@ UIConfig.setMaxListeners(0);
 
 UIConfig.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
-        case CONST.UI_TOGGLE_QUICK_EDIT_MODE:
-            setConfig({
-                quick_edit_on: !UIConfig.getConfig('quick_edit_on'),
-                layout_edit_on : false
-            });
-
-            UIConfig.emit(CONST.UI_TOGGLE_QUICK_EDIT_MODE);
-            UIConfig.emit(CONST.UI_CONFIG_CHANGED);
-        break;
-
-        case CONST.UI_TOGGLE_LAYOUT_EDIT_MODE:
-            setConfig({
-                layout_edit_on: !UIConfig.getConfig('layout_edit_on'),
-                quick_edit_on : false
-            });
-
-            UIConfig.emit(CONST.UI_TOGGLE_QUICK_EDIT_MODE);
-            UIConfig.emit(CONST.UI_CONFIG_CHANGED);
-        break;
-
-        case CONST.NODE_SELECTED:
-            var previousSelected = UIConfig.getConfig('selected_node');
-            UIConfig.emit(CONST.NODE_UNSELECTED + '_' + previousSelected, previousSelected);
-            UIConfig.emit(CONST.NODE_UNSELECTED, previousSelected);
-
-            setConfig('selected_node', command.id);
-
-            UIConfig.emit(CONST.NODE_SELECTED + '_' + command.id, command.id);
-            UIConfig.emit(CONST.NODE_SELECTED, command.id);
-        break;
-
-        case CONST.NODE_UNSELECTED:
-            var unselected = command.id || UIConfig.getConfig('selected_node');
-
-            setConfig('selected_node', null);
-
-            UIConfig.emit(CONST.NODE_UNSELECTED + '_' + unselected, unselected);
-            UIConfig.emit(CONST.NODE_UNSELECTED, unselected);
-        break;
+        // UI Config Dispatcher Actions
     }
 });
 

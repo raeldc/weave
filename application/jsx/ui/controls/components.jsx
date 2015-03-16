@@ -1,7 +1,6 @@
 var Dispatcher     = require('application/alchemy/dispatcher.js');
+var UIActions      = require('application/ui/actions.js');
 var Components     = require('application/stores/components.js');
-var UIConfig       = require('application/stores/uiconfig.js');
-var OverlayActions = require('application/ui/actions/overlay.js');
 var CONST          = require('application/constants/all.js');
 
 var ComponentButton = React.createClass({
@@ -12,13 +11,13 @@ var ComponentButton = React.createClass({
     onDragStart: function(event) {
         event.dataTransfer.effectAllowed = 'move';
         event.dataTransfer.setData('component', this.props.component);
-        OverlayActions.unselectNode();
+        UIActions.selectNode();
 
-        UIConfig.emit(CONST.UI_COMPONENT_DRAG_START, event, this.props.component);
+        UIActions.startComponentDrag(event, this.props.component);
     },
 
     onDragEnd: function(event) {
-        UIConfig.emit(CONST.UI_COMPONENT_DRAG_END, event, this.props.component);
+        UIActions.endComponentDrag(event, this.props.component);
         event.stopPropagation();
     }
 });

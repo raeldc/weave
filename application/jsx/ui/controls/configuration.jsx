@@ -1,41 +1,39 @@
 var Components = require('application/stores/components.js');
-var UIConfig   = require('application/stores/uiconfig.js');
+var UIActions  = require('application/ui/actions.js');
 var Nodes      = require('application/stores/nodes.js');
 var CONST      = require('application/constants/all.js');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            selected_node: null
+            selectedNode: null
         }
     },
 
     render: function() {
-        var node = Nodes.get(this.state.selected_node);
+        var node = Nodes.get(this.state.selectedNode);
 
         if(node) {
             var ConfigUI = Components.getReactConfigClass(node.component);
             if(ConfigUI) {
-                return <ConfigUI node={this.state.selected_node} key={this.state.selected_node} />;
+                return <ConfigUI node={this.state.selectedNode} key={this.state.selectedNode} />;
             }
         }
 
         return <div />;
     },
 
-    selectNode: function(){
-        var node = UIConfig.getConfig('selected_node');
-
+    configureNode: function(node){
         this.setState({
-            selected_node: UIConfig.getConfig('selected_node')
+            selectedNode: node
         });
     },
 
     componentDidMount: function() {
-        UIConfig.on(CONST.NODE_SELECTED, this.selectNode);
+        UIActions.on(CONST.NODE_SELECTED, this.configureNode);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.NODE_SELECTED, this.selectNode);
+        UIActions.removeListener(CONST.NODE_SELECTED, this.configureNode);
     }
 });

@@ -1,20 +1,11 @@
-var Dispatcher = require('application/alchemy/dispatcher.js');
-var DOM        = require('application/stores/dom.js');
-var CONST      = require('application/constants/all.js');
+var EventEmitter = require('events').EventEmitter;
+var Dispatcher   = require('application/alchemy/dispatcher.js');
+var DOM          = require('application/stores/dom.js');
+var CONST        = require('application/constants/all.js');
 
-module.exports = {
+var UIActions = _.extend({
     selectNode: function(id) {
-        Dispatcher.dispatch({
-            action: CONST.NODE_SELECTED,
-            id: id
-        });
-    },
-
-    unselectNode: function(id) {
-        Dispatcher.dispatch({
-            action: CONST.NODE_UNSELECTED,
-            id: id
-        });
+        this.emit(CONST.NODE_SELECTED, id);
     },
 
     insertComponentAsNode: function(component, parent) {
@@ -27,6 +18,14 @@ module.exports = {
                 text     : 'This is a paragraph of text...'
             }
         });
+    },
+
+    startComponentDrag: function(event, component) {
+        this.emit(CONST.UI_COMPONENT_DRAG_START, event, component);
+    },
+
+    endComponentDrag: function(event, component) {
+        this.emit(CONST.UI_COMPONENT_DRAG_END, event, component);
     },
 
     changeWidth: function(id, width) {
@@ -44,4 +43,8 @@ module.exports = {
             style : {height: height}
         });
     }
-}
+}, EventEmitter.prototype);
+
+UIActions.setMaxListeners(0);
+
+module.exports = UIActions;

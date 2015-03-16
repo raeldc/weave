@@ -1,12 +1,11 @@
 var Dispatcher      = require('application/alchemy/dispatcher.js');
 var Factory         = require('application/components/factory.js');
-var UIConfig        = require('application/stores/uiconfig.js');
+var UIActions       = require('application/ui/actions.js');
 var Nodes           = require('application/stores/nodes.js');
 var Components      = require('application/stores/components.js');
 var DOM             = require('application/stores/dom.js');
 var LifeCycleMixin  = require('application/components/node/mixins/lifecycle.js');
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
-var OverlayActions  = require('application/ui/actions/overlay.js');
 var CONST           = require('application/constants/all.js');
 
 var Controls = React.createClass({
@@ -34,13 +33,11 @@ var Controls = React.createClass({
     },
 
     componentDidMount: function(){
-        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
-        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnselectNode);
+        UIActions.on(CONST.NODE_SELECTED, this.onSelectNode);
     },
 
     componentWillUnmount: function(){
-        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.onSelectNode);
-        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.onUnselectNode);
+        UIActions.removeListener(CONST.NODE_SELECTED, this.onSelectNode);
     },
 
     onSelectNode: function(node){
@@ -49,10 +46,12 @@ var Controls = React.createClass({
             this.setState({
                 isSelected: true
             });
+        }else{
+            this.onUnselectNode();
         }
     },
 
-    onUnselectNode: function(node){
+    onUnselectNode: function(){
         this.disableResize();
 
         this.setState({
@@ -77,11 +76,11 @@ var Controls = React.createClass({
         .on('resizemove', function (event) {
             // update the element's style
             if(event.edges.right) {
-                OverlayActions.changeWidth(node.id, event.rect.width);
+                UIActions.changeWidth(node.id, event.rect.width);
             }
 
             if(event.edges.bottom){
-                OverlayActions.changeHeight(node.id, event.rect.height);
+                UIActions.changeHeight(node.id, event.rect.height);
             }
         });
     },
@@ -107,17 +106,17 @@ var HoverOverlay = React.createClass({
     },
 
     selectNode: function(event) {
-        OverlayActions.selectNode(this.props.node);
+        UIActions.selectNode(this.props.node);
     },
 
     componentDidMount: function() {
-        UIConfig.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIConfig.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+        UIActions.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIActions.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
     },
 
     disableOnDrag: function () {
@@ -159,11 +158,15 @@ var SelectNodeMixin = {
     },
 
     showBox: function(node) {
-        this.isVisible = true;
-        this.adjustBox(node);
+        if(node !== undefined && (this.props.node === node || (this.props.type === 'margin' && this.props.children.indexOf(node) !== -1))) {
+            this.isVisible = true;
+            this.adjustBox(node);
+        }else {
+            this.hideBox();
+        }
     },
 
-    hideBox: function(node) {
+    hideBox: function() {
         this.isVisible = false;
         this.setState(this.getInitialState());
     },
@@ -195,6 +198,16 @@ var SelectNodeMixin = {
 
         this.setState(state);
     },
+
+    addSelectionListener: function() {
+        UIActions.on(CONST.NODE_SELECTED, this.showBox);
+        //Nodes.addChangeListener(this.props.node, this.adjustBox);
+    },
+
+    removeSelectionListener: function() {
+        UIActions.removeListener(CONST.NODE_SELECTED, this.showBox);
+        //Nodes.removeChangeListener(this.props.node, this.adjustBox);
+    }
 }
 
 // This sits on the parent so that it stays under the node that it is connected to.
@@ -210,26 +223,7 @@ var MarginBox = React.createClass({
 
     render: function(){
         return <a className="ui-margin-box" style={this.state} />
-    },
-
-    addSelectionListener: function() {
-        var self = this;
-
-        _.each(this.props.children, function(child, index){
-            UIConfig.on(CONST.NODE_SELECTED   + '_' + child, self.showBox);
-            UIConfig.on(CONST.NODE_UNSELECTED + '_' + child, self.hideBox);
-            Nodes.addChangeListener(child, self.adjustBox);
-        });
-    },
-
-    removeSelectionListener: function() {
-        var self = this;
-        _.each(this.props.children, function(child, index){
-            UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + child, self.showBox);
-            UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + child, self.hideBox);
-            Nodes.removeChangeListener(child, self.adjustBox);
-        });
-    },
+    }
 });
 
 var PaddingBox = React.createClass({
@@ -243,18 +237,6 @@ var PaddingBox = React.createClass({
 
     render: function(){
         return <a className="ui-padding-box" style={this.state} />
-    },
-
-    addSelectionListener: function() {
-        UIConfig.on(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
-        UIConfig.on(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
-        Nodes.addChangeListener(this.props.node, this.adjustBox);
-    },
-
-    removeSelectionListener: function() {
-        UIConfig.removeListener(CONST.NODE_SELECTED   + '_' + this.props.node, this.showBox);
-        UIConfig.removeListener(CONST.NODE_UNSELECTED + '_' + this.props.node, this.hideBox);
-        Nodes.removeChangeListener(this.props.node, this.adjustBox);
     },
 });
 
@@ -270,13 +252,13 @@ var DropArea = React.createClass({
     },
 
     componentDidMount: function() {
-        UIConfig.on(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
-        UIConfig.on(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
+        UIActions.on(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
+        UIActions.on(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
-        UIConfig.removeListener(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_START, this.showDropArea);
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_END, this.hideDropArea);
     },
 
     showDropArea: function(event, component) {
@@ -297,7 +279,7 @@ var DropArea = React.createClass({
 
     onDrop: function(event) {
         var component = event.dataTransfer.getData('component');
-        OverlayActions.insertComponentAsNode(component, this.props.node);
+        UIActions.insertComponentAsNode(component, this.props.node);
     }
 
 });
