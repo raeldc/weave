@@ -25,9 +25,7 @@ function addNode(node) {
         node.children = [];
     }
 
-    if(_.findIndex(_nodes, {id: node.id}) === -1 ) {
-        _nodes[node.id];
-    }
+    _nodes[node.id] = node;
 
     return node;
 }
