@@ -9,7 +9,11 @@
     -ms-user-select      : none;
     user-select          : none;
     position             : relative;
-    overflow: hidden;
+    overflow             : hidden;
+
+    &.hover {
+        outline: 1px dashed #4c9ed9;
+    }
 
     > .ui-controls {
         visibility: hidden;
@@ -91,6 +95,7 @@
         height    : 0;
         margin    : 0;
         padding   : 0;
+        pointer-events: none;
     }
 
     > .ui-padding-box {
@@ -103,7 +108,8 @@
         height    : 0;
         margin    : 0;
         padding   : 0;
-        background: rgba(76, 158, 217, .1)
+        background: rgba(76, 158, 217, .1);
+        pointer-events: none;
     }
 
     > .ui-drop-area {
