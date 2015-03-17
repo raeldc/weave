@@ -38,7 +38,6 @@ module.exports = {
     enableEditable: function() {
         if(this.isText()) {
             this.state.enableEditable = true;
-            this.addClass('editable');
             this.forceUpdate();
         }
 
@@ -47,7 +46,6 @@ module.exports = {
     },
 
     disableEditable: function() {
-        this.removeClass('editable');
         this.state.enableEditable = false;
         this.forceUpdate();
 

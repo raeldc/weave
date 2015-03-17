@@ -36,12 +36,8 @@ module.exports = {
             className: ''
         };
 
-        this.nodeProperties.style = this.state.style;
-
-        // Remove old
-        this.removeClass(this.state.className);
-        // Add new
-        this.addClass(nextState.className);
+        this.nodeProperties.style     = this.state.style;
+        this.nodeProperties.className = nextState.className;
 
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';

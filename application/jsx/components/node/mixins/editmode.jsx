@@ -12,10 +12,14 @@ module.exports = {
         }
     },
 
-    componentWillUpdate: function() {
+    componentWillUpdate: function(nextProps, nextState) {
         if(this.props.editMode) {
             this.addClass('ui-editmode');
             this.addUIBoxes();
+
+            if(this.isText() && nextState.enableEditable) {
+                this.addClass('editable');
+            }
         }
     },
 
