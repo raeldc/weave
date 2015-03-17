@@ -3,7 +3,9 @@ var Nodes   = require('application/stores/nodes.js');
 
 module.exports = {
     getInitialState: function() {
-        return Nodes.get(this.props.id);
+        var state = Nodes.get(this.props.id);
+        state.enableEditable = false;
+        return state;
     },
 
     componentWillMount: function() {
@@ -30,13 +32,19 @@ module.exports = {
         this.nodeProperties.style = this.state.style;
         this.addClass(this.state.className);
 
-        if(_.isEmpty(this.state.children) && _.isString(this.state.text)) {
+        if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';
             this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
             this.children = undefined;
+
+            this.nodeProperties.contentEditable = this.state.enableEditable;
         }
 
         return this.nodeProperties;
+    },
+
+    isText: function() {
+        return _.isEmpty(this.state.children) && _.isString(this.state.text);
     },
 
     addClass: function(className) {

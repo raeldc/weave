@@ -43,6 +43,16 @@ var UIActions = _.extend({
         this.emit(CONST.UI_COMPONENT_DRAG_END, event, component);
     },
 
+    changeText: function(node, text) {
+        Dispatcher.dispatch({
+            action    : CONST.NODE_ACTION_UPDATE_NODE,
+            node      : node,
+            properties: {
+                text: text
+            }
+        });
+    },
+
     changeWidth: function(id, width) {
         Dispatcher.dispatch({
             action: CONST.NODE_ACTION_UPDATE_NODE_STYLE,

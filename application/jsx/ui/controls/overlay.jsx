@@ -203,26 +203,6 @@ var OverlayBox = React.createClass({
             type    : 'overlay',
             children: []
         }
-    },
-
-    componentDidMount: function() {
-        UIActions.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIActions.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
-    },
-
-    componentWillUnmount: function() {
-        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
-    },
-
-    disableOnDrag: function () {
-        this.setState({
-            display: 'none'
-        });
-    },
-
-    enableAfterDrag: function() {
-        this.setState(this.getInitialState());
     }
 });
 

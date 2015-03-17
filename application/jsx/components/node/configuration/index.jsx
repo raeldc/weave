@@ -1,4 +1,5 @@
 var Dispatcher = require('application/alchemy/dispatcher.js');
+var UIActions  = require('application/ui/actions.js');
 var Nodes      = require('application/stores/nodes.js');
 var CONST      = require('application/constants/all.js');
 
@@ -33,13 +34,7 @@ module.exports = React.createClass({
     },
 
     onChange: function(event) {
-        Dispatcher.dispatch({
-            action    : CONST.NODE_ACTION_UPDATE_NODE,
-            node      : this.props.node,
-            properties: {
-                text: event.target.value
-            }
-        });
+        UIActions.changeText(this.props.node, event.target.value);
     },
 
     onNodeChanged: function() {

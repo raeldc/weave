@@ -10,9 +10,14 @@
     user-select          : none;
     position             : relative;
     overflow             : hidden;
+    cursor               : default;
 
     &.hover {
         outline: 1px dashed #4c9ed9;
+    }
+
+    &.editable {
+        cursor: text;
     }
 
     > .ui-controls {
