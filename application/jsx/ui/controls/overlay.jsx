@@ -166,12 +166,16 @@ var SelectNodeMixin = {
 
     addSelectionListener: function() {
         UIActions.on(CONST.NODE_SELECTED, this.showBox);
-        //Nodes.addChangeListener(this.props.node, this.adjustBox);
+        _.each(this.props.children, function(child, index) {
+            Nodes.addChangeListener(child, this.showBox);
+        }.bind(this));
     },
 
     removeSelectionListener: function() {
         UIActions.removeListener(CONST.NODE_SELECTED, this.showBox);
-        //Nodes.removeChangeListener(this.props.node, this.adjustBox);
+        _.each(this.props.children, function(child, index) {
+            Nodes.removeChangeListener(child, this.showBox);
+        }.bind(this));
     }
 }
 
