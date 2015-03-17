@@ -164,18 +164,28 @@ var SelectNodeMixin = {
         this.setState(state);
     },
 
+    adjustBoxForSelectedNode: function(node) {
+        DOM.on(CONST.DOM_UPDATED + '_' + node, this.adjustBox);
+    },
+
+    dontAdjustBoxForSelectedNode: function(node) {
+        DOM.removeListener(CONST.DOM_UPDATED + '_' + node, this.adjustBox);
+    },
+
     addSelectionListener: function() {
-        UIActions.on(CONST.NODE_SELECTED, this.showBox);
-        _.each(this.props.children, function(child, index) {
-            Nodes.addChangeListener(child, this.showBox);
-        }.bind(this));
+        UIActions.addNodeSelectedListener(this.props.children, this.showBox);
+        UIActions.addNodeUnselectedListener(this.props.children, this.hideBox);
+
+        UIActions.on(CONST.NODE_UNSELECTED, this.dontAdjustBoxForSelectedNode);
+        UIActions.on(CONST.NODE_SELECTED, this.adjustBoxForSelectedNode);
     },
 
     removeSelectionListener: function() {
-        UIActions.removeListener(CONST.NODE_SELECTED, this.showBox);
-        _.each(this.props.children, function(child, index) {
-            Nodes.removeChangeListener(child, this.showBox);
-        }.bind(this));
+        UIActions.removeNodeSelectedListener(this.props.children, this.showBox);
+        UIActions.removeNodeUnselectedListener(this.props.children, this.hideBox);
+
+        UIActions.removeListener(CONST.NODE_UNSELECTED, this.dontAdjustBoxForSelectedNode);
+        UIActions.removeListener(CONST.NODE_SELECTED, this.adjustBoxForSelectedNode);
     }
 }
 

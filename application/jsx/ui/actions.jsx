@@ -4,8 +4,23 @@ var DOM          = require('application/stores/dom.js');
 var CONST        = require('application/constants/all.js');
 
 var UIActions = _.extend({
-    selectNode: function(id) {
-        this.emit(CONST.NODE_SELECTED, id);
+    selectedNode: null,
+
+    selectNode: function(node) {
+        this.unselectNode(this.selectedNode);
+        this.selectedNode = node;
+
+        this.emit(CONST.NODE_SELECTED + '_' + node, node);
+        this.emit(CONST.NODE_SELECTED, node);
+    },
+
+    unselectNode: function(node) {
+        if(node) {
+            this.emit(CONST.NODE_UNSELECTED + '_' + node, node);
+            this.emit(CONST.NODE_UNSELECTED, node);
+        }
+
+        this.selectedNode = null;
     },
 
     insertComponentAsNode: function(component, parent) {
@@ -42,7 +57,48 @@ var UIActions = _.extend({
             node  : id,
             style : {height: height}
         });
+    },
+
+    addNodeSelectedListener: function(node, fn) {
+        if(_.isArray(node)) {
+            _.each(node, function(id, index) {
+                this.on(CONST.NODE_SELECTED + '_' + id, fn);
+            }.bind(this));
+        }else {
+            this.on(CONST.NODE_SELECTED + '_' + node, fn);
+        }
+    },
+
+    removeNodeSelectedListener: function(node, fn) {
+        if(_.isArray(node)) {
+            _.each(node, function(id, index) {
+                this.removeListener(CONST.NODE_SELECTED + '_' + id, fn);
+            }.bind(this));
+        }else {       
+            this.removeListener(CONST.NODE_SELECTED + '_' + node, fn);
+        }
+    },
+
+    addNodeUnselectedListener: function(node, fn) {
+        if(_.isArray(node)) {
+            _.each(node, function(id, index) {
+                this.on(CONST.NODE_UNSELECTED + '_' + id, fn);
+            }.bind(this));
+        }else {
+            this.on(CONST.NODE_UNSELECTED + '_' + node, fn);
+        }
+    },
+
+    removeNodeUnselectedListener: function(node, fn) {
+        if(_.isArray(node)) {
+            _.each(node, function(id, index) {
+                this.removeListener(CONST.NODE_UNSELECTED + '_' + id, fn);
+            }.bind(this));
+        }else {       
+            this.removeListener(CONST.NODE_UNSELECTED + '_' + node, fn);
+        }
     }
+
 }, EventEmitter.prototype);
 
 UIActions.setMaxListeners(0);

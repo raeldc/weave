@@ -31,7 +31,7 @@ module.exports = {
         this.addClass(this.state.className);
 
         if(_.isEmpty(this.state.children) && _.isString(this.state.text)) {
-            var text = this.state.text.length ? this.state.text: ' ';
+            var text = this.state.text.length ? this.state.text: '&nbsp;';
             this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
             this.children = undefined;
         }
