@@ -24,14 +24,15 @@ module.exports = {
 
     prepareNodeProperties: function() {
         this.nodeProperties = this.nodeProperties || {
-            id       : this.props.id,
+            id: this.props.id,
         };
 
         this.nodeProperties.style = this.state.style;
         this.addClass(this.state.className);
 
         if(_.isEmpty(this.state.children) && _.isString(this.state.text)) {
-            this.nodeProperties.dangerouslySetInnerHTML = {__html: this.state.text};
+            var text = this.state.text.length ? this.state.text: ' ';
+            this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
             this.children = undefined;
         }
 
