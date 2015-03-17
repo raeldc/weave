@@ -2,21 +2,19 @@ var UIActions  = require('application/ui/actions.js');
 
 module.exports = {
     getInitialState: function() {
-        this.addEvent('onMouseOver', this.addHoverClass);
-        this.addEvent('onMouseOut', this.removeHoverClass);
+        this.addEvent('onMouseOver', this.mouseOverNode);
+        this.addEvent('onMouseOut', this.mouseOutNode);
         this.addEvent('onClick', this.selectNode);
         this.addEvent('onInput', this.checkTextChanges);
     },
 
-    addHoverClass: function(event) {
-        this.addClass('hover');
-        this.forceUpdate();
+    mouseOverNode: function(event) {
+        UIActions.mouseOverNode(this.props.id);
         event.stopPropagation();
     },
 
-    removeHoverClass: function(event) {
-        this.removeClass('hover');
-        this.forceUpdate();
+    mouseOutNode: function(event) {
+        UIActions.mouseOutNode(this.props.id);
         event.stopPropagation();
     },
 

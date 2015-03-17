@@ -13,31 +13,42 @@ module.exports = {
         this.prepareNodeProperties();
     },
 
-    componentWillUpdate: function() {
+    componentWillUpdate: function(nextProps, nextState) {
         //TODO: Don't prepare children if nothing changed.
-        this.prepareChildren();
-        this.prepareNodeProperties();
+        this.prepareChildren(nextProps, nextState);
+        this.prepareNodeProperties(nextProps, nextState);
     },
 
-    prepareChildren: function() {
+    prepareChildren: function(nextProps, nextState) {
+        var nextProps = nextProps || this.props;
+        var nextState = nextState || this.state;
+
         this.children = Factory.createChildNodes(this.state.children) || [];
         return this.children;
     },
 
-    prepareNodeProperties: function() {
+    prepareNodeProperties: function(nextProps, nextState) {
+        var nextProps = nextProps || this.props;
+        var nextState = nextState || this.state;
+
         this.nodeProperties = this.nodeProperties || {
-            id: this.props.id,
+            id       : this.props.id,
+            className: ''
         };
 
         this.nodeProperties.style = this.state.style;
-        this.addClass(this.state.className);
+
+        // Remove old
+        this.removeClass(this.state.className);
+        // Add new
+        this.addClass(nextState.className);
 
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';
-            this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
-            this.children = undefined;
 
-            this.nodeProperties.contentEditable = this.state.enableEditable;
+            this.children                               = undefined;
+            this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
+            this.nodeProperties.contentEditable         = this.state.enableEditable;
         }
 
         return this.nodeProperties;

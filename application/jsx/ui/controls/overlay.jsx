@@ -8,88 +8,6 @@ var LifeCycleMixin  = require('application/components/node/mixins/lifecycle.js')
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 var CONST           = require('application/constants/all.js');
 
-var Controls = React.createClass({
-    mixins: [PureRenderMixin],
-
-    getInitialState: function() {
-        return {
-            isSelected: false,
-            configurables: Components.get(Nodes.get(this.props.node).component).configurables || {}
-        };
-    },
-
-    render: function(){
-        var className = this.state.isSelected ? 'ui-controls selected' : 'ui-controls';
-        var controls = [];
-
-        if(this.state.configurables.resize) {
-            controls.push(<span key="resize-width"  className="fa fa-long-arrow-left resize-width"></span>);
-            controls.push(<span key="resize-height" className="fa fa-long-arrow-up resize-height"></span>)
-        }
-
-        return (
-            <a className={className}>{controls}</a>
-        );
-    },
-
-    componentDidMount: function(){
-        UIActions.on(CONST.NODE_SELECTED, this.onSelectNode);
-    },
-
-    componentWillUnmount: function(){
-        UIActions.removeListener(CONST.NODE_SELECTED, this.onSelectNode);
-    },
-
-    onSelectNode: function(node){
-        if(node === this.props.node) {
-            this.initiateResize();
-            this.setState({
-                isSelected: true
-            });
-        }else{
-            this.onUnselectNode();
-        }
-    },
-
-    onUnselectNode: function(){
-        this.disableResize();
-
-        this.setState({
-            isSelected: false
-        });
-    },
-
-    initiateResize: function() {
-        var node    = Nodes.get(this.props.node);
-        var parent  = DOM.get(node.parent);
-        var $node   = jQuery(DOM.get(node.id));
-        var $parent = jQuery(parent);
-
-        interact(React.findDOMNode(this))
-        .resizable({
-            edges   : { left: false, right: true, bottom: true, top: false },
-            restrict: {
-                restriction: parent,
-                endOnly    : false
-            }
-        })
-        .on('resizemove', function (event) {
-            // update the element's style
-            if(event.edges.right) {
-                UIActions.changeWidth(node.id, event.rect.width);
-            }
-
-            if(event.edges.bottom){
-                UIActions.changeHeight(node.id, event.rect.height);
-            }
-        });
-    },
-
-    disableResize: function() {
-        interact(React.findDOMNode(this)).unset();
-    }
-});
-
 var SelectNodeMixin = {
     getInitialState: function() {
         return {
@@ -187,7 +105,16 @@ var SelectNodeMixin = {
         UIActions.removeListener(CONST.NODE_UNSELECTED, this.dontAdjustBoxForSelectedNode);
         UIActions.removeListener(CONST.NODE_SELECTED, this.adjustBoxForSelectedNode);
     }
-}
+};
+
+var Controls = React.createClass({
+    mixins: [PureRenderMixin],
+
+    render: function() {
+        return <div />
+    }    
+});
+
 
 var OverlayBox = React.createClass({
     mixins: [PureRenderMixin, SelectNodeMixin],

@@ -13,14 +13,14 @@
     cursor               : default;
 
     &.hover {
-        outline: 1px dashed #4c9ed9;
+        cursor: pointer;
     }
 
     &.editable {
         cursor: text;
     }
 
-    > .ui-controls {
+    > .ui-controls-box {
         visibility: hidden;
         display : inline-block;
         position: absolute;
@@ -76,42 +76,45 @@
     }
 
     > .ui-overlay-box {  
-        background: rgba(76, 158, 217, .05);
-        position  : absolute;
-        visibility: hidden;
-        top       : 0;
-        left      : 0;
-        width     : 0;
-        height    : 0;
-        margin    : 0;
-        padding   : 0;
+        z-index       : 3;
+        background    : rgba(76, 158, 217, .05);
+        position      : absolute;
+        visibility    : hidden;
+        top           : 0;
+        left          : 0;
+        width         : 0;
+        height        : 0;
+        margin        : 0;
+        padding       : 0;
         pointer-events: none;
     }
 
     > .ui-margin-box {
-        background: rgba(239, 227, 0, .05);
-        position  : absolute;
-        visibility: hidden;
-        top       : 0;
-        left      : 0;
-        width     : 0;
-        height    : 0;
-        margin    : 0;
-        padding   : 0;
+        z-index       : 3;
+        background    : rgba(239, 227, 0, .05);
+        position      : absolute;
+        visibility    : hidden;
+        top           : 0;
+        left          : 0;
+        width         : 0;
+        height        : 0;
+        margin        : 0;
+        padding       : 0;
         pointer-events: none;
     }
 
     > .ui-padding-box {
-        background: 0;
-        position  : absolute;
-        visibility: hidden;
-        top       : 0;
-        left      : 0;
-        width     : 0;
-        height    : 0;
-        margin    : 0;
-        padding   : 0;
-        background: rgba(76, 158, 217, .1);
+        z-index       : 3;
+        background    : 0;
+        position      : absolute;
+        visibility    : hidden;
+        top           : 0;
+        left          : 0;
+        width         : 0;
+        height        : 0;
+        margin        : 0;
+        padding       : 0;
+        background    : rgba(76, 158, 217, .1);
         pointer-events: none;
     }
 

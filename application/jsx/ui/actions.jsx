@@ -5,6 +5,7 @@ var CONST        = require('application/constants/all.js');
 
 var UIActions = _.extend({
     selectedNode: null,
+    hoveredNode : null,
 
     selectNode: function(node) {
         this.unselectNode(this.selectedNode);
@@ -21,6 +22,35 @@ var UIActions = _.extend({
         }
 
         this.selectedNode = null;
+    },
+
+    mouseOverNode: function(node) {
+        this.mouseOutNode(this.hoveredNode);
+        this.hoveredNode = node;
+
+        Dispatcher.dispatch({
+            action    : CONST.NODE_ACTION_ADD_CLASS,
+            node      : node,
+            className : 'hover'
+        });
+
+        this.emit(CONST.NODE_MOUSEOVER + '_' + node, node);
+        this.emit(CONST.NODE_MOUSEOVER, node);
+    },
+
+    mouseOutNode: function(node) {
+        if(node) {
+            Dispatcher.dispatch({
+                action    : CONST.NODE_ACTION_REMOVE_CLASS,
+                node      : node,
+                className : 'hover'
+            });
+
+            this.emit(CONST.NODE_MOUSEOUT + '_' + node, node);
+            this.emit(CONST.NODE_MOUSEOUT, node);
+        }
+
+        this.hoveredNode = null;
     },
 
     insertComponentAsNode: function(component, parent) {

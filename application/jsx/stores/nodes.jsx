@@ -133,6 +133,21 @@ function deleteNode(id) {
     delete nodes[id];
 }
 
+function addNodeClass(id, className) {
+    var node              = findNode(id);
+    var className         = className || '';
+    var currentClassNames = node.className || '';
+    var newClassNames     = _.isArray(className) ? className : className.split(' ');
+    node.className        = _.compact(_.uniq(currentClassNames.split(' ').concat(newClassNames))).join(' ');
+}
+
+function removeNodeClass(id, className) {
+    var node              = findNode(id);
+    var className         = className || '';
+    var currentClassNames = node.className.split(' ');
+    node.className        = _.without(currentClassNames, className).join(' ');
+}
+
 var Nodes = _.extend({
     initialize: function(nodes) {
         _nodes = nodes;
@@ -178,6 +193,16 @@ Nodes.dispatchToken = Dispatcher.register(function(command) {
         break;
         case CONST.NODE_ACTION_UPDATE_NODE_STYLE:
             updateNode(command.node, 'style', command.style);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
+            Nodes.emit(CONST.NODE_CHANGED, command.node);
+        break;
+        case CONST.NODE_ACTION_ADD_CLASS:
+            addNodeClass(command.node, command.className);
+            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
+            Nodes.emit(CONST.NODE_CHANGED, command.node);
+        break;
+        case CONST.NODE_ACTION_REMOVE_CLASS:
+            removeNodeClass(command.node, command.className);
             Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
             Nodes.emit(CONST.NODE_CHANGED, command.node);
         break;

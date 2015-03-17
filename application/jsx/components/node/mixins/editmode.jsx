@@ -14,6 +14,7 @@ module.exports = {
 
     componentWillUpdate: function() {
         if(this.props.editMode) {
+            this.addClass('ui-editmode');
             this.addUIBoxes();
         }
     },
