@@ -12,24 +12,26 @@ module.exports = {
     },
 
     componentWillUpdate: function() {
+        //TODO: Don't prepare children if nothing changed.
         this.prepareChildren();
         this.prepareNodeProperties();
     },
 
     prepareChildren: function() {
-        this.children = Factory.createChildNodes(this.state.children) || this.state.text || [];
+        this.children = Factory.createChildNodes(this.state.children) || [];
         return this.children;
     },
 
     prepareNodeProperties: function() {
         this.nodeProperties = this.nodeProperties || {
             id       : this.props.id,
-            style    : this.state.style,
-            className: this.state.className || ''
         };
 
-        if(_.isString(this.children)) {
-            this.nodeProperties.dangerouslySetInnerHTML = {__html: this.children};
+        this.nodeProperties.style = this.state.style;
+        this.addClass(this.state.className);
+
+        if(_.isEmpty(this.state.children) && _.isString(this.state.text)) {
+            this.nodeProperties.dangerouslySetInnerHTML = {__html: this.state.text};
             this.children = undefined;
         }
 
@@ -37,8 +39,9 @@ module.exports = {
     },
 
     addClass: function(className) {
+        var className     = className || '';
         var classNames    = this.nodeProperties.className || '';
-        var newClassNames = _.isArray(className) ? className : [className];
+        var newClassNames = _.isArray(className) ? className : className.split(' ');
 
         this.nodeProperties.className = _.compact(_.uniq(classNames.split(' ').concat(newClassNames))).join(' ');
     },

@@ -1,8 +1,10 @@
+var UIActions = require('application/ui/actions.js');
+
 module.exports = {
     getInitialState: function() {
         this.addEvent('onMouseOver', this.addHoverClass);
         this.addEvent('onMouseOut', this.removeHoverClass);
-        this.addEvent('onClick', this.expClick);
+        this.addEvent('onClick', this.selectNode);
     },
 
     addHoverClass: function(event) {
@@ -17,8 +19,8 @@ module.exports = {
         event.stopPropagation();
     },
 
-    expClick: function(event) {
-        console.log('click');
+    selectNode: function(event) {
+        UIActions.selectNode(this.props.id);
         event.stopPropagation();
     },
 }

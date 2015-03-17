@@ -70,19 +70,17 @@
         }
     }
 
-    > .ui-overlay {  
-        opacity : 0;
-        display : inline-block;
-        position: absolute;
-        width   : 100%;
-        height  : 100%;
-        top     : 0;
-        left    : 0;
-
-        &:hover {
-            opacity: 1;
-            border: 1px dashed #4c9ed9;
-        }
+    > .ui-overlay-box {  
+        background: rgba(76, 158, 217, .05);
+        position  : absolute;
+        visibility: hidden;
+        top       : 0;
+        left      : 0;
+        width     : 0;
+        height    : 0;
+        margin    : 0;
+        padding   : 0;
+        pointer-events: none;
     }
 
     > .ui-margin-box {
@@ -112,7 +110,7 @@
         pointer-events: none;
     }
 
-    > .ui-drop-area {
+    > .ui-drop-box {
         border    : 1px dashed grey;
         text-align: center;
         padding   : 10px 0;

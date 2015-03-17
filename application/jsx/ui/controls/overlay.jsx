@@ -90,46 +90,6 @@ var Controls = React.createClass({
     }
 });
 
-var HoverOverlay = React.createClass({
-    mixins: [PureRenderMixin],
-
-    getInitialState: function() {
-        return {
-            display: 'inline-block'
-        };
-    },
-
-    render: function(){
-        return (
-            <a className="ui-overlay" onClick={this.selectNode} style={this.state} />
-        );
-    },
-
-    selectNode: function(event) {
-        UIActions.selectNode(this.props.node);
-    },
-
-    componentDidMount: function() {
-        UIActions.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIActions.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
-    },
-
-    componentWillUnmount: function() {
-        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
-        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
-    },
-
-    disableOnDrag: function () {
-        this.setState({
-            display: 'none'
-        });
-    },
-
-    enableAfterDrag: function() {
-        this.setState(this.getInitialState());
-    }
-});
-
 var SelectNodeMixin = {
     getInitialState: function() {
         return {
@@ -158,7 +118,7 @@ var SelectNodeMixin = {
     },
 
     showBox: function(node) {
-        if(node !== undefined && (this.props.node === node || (this.props.type === 'margin' && this.props.children.indexOf(node) !== -1))) {
+        if(node !== undefined && this.props.children.indexOf(node) !== -1) {
             this.isVisible = true;
             this.adjustBox(node);
         }else {
@@ -178,18 +138,23 @@ var SelectNodeMixin = {
 
         var node     = DOM.get(node);
         var $node    = jQuery(node);
+        var position = $node.position();
 
         var state = {
             visibility: 'visible',
         };
 
-        if(this.props.type === 'padding') {
+        if(this.props.type === 'overlay') {
+            state.width  = $node.outerWidth();
+            state.height = $node.outerHeight();
+            state.top    = position.top  + parseInt($node.css('margin-top'));
+            state.left   = position.left + parseInt($node.css('margin-left'));
+        }else if(this.props.type === 'padding') {
             state.width  = $node.width();
             state.height = $node.height();
-            state.top    = parseInt($node.css('padding-top'));
-            state.left   = parseInt($node.css('padding-left'));
+            state.top    = position.top  + parseInt($node.css('padding-top')) + parseInt($node.css('margin-top'));
+            state.left   = position.left + parseInt($node.css('padding-left')) + parseInt($node.css('margin-left'));
         } else {
-            var position = $node.position();
             state.width  = $node.outerWidth(true);
             state.height = $node.outerHeight(true);
             state.top    = position.top;
@@ -209,6 +174,43 @@ var SelectNodeMixin = {
         //Nodes.removeChangeListener(this.props.node, this.adjustBox);
     }
 }
+
+var OverlayBox = React.createClass({
+    mixins: [PureRenderMixin, SelectNodeMixin],
+
+    render: function(){
+        return (
+            <a className="ui-overlay-box" style={this.state} />
+        );
+    },
+
+    getDefaultProps: function() {
+        return {
+            type    : 'overlay',
+            children: []
+        }
+    },
+
+    componentDidMount: function() {
+        UIActions.on(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIActions.on(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+    },
+
+    componentWillUnmount: function() {
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_START, this.disableOnDrag);
+        UIActions.removeListener(CONST.UI_COMPONENT_DRAG_END, this.enableAfterDrag);
+    },
+
+    disableOnDrag: function () {
+        this.setState({
+            display: 'none'
+        });
+    },
+
+    enableAfterDrag: function() {
+        this.setState(this.getInitialState());
+    }
+});
 
 // This sits on the parent so that it stays under the node that it is connected to.
 var MarginBox = React.createClass({
@@ -240,7 +242,7 @@ var PaddingBox = React.createClass({
     },
 });
 
-var DropArea = React.createClass({
+var DropBox = React.createClass({
     getInitialState: function() {
         return {
             display: 'none'
@@ -248,7 +250,7 @@ var DropArea = React.createClass({
     },
 
     render: function() {
-        return <a className={"ui-drop-area" + " " + this.props.position} style={this.state} onDragOver={this.allowDrop} onDrop={this.onDrop}>Drop Here {this.props.position} {this.props.node}</a>
+        return <a className={"ui-drop-box" + " " + this.props.position} style={this.state} onDragOver={this.allowDrop} onDrop={this.onDrop}>Drop Here {this.props.position} {this.props.node}</a>
     },
 
     componentDidMount: function() {
@@ -286,8 +288,8 @@ var DropArea = React.createClass({
 
 module.exports = {
     Controls    : Controls,
-    HoverOverlay: HoverOverlay,
+    OverlayBox: OverlayBox,
     MarginBox   : MarginBox,
     PaddingBox  : PaddingBox,
-    DropArea    : DropArea
+    DropBox     : DropBox
 }

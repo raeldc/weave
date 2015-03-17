@@ -33,10 +33,11 @@ module.exports = {
     },
 
     addUIBoxes: function() {
-        if(_.isArray(this.children)) {
-            this.children.unshift(<UIEditMode.MarginBox key="magin-box" children={this.state.children} />);
-            this.children.unshift(<UIEditMode.PaddingBox key="padding-box" node={this.props.id} />);
-            this.children.push(<UIEditMode.DropArea key={"drop-area-inside-" + this.props.id} position="inside" node={this.props.id} />);
+        if(_.isArray(this.state.children)) {
+            this.children.unshift(<UIEditMode.OverlayBox key="overlay-box" self={this.props.id} children={this.state.children} />);
+            this.children.unshift(<UIEditMode.MarginBox  key="magin-box"   self={this.props.id} children={this.state.children} />);
+            this.children.unshift(<UIEditMode.PaddingBox key="padding-box" self={this.props.id} children={this.state.children} />);
+            this.children.push(<UIEditMode.DropBox key={"drop-box" + this.props.id} position="inside" node={this.props.id} />);
         }
     },
 
