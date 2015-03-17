@@ -1,11 +1,14 @@
-var UIActions  = require('application/ui/actions.js');
+var UIActions = require('application/ui/actions.js');
+var DOM       = require('application/stores/dom.js');
+var CONST     = require('application/constants/all.js');
 
 module.exports = {
     getInitialState: function() {
         this.addEvent('onMouseOver', this.mouseOverNode);
         this.addEvent('onMouseOut', this.mouseOutNode);
         this.addEvent('onClick', this.selectNode);
-        this.addEvent('onInput', this.checkTextChanges);
+        this.addEvent('onBlur', this.checkTextChanges);
+        this.addEvent('onInput', this.adjustSizeOfEditableArea);
     },
 
     mouseOverNode: function(event) {
@@ -33,6 +36,10 @@ module.exports = {
         }
 
         event.stopPropagation();
+    },
+
+    adjustSizeOfEditableArea: function(event) {
+        DOM.emit(CONST.DOM_UPDATED + '_' + this.props.id, this.props.id);
     },
 
     enableEditable: function() {
