@@ -31,6 +31,22 @@
         margin        : 0;
         padding       : 0;
         pointer-events: none;
+
+        > .btn {
+            z-index       : 4;
+            position      : absolute;
+            display       : block;
+            margin        : 3px;
+            padding       : 5px;
+            right         : 0;
+            top           : 0;
+            cursor        : pointer;
+            pointer-events: auto;
+
+            i {
+                pointer-events: none;
+            }
+        }
     }
 
     > .ui-overlay-box {  

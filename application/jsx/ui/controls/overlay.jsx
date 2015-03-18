@@ -128,8 +128,20 @@ var Controls = React.createClass({
     },
 
     render: function() {
-        return <a className="ui-control-box" style={this.state} />
+        return (
+            <span className="ui-control-box" style={this.state}>
+                <span className="btn btn-xs btn-danger" onClick={this.deleteNode} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className="glyphicon glyphicon-trash"></i></span>
+            </span>
+        );
     },
+
+    deleteNode: function(event) {
+        event.stopPropagation();
+    },
+
+    stopEvent: function(event) {
+        event.stopPropagation();
+    }
 });
 
 

@@ -5,7 +5,6 @@ var CONST     = require('application/constants/all.js');
 module.exports = {
     getInitialState: function() {
         this.addEvent('onMouseOver', this.mouseOverNode);
-        this.addEvent('onMouseOut', this.mouseOutNode);
         this.addEvent('onMouseDown', this.selectNode);
         this.addEvent('onBlur', this.checkTextChanges);
         this.addEvent('onInput', this.adjustSizeOfEditableArea);
@@ -13,11 +12,6 @@ module.exports = {
 
     mouseOverNode: function(event) {
         UIActions.mouseOverNode(this.props.id);
-        event.stopPropagation();
-    },
-
-    mouseOutNode: function(event) {
-        UIActions.mouseOutNode(this.props.id);
         event.stopPropagation();
     },
 

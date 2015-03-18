@@ -4,11 +4,13 @@ var DOM          = require('application/stores/dom.js');
 var CONST        = require('application/constants/all.js');
 
 var UIActions = _.extend({
-    selectedNode: null,
-    hoveredNode : null,
+    selectedNode : null,
+    hoveredNode  : null,
 
     selectNode: function(node) {
         this.unselectNode(this.selectedNode);
+        this.mouseOutNode(this.hoveredNode);
+
         this.selectedNode = node;
 
         this.emit(CONST.NODE_SELECTED + '_' + node, node);
@@ -25,6 +27,8 @@ var UIActions = _.extend({
     },
 
     mouseOverNode: function(node) {
+        if(node === this.selectedNode) return;
+
         this.mouseOutNode(this.hoveredNode);
         this.hoveredNode = node;
 
