@@ -14,66 +14,23 @@
 
     &.hover {
         cursor    : pointer;
-        background: rgba(76, 158, 217, .1);
     }
 
     &.editable {
         cursor: text;
     }
 
-    > .ui-controls-box {
-        visibility: hidden;
-        display : inline-block;
-        position: absolute;
-        width   : 100%;
-        height  : 100%;
-        top     : 0;
-        left    : 0;
-
-        &.selected {
-            visibility: visible;
-            box-sizing: border-box;
-            opacity: 1;
-            background: rgba(76, 158, 217, .05);
-
-            &> span {
-                visibility: visible;
-            }
-        }
-
-        > span {
-            visibility: hidden;
-            position  : absolute;
-            display   : inline-block;
-            z-index   : 1;
-            color     : white;
-            font-size : 8px;
-            overflow: hidden;
-
-            background-color: rgba(76, 158, 217, 1);
-
-            &.grab {
-                cursor: pointer;
-                top : 0;
-                left: 0;
-            }
-
-            &.resize-width {
-                right    : 0;
-                top      : 50%;
-                transform: translateY(-50%);
-                padding: 5px 0 5px 2px;
-                cursor: ew-resize;
-            }
-
-            &.resize-height {
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 2px 8px 0 8px;
-                cursor: ns-resize;
-            }
-        }
+    > .ui-control-box {
+        border        : 1px dashed rgba(76, 158, 217, 1);
+        position      : absolute;
+        visibility    : hidden;
+        top           : 0;
+        left          : 0;
+        width         : 0;
+        height        : 0;
+        margin        : 0;
+        padding       : 0;
+        pointer-events: none;
     }
 
     > .ui-overlay-box {  

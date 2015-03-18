@@ -48,6 +48,7 @@ module.exports = {
 
     addUIBoxes: function() {
         if(_.isArray(this.children)) {
+            this.children.unshift(<UIEditMode.Controls key="control-box" self={this.props.id} children={this.state.children} />);
             this.children.unshift(<UIEditMode.OverlayBox key="overlay-box" self={this.props.id} children={this.state.children} />);
             this.children.unshift(<UIEditMode.MarginBox  key="magin-box"   self={this.props.id} children={this.state.children} />);
             this.children.unshift(<UIEditMode.PaddingBox key="padding-box" self={this.props.id} children={this.state.children} />);

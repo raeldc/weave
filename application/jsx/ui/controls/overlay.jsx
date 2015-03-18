@@ -1,14 +1,11 @@
-var Dispatcher      = require('application/alchemy/dispatcher.js');
-var Factory         = require('application/components/factory.js');
 var UIActions       = require('application/ui/actions.js');
 var Nodes           = require('application/stores/nodes.js');
 var Components      = require('application/stores/components.js');
 var DOM             = require('application/stores/dom.js');
-var LifeCycleMixin  = require('application/components/node/mixins/lifecycle.js');
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 var CONST           = require('application/constants/all.js');
 
-var SelectNodeMixin = {
+var AdjustBoxMixin = {
     getInitialState: function() {
         return {
             position  : 'absolute',
@@ -20,19 +17,6 @@ var SelectNodeMixin = {
             margin    : 0,
             padding   : 0
         }
-    },
-
-    componentDidMount: function() {
-        this.addSelectionListener();
-    },
-
-    componentWillUpdate: function() {
-        this.removeSelectionListener();
-        this.addSelectionListener();
-    },
-
-    componentWillUnmount: function() {
-        this.removeSelectionListener();
     },
 
     showBox: function(node) {
@@ -80,6 +64,21 @@ var SelectNodeMixin = {
         }
 
         this.setState(state);
+    }
+}
+
+var SelectNodeMixin = {
+    componentDidMount: function() {
+        this.addSelectionListener();
+    },
+
+    componentWillUpdate: function() {
+        this.removeSelectionListener();
+        this.addSelectionListener();
+    },
+
+    componentWillUnmount: function() {
+        this.removeSelectionListener();
     },
 
     adjustBoxForSelectedNode: function(node) {
@@ -108,16 +107,34 @@ var SelectNodeMixin = {
 };
 
 var Controls = React.createClass({
-    mixins: [PureRenderMixin],
+    mixins: [PureRenderMixin, AdjustBoxMixin],
+
+    getDefaultProps: function() {
+        return {
+            type    : 'overlay',
+            children: []
+        }
+    },
+
+    componentDidMount: function() {
+        // Also Listen to mouseOver
+        UIActions.addNodeMouseOverListener(this.props.children, this.showBox);
+        UIActions.addNodeMouseOutListener(this.props.children, this.hideBox);
+    },
+
+    componentWillUnmount: function() {
+        UIActions.removeNodeMouseOverListener(this.props.children, this.showBox);
+        UIActions.removeNodeMouseOutListener(this.props.children, this.hideBox);
+    },
 
     render: function() {
-        return <div />
-    }    
+        return <a className="ui-control-box" style={this.state} />
+    },
 });
 
 
 var OverlayBox = React.createClass({
-    mixins: [PureRenderMixin, SelectNodeMixin],
+    mixins: [PureRenderMixin, AdjustBoxMixin, SelectNodeMixin],
 
     render: function(){
         return (
@@ -135,7 +152,7 @@ var OverlayBox = React.createClass({
 
 // This sits on the parent so that it stays under the node that it is connected to.
 var MarginBox = React.createClass({
-    mixins: [SelectNodeMixin],
+    mixins: [PureRenderMixin, AdjustBoxMixin, SelectNodeMixin],
 
     getDefaultProps: function() {
         return {
@@ -150,7 +167,7 @@ var MarginBox = React.createClass({
 });
 
 var PaddingBox = React.createClass({
-    mixins: [SelectNodeMixin],
+    mixins: [PureRenderMixin, AdjustBoxMixin, SelectNodeMixin],
 
     getDefaultProps: function() {
         return {

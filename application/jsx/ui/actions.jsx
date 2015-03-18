@@ -100,44 +100,56 @@ var UIActions = _.extend({
     },
 
     addNodeSelectedListener: function(node, fn) {
-        if(_.isArray(node)) {
-            _.each(node, function(id, index) {
-                this.on(CONST.NODE_SELECTED + '_' + id, fn);
-            }.bind(this));
-        }else {
-            this.on(CONST.NODE_SELECTED + '_' + node, fn);
-        }
+        this.addNodeListener(node, fn, CONST.NODE_SELECTED);
     },
 
     removeNodeSelectedListener: function(node, fn) {
-        if(_.isArray(node)) {
-            _.each(node, function(id, index) {
-                this.removeListener(CONST.NODE_SELECTED + '_' + id, fn);
-            }.bind(this));
-        }else {       
-            this.removeListener(CONST.NODE_SELECTED + '_' + node, fn);
-        }
+        this.removeNodeListener(node, fn, CONST.NODE_SELECTED);
     },
 
     addNodeUnselectedListener: function(node, fn) {
-        if(_.isArray(node)) {
-            _.each(node, function(id, index) {
-                this.on(CONST.NODE_UNSELECTED + '_' + id, fn);
-            }.bind(this));
-        }else {
-            this.on(CONST.NODE_UNSELECTED + '_' + node, fn);
-        }
+        this.addNodeListener(node, fn, CONST.NODE_UNSELECTED);
     },
 
     removeNodeUnselectedListener: function(node, fn) {
+        this.removeNodeListener(node, fn, CONST.NODE_UNSELECTED);
+    },
+
+    addNodeMouseOverListener: function(node, fn) {
+        this.addNodeListener(node, fn, CONST.NODE_MOUSEOVER);
+    },
+
+    removeNodeMouseOverListener: function(node, fn) {
+        this.removeNodeListener(node, fn, CONST.NODE_MOUSEOVER);
+    },
+
+    addNodeMouseOutListener: function(node, fn) {
+        this.addNodeListener(node, fn, CONST.NODE_MOUSEOUT);
+    },
+
+    removeNodeMouseOutListener: function(node, fn) {
+        this.removeNodeListener(node, fn, CONST.NODE_MOUSEOUT);
+    },
+
+    addNodeListener: function(node, fn, event) {
         if(_.isArray(node)) {
             _.each(node, function(id, index) {
-                this.removeListener(CONST.NODE_UNSELECTED + '_' + id, fn);
+                this.on(event + '_' + id, fn);
+            }.bind(this));
+        }else {
+            this.on(event + '_' + node, fn);
+        }
+    },
+
+    removeNodeListener: function(node, fn, event) {
+        if(_.isArray(node)) {
+            _.each(node, function(id, index) {
+                this.removeListener(event + '_' + id, fn);
             }.bind(this));
         }else {       
-            this.removeListener(CONST.NODE_UNSELECTED + '_' + node, fn);
+            this.removeListener(event + '_' + node, fn);
         }
-    }
+    },
 
 }, EventEmitter.prototype);
 
