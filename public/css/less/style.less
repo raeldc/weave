@@ -9,7 +9,6 @@
     -ms-user-select      : none;
     user-select          : none;
     position             : relative;
-    overflow             : hidden;
     cursor               : default;
 
     &.hover {
@@ -117,20 +116,21 @@
 }
 
 #alchemy-ui {
-    position  : absolute;
-    border-top: 1px solid #aaa;
-    width     : 100%;
-    min-height: 100px;
-    height    : 150px;
-    bottom    : 0;
+    position  : fixed;
+    border-left: 1px solid #aaa;
+    max-width     : 220px;
+    min-width     : 220px;
+    height    : 100%;
+    right    : 0;
+    top: 0;
     background: #ebeced;
 }
 
 #alchemy-body {
-    position: relative;
-    overflow: auto;
+    width: 100%;
+    max-width: 1600px;
 }
 
-#content {
-    height: 1000px;
+body {
+    margin-right: 220px !important;
 }

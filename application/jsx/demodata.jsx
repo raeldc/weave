@@ -41,7 +41,7 @@ module.exports ={
         children: ['sidebar', 'content'],
         parent: 'root',
         style: {
-            minWidth: '1024px'
+
         }
     },
     'sidebar': {

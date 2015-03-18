@@ -5,7 +5,6 @@ module.exports = {
     description     : 'Header Title',
     iconClass       : 'glyphicon glyphicon-header',
     reactClass      : require('../node/component.js'),
-    reactConfigClass: require('../node/configuration'),
     defaults: {
         element: 'h1',
         text   : 'Title (click here to edit)'

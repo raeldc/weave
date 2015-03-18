@@ -10,17 +10,5 @@ module.exports = React.createClass({
                 <Builder ref="builder" />
             </div>
         );
-    },
-
-    componentDidMount: function(){
-        this.adjustLayout();
-        jQuery(window).resize(this.adjustLayout);
-    },
-
-    adjustLayout: function(){
-        var $ui      = jQuery(React.findDOMNode(this.refs.ui));
-        var $builder = jQuery(React.findDOMNode(this.refs.builder));
-
-        $builder.height(jQuery(window).height() - $ui.height());
     }
 });
