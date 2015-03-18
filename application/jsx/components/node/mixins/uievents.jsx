@@ -6,7 +6,7 @@ module.exports = {
     getInitialState: function() {
         this.addEvent('onMouseOver', this.mouseOverNode);
         this.addEvent('onMouseOut', this.mouseOutNode);
-        this.addEvent('onClick', this.selectNode);
+        this.addEvent('onMouseDown', this.selectNode);
         this.addEvent('onBlur', this.checkTextChanges);
         this.addEvent('onInput', this.adjustSizeOfEditableArea);
     },
