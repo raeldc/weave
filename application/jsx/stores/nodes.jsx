@@ -128,6 +128,12 @@ function deleteNode(id) {
     var node    = findNode(id);
     var parent  = findNode(node.parent);
 
+    if(_.isArray(node.children)) {
+        _.each(node.children, function(child, index) {
+            deleteNode(child);
+        });
+    }
+
     updateNode(parent.id, {children: _.without(parent.children, id)});
 
     delete _nodes[id];
