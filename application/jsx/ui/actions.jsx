@@ -69,6 +69,13 @@ var UIActions = _.extend({
         });
     },
 
+    deleteNode: function(id) {
+        Dispatcher.dispatch({
+            action: CONST.NODE_ACTION_DELETENODE,
+            node  : id,
+        });
+    },
+
     startComponentDrag: function(event, component) {
         this.emit(CONST.UI_COMPONENT_DRAG_START, event, component);
     },

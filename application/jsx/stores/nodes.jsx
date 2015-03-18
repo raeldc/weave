@@ -130,11 +130,14 @@ function deleteNode(id) {
 
     updateNode(parent.id, {children: _.without(parent.children, id)});
 
-    delete nodes[id];
+    delete _nodes[id];
 }
 
 function addNodeClass(id, className) {
-    var node              = findNode(id);
+    var node = findNode(id);
+
+    if(!node) return;
+
     var className         = className || '';
     var currentClassNames = node.className || '';
     var newClassNames     = _.isArray(className) ? className : className.split(' ');
@@ -142,7 +145,10 @@ function addNodeClass(id, className) {
 }
 
 function removeNodeClass(id, className) {
-    var node              = findNode(id);
+    var node = findNode(id);
+
+    if(!node) return;
+
     var className         = className || '';
     var currentClassNames = node.className.split(' ');
     node.className        = _.without(currentClassNames, className).join(' ');
@@ -161,6 +167,10 @@ var Nodes = _.extend({
 
     get: function(id) {
         return findNode(id);
+    },
+
+    exists: function(id) {
+        return (_nodes[id]);
     },
 
     count: function(){
@@ -214,6 +224,14 @@ Nodes.dispatchToken = Dispatcher.register(function(command) {
 
             Nodes.emit(CONST.NODE_CHANGED + '_' + command.properties.parent, command.properties.parent);
             Nodes.emit(CONST.NODE_CHANGED, command.properties.parent);
+        break;
+        case CONST.NODE_ACTION_DELETENODE:
+            var parent = findNode(command.node).parent;
+
+            deleteNode(command.node);
+
+            Nodes.emit(CONST.NODE_CHANGED + '_' + parent, parent);
+            Nodes.emit(CONST.NODE_CHANGED, parent);
         break;
     }
 });

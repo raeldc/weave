@@ -136,6 +136,9 @@ var Controls = React.createClass({
     },
 
     deleteNode: function(event) {
+        UIActions.unselectNode(UIActions.selectedNode);
+        UIActions.deleteNode(UIActions.hoveredNode);
+        UIActions.mouseOutNode(UIActions.hoveredNode);
         event.stopPropagation();
     },
 

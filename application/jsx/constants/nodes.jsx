@@ -8,6 +8,7 @@ module.exports = keyMirror({
     NODE_MOUSEOVER                        : null,
     NODE_MOUSEOUT                         : null,
     NODE_ACTION_ADDNODE                   : null,
+    NODE_ACTION_DELETENODE                : null,
     NODE_ACTION_ADD_CLASS                 : null,
     NODE_ACTION_REMOVE_CLASS              : null,
     NODE_ACTION_UPDATE_NODE               : null,
