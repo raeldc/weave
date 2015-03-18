@@ -130,7 +130,12 @@ var Controls = React.createClass({
     render: function() {
         return (
             <span className="ui-control-box" style={this.state}>
-                <span className="btn btn-xs btn-danger" onClick={this.deleteNode} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className="glyphicon glyphicon-trash"></i></span>
+                <span className="btn-group">
+                    <span className="btn btn-xs btn-info" onClick={this.stopEvent} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className="glyphicon glyphicon-move"></i> Drag [Component Name]</span>
+                    <span className="btn btn-xs btn-info" onClick={this.selectNode} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className="glyphicon glyphicon-pencil"></i> Edit</span>
+                    <span className="btn btn-xs btn-info" onClick={this.selectParent} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className=" glyphicon glyphicon-arrow-up"></i> Select Parent</span>
+                    <span className="btn btn-xs btn-danger" onClick={this.deleteNode} onMouseDown={this.stopEvent} onMouseOver={this.stopEvent} onMouseOut={this.stopEvent}><i className="glyphicon glyphicon-trash"></i></span>
+                </span>
             </span>
         );
     },
@@ -144,6 +149,16 @@ var Controls = React.createClass({
 
     stopEvent: function(event) {
         event.stopPropagation();
+    },
+
+    selectNode: function(event) {
+        UIActions.selectNode(UIActions.hoveredNode);
+        event.stopPropagation();
+    },
+
+    selectParent: function(event) {
+        UIActions.selectNode(Nodes.get(UIActions.hoveredNode).parent);
+        event.stopPropagation();  
     }
 });
 
