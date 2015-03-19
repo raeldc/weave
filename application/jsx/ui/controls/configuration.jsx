@@ -14,9 +14,18 @@ module.exports = React.createClass({
         var node = Nodes.get(this.state.selectedNode);
 
         if(node) {
-            var ConfigUI = Components.getReactConfigClass(node.component);
-            if(ConfigUI) {
-                return <ConfigUI node={this.state.selectedNode} key={this.state.selectedNode} />;
+            var component      = Components.get(node.component);
+            var Configurations = _.map(component.configurations, function(config, index){
+                return React.createElement(config, {
+                    key          : 'config-'+index,
+                    node         : node.id,
+                    defaults     : component.defaults,
+                    configurables: component.configurables,
+                });
+            });
+
+            if(!_.isEmpty(Configurations)) {
+                return <div className="ui-configurations">{Configurations}</div>;
             }
         }
 

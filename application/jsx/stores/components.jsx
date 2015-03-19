@@ -68,12 +68,12 @@ var Components = {
     },
 
     // Returns the React Class
-    getReactClass: function(id) {
-        return this.get(id).reactClass;
+    getReactComponent: function(id) {
+        return this.get(id).reactComponent;
     },
 
-    getReactConfigClass: function(id) {
-        return this.get(id).reactConfigClass;
+    getConfigurations: function(id) {
+        return this.get(id).configurations;
     }
 };
 

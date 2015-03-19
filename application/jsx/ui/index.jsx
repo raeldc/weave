@@ -21,9 +21,8 @@ var UI = React.createClass({
 
         return (
             <div id="alchemy-ui">
-                <TabbedArea defaultActiveKey={1}>
+                <TabbedArea defaultActiveKey={1} justified>
                     <TabPane eventKey={1} tab={EditNodeTab}>
-                        <h5 onDragOver={this.onDragOver}>Configure Component</h5>
                         <Configuration />
                     </TabPane>
                     <TabPane eventKey={2} tab={ComponentsTab}>

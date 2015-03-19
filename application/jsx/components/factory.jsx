@@ -9,7 +9,7 @@ var Factory = {
         if(properties) {
             var component = Components.get(properties.component);
 
-            return React.createElement(component.reactClass, {
+            return React.createElement(component.reactComponent, {
                 id             : properties.id,
                 key            : properties.id,
                 component      : component.name,
