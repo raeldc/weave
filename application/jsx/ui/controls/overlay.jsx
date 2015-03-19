@@ -73,7 +73,7 @@ var SelectNodeMixin = {
         this.addSelectionListener();
     },
 
-    componentWillUpdate: function() {
+    componentDidUpdate: function() {
         this.removeSelectionListener();
         this.addSelectionListener();
         this.removeDeviceChangeListener();
@@ -134,12 +134,25 @@ var HoverBox = React.createClass({
     },
 
     componentDidMount: function() {
+        this.addHoverListener();
+    },
+
+    componentDidUpdate: function() {
+        this.removeHoverListener();
+        this.addHoverListener();
+    },
+
+    componentWillUnmount: function() {
+        this.removeHoverListener();
+    },
+
+    addHoverListener: function() {
         // Also Listen to mouseOver
         UIActions.addNodeMouseOverListener(this.props.children, this.showBox);
         UIActions.addNodeMouseOutListener(this.props.children, this.hideBox);
     },
 
-    componentWillUnmount: function() {
+    removeHoverListener: function() {
         UIActions.removeNodeMouseOverListener(this.props.children, this.showBox);
         UIActions.removeNodeMouseOutListener(this.props.children, this.hideBox);
     },
