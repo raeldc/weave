@@ -110,6 +110,13 @@ var UIActions = _.extend({
         });
     },
 
+    setDevice: function(device) {
+        Dispatcher.dispatch({
+            action: CONST.UI_ACTION_SET_DEVICE,
+            device: device
+        });
+    },
+
     addNodeSelectedListener: function(node, fn) {
         this.addNodeListener(node, fn, CONST.NODE_SELECTED);
     },

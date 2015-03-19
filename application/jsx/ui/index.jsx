@@ -3,6 +3,7 @@ var ComponentSelection = require('application/ui/controls/components.js');
 var UIConfig           = require('application/stores/uiconfig.js');
 var OverlayActions     = require('application/ui/actions/overlay.js');
 var Configuration      = require('application/ui/controls/configuration.js');
+var Devices            = require('application/ui/controls/devices.js');
 var CONST              = require('application/constants/all.js');
 var TabbedArea         = require('react-bootstrap').TabbedArea;
 var TabPane            = require('react-bootstrap').TabPane;
@@ -20,9 +21,10 @@ var UI = React.createClass({
         var ConfigTab     = <i className="glyphicon glyphicon-cog"></i>;
 
         return (
-            <div id="alchemy-ui">
+            <div id="alchemy-controls">
                 <TabbedArea defaultActiveKey={1} justified>
                     <TabPane eventKey={1} tab={EditNodeTab}>
+                        <Devices />
                         <Configuration />
                     </TabPane>
                     <TabPane eventKey={2} tab={ComponentsTab}>

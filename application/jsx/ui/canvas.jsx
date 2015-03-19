@@ -14,7 +14,7 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <div id="alchemy-body" className={"frame-wrapper " + this.state.screenSize}>
+            <div id="alchemy-body" className={"frame-wrapper " + this.state.device}>
                 <Frame 
                     head={<link type='text/css' rel='stylesheet' href='css/style.css' />}
                 >
@@ -24,15 +24,19 @@ module.exports = React.createClass({
         );
     },
 
+    componentDidUpdate: function() {
+        UIConfig.emit(CONST.UI_DEVICE_CHANGED, this.state.device);
+    },
+
     componentDidMount: function() {
-        UIConfig.on(CONST.UI_TOGGLE_QUICK_EDIT_MODE, this.configChanged);
+        UIConfig.on(CONST.UI_ACTION_SET_DEVICE, this.configChanged);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.UI_TOGGLE_QUICK_EDIT_MODE, this.configChanged);
+        UIConfig.removeListener(CONST.UI_ACTION_SET_DEVICE, this.configChanged);
     },
 
     configChanged: function(){
-        this.setState({quick_edit_on:UIConfig.getConfig('quick_edit_on')});
+        this.setState(this.getInitialState());
     }
 });
