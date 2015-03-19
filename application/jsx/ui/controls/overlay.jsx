@@ -1,5 +1,6 @@
 var UIActions       = require('application/ui/actions.js');
 var Nodes           = require('application/stores/nodes.js');
+var UIConfig        = require('application/stores/uiconfig.js');
 var Components      = require('application/stores/components.js');
 var DOM             = require('application/stores/dom.js');
 var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
@@ -19,10 +20,10 @@ var AdjustBoxMixin = {
         }
     },
 
-    showBox: function(node) {
-        if(node !== undefined && this.props.children.indexOf(node) !== -1) {
+    showBox: function(nodeID) {
+        if(nodeID !== undefined && this.props.children.indexOf(nodeID) !== -1) {
             this.isVisible = true;
-            this.adjustBox(node);
+            this.adjustBox(nodeID);
         }else {
             this.hideBox();
         }
@@ -33,12 +34,12 @@ var AdjustBoxMixin = {
         this.setState(this.getInitialState());
     },
 
-    adjustBox: function(node) {
+    adjustBox: function(nodeID) {
         if(!this.isVisible) {
             return;
         }
 
-        var node     = DOM.get(node);
+        var node     = DOM.get(nodeID);
         var $node    = jQuery(node);
         var position = $node.position();
 
@@ -75,10 +76,13 @@ var SelectNodeMixin = {
     componentWillUpdate: function() {
         this.removeSelectionListener();
         this.addSelectionListener();
+        this.removeDeviceChangeListener();
+        this.addDeviceChangeListener();
     },
 
     componentWillUnmount: function() {
         this.removeSelectionListener();
+        this.removeDeviceChangeListener();
     },
 
     adjustBoxForSelectedNode: function(node) {
@@ -103,7 +107,20 @@ var SelectNodeMixin = {
 
         UIActions.removeListener(CONST.NODE_UNSELECTED, this.dontAdjustBoxForSelectedNode);
         UIActions.removeListener(CONST.NODE_SELECTED, this.adjustBoxForSelectedNode);
-    }
+    },
+
+    adjustBoxOnDeviceChange: function() {
+        UIActions.mouseOutNode(UIActions.hoveredNode);
+        this.adjustBox(UIActions.selectedNode);
+    },
+
+    addDeviceChangeListener: function() {
+        UIConfig.on(CONST.UI_DEVICE_CHANGED, this.adjustBoxOnDeviceChange);
+    },
+
+    removeDeviceChangeListener: function() {
+        UIConfig.removeListener(CONST.UI_DEVICE_CHANGED, this.adjustBoxOnDeviceChange);
+    },
 };
 
 var HoverBox = React.createClass({

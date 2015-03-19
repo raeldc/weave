@@ -1,7 +1,10 @@
 var EventEmitter = require('events').EventEmitter;
 var Dispatcher   = require('application/alchemy/dispatcher.js');
 var CONST        = require('application/constants/all.js');
-var _config      = {};
+var _config      = {
+    // defaults
+    device: 'desktop'
+};
 
 function setConfig(key, value) {
     if(_.isObject(key)) {
@@ -29,7 +32,10 @@ UIConfig.setMaxListeners(0);
 
 UIConfig.dispatchToken = Dispatcher.register(function(command) {
     switch(command.action) {
-        // UI Config Dispatcher Actions
+        case CONST.UI_ACTION_SET_DEVICE:
+            setConfig('device', command.device);
+            UIConfig.emit(CONST.UI_ACTION_SET_DEVICE, command.device);   
+        break;
     }
 });
 

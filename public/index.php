@@ -14,5 +14,5 @@
         <script src="/js/interact.js"></script>
         <script src="/js/app.js"></script>
     </head>
-    <body></body>
+    <body id="alchemy-ui"></body>
 </html>

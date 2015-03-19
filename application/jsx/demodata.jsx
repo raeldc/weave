@@ -41,7 +41,7 @@ module.exports ={
         children: ['sidebar', 'content'],
         parent: 'root',
         style: {
-
+            height: 1200
         }
     },
     'sidebar': {

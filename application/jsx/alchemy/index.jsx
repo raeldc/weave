@@ -1,5 +1,5 @@
 var UI       = require('application/ui');
-var Builder  = require('application/ui/builder.js');
+var Canvas  = require('application/ui/canvas.js');
 var UIConfig = require('application/stores/uiconfig.js');
 
 module.exports = React.createClass({
@@ -7,7 +7,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <UI ref="ui"/>
-                <Builder ref="builder" />
+                <Canvas id="alchemy-body" ref="canvas" />
             </div>
         );
     }
