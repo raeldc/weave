@@ -14,10 +14,10 @@ module.exports = React.createClass({
     render: function() {
         return  (
             <ButtonGroup>
-                <Button className="btn-xs" onClick={this.setDevice.bind(this, 'desktop')}>Full</Button>
-                <Button className="btn-xs" onClick={this.setDevice.bind(this, 'laptop')}>Laptop</Button>
-                <Button className="btn-xs" onClick={this.setDevice.bind(this, 'tablet')}>Tablet</Button>
-                <Button className="btn-xs" onClick={this.setDevice.bind(this, 'phone')}>Phone</Button>
+                <Button className="btn-xs" active={this.state.device === 'desktop'} onClick={this.setDevice.bind(this, 'desktop')}>Full</Button>
+                <Button className="btn-xs" active={this.state.device === 'laptop'} onClick={this.setDevice.bind(this, 'laptop')}>Laptop</Button>
+                <Button className="btn-xs" active={this.state.device === 'tablet'} onClick={this.setDevice.bind(this, 'tablet')}>Tablet</Button>
+                <Button className="btn-xs" active={this.state.device === 'phone'} onClick={this.setDevice.bind(this, 'phone')}>Phone</Button>
             </ButtonGroup>
         );
     },

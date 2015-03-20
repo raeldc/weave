@@ -14,7 +14,7 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <div id="alchemy-body" className={"frame-wrapper " + this.state.device}>
+            <div id="alchemy-canvas" className={this.state.device}>
                 <Frame 
                     head={<link type='text/css' rel='stylesheet' href='css/style.css' />}
                 >

@@ -7,7 +7,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <UI ref="ui"/>
-                <Canvas id="alchemy-body" ref="canvas" />
+                <Canvas ref="canvas" />
             </div>
         );
     }
