@@ -37,16 +37,16 @@ var Controls = React.createClass({
         );
     },
 
-    onUIConfigChanged: function(node){
-        this.setState(this.getInitialState());
-    },
-
     componentDidMount: function() {
-        this.stopListeningToUIConfig = UIConfig.Controls.listen(this.onUIConfigChanged);
+        this.stopListeningToControlsConfigChanges = UIConfig.Controls.listen(this.onControlsConfigChanged);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToUIConfig();
+        this.stopListeningToControlsConfigChanges();
+    },
+
+    onControlsConfigChanged: function(){
+        this.setState(this.getInitialState());
     }
 });
 

@@ -31,20 +31,20 @@ module.exports = React.createClass({
         return <div />;
     },
 
-    onUIConfigChanged: function(node){
-        this.setState(this.getInitialState());
-    },
-
     shouldComponentUpdate: function(nextProps, nextState) {
         // Update only when the selected node is different from the previous one
         return this.state.selectedNode !== nextState.selectedNode;
     },
 
     componentDidMount: function() {
-        this.stopListeningToUIConfigStore = UIConfig.Canvas.listen(this.onUIConfigChanged);
+        this.stopListeningToCanvasConfigChanges = UIConfig.Canvas.listen(this.onCanvasConfigChanged);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToUIConfigStore();
+        this.stopListeningToCanvasConfigChanges();
+    },
+
+    onCanvasConfigChanged: function(node){
+        this.setState(this.getInitialState());
     }
 });
