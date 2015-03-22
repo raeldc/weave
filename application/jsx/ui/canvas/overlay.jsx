@@ -84,7 +84,7 @@ module.exports = React.createClass({
 
     adaptOverlay: function() {
         var position, 
-            state     = _.extend({}, this.state),
+            state     = {},
             scrollTop = jQuery(window.canvas).scrollTop(),
             visible   = this.state.visible || false,
             $dom      = jQuery(this.state.selectedNode || null);
