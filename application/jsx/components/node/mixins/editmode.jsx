@@ -11,9 +11,13 @@ module.exports = {
         if(this.props.editMode) {
             this.nodeProperties.classNames.push('ui-editmode');
 
-            if(this.isText() && nextState.enableEditable) {
+            if(this.isText() && this.nodeProperties.contentEditable) {
                 this.nodeProperties.classNames.push('editable');
+            }else {
+                this.nodeProperties.classNames = _.without(this.nodeProperties.classNames, 'editable');
             }
+        }else {
+            this.nodeProperties.classNames = _.without(this.nodeProperties.classNames, 'ui-editmode');
         }
     },
 
