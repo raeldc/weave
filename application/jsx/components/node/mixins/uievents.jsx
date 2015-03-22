@@ -23,7 +23,6 @@ module.exports = {
         if(!this.state.enableEditable) {
             UICanvasActions.selectNode(this.props.id);
             this.enableEditable();
-
             this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.disableEditable);
         }
 

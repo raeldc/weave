@@ -1,8 +1,17 @@
 var Reflux = require('reflux');
 
-module.exports = Reflux.createActions([
-    'setDevice',
-    'mouseOverNode',
-    'selectNode',
-    'unSelectNode'
-]);
+var Actions = Reflux.createActions({
+    setDevice    : {},
+    mouseOverNode: {},
+    unSelectNode : {
+        sync: true,
+    },
+    selectNode   : {
+        sync: true,
+        preEmit: function(id) {
+            Actions.unSelectNode();
+        }
+    }
+});
+
+module.exports = Actions;
