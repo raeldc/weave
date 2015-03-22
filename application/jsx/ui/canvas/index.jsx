@@ -29,8 +29,9 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        window.canvas          = React.findDOMNode(this.refs.iframe).contentWindow;
-        window.canvas.onscroll = this.onFrameScroll;
+        window.canvas = React.findDOMNode(this.refs.iframe).contentWindow;
+        
+        jQuery(window.canvas).scroll(this.onFrameScroll);
 
         this.stopListeningToCanvasChanges = UIConfig.Canvas.listen(this.changeCanvas);
     },
@@ -41,7 +42,7 @@ module.exports = React.createClass({
 
     componentWillUnmount: function() {
         this.stopListeningToCanvasChanges();
-        React.findDOMNode(this.refs.iframe).contentWindow.unscroll = undefined;
+        jQuery(window.canvas).unbind('scroll');
     },
 
     onFrameScroll: function(event) {
