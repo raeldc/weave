@@ -2,26 +2,15 @@ Reflux = require('reflux');
 
 var StoreDefinition = {
     init: function() {
-        this.data   = {};
-        this.stores = {};
+        this.data = {};
     },
 
     get: function(index) {
         return this.getObject(index);
     },
 
-    getRaw: function(index) {
-        return this.data[index];
-    },
-
     getStore: function(index) {
-        var store = this.stores[index];
-
-        if(store === undefined) {
-            throw new Error("Can not find a Reflux Store for: " + index);
-        }
-
-        return store;
+        return this.data[index];
     },
 
     getObject: function(index) {
@@ -50,8 +39,7 @@ var StoreDefinition = {
 
     set: function(index, data) {
         if(_.isObject(data) && !_.isArray(data)) {
-            this.data[index]   = new Store(data);
-            this.stores[index] = Reflux.createStore();
+            this.data[index] = new Store(data);
         } else {
             this.data[index] = data;
         }
@@ -69,7 +57,11 @@ var StoreDefinition = {
         return this;
     },
 
-    setActions: function(actions) {
+    setActions: function(actions, definitions) {
+        if(_.isObject(definitions)){
+            _.extend(this, definitions);
+        }
+
         if(_.isArray(actions)) {
             _.each(actions, function(actions){
                 this.listenToMany(actions);
@@ -77,6 +69,8 @@ var StoreDefinition = {
         } else {
             this.listenToMany(actions);
         }
+
+        return this;
     }
 };
 

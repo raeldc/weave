@@ -5,7 +5,7 @@ var UICanvasActions = require('application/ui/canvas/actions.js'),
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return UIConfig.get('canvas');
+        return UIConfig.Canvas.toObject();
     },
 
     render: function() {
@@ -33,7 +33,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToDeviceChange = UIConfig.getStore('canvas').listen(this.onDeviceChange);
+        this.stopListeningToDeviceChange = UIConfig.Canvas.listen(this.onDeviceChange);
     },
 
     componentWillUnmount: function() {

@@ -6,7 +6,7 @@ module.exports = React.createClass({
     displayName: 'Canvas',
 
     getInitialState: function(){
-        return UIConfig.get('canvas');
+        return UIConfig.Canvas.toObject();
     },
 
     render: function(){
@@ -26,7 +26,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToCanvasChanges = UIConfig.getStore('canvas').listen(this.canvasChanged);
+        this.stopListeningToCanvasChanges = UIConfig.Canvas.listen(this.canvasChanged);
     },
 
     componentWillUnmount: function() {

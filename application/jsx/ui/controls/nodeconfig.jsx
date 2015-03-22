@@ -4,7 +4,7 @@ var Components = require('application/stores/components.js'),
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return UIConfig.get('canvas');
+        return UIConfig.Canvas.toObject();
     },
 
     render: function() {
@@ -41,7 +41,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToUIConfigStore = UIConfig.getStore('canvas').listen(this.onUIConfigChanged);
+        this.stopListeningToUIConfigStore = UIConfig.Canvas.listen(this.onUIConfigChanged);
     },
 
     componentWillUnmount: function() {

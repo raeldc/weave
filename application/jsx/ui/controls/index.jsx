@@ -7,7 +7,7 @@ var UIConfig             = require('application/stores/uiconfig.js'),
 
 var Controls = React.createClass({
     getInitialState: function(){
-        return UIConfig.get('controls');
+        return UIConfig.Controls.toObject();
     },
 
     render: function() {
@@ -42,7 +42,7 @@ var Controls = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToUIConfig = UIConfig.getStore('controls').listen(this.onUIConfigChanged);
+        this.stopListeningToUIConfig = UIConfig.Controls.listen(this.onUIConfigChanged);
     },
 
     componentWillUnmount: function() {
