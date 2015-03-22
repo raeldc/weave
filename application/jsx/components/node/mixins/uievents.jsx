@@ -15,13 +15,13 @@ module.exports = {
     },
 
     mouseOverNode: function(event) {
-        UICanvasActions.mouseOverNode(this.props.id);
+        UICanvasActions.mouseOverNode(this.props.id, this);
         event.stopPropagation();
     },
 
     selectNode: function(event) {
         if(!this.state.enableEditable) {
-            UICanvasActions.selectNode(this.props.id);
+            UICanvasActions.selectNode(this.props.id, this);
             this.enableEditable();
             this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.disableEditable);
         }
