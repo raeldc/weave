@@ -5,10 +5,16 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             style: {
-                display     : 'none',
-                visibility  : 'hidden',
+                display   : 'none',
+                visibility: 'hidden',
             },
-            visible: false,
+            position: {
+                left : 0,
+                right: 0
+            },
+            width       : 0,
+            height      : 0,
+            visible     : false,
             selectedNode: null
         };
     },
@@ -18,7 +24,7 @@ module.exports = React.createClass({
 
         if(this.state.visible) {
             shapes.push(
-                <rect key="inner-box" className="box" x={this.state.position.left} y={this.state.position.top} height={this.state.height} width={this.state.width} />
+                <rect key="inner-box" className="box" x={this.state.position.left} y={this.state.position.top} height={this.state.height} width={this.state.width} rx="5" ry="5" />
             );
         }
 
@@ -59,8 +65,13 @@ module.exports = React.createClass({
     },
 
     displayOverlay: function(id, node) {
+        if(this.props.type === 'hover') {
+            this.stopListeningToMouseOut  = UICanvasActions.mouseOutNode.listen(this.hideOverlay);
+        }else if(this.props.type === 'select') {
+            this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.hideOverlay);
+        }
 
-        this.adaptOverlay({
+        this.setState({
             style: {
                 display   : 'block',
                 visibility: 'visible',
@@ -68,21 +79,15 @@ module.exports = React.createClass({
             visible     : true,
             selectedNode: React.findDOMNode(node),
             node        : id
-        });
-
-        if(this.props.type === 'hover') {
-            this.stopListeningToMouseOut  = UICanvasActions.mouseOutNode.listen(this.hideOverlay);
-        }else if(this.props.type === 'select') {
-            this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.hideOverlay);
-        }
+        }, this.adaptOverlay);
     },
 
-    adaptOverlay: function(state) {
+    adaptOverlay: function() {
         var position, 
+            state     = _.extend({}, this.state),
             scrollTop = jQuery(window.canvas).scrollTop(),
-            state     = state || {},
-            visible   = state.visible || this.state.visible || false,
-            $dom      = jQuery(state.selectedNode || this.state.selectedNode || null);
+            visible   = this.state.visible || false,
+            $dom      = jQuery(this.state.selectedNode || null);
 
         if($dom && visible) {
             position       = $dom.offset();
@@ -92,10 +97,9 @@ module.exports = React.createClass({
                 top : position.top - scrollTop,
                 left: position.left
             }
-        }
 
-        this.setState(state);
-        this.forceUpdate();
+            this.setState(state, this.forceUpdate);
+        }
     },
 
     hideOverlay: function() {
