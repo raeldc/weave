@@ -1,24 +1,30 @@
-var UIActions = require('application/ui/actions.js');
-var DOM       = require('application/stores/dom.js');
-var CONST     = require('application/constants/all.js');
+var UICanvasActions   = require('application/ui/canvas/actions.js');
+var UIControlsActions = require('application/ui/controls/actions.js');
 
 module.exports = {
     getInitialState: function() {
-        this.addEvent('onMouseOver', this.mouseOverNode);
-        this.addEvent('onMouseDown', this.selectNode);
-        this.addEvent('onBlur', this.checkTextChanges);
-        this.addEvent('onInput', this.adjustSizeOfEditableArea);
+        if(this.props.editMode) {
+            this.addEvent('onMouseOver', this.mouseOverNode);
+            this.addEvent('onMouseDown', this.selectNode);
+            this.addEvent('onBlur', this.checkTextChanges);
+
+            return {
+                enableEditable: false
+            }
+        }
     },
 
     mouseOverNode: function(event) {
-        UIActions.mouseOverNode(this.props.id);
+        UICanvasActions.mouseOverNode(this.props.id);
         event.stopPropagation();
     },
 
     selectNode: function(event) {
         if(!this.state.enableEditable) {
-            UIActions.selectNode(this.props.id);
+            UICanvasActions.selectNode(this.props.id);
             this.enableEditable();
+
+            this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.disableEditable);
         }
 
         event.stopPropagation();
@@ -26,31 +32,24 @@ module.exports = {
 
     checkTextChanges: function(event) {
         if(this.isText()) {
-            UIActions.changeText(this.props.id, event.target.innerHTML);
+            UIControlsActions.changeText(this.props.id, event.target.innerHTML);
         }
 
         event.stopPropagation();
     },
 
-    adjustSizeOfEditableArea: function(event) {
-        DOM.emit(CONST.DOM_UPDATED + '_' + this.props.id, this.props.id);
-    },
-
     enableEditable: function() {
         if(this.isText()) {
-            this.state.enableEditable = true;
+            this.nodeProperties.contentEditable = true;
             this.forceUpdate();
         }
-
-        // Disable when unselected
-        UIActions.addNodeUnselectedListener(this.props.id, this.disableEditable);
     },
 
     disableEditable: function() {
-        this.state.enableEditable = false;
+        this.nodeProperties.contentEditable = false;
         this.forceUpdate();
 
         // Remove the listener
-        UIActions.removeNodeUnselectedListener(this.props.id, this.disableEditable);
+        this.stopListeningToUnselectNode();
     }
 }

@@ -4,8 +4,14 @@ var EditModeMixin  = require('./mixins/editmode.js');
 var UIEventsMixin  = require('./mixins/uievents.js');
 
 module.exports = React.createClass({
-    mixins        : [LifeCycleMixin, EventsMixin, EditModeMixin, UIEventsMixin],
+    mixins: [LifeCycleMixin, EventsMixin, EditModeMixin, UIEventsMixin],
     render: function() {
-        return React.createElement(this.state.element || this.props.defaults.element || 'div', this.nodeProperties, this.children);
+        this.nodeProperties.className = _.uniq(this.nodeProperties.classNames).join(' ');
+
+        return React.createElement(
+            this.state.element || this.props.defaults.element || 'div', 
+            this.nodeProperties,
+            this.children
+        );
     },
 });

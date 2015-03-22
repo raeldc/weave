@@ -9,7 +9,6 @@ module.exports = React.createClass({
         return React.createElement('iframe', {
             id   : this.props.id,
             style: this.props.style,
-            head : this.props.head
         });
     },
 

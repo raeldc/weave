@@ -1,5 +1,3 @@
-var Dispatcher  = require('application/alchemy/dispatcher.js');
-
 var _components = {};
 
 var _groups = {
