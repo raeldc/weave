@@ -42,11 +42,10 @@ module.exports = {
 
     adaptOverlay: function() {
         var position, 
-            state   = {},
-            visible = this.state.visible || false,
-            $dom    = jQuery(this.state.selectedNode || null);
+            state = {},
+            $dom  = jQuery(this.state.selectedNode || null);
 
-        if($dom && visible) {
+        if($dom && this.state.visible) {
             position     = $dom.offset();
             state.width  = $dom.outerWidth();
             state.height = $dom.outerHeight();

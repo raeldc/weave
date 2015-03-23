@@ -4,7 +4,12 @@ var Actions = Reflux.createActions({
     canvasScrolled: {
         sync: true,
     },
-    setDevice     : {},
+    setDevice     : {
+        sync: true,
+        preEmit: function() {
+            Actions.mouseOutNode();
+        }
+    },
     deviceChanged : {},
     mouseOutNode  : {
         sync: true,
