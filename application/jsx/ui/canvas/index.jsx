@@ -2,7 +2,7 @@ var UICanvasFrame   = require('application/ui/canvas/frame.js'),
     UICanvasFactory = require('application/ui/canvas/factory.js'),
     UIConfig        = require('application/stores/uiconfig.js'),
     UICanvasActions = require('application/ui/canvas/actions.js'),
-    UICanvasOverlay = require('application/ui/canvas/overlay.js');
+    UICanvasOverlay = require('application/ui/canvas/overlay');
 
 module.exports = React.createClass({
     displayName: 'Canvas',
@@ -17,7 +17,7 @@ module.exports = React.createClass({
         return (
             <div id="alchemy-canvas" className={this.state.device}>
                 <UICanvasFrame head={css} ref="iframe">
-                    <UICanvasOverlay type="hover" ref="overlay" window={this.state.window} />
+                    <UICanvasOverlay />
                     {UICanvasFactory.createNode('root', this.props.editMode)}
                 </UICanvasFrame>
             </div>
