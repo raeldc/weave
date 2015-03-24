@@ -1,8 +1,4 @@
 module.exports = {
-    componentWillMount: function() {
-        this.attachEvents();
-    },
-
     addEvent: function(event, fn) {
         if(this.events === undefined) {
             this.events = {};
@@ -16,6 +12,20 @@ module.exports = {
         if(typeof fn === 'function') {
             this.events[event].push(fn);
         }
+
+        this.attachEvents();
+    },
+
+    removeEvent: function(oldevent, fn) {
+        if(_.size(this.events[oldevent])) {
+            this.events[oldevent] = _.without(this.events[oldevent], fn);
+        }
+
+        if(_.size(this.events[oldevent]) === 0) {
+            delete this.events[oldevent];
+        }
+
+        this.attachEvents();
     },
 
     attachEvents: function() {
@@ -23,7 +33,7 @@ module.exports = {
         var properties = this.nodeProperties;
 
         _.each(this.events, function(functions, index){
-            if(properties[index] === undefined) {
+            if(_.size(functions)) {
                 properties[index] = (function(functions){
                     return function(event){
                         _.each(functions, function(fn, index){

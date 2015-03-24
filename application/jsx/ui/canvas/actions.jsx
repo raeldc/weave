@@ -28,7 +28,10 @@ var Actions = Reflux.createActions({
         preEmit: function() {
             Actions.unSelectNode();
         }
-    }
+    },
+    nodeManipulated: {
+        sync: true
+    },
 });
 
 module.exports = Actions;

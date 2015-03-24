@@ -20,8 +20,9 @@ module.exports = {
     },
 
     componentDidMount: function() {
-        this.stopListeningToCanvasScrolled = UICanvasActions.canvasScrolled.listen(this.adaptOverlay);
-        this.stopListeningToDeviceChange   = UICanvasActions.deviceChanged.listen(this.adaptOverlay);
+        this.stopListeningToCanvasScrolled  = UICanvasActions.canvasScrolled.listen(this.adaptOverlay);
+        this.stopListeningToDeviceChange    = UICanvasActions.deviceChanged.listen(this.adaptOverlay);
+        this.stopListeningToNodeManipulated = UICanvasActions.nodeManipulated.listen(this.adaptOverlay);
     },
 
     componentWillUnmount: function() {

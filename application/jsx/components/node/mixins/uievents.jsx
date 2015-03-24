@@ -6,7 +6,7 @@ module.exports = {
         if(this.props.editMode) {
             this.addEvent('onMouseOver', this.mouseOverNode);
             this.addEvent('onMouseDown', this.selectNode);
-            this.addEvent('onBlur', this.checkTextChanges);
+            this.addEvent('onBlur', this.saveTextChanges);
 
             return {
                 enableEditable: false
@@ -29,7 +29,7 @@ module.exports = {
         event.stopPropagation();
     },
 
-    checkTextChanges: function(event) {
+    saveTextChanges: function(event) {
         if(this.isText()) {
             UIControlsActions.changeText(this.props.id, event.target.innerHTML);
         }
@@ -37,8 +37,19 @@ module.exports = {
         event.stopPropagation();
     },
 
+    textChanged: function(event) {
+        if(this.isText() && this.nodeProperties.contentEditable) {
+            UICanvasActions.nodeManipulated();
+        }
+
+        event.stopPropagation();
+    },
+
     enableEditable: function() {
         if(this.isText()) {
+            // Add a new event when editable is enabled
+            this.addEvent('onInput', this.textChanged);
+
             this.nodeProperties.contentEditable = true;
             this.forceUpdate();
         }
@@ -46,9 +57,10 @@ module.exports = {
 
     disableEditable: function() {
         this.nodeProperties.contentEditable = false;
-        this.forceUpdate();
+        this.removeEvent('onInput', this.textChanged);
 
         // Remove the listener
         this.stopListeningToUnselectNode();
+        this.forceUpdate();
     }
 }

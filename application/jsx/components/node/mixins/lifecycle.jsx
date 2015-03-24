@@ -6,6 +6,11 @@ module.exports = {
         var state       = Nodes.get(this.props.id);
         state.className = state.className || '';
 
+        this.nodeProperties = this.nodeProperties || {
+            id        : this.props.id,
+            classNames: state.className.split(' '),
+        };
+
         return state;
     },
 
@@ -31,11 +36,6 @@ module.exports = {
     prepareNodeProperties: function(nextProps, nextState) {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
-
-        this.nodeProperties = this.nodeProperties || {
-            id        : this.props.id,
-            classNames: nextState.className.split(' '),
-        };
 
         this.nodeProperties.style = this.state.style;
 
