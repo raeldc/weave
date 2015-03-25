@@ -1,6 +1,9 @@
-var UICanvasActions   = require('application/ui/canvas/actions.js'),
-    UIControlsActions = require('application/ui/controls/actions.js'),
-    UIConfig          = require('application/stores/uiconfig.js');
+var UICanvasActions   = require('application/actions/canvas.js'),
+    UINodeActions     = require('application/actions/node.js'),
+    UIControlsActions = require('application/actions/controls.js'),
+    UIConfig          = require('application/stores/uiconfig.js'),
+    Components        = require('application/stores/components.js'),
+    Nodes             = require('application/stores/nodes.js');
 
 module.exports = {
     getInitialState: function() {
@@ -87,7 +90,18 @@ module.exports = {
         event.preventDefault();
         event.stopPropagation();
     },
+
     onDrop: function(event) {
+        var subject   = UIConfig.Canvas.get('pending_drop_subject'),
+            position  = UIConfig.Canvas.get('pending_drop_position'),
+            component = UIConfig.Canvas.get('pending_component');
+
+        switch(position) {
+            case 'bottom':
+                UINodeActions.addChildNode(Nodes.getObject(subject).parent, _.extend({component: component}, Components.getDefaults(component)));
+            break;
+        }
+
         event.stopPropagation();
     }
 }

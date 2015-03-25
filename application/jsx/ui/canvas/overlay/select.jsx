@@ -1,4 +1,4 @@
-var UICanvasActions      = require('application/ui/canvas/actions.js'),
+var UICanvasActions      = require('application/actions/canvas.js'),
     UICanvasOverlayMixin = require('application/ui/canvas/overlay/mixin.js');
 
 module.exports = React.createClass({

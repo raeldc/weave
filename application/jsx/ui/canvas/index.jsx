@@ -1,7 +1,7 @@
 var UICanvasFrame   = require('application/ui/canvas/frame.js'),
     UICanvasFactory = require('application/ui/canvas/factory.js'),
     UIConfig        = require('application/stores/uiconfig.js'),
-    UICanvasActions = require('application/ui/canvas/actions.js'),
+    UICanvasActions = require('application/actions/canvas.js'),
     UICanvasOverlay = require('application/ui/canvas/overlay'),
     UIDropArea      = require('application/ui/canvas/droparea');
 

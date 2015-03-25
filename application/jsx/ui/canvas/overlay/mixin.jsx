@@ -1,5 +1,5 @@
 var UIConfig        = require('application/stores/uiconfig.js'),
-    UICanvasActions = require('application/ui/canvas/actions.js');
+    UICanvasActions = require('application/actions/canvas.js');
 
 module.exports = {
     getInitialState: function() {
@@ -47,7 +47,8 @@ module.exports = {
             $dom  = jQuery(this.nextState.target || null);
 
         if($dom && this.nextState.visible) {
-            position     = $dom.offset();
+            position = $dom.offset();
+
             this.nextState.width  = $dom.outerWidth();
             this.nextState.height = $dom.outerHeight();
             this.nextState.top    = position.top - jQuery(window.canvas).scrollTop();

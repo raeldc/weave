@@ -1,5 +1,5 @@
-var UIControlsActions = require('application/ui/controls/actions.js'),
-    UICanvasActions   = require('application/ui/canvas/actions.js'),
+var UIControlsActions = require('application/actions/controls.js'),
+    UICanvasActions   = require('application/actions/canvas.js'),
     Components        = require('application/stores/components.js');
 
 var ComponentButton = React.createClass({

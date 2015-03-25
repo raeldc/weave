@@ -72,6 +72,10 @@ var Components = {
 
     getConfigurations: function(id) {
         return this.get(id).configurations;
+    },
+
+    getDefaults: function(id) {
+        return this.get(id).defaults || {};
     }
 };
 

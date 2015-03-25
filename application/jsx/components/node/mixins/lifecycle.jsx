@@ -28,8 +28,7 @@ module.exports = {
     prepareChildren: function(nextProps, nextState) {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
-
-        this.children = UICanvasFactory.createChildNodes(this.state.children, this.props.editMode) || [];
+        this.children = UICanvasFactory.createChildNodes(nextState.children, nextProps.editMode) || [];
         return this.children;
     },
 

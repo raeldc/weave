@@ -37,6 +37,9 @@ var Actions = Reflux.createActions({
     droppingOnNode: {
         sync: true
     },
+    droppingOnNodePosition: {
+        sync: true
+    },
     insertingComponent: {
         sync: true,
         preEmit: function() {

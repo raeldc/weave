@@ -1,4 +1,4 @@
-var UICanvasActions = require('application/ui/canvas/actions.js');
+var UICanvasActions = require('application/actions/canvas.js');
 
 module.exports = React.createClass({
     nextState: {},
@@ -33,12 +33,18 @@ module.exports = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-        return this.state.position !== nextState.position || this.state.node !== nextState.node;
+        return false;
     },
 
     componentDidMount: function() {
         this.stopListeningToDroppingOnNode     = UICanvasActions.droppingOnNode.listen(this.displayDropArea);
         this.stopListeningToInsertingComponent = UICanvasActions.endInsertingComponent.listen(this.hideDropArea);
+    },
+
+    componentDidUpdate: function() {
+        if(this.state.position) {
+            UICanvasActions.droppingOnNodePosition(this.state.position);
+        }
     },
 
     componentWillUnmount: function() {
@@ -47,8 +53,6 @@ module.exports = React.createClass({
     },
 
     displayDropArea: function(id, node, event) {
-        var $target, nodeOffset;
-
         if(this.state.node !== id) {
             this.nextState.node     = id;
             this.nextState.visible  = true;
@@ -56,14 +60,20 @@ module.exports = React.createClass({
             this.nextState.position = null;
 
             this.adaptDropArea(this.getNodeInfo());
-        }
 
-        this.calculateCursorPosition(event.clientX, event.clientY);
-        this.setState(this.nextState);
+            this.calculateCursorPosition(event.clientX, event.clientY);
+            this.setState(this.nextState, this.forceUpdate);
+        } else {
+            this.calculateCursorPosition(event.clientX, event.clientY);
+
+            if(this.nextState.position !== this.state.position) {
+                this.setState(this.nextState, this.forceUpdate);
+            }
+        }
     },
 
     adaptDropArea: function(nodeInfo) {
-        if(!this.state.visible) return;
+        if(!this.nextState.visible) return;
 
         nodeInfo = nodeInfo || this.nodeInfo || this.getNodeInfo();
 

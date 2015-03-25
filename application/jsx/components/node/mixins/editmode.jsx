@@ -34,7 +34,6 @@ module.exports = {
     },
 
     renderChanges: function() {
-        _.extend(this.state, Nodes.get(this.props.id));
-        this.forceUpdate();
+        this.setState(Nodes.get(this.props.id));
     }
 }
