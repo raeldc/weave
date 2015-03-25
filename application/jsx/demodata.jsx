@@ -68,7 +68,7 @@ module.exports ={
         id: 'title',
         component: 'title',
         parent: 'content',
-        text: 'Alchemy - Build WordPress Themes and Pages!'
+        text: 'Core Builder - Build Anything for the Web!'
     },
     'p1': {
         id: 'p1',
