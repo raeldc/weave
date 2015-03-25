@@ -3,7 +3,7 @@ var UIConfig        = require('application/stores/uiconfig.js'),
 
 module.exports = {
     getInitialState: function() {
-        return {
+        this.nextState = {
             left     : 0,
             right    : 0,
             width    : 0,
@@ -12,11 +12,8 @@ module.exports = {
             className: 'hidden',
             target   : null
         };
-    },
 
-    shouldComponentUpdate: function() {
-        // Don't update on setState. forceUpdate is always used.
-        return false;
+        return _.clone(this.nextState);
     },
 
     componentDidMount: function() {
@@ -32,12 +29,11 @@ module.exports = {
     displayOverlay: function(id, node) {
         this.listenToReverseSelection();
 
-        this.setState({
-            node     : id,
-            visible  : true,
-            className: this.props.type,
-            target   : React.findDOMNode(node),
-        }, this.adaptOverlay);
+        this.nextState.node    = id;
+        this.nextState.visible = true;
+        this.nextState.target  = React.findDOMNode(node);
+
+        this.adaptOverlay();
     },
 
     hideOverlay: function() {
@@ -48,16 +44,16 @@ module.exports = {
     adaptOverlay: function() {
         var position, 
             state = {},
-            $dom  = jQuery(this.state.target || null);
+            $dom  = jQuery(this.nextState.target || null);
 
-        if($dom && this.state.visible) {
+        if($dom && this.nextState.visible) {
             position     = $dom.offset();
-            state.width  = $dom.outerWidth();
-            state.height = $dom.outerHeight();
-            state.top    = position.top - jQuery(window.canvas).scrollTop();
-            state.left   = position.left
-
-            this.setState(state, this.forceUpdate);
+            this.nextState.width  = $dom.outerWidth();
+            this.nextState.height = $dom.outerHeight();
+            this.nextState.top    = position.top - jQuery(window.canvas).scrollTop();
+            this.nextState.left   = position.left
         }
+
+        this.setState(this.nextState);
     }
 };
