@@ -9,13 +9,17 @@ var UIConfig =  new Store({
 
 var CanvasStore = UIConfig.getStore('canvas').setActions(UICanvasActions, {
     onSetDevice: function(device) {
-        this.set('device', device);
-        this.trigger(device);
+        if(this.get('device') !== device) {
+            this.set('device', device);
+            this.trigger(device);
+        }
     },
 
     onSelectNode: function(id) {
-        this.set('selectedNode', id);
-        this.trigger(id);
+        if(this.get('selectedNode') !== id) {
+            this.set('selectedNode', id);
+            this.trigger(id);
+        }
     }
 });
 

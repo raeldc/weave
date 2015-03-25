@@ -21,19 +21,19 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToMouseOver = UICanvasActions.mouseOverNode.listen(this.displayOverlay);
+        this.stopListeningToMouseOverNode = UICanvasActions.mouseOverNode.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToMouseOver();
-        this.stopListeningToMouseOut();
+        this.stopListeningToMouseOverNode();
+        this.stopListeningToMouseOutNode();
     },
 
     listenToReverseSelection: function() {
-        this.stopListeningToMouseOut  = UICanvasActions.mouseOutNode.listen(this.hideOverlay);
+        this.stopListeningToMouseOutNode  = UICanvasActions.mouseOutNode.listen(this.hideOverlay);
     },
 
-    unListenToReverseSelection: function() {
-        this.stopListeningToMouseOut();
+    stopListeningToReverseSelection: function() {
+        this.stopListeningToMouseOutNode();
     }
 });

@@ -20,14 +20,13 @@ module.exports = {
     },
 
     componentDidMount: function() {
-        this.stopListeningToCanvasScrolled  = UICanvasActions.canvasScrolled.listen(this.adaptOverlay);
-        this.stopListeningToDeviceChange    = UICanvasActions.deviceChanged.listen(this.adaptOverlay);
-        this.stopListeningToNodeManipulated = UICanvasActions.nodeManipulated.listen(this.adaptOverlay);
+        this.stopListeningToFrameChanged = UICanvasActions.frameChanged.listen(this.adaptOverlay);
+        this.stopListeningToNodeTouched  = UICanvasActions.nodeTouched.listen(this.adaptOverlay);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToCanvasScrolled();
-        this.stopListeningToDeviceChange();
+        this.stopListeningToFrameChanged();
+        this.stopListeningToNodeTouched();
     },
 
     displayOverlay: function(id, node) {
@@ -39,6 +38,11 @@ module.exports = {
             className   : this.props.type,
             selectedNode: React.findDOMNode(node),
         }, this.adaptOverlay);
+    },
+
+    hideOverlay: function() {
+        this.stopListeningToReverseSelection();
+        this.setState(this.getInitialState(), this.forceUpdate);
     },
 
     adaptOverlay: function() {
@@ -55,10 +59,5 @@ module.exports = {
 
             this.setState(state, this.forceUpdate);
         }
-    },
-
-    hideOverlay: function() {
-        this.unListenToReverseSelection();
-        this.setState(this.getInitialState(), this.forceUpdate);
     }
 };

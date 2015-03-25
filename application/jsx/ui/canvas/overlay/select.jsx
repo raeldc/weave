@@ -31,7 +31,7 @@ module.exports = React.createClass({
         this.stopListeningToUnSelectNode = UICanvasActions.unSelectNode.listen(this.hideOverlay);
     },
 
-    unListenToReverseSelection: function() {
+    stopListeningToReverseSelection: function() {
         this.stopListeningToUnSelectNode();
     }
 });

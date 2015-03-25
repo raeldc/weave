@@ -39,7 +39,7 @@ module.exports = {
 
     textChanged: function(event) {
         if(this.isText() && this.nodeProperties.contentEditable) {
-            UICanvasActions.nodeManipulated();
+            UICanvasActions.nodeTouched();
         }
 
         event.stopPropagation();

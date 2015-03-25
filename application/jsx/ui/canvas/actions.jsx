@@ -1,16 +1,21 @@
 var Reflux = require('reflux');
 
 var Actions = Reflux.createActions({
-    canvasScrolled: {
+    // Fired when the frame has scrolled and if the frame is resized
+    frameChanged: {
         sync: true,
     },
+    // Fired when a device is chosen.
     setDevice     : {
         sync: true,
         preEmit: function() {
             Actions.mouseOutNode();
         }
     },
-    deviceChanged : {},
+    // Fired when the node has changed but the changes aren't saved in the Node Store
+    nodeTouched: {
+        sync: true
+    },
     mouseOutNode  : {
         sync: true,
     },
@@ -28,10 +33,7 @@ var Actions = Reflux.createActions({
         preEmit: function() {
             Actions.unSelectNode();
         }
-    },
-    nodeManipulated: {
-        sync: true
-    },
+    }
 });
 
 module.exports = Actions;

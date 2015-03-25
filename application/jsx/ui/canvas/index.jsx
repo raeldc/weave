@@ -31,22 +31,20 @@ module.exports = React.createClass({
     componentDidMount: function() {
         window.canvas = React.findDOMNode(this.refs.iframe).contentWindow;
         
-        jQuery(window.canvas).scroll(this.onFrameScroll);
+        jQuery(window.canvas).scroll(this.onFrameEvent);
+        jQuery(window.canvas).resize(this.onFrameEvent);
 
         this.stopListeningToCanvasChanges = UIConfig.Canvas.listen(this.changeCanvas);
-    },
-
-    componentDidUpdate: function() {
-        UICanvasActions.deviceChanged(this.state.device);
     },
 
     componentWillUnmount: function() {
         this.stopListeningToCanvasChanges();
         jQuery(window.canvas).unbind('scroll');
+        jQuery(window.canvas).unbind('resize');
     },
 
-    onFrameScroll: function(event) {
-        UICanvasActions.canvasScrolled(null, event);
+    onFrameEvent: function(event) {
+        UICanvasActions.frameChanged(null, event);
         event.stopPropagation();
     },
 
