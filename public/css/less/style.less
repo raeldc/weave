@@ -130,7 +130,6 @@
 #ui-canvas-droparea {
     pointer-events: none;
     position      : fixed;
-    background    : black;
     z-index       : 10000;
     width         : 0;
     height        : 0;
@@ -138,6 +137,26 @@
     &.hidden {
         display   : none;
         visibility: none;
+    }
+
+    &.top {
+        border-top: 3px solid #FAA523;
+    }
+
+    &.bottom {
+        border-bottom: 3px solid #FAA523;
+    }
+
+    &.left {
+        border-left: 3px solid #FAA523;
+    }
+
+    &.right {
+        border-right: 3px solid #FAA523;
+    }
+
+    &.inner {
+        border: none;
     }
 }
 

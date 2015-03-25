@@ -1,20 +1,39 @@
 var UICanvasActions = require('application/ui/canvas/actions.js');
 
 module.exports = React.createClass({
+    nextState: {},
+    nodeInfo : {},
+
     getInitialState: function() {
         return {
             visible : false,
             position: null,
             target  : null,
-            node    : null
+            node    : null,
+            top     : 0,
+            left    : 0,
+            width   : 0,
+            height  : 0
         }
     },
 
     render: function() {
+        var style = {
+            top   : this.state.top,
+            left  : this.state.left,
+            width : this.state.width,
+            height: this.state.height,
+        };
+
+        var className = this.state.visible ? this.state.position : 'hidden';
+
         return (
-            <div id="ui-canvas-droparea" className={this.state.className}>
-            </div>
+            <div id="ui-canvas-droparea" style={style} className={className} />
         );
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return this.state.position !== nextState.position || this.state.node !== nextState.node;
     },
 
     componentDidMount: function() {
@@ -31,44 +50,65 @@ module.exports = React.createClass({
         var $target, nodeOffset;
 
         if(this.state.node !== id) {
-            this.state.node    = id;
-            this.state.visible = true;
-            this.state.target  = React.findDOMNode(node);
-            console.log('display drop area');
-            this.adaptDropArea(this.getNodePosition());
+            this.nextState.node     = id;
+            this.nextState.visible  = true;
+            this.nextState.target   = React.findDOMNode(node);
+            this.nextState.position = null;
+
+            this.adaptDropArea(this.getNodeInfo());
         }
 
         this.calculateCursorPosition(event.clientX, event.clientY);
+        this.setState(this.nextState);
     },
 
-    adaptDropArea: function(nodePosition) {
-        var nodePosition = nodePosition || this.getNodePosition();
-        console.log('adapt drop area');
+    adaptDropArea: function(nodeInfo) {
+        if(!this.state.visible) return;
+
+        nodeInfo = nodeInfo || this.nodeInfo || this.getNodeInfo();
+
+        this.nextState.top    = nodeInfo.top;
+        this.nextState.left   = nodeInfo.left;
+        this.nextState.width  = nodeInfo.width;
+        this.nextState.height = nodeInfo.height;
     },
 
     hideDropArea: function() {
-        console.log('hide drop area');
         this.setState(this.getInitialState(), this.forceUpdate);
     },
 
-    getNodePosition: function(target) {
-        var target     = target || this.state.target,        
+    getNodeInfo: function(target) {
+        var target     = target || this.nextState.target,
             $target    = jQuery(target),
             nodeOffset = $target.offset();
 
-        this.nodePosition = {
+        this.nodeInfo = {
             width : $target.outerWidth(),
             height: $target.outerHeight(),
             top   : nodeOffset.top - jQuery(window.canvas).scrollTop(),
             left  : nodeOffset.left
         };
 
-        return this.nodePosition;
+        return this.nodeInfo;
     },
 
-    calculateCursorPosition: function(x, y) {
-        if(!this.nodePosition) return;
+    calculateCursorPosition: function(mouseX, mouseY) {
+        if(!this.nodeInfo) return;
 
-        console.log('calculate position');
+        var position = 'inner';
+
+        if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .1))) {
+            position = 'top';
+        }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .1)))) {
+            position = 'bottom';
+        }
+
+        if(mouseX < this.nodeInfo.left + (this.nodeInfo.width * .1)) {
+            position = 'left'
+        }else if(mouseX > this.nodeInfo.left + (this.nodeInfo.width - (this.nodeInfo.width * .1))) {
+            position = 'right'
+        }
+
+        return this.nextState.position = position;
     }
 });

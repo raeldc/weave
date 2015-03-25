@@ -88,7 +88,6 @@ module.exports = {
         event.stopPropagation();
     },
     onDrop: function(event) {
-        console.log(UIConfig.Canvas.get('pending_component'));
         event.stopPropagation();
     }
 }

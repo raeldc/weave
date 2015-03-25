@@ -14,9 +14,7 @@ module.exports = React.createClass({
                 x={this.state.left} 
                 y={this.state.top} 
                 height={this.state.height} 
-                width={this.state.width} 
-                rx="5" 
-                ry="5" />
+                width={this.state.width} />
         );
     },
 
