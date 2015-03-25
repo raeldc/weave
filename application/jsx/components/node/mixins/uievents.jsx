@@ -1,12 +1,23 @@
-var UICanvasActions   = require('application/ui/canvas/actions.js');
-var UIControlsActions = require('application/ui/controls/actions.js');
+var UICanvasActions   = require('application/ui/canvas/actions.js'),
+    UIControlsActions = require('application/ui/controls/actions.js'),
+    UIConfig          = require('application/stores/uiconfig.js');
 
 module.exports = {
     getInitialState: function() {
         if(this.props.editMode) {
+            return {
+                enableEditable: false
+            }
+        }
+    },
+
+    componentWillMount: function() {
+        if(this.props.editMode) {
             this.addEvent('onMouseOver', this.mouseOverNode);
             this.addEvent('onMouseDown', this.selectNode);
-            this.addEvent('onBlur', this.saveTextChanges);
+            this.addEvent('onBlur',      this.saveTextChanges);
+            this.addEvent('onDragOver',  this.onDragOver);
+            this.addEvent('onDrop',      this.onDrop);
 
             return {
                 enableEditable: false
@@ -62,5 +73,22 @@ module.exports = {
         // Remove the listener
         this.stopListeningToUnselectNode();
         this.forceUpdate();
+    },
+
+    onDragOver: function(event) {
+        var previousDropSubject = UIConfig.Canvas.get('pending_drop_subject');
+
+        UICanvasActions.droppingOnNode(this.props.id, this, event);
+
+        if(previousDropSubject !== this.props.id) {
+            UICanvasActions.mouseOverNode(this.props.id, this);
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    onDrop: function(event) {
+        console.log(UIConfig.Canvas.get('pending_component'));
+        event.stopPropagation();
     }
 }

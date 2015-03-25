@@ -33,6 +33,19 @@ var Actions = Reflux.createActions({
         preEmit: function() {
             Actions.unSelectNode();
         }
+    },
+    droppingOnNode: {
+        sync: true
+    },
+    insertingComponent: {
+        sync: true,
+        preEmit: function() {
+            Actions.unSelectNode();
+            Actions.mouseOutNode();
+        }
+    },
+    endInsertingComponent: {
+        sync: true
     }
 });
 

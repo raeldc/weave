@@ -2,7 +2,8 @@ var UICanvasFrame   = require('application/ui/canvas/frame.js'),
     UICanvasFactory = require('application/ui/canvas/factory.js'),
     UIConfig        = require('application/stores/uiconfig.js'),
     UICanvasActions = require('application/ui/canvas/actions.js'),
-    UICanvasOverlay = require('application/ui/canvas/overlay');
+    UICanvasOverlay = require('application/ui/canvas/overlay'),
+    UIDropArea      = require('application/ui/canvas/droparea');
 
 module.exports = React.createClass({
     displayName: 'Canvas',
@@ -18,6 +19,7 @@ module.exports = React.createClass({
             <div id="alchemy-canvas" className={this.state.device}>
                 <UICanvasFrame head={css} ref="iframe">
                     <UICanvasOverlay />
+                    <UIDropArea />
                     {UICanvasFactory.createNode('root', this.props.editMode)}
                 </UICanvasFrame>
             </div>
@@ -50,5 +52,5 @@ module.exports = React.createClass({
 
     changeCanvas: function() {
         this.setState(this.getInitialState());
-    }
+    },
 });

@@ -1,4 +1,5 @@
 var UIControlsActions = require('application/ui/controls/actions.js'),
+    UICanvasActions   = require('application/ui/canvas/actions.js'),
     Components        = require('application/stores/components.js');
 
 var ComponentButton = React.createClass({
@@ -7,14 +8,12 @@ var ComponentButton = React.createClass({
     },
 
     onDragStart: function(event) {
-        event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('component', this.props.component);
-        UIControlsActions.startDraggingComponent(event);
+        UICanvasActions.insertingComponent(this.props.component);
         event.stopPropagation();
     },
 
     onDragEnd: function(event) {
-        UIActions.stopDraggingComponent(event, this.props.component);
+        UICanvasActions.endInsertingComponent(this.props.component);
         event.stopPropagation();
     }
 });

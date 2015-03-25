@@ -4,13 +4,13 @@ var UIConfig        = require('application/stores/uiconfig.js'),
 module.exports = {
     getInitialState: function() {
         return {
-            left        : 0,
-            right       : 0,
-            width       : 0,
-            height      : 0,
-            visible     : false,
-            className   : 'hidden',
-            selectedNode: null
+            left     : 0,
+            right    : 0,
+            width    : 0,
+            height   : 0,
+            visible  : false,
+            className: 'hidden',
+            target   : null
         };
     },
 
@@ -33,10 +33,10 @@ module.exports = {
         this.listenToReverseSelection();
 
         this.setState({
-            node        : id,
-            visible     : true,
-            className   : this.props.type,
-            selectedNode: React.findDOMNode(node),
+            node     : id,
+            visible  : true,
+            className: this.props.type,
+            target   : React.findDOMNode(node),
         }, this.adaptOverlay);
     },
 
@@ -48,7 +48,7 @@ module.exports = {
     adaptOverlay: function() {
         var position, 
             state = {},
-            $dom  = jQuery(this.state.selectedNode || null);
+            $dom  = jQuery(this.state.target || null);
 
         if($dom && this.state.visible) {
             position     = $dom.offset();
