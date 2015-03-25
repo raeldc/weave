@@ -1,33 +1,13 @@
-var UIControlsActions = require('application/ui/controls/actions.js');
-var UICanvasActions   = require('application/ui/canvas/actions.js');
-var Store             = require('application/stores');
-
-var UIConfig =  new Store({
-    canvas  : {device: 'desktop'},
-    controls: {theme : 'light'}
-});
-
-var CanvasStore = UIConfig.getStore('canvas').setActions(UICanvasActions, {
-    onSetDevice: function(device) {
-        if(this.get('device') !== device) {
-            this.set('device', device);
-            this.trigger(device);
-        }
-    },
-
-    onSelectNode: function(id) {
-        if(this.get('selectedNode') !== id) {
-            this.set('selectedNode', id);
-            this.trigger(id);
-        }
-    }
-});
-
-var ControlsStore = UIConfig.getStore('controls').setActions(UIControlsActions, {
-
-});
+var CanvasStore   = require('application/stores/canvas.js'),
+    ControlsStore = require('application/stores/controls.js');
 
 module.exports = {
     Canvas  : CanvasStore,
-    Controls: ControlsStore
+    Controls: ControlsStore,
+    toObject: function() {
+        return {
+            canvas  : CanvasStore.toObject(),
+            controls: ControlsStore.toObject()
+        }
+    }
 }
