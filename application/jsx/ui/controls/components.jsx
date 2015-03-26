@@ -4,7 +4,7 @@ var UIControlsActions = require('application/actions/controls.js'),
 
 var ComponentButton = React.createClass({
     render: function() {
-        return <button draggable type="button" className="btn btn-primary" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}><i className={this.props.iconClass}></i> {this.props.title}</button> 
+        return <a draggable type="button" className="btn btn-primary" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}><i className={this.props.iconClass}></i> {this.props.title}</a> 
     },
 
     onDragStart: function(event) {
