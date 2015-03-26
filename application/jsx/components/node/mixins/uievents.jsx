@@ -1,9 +1,6 @@
 var UICanvasActions   = require('application/actions/canvas.js'),
-    UINodeActions     = require('application/actions/node.js'),
     UIControlsActions = require('application/actions/controls.js'),
-    UIConfig          = require('application/stores/uiconfig.js'),
-    Components        = require('application/stores/components.js'),
-    Nodes             = require('application/stores/nodes.js');
+    UIConfig          = require('application/stores/uiconfig.js');
 
 module.exports = {
     getInitialState: function() {
@@ -15,16 +12,31 @@ module.exports = {
     },
 
     componentWillMount: function() {
+        this.initiateEvents();
+    },
+
+    componentWillUpdate: function() {
+        this.initiateEvents();  
+    },
+
+    initiateEvents: function() {
         if(this.props.editMode) {
+            this.resetEvents();
             this.addEvent('onMouseOver', this.mouseOverNode);
             this.addEvent('onMouseDown', this.selectNode);
             this.addEvent('onBlur',      this.saveTextChanges);
             this.addEvent('onDragOver',  this.onDragOver);
             this.addEvent('onDrop',      this.onDrop);
+        }
+    },
 
-            return {
-                enableEditable: false
-            }
+    resetEvents: function() {
+        if(this.props.editMode) {
+            this.removeEvent('onMouseOver', this.mouseOverNode);
+            this.removeEvent('onMouseDown', this.selectNode);
+            this.removeEvent('onBlur',      this.saveTextChanges);
+            this.removeEvent('onDragOver',  this.onDragOver);
+            this.removeEvent('onDrop',      this.onDrop);
         }
     },
 
@@ -92,15 +104,12 @@ module.exports = {
     },
 
     onDrop: function(event) {
-        var subject   = UIConfig.Canvas.get('pending_drop_subject'),
-            position  = UIConfig.Canvas.get('pending_drop_position'),
-            component = UIConfig.Canvas.get('pending_component');
+        var component = UIConfig.Canvas.get('pending_component'),
+            subject   = UIConfig.Canvas.get('pending_drop_subject'),
+            position  = UIConfig.Canvas.get('pending_drop_position');
 
-        switch(position) {
-            case 'bottom':
-                UINodeActions.addChildNode(Nodes.getObject(subject).parent, _.extend({component: component}, Components.getDefaults(component)));
-            break;
-        }
+        UICanvasActions.mouseOutNode();
+        UICanvasActions.insertComponent(component, subject, position);
 
         event.stopPropagation();
     }

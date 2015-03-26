@@ -49,6 +49,9 @@ var Actions = Reflux.createActions({
     },
     endInsertingComponent: {
         sync: true
+    },
+    insertComponent: {
+        sync: true
     }
 });
 

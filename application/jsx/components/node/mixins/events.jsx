@@ -17,12 +17,15 @@ module.exports = {
     },
 
     removeEvent: function(oldevent, fn) {
-        if(_.size(this.events[oldevent])) {
-            this.events[oldevent] = _.without(this.events[oldevent], fn);
+        var events = this.events || {};
+        if(events[oldevent] === undefined) return;
+
+        if(_.size(events[oldevent])) {
+            events[oldevent] = _.without(events[oldevent], fn);
         }
 
-        if(_.size(this.events[oldevent]) === 0) {
-            delete this.events[oldevent];
+        if(_.size(events[oldevent]) === 0) {
+            delete events[oldevent];
         }
 
         this.attachEvents();

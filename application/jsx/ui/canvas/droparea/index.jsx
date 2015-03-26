@@ -107,9 +107,9 @@ module.exports = React.createClass({
 
         var position = 'inner';
 
-        if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .1))) {
+        if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .2))) {
             position = 'top';
-        }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .1)))) {
+        }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .2)))) {
             position = 'bottom';
         }
 

@@ -1,5 +1,8 @@
 var UICanvasActions = require('application/actions/canvas.js'),
-    Store           = require('application/stores');
+    NodeActions     = require('application/actions/node.js'),
+    Store           = require('application/stores'),
+    Nodes           = require('application/stores/nodes.js'),
+    Components      = require('application/stores/components.js');
 
 module.exports = (new Store({device: 'desktop'})).setActions(UICanvasActions, {
     onSetDevice: function(device) {
@@ -31,4 +34,16 @@ module.exports = (new Store({device: 'desktop'})).setActions(UICanvasActions, {
         this.set('pending_component',    null);
         this.set('pending_drop_subject', null);
     },
+    onInsertComponent: function(component, subject, position) {
+        var properties = _.extend({component: component}, Components.getDefaults(component));
+
+        switch(position) {
+            case 'bottom':
+                NodeActions.insertNodeAfterSibling(properties, subject);
+            break;
+            case 'top':
+                NodeActions.insertNodeBeforeSibling(properties, subject);
+            break;
+        }
+    }
 });

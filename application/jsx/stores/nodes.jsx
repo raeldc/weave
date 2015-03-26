@@ -1,8 +1,6 @@
 var Store         = require('application/stores'),
     UINodeActions = require('application/actions/node.js');
 
-
-
 function addNodeAsFirstChild(parent, node) {
     node.parent = parent;
     return addChildNode(node, 'first');
@@ -13,38 +11,7 @@ function addNodeAsLastChild(parent, node) {
     return addChildNode(node, 'last');
 }
 
-function insertNodeBesideSibling(node, sibling, position) {
-    var children   = [];
-    var sibling    = findNode(sibling);
-    var parent     = findNode(sibling.parent);
-    var node       = _.isString(node) ? findNode(node) || addNode() : addNode(node);
 
-    if(sibling === undefined) {
-        throw new Error('Sibling does not exist');
-    }
-
-    node.parent = parent.id;
-
-    if(_.size(parent.children) > 0){
-        _.each(parent.children || [], function(value, index){
-            if(value === sibling.id) {
-                if(position === 'before') {
-                    children.push(node.id);
-                    if(value !== node.id) children.push(value);
-                }else {
-                    if(value !== node.id) children.push(value);
-                    children.push(node.id);
-                }
-            }else if(value !== node.id) {
-                children.push(value);
-            }
-        });
-    }else {
-        children.push(node.id);
-    }
-
-    updateNode(parent.id, {children: children});
-}
 
 function insertNodeBeforeSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'before');
@@ -96,7 +63,7 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
     },
 
     updateNode: function(id, properties, nested_properties) {
-        var node = this.get(id);
+        var node = this.getStore(id);
         if(node){
             if(_.isString(properties)) {
                 node.set(properties, _.extend(node.getObject(properties) || {}, nested_properties));
@@ -126,6 +93,50 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
         }
 
         throw new Error('Parent does not exist');
+    },
+
+    insertNodeBesideSibling: function(node, sibling, position) {
+        var children = [];
+        var sibling  = this.get(sibling);
+        var parent   = this.get(sibling.parent);
+        var node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node));
+
+        if(sibling === undefined) {
+            throw new Error('Sibling does not exist');
+        }
+
+        this.getStore(node.id).set('parent', parent.id);
+
+        if(_.size(parent.children) > 0){
+            _.each(parent.children || [], function(child, index){
+                if(child === sibling.id) {
+                    if(position === 'before') {
+                        children.push(node.id);
+                        if(child !== node.id) children.push(child);
+                    }else {
+                        if(child !== node.id) children.push(child);
+                        children.push(node.id);
+                    }
+                }else if(child !== node.id) {
+                    children.push(child);
+                }
+            });
+        }else {
+            children.push(node.id);
+        }
+
+        this.updateNode(parent.id, 'children', children);
+
+        this.getStore(parent.id).trigger();
+        this.getStore(node.id).trigger();
+    },
+
+    onInsertNodeAfterSibling: function(node, sibling) {
+        this.insertNodeBesideSibling(node, sibling, 'after');
+    },
+
+    onInsertNodeBeforeSibling: function(node, sibling) {
+        this.insertNodeBesideSibling(node, sibling, 'before');
     },
 
     onAddNode: function(properties) {
