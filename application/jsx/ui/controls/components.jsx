@@ -1,7 +1,6 @@
-var Dispatcher     = require('application/alchemy/dispatcher.js');
-var UIActions      = require('application/ui/actions.js');
-var Components     = require('application/stores/components.js');
-var CONST          = require('application/constants/all.js');
+var UIControlsActions = require('application/actions/controls.js'),
+    UICanvasActions   = require('application/actions/canvas.js'),
+    Components        = require('application/stores/components.js');
 
 var ComponentButton = React.createClass({
     render: function() {
@@ -9,15 +8,12 @@ var ComponentButton = React.createClass({
     },
 
     onDragStart: function(event) {
-        event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('component', this.props.component);
-        UIActions.selectNode();
-
-        UIActions.startComponentDrag(event, this.props.component);
+        UICanvasActions.insertingComponent(this.props.component);
+        event.stopPropagation();
     },
 
     onDragEnd: function(event) {
-        UIActions.endComponentDrag(event, this.props.component);
+        UICanvasActions.endInsertingComponent(this.props.component);
         event.stopPropagation();
     }
 });
@@ -38,7 +34,7 @@ var ComponentSelection = React.createClass({
                 }.bind(this));
 
                 groups.push(
-                    <div className="ui-component-group" key={index}>
+                    <div className="ui-controls-components-group" key={index}>
                         <h5>{group.title}</h5>
                         {components}
                     </div>

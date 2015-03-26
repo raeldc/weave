@@ -1,11 +1,4 @@
-var Dispatcher = require('application/alchemy/dispatcher.js');
-var CONST      = require('application/constants/nodes.js');
-
 module.exports = {
-    componentWillMount: function() {
-        this.attachEvents();
-    },
-
     addEvent: function(event, fn) {
         if(this.events === undefined) {
             this.events = {};
@@ -19,6 +12,23 @@ module.exports = {
         if(typeof fn === 'function') {
             this.events[event].push(fn);
         }
+
+        this.attachEvents();
+    },
+
+    removeEvent: function(oldevent, fn) {
+        var events = this.events || {};
+        if(events[oldevent] === undefined) return;
+
+        if(_.size(events[oldevent])) {
+            events[oldevent] = _.without(events[oldevent], fn);
+        }
+
+        if(_.size(events[oldevent]) === 0) {
+            delete events[oldevent];
+        }
+
+        this.attachEvents();
     },
 
     attachEvents: function() {
@@ -26,7 +36,7 @@ module.exports = {
         var properties = this.nodeProperties;
 
         _.each(this.events, function(functions, index){
-            if(properties[index] === undefined) {
+            if(_.size(functions)) {
                 properties[index] = (function(functions){
                     return function(event){
                         _.each(functions, function(fn, index){

@@ -1,73 +1,5 @@
-var EventEmitter = require('events').EventEmitter;
-var Dispatcher   = require('application/alchemy/dispatcher.js');
-var CONST        = require('application/constants/all.js');
-var _nodes       = {};
-
-/**
- * Adds a node to the nodes. 
- *
- * NOTE: Doesn't trigger an Event. So calling this directly won't trigger a re-render
- * @param {object} properties Properties of the node.
- */
-function addNode(node) {
-    node = _.isObject(node) ? node : {};
-    var parent;
-
-    if(node.id === undefined) {
-        node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    }
-
-    if(node.parent === undefined) {
-        node.parent = 'root';
-    }
-
-    if(!_.isArray(node.children)) {
-        node.children = [];
-    }
-
-    _nodes[node.id] = node;
-
-    return node;
-}
-
-function findNode(id) {
-    if(_.isObject(_nodes[id])){
-        return _nodes[id];
-    }
-
-    return undefined;
-}
-
-function updateNode(id, properties, nested_properties) {
-    if(_.isObject(_nodes[id])){
-        if(_.isString(properties)) {
-            _nodes[id][properties] = _nodes[id][properties] || {};
-            return _.extend(_nodes[id][properties], nested_properties);
-        }else if(_.isObject(properties)) {
-            return _.extend(_nodes[id], properties);
-        }
-    }
-
-    throw new Error('Error in updating node');
-}
-
-function addChildNode(properties, position) {
-    var parent = findNode(properties.parent) || findNode('root');
-
-    if(parent) {
-        addNode(properties);
-
-        if(position === 'first') {
-            parent.children.unshift(properties.id);
-        }else{
-            parent.children.push(properties.id);
-        }
-
-        return properties;
-    }
-
-    throw new Error('Parent does not exist');
-}
+var Store         = require('application/stores'),
+    UINodeActions = require('application/actions/node.js');
 
 function addNodeAsFirstChild(parent, node) {
     node.parent = parent;
@@ -79,38 +11,7 @@ function addNodeAsLastChild(parent, node) {
     return addChildNode(node, 'last');
 }
 
-function insertNodeBesideSibling(node, sibling, position) {
-    var children   = [];
-    var sibling    = findNode(sibling);
-    var parent     = findNode(sibling.parent);
-    var node       = _.isString(node) ? findNode(node) || addNode() : addNode(node);
 
-    if(sibling === undefined) {
-        throw new Error('Sibling does not exist');
-    }
-
-    node.parent = parent.id;
-
-    if(_.size(parent.children) > 0){
-        _.each(parent.children || [], function(value, index){
-            if(value === sibling.id) {
-                if(position === 'before') {
-                    children.push(node.id);
-                    if(value !== node.id) children.push(value);
-                }else {
-                    if(value !== node.id) children.push(value);
-                    children.push(node.id);
-                }
-            }else if(value !== node.id) {
-                children.push(value);
-            }
-        });
-    }else {
-        children.push(node.id);
-    }
-
-    updateNode(parent.id, {children: children});
-}
 
 function insertNodeBeforeSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'before');
@@ -139,107 +40,118 @@ function deleteNode(id) {
     delete _nodes[id];
 }
 
-function addNodeClass(id, className) {
-    var node = findNode(id);
+module.exports = new Store(require('application/demodata.js'), UINodeActions, {
+    addNode: function(properties) {
+        var parent,
+            node = _.isObject(properties) ? _.clone(properties) : {};
 
-    if(!node) return;
+        if(node.id === undefined) {
+            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+        }
 
-    var className         = className || '';
-    var currentClassNames = node.className || '';
-    var newClassNames     = _.isArray(className) ? className : className.split(' ');
-    node.className        = _.compact(_.uniq(currentClassNames.split(' ').concat(newClassNames))).join(' ');
-}
+        if(node.parent === undefined) {
+            node.parent = 'root';
+        }
 
-function removeNodeClass(id, className) {
-    var node = findNode(id);
+        if(!_.isArray(node.children)) {
+            node.children = [];
+        }
 
-    if(!node) return;
+        this.set(node.id, node);
 
-    var className         = className || '';
-    var currentClassNames = node.className.split(' ');
-    node.className        = _.without(currentClassNames, className).join(' ');
-}
-
-var Nodes = _.extend({
-    initialize: function(nodes) {
-        _nodes = nodes;
-        return this;
+        return node.id;
     },
 
-    getAll: function() {
-        // Clone so that _nodes remain private
-        return _.clone(_nodes);
+    updateNode: function(id, properties, nested_properties) {
+        var node = this.getStore(id);
+        if(node){
+            if(_.isString(properties)) {
+                node.set(properties, _.extend(node.getObject(properties) || {}, nested_properties));
+            }else if(_.isObject(properties)) {
+                this.set(id, _.extend(node.toObject(), properties));
+            }
+
+            return id;
+        }
+
+        throw new Error('Error in updating node');
     },
 
-    get: function(id) {
-        return findNode(id);
+    addChildNode: function(properties, position) {
+        var parent = this.get(properties.parent) || this.get('root');
+
+        if(parent) {
+            var child = this.addNode(properties);
+
+            if(position === 'first') {
+                parent.children.unshift(child);
+            }else{
+                parent.children.push(child);
+            }
+
+            return child;
+        }
+
+        throw new Error('Parent does not exist');
     },
 
-    exists: function(id) {
-        return (_nodes[id]);
+    insertNodeBesideSibling: function(node, sibling, position) {
+        var children = [];
+        var sibling  = this.get(sibling);
+        var parent   = this.get(sibling.parent);
+        var node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node));
+
+        if(sibling === undefined) {
+            throw new Error('Sibling does not exist');
+        }
+
+        this.getStore(node.id).set('parent', parent.id);
+
+        if(_.size(parent.children) > 0){
+            _.each(parent.children || [], function(child, index){
+                if(child === sibling.id) {
+                    if(position === 'before') {
+                        children.push(node.id);
+                        if(child !== node.id) children.push(child);
+                    }else {
+                        if(child !== node.id) children.push(child);
+                        children.push(node.id);
+                    }
+                }else if(child !== node.id) {
+                    children.push(child);
+                }
+            });
+        }else {
+            children.push(node.id);
+        }
+
+        this.updateNode(parent.id, 'children', children);
+
+        this.getStore(parent.id).trigger();
+        this.getStore(node.id).trigger();
     },
 
-    count: function(){
-        return _.size(_nodes);
+    onInsertNodeAfterSibling: function(node, sibling) {
+        this.insertNodeBesideSibling(node, sibling, 'after');
     },
 
-    addChangeListener: function(id, callback) {
-        this.on(CONST.NODE_CHANGED + '_' + id, callback);
+    onInsertNodeBeforeSibling: function(node, sibling) {
+        this.insertNodeBesideSibling(node, sibling, 'before');
     },
 
-    removeChangeListener: function(id, callback) {
-        this.removeListener(CONST.NODE_CHANGED + '_' + id, callback);
+    onAddNode: function(properties) {
+        var id = this.addNode(properties);
+        this.getStore(id).trigger(id);
     },
 
-    addRemoveListener: function(id, callback) {
-        this.on(CONST.NODE_REMOVED + '_' + id, callback);
+    onAddChildNode: function(parent, properties, position) {
+        properties.parent = parent;
+        this.addChildNode(properties);
+        this.getStore(parent).trigger();
     },
 
-    removeRemoveListener: function(id, callback) {
-        this.removeListener(CONST.NODE_REMOVED + '_' + id, callback);
-    },
-}, EventEmitter.prototype);
-
-Nodes.dispatchToken = Dispatcher.register(function(command) {
-    switch(command.action) {
-        case CONST.NODE_ACTION_UPDATE_NODE:
-            updateNode(command.node, command.properties);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
-            Nodes.emit(CONST.NODE_CHANGED, command.node);
-        break;
-        case CONST.NODE_ACTION_UPDATE_NODE_STYLE:
-            updateNode(command.node, 'style', command.style);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
-            Nodes.emit(CONST.NODE_CHANGED, command.node);
-        break;
-        case CONST.NODE_ACTION_ADD_CLASS:
-            addNodeClass(command.node, command.className);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
-            Nodes.emit(CONST.NODE_CHANGED, command.node);
-        break;
-        case CONST.NODE_ACTION_REMOVE_CLASS:
-            removeNodeClass(command.node, command.className);
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.node, command.node);
-            Nodes.emit(CONST.NODE_CHANGED, command.node);
-        break;
-        case CONST.NODE_ACTION_ADDNODE:
-            command.properties        = command.properties || {};
-            command.properties.parent = command.parent || command.properties.parent;
-
-            addChildNode(command.properties, command.position);
-
-            Nodes.emit(CONST.NODE_CHANGED + '_' + command.properties.parent, command.properties.parent);
-            Nodes.emit(CONST.NODE_CHANGED, command.properties.parent);
-        break;
-        case CONST.NODE_ACTION_DELETENODE:
-            var parent = findNode(command.node).parent;
-
-            deleteNode(command.node);
-
-            Nodes.emit(CONST.NODE_CHANGED + '_' + parent, parent);
-            Nodes.emit(CONST.NODE_CHANGED, parent);
-        break;
+    onUpdateNode: function(id, properties, nested_properties) {
+        this.updateNode(id, properties, nested_properties);
+        this.getStore(id).trigger(id);
     }
 });
-
-module.exports = Nodes;

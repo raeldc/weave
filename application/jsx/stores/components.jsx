@@ -1,5 +1,3 @@
-var Dispatcher  = require('application/alchemy/dispatcher.js');
-
 var _components = {};
 
 var _groups = {
@@ -74,6 +72,10 @@ var Components = {
 
     getConfigurations: function(id) {
         return this.get(id).configurations;
+    },
+
+    getDefaults: function(id) {
+        return this.get(id).defaults || {};
     }
 };
 

@@ -1,6 +1,4 @@
-var UIActions = require('application/ui/actions.js');
-var Nodes     = require('application/stores/nodes.js');
-var CONST     = require('application/constants/all.js');
+var Nodes = require('application/stores/nodes.js');
 
 module.exports = React.createClass({
     getInitialState: function() {

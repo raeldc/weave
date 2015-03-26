@@ -1,10 +1,16 @@
-var Factory = require('application/components/factory.js');
-var Nodes   = require('application/stores/nodes.js');
+var Nodes           = require('application/stores/nodes.js'),
+    UICanvasFactory = require('application/ui/canvas/factory.js');
 
 module.exports = {
     getInitialState: function() {
-        var state = Nodes.get(this.props.id);
-        state.enableEditable = false;
+        var state       = Nodes.get(this.props.id);
+        state.className = state.className || '';
+
+        this.nodeProperties = this.nodeProperties || {
+            id        : this.props.id,
+            classNames: state.className.split(' '),
+        };
+
         return state;
     },
 
@@ -22,8 +28,7 @@ module.exports = {
     prepareChildren: function(nextProps, nextState) {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
-
-        this.children = Factory.createChildNodes(this.state.children) || [];
+        this.children = UICanvasFactory.createChildNodes(nextState.children, nextProps.editMode) || [];
         return this.children;
     },
 
@@ -31,20 +36,13 @@ module.exports = {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
 
-        this.nodeProperties = this.nodeProperties || {
-            id       : this.props.id,
-            className: ''
-        };
-
-        this.nodeProperties.style     = this.state.style;
-        this.nodeProperties.className = nextState.className;
+        this.nodeProperties.style = this.state.style;
 
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';
 
             this.children                               = undefined;
             this.nodeProperties.dangerouslySetInnerHTML = {__html: text};
-            this.nodeProperties.contentEditable         = this.state.enableEditable;
         }
 
         return this.nodeProperties;
@@ -52,18 +50,5 @@ module.exports = {
 
     isText: function() {
         return _.isEmpty(this.state.children) && _.isString(this.state.text);
-    },
-
-    addClass: function(className) {
-        var className     = className || '';
-        var classNames    = this.nodeProperties.className || '';
-        var newClassNames = _.isArray(className) ? className : className.split(' ');
-
-        this.nodeProperties.className = _.compact(_.uniq(classNames.split(' ').concat(newClassNames))).join(' ');
-    },
-
-    removeClass: function(className) {
-        var classNames = this.nodeProperties.className.split(' ');
-        this.nodeProperties.className = _.without(classNames, className).join(' ');
     }
 }

@@ -1,19 +1,16 @@
-var UIConfig    = require('application/stores/uiconfig.js');
-var UIActions   = require('application/ui/actions.js');
-var ButtonGroup = require('react-bootstrap').ButtonGroup;
-var Button      = require('react-bootstrap').Button;
-var CONST       = require('application/constants/all.js');
+var UICanvasActions = require('application/actions/canvas.js'),
+    UIConfig        = require('application/stores/uiconfig.js'),
+    ButtonGroup     = require('react-bootstrap').ButtonGroup,
+    Button          = require('react-bootstrap').Button;  
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {
-            device: UIConfig.getConfig('device')
-        }
+        return UIConfig.Canvas.toObject();
     },
 
     render: function() {
         return  (
-            <ButtonGroup>
+            <ButtonGroup className="ui-devices">
                 <Button className="btn-xs" active={this.state.device === 'desktop'} onClick={this.setDevice.bind(this, 'desktop')}>Full</Button>
                 <Button className="btn-xs" active={this.state.device === 'laptop'} onClick={this.setDevice.bind(this, 'laptop')}>Laptop</Button>
                 <Button className="btn-xs" active={this.state.device === 'tablet'} onClick={this.setDevice.bind(this, 'tablet')}>Tablet</Button>
@@ -23,18 +20,23 @@ module.exports = React.createClass({
     },
 
     setDevice: function(device) {
-        UIActions.setDevice(device);
+        UICanvasActions.setDevice(device);
     },
 
-    updateDevice: function(){
+    onDeviceChange: function(node){
         this.setState(this.getInitialState());
     },
 
+    shouldComponentUpdate: function(nextProps, nextState) {
+        // Update only when the selected node is different from the previous one
+        return this.state.device !== nextState.device;
+    },
+
     componentDidMount: function() {
-        UIConfig.on(CONST.UI_DEVICE_CHANGED, this.updateDevice);
+        this.stopListeningToDeviceChange = UIConfig.Canvas.listen(this.onDeviceChange);
     },
 
     componentWillUnmount: function() {
-        UIConfig.removeListener(CONST.UI_DEVICE_CHANGED, this.updateDevice);
+        this.stopListeningToDeviceChange();
     }
 });
