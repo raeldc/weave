@@ -9,8 +9,10 @@ module.exports = React.createClass({
     },
 
     render: function() {
+        var className = this.state.visible ? this.state.type : 'hidden';
+
         return (
-            <rect className={this.state.type} 
+            <rect className={className} 
                 x={this.state.left} 
                 y={this.state.top} 
                 height={this.state.height} 

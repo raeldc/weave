@@ -23,7 +23,7 @@ module.exports = {
         if(this.props.editMode) {
             this.resetEvents();
             this.addEvent('onMouseOver', this.mouseOverNode);
-            this.addEvent('onMouseDown', this.selectNode);
+            this.addEvent('onClick',     this.selectNode);
             this.addEvent('onBlur',      this.saveTextChanges);
             this.addEvent('onDragOver',  this.onDragOver);
             this.addEvent('onDrop',      this.onDrop);
@@ -33,7 +33,7 @@ module.exports = {
     resetEvents: function() {
         if(this.props.editMode) {
             this.removeEvent('onMouseOver', this.mouseOverNode);
-            this.removeEvent('onMouseDown', this.selectNode);
+            this.removeEvent('onClick',     this.selectNode);
             this.removeEvent('onBlur',      this.saveTextChanges);
             this.removeEvent('onDragOver',  this.onDragOver);
             this.removeEvent('onDrop',      this.onDrop);

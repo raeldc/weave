@@ -18,18 +18,18 @@ var Controls = React.createClass({
 
         return (
             <div id="alchemy-controls">
-                <TabbedArea defaultActiveKey={1} justified>
-                    <TabPane eventKey={1} tab={EditNodeTab}>
+                <TabbedArea defaultActiveKey={this.state.active_section} justified>
+                    <TabPane eventKey="edit" tab={EditNodeTab}>
                         <UIControlsDevices />
                         <UIControlsNodeconfig />
                     </TabPane>
-                    <TabPane eventKey={2} tab={ComponentsTab}>
+                    <TabPane eventKey="components" tab={ComponentsTab}>
                         <UIControlsComponents />
                     </TabPane>
-                    <TabPane eventKey={3} tab={HistoryTab}>
+                    <TabPane eventKey="history" tab={HistoryTab}>
                         Undo, Redo, Go back to your history of changes.
                     </TabPane>
-                    <TabPane eventKey={4} tab={ConfigTab}>
+                    <TabPane eventKey="config" tab={ConfigTab}>
                         General Configuration of the Template
                     </TabPane>
                 </TabbedArea>

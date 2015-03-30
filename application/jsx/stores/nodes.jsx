@@ -21,25 +21,6 @@ function insertNodeAfterSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'after');
 }
 
-function deleteNode(id) {
-    if(id === 'root') {
-        return;
-    }
-
-    var node    = findNode(id);
-    var parent  = findNode(node.parent);
-
-    if(_.isArray(node.children)) {
-        _.each(node.children, function(child, index) {
-            deleteNode(child);
-        });
-    }
-
-    updateNode(parent.id, {children: _.without(parent.children, id)});
-
-    delete _nodes[id];
-}
-
 module.exports = new Store(require('application/demodata.js'), UINodeActions, {
     addNode: function(properties) {
         var parent,
@@ -75,6 +56,24 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
         }
 
         throw new Error('Error in updating node');
+    },
+
+    deleteNode: function(id) {
+        if(id === 'root') {
+            return;
+        }
+
+        var node   = this.get(id);
+        var parent = this.get(node.parent);
+
+        if(_.isArray(node.children)) {
+            _.each(node.children, function(child, index) {
+                this.deleteNode(child);
+            });
+        }
+
+        this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+        this.removeObject(node.id);
     },
 
     addChildNode: function(properties, position) {
@@ -153,5 +152,9 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
     onUpdateNode: function(id, properties, nested_properties) {
         this.updateNode(id, properties, nested_properties);
         this.getStore(id).trigger(id);
+    },
+
+    onDeleteNode: function(id) {
+        this.deleteNode(id);
     }
 });

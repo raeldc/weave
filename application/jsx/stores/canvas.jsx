@@ -4,7 +4,7 @@ var UICanvasActions = require('application/actions/canvas.js'),
     Nodes           = require('application/stores/nodes.js'),
     Components      = require('application/stores/components.js');
 
-module.exports = (new Store({device: 'desktop'})).setActions(UICanvasActions, {
+module.exports = (new Store({device: 'laptop'})).setActions(UICanvasActions, {
     onSetDevice: function(device) {
         if(this.get('device') !== device) {
             this.set('device', device);
@@ -16,6 +16,10 @@ module.exports = (new Store({device: 'desktop'})).setActions(UICanvasActions, {
             this.set('selectedNode', id);
             this.trigger(id);
         }
+    },
+    onUnSelectNode: function() {
+        this.set('selectedNode', null);
+        this.trigger();
     },
     onDroppingOnNode: function(id) {
         if(this.get('pending_drop_subject') !== id) {
