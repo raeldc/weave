@@ -69,7 +69,7 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
         if(_.isArray(node.children)) {
             _.each(node.children, function(child, index) {
                 this.deleteNode(child);
-            });
+            }.bind(this));
         }
 
         this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
