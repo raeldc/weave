@@ -49,6 +49,7 @@ module.exports = React.createClass({
         var parent = node.parent;
 
         UICanvasActions.unSelectNode();
+        UICanvasActions.mouseOutNode();
         UINodeActions.deleteNode(node);
 
         event.stopPropagation();
