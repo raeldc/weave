@@ -1,4 +1,5 @@
 var Nodes           = require('application/stores/nodes.js'),
+    Canvas          = require('application/stores/canvas.js'),
     UICanvasFactory = require('application/ui/canvas/factory.js');
 
 module.exports = {
@@ -35,8 +36,9 @@ module.exports = {
     prepareNodeProperties: function(nextProps, nextState) {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
+        var style     = nextState.css;
 
-        this.nodeProperties.style = this.state.style;
+        this.nodeProperties.style = _.extend(_.clone(style.all), style[Canvas.get('device')]);
 
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';

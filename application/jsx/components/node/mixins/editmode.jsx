@@ -1,4 +1,5 @@
-var Nodes = require('application/stores/nodes.js');
+var Nodes           = require('application/stores/nodes.js'),
+    UICanvasActions = require('application/actions/canvas.js');
 
 module.exports = {
     componentWillMount: function() {
@@ -23,13 +24,17 @@ module.exports = {
 
     componentDidMount: function() {
         if(this.props.editMode) {
-            this.stopListeningToNodeChanges = Nodes.getStore(this.props.id).listen(this.renderChanges);
+            this.stopListeningToNodeChanges   = Nodes.getStore(this.props.id).listen(this.renderChanges);
+            this.stopListeningToCSSChanges    = Nodes.getStore(this.props.id).getStore('css').listen(this.renderChanges);
+            this.stopListeningToDeviceChanges = UICanvasActions.setDevice.listen(this.renderChanges);
         }
     },
 
     componentWillUnmount: function() { 
         if(this.props.editMode) {
             this.stopListeningToNodeChanges();
+            this.stopListeningToCSSChanges();
+            this.stopListeningToDeviceChanges();
         }
     },
 

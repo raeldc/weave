@@ -107,5 +107,4 @@ var Store = function(data, actions, definition) {
     return store;
 }
 
-
 module.exports = Store;

@@ -34,6 +34,14 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
             node.parent = 'root';
         }
 
+        node.css = node.css || {
+            all      : {},
+            desktop  : {},
+            laptop   : {},
+            tablet   : {},
+            phone    : {}
+        }
+
         if(!_.isArray(node.children)) {
             node.children = [];
         }
