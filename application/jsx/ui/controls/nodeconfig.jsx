@@ -16,10 +16,11 @@ module.exports = React.createClass({
                 return React.createElement(config, {
                     key          : 'config-'+index,
                     node         : node.id,
+                    device       : this.state.device,
                     defaults     : component.defaults,
                     configurables: component.configurables,
                 });
-            });
+            }.bind(this));
 
             return ( 
                 <div className="ui-nodeconfig">
@@ -33,7 +34,7 @@ module.exports = React.createClass({
 
     shouldComponentUpdate: function(nextProps, nextState) {
         // Update only when the selected node is different from the previous one
-        return this.state.selectedNode !== nextState.selectedNode;
+        return this.state.selectedNode !== nextState.selectedNode || this.state.device !== nextState.device;
     },
 
     componentDidMount: function() {

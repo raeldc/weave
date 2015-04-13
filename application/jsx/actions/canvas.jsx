@@ -13,9 +13,7 @@ var Actions = Reflux.createActions({
         }
     },
     // Fired when the node has changed but the changes aren't saved in the Node Store
-    nodeTouched: {
-        sync: true
-    },
+    nodeTouched: {},
     mouseOutNode  : {
         sync: true,
     },

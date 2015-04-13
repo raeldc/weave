@@ -164,5 +164,10 @@ module.exports = new Store(require('application/demodata.js'), UINodeActions, {
 
     onDeleteNode: function(id) {
         this.deleteNode(id);
+    },
+
+    onUpdateNodeCSS: function(id, device, property, value) {
+        this.getStore(id).getStore('css').getStore(device).set(property, value);
+        this.getStore(id).getStore('css').trigger(property, value);
     }
 });
