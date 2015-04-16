@@ -1,5 +1,5 @@
 function config(name) {
-    return require('./grunts/' + name + '.js');
+    return require('./build/grunts/' + name + '.js');
 }
 
 module.exports = function(grunt) {
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         less      : config('less'),
         watch     : config('watch'),
         react     : config('react'),
-        watchify: config('watchify')
+        browserify  : config('browserify')
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -22,8 +22,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-react');
-    grunt.loadNpmTasks('grunt-watchify');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('dist', ['less', 'react', 'watchify', 'uglify', 'copy']);
+    grunt.registerTask('dist', ['less', 'react', 'browserify', 'uglify', 'copy']);
     grunt.registerTask('default', ['watch']);
 };

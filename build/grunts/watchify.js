@@ -3,7 +3,7 @@ module.exports = {
         separator: '\n'
     },
     dist: {
-        src : './application/js/index.js',
+        src : './build/tmp/core/index.js',
         dest: 'public/js/app.js'
     },
 }

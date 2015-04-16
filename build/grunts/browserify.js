@@ -4,7 +4,7 @@ module.exports = {
     },
     dist: {
         files: {
-            'public/js/app.js': ['application/**/*.js']
+            'public/js/app.js': 'build/tmp/core/index.js'
         }
     },
 }

@@ -10,11 +10,11 @@ module.exports = {
         separator: '\n',
     },
     lib: {
-        src: js,
+        src : js,
         dest: 'public/js/lib.js'
     },
     components: {
-        src: 'application/components/**/*.js',
-        dest: 'application/components.js'
+        src : 'build/tmp/core/components/**/*.js',
+        dest: 'build/tmp/core/components.js'
     },
 }

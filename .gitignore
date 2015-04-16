@@ -1,6 +1,6 @@
 bower_components
 node_modules
-application/js/*
+build/tmp
 public/css/*.css
 public/js
 npm-debug.log
