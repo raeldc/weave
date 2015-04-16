@@ -1,10 +1,11 @@
 module.exports = {
-    options: {
-        separator: '\n',
-    },
     dist: {
+        options: {
+            separator  : '\n',
+            ignoreMTime: true,
+        },
         files: {
-            'public/js/app.js': 'build/tmp/core/index.js'
+            'public/js/app.js': 'code/core/index.js'
         }
     },
 }

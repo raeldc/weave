@@ -1,7 +1,7 @@
 module.exports = {
     files: [
+        'code/core/**/*.js',
         'public/css/less/**/*.less',
-        'code/core/**/*.jsx'
     ],
-    tasks: ['less', 'react', 'browserify', 'copy']
+    tasks: ['less', 'watchify', 'copy']
 }

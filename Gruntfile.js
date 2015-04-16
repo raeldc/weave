@@ -10,8 +10,7 @@ module.exports = function(grunt) {
         uglify    : config('uglify'),
         less      : config('less'),
         watch     : config('watch'),
-        react     : config('react'),
-        browserify  : config('browserify')
+        watchify  : config('watchify')
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -21,9 +20,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-react');
-    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-watchify');
 
-    grunt.registerTask('dist', ['less', 'react', 'browserify', 'uglify', 'copy']);
+    grunt.registerTask('dist', ['less', 'watchify', 'uglify', 'copy']);
     grunt.registerTask('default', ['watch']);
 };

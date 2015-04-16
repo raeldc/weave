@@ -8,6 +8,6 @@ module.exports = React.createClass({
                 <Controls ref="controls"/>
                 <Canvas   ref="canvas" editMode={true} />
             </div>
-        );
+        )
     }
 });
