@@ -1,4 +1,4 @@
-var Nodes = require('application/stores/nodes.js');
+var Nodes = require('core/stores/nodes.js');
 
 module.exports = React.createClass({
     getInitialState: function() {

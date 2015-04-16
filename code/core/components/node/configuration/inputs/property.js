@@ -1,6 +1,6 @@
-var Nodes           = require('application/stores/nodes.js'),
-    UINodeActions   = require('application/actions/node.js'),
-    UICanvasActions = require('application/actions/canvas.js');
+var Nodes           = require('core/stores/nodes.js'),
+    UINodeActions   = require('core/actions/node.js'),
+    UICanvasActions = require('core/actions/canvas.js');
 
 module.exports = React.createClass({
     render: function() {

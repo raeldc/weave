@@ -1,8 +1,8 @@
-var UICanvasActions = require('application/actions/canvas.js'),
-    NodeActions     = require('application/actions/node.js'),
-    Store           = require('application/stores'),
-    Nodes           = require('application/stores/nodes.js'),
-    Components      = require('application/stores/components.js');
+var UICanvasActions = require('core/actions/canvas.js'),
+    NodeActions     = require('core/actions/node.js'),
+    Store           = require('core/stores'),
+    Nodes           = require('core/stores/nodes.js'),
+    Components      = require('core/stores/components.js');
 
 module.exports = (new Store({device: 'laptop'})).setActions(UICanvasActions, {
     onSetDevice: function(device) {

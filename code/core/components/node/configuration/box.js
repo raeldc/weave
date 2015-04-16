@@ -1,5 +1,5 @@
-var Nodes         = require('application/stores/nodes.js'),
-    PropertyInput = require('application/components/node/configuration/inputs/property.js');
+var Nodes         = require('core/stores/nodes.js'),
+    PropertyInput = require('core/components/node/configuration/inputs/property.js');
 
 module.exports = React.createClass({
     render: function() {

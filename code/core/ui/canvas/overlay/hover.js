@@ -1,5 +1,5 @@
-var UICanvasActions      = require('application/actions/canvas.js'),
-    UICanvasOverlayMixin = require('application/ui/canvas/overlay/mixin.js');
+var UICanvasActions      = require('core/actions/canvas.js'),
+    UICanvasOverlayMixin = require('core/ui/canvas/overlay/mixin.js');
 
 module.exports = React.createClass({
     mixins: [UICanvasOverlayMixin],    

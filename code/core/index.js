@@ -3,20 +3,20 @@ window._       = require('underscore');
 window.React   = require('react');
 window.Alchemy = {};
 
-Alchemy.UI         = require('application/ui');
-Alchemy.Nodes      = require('application/stores/nodes.js');
-Alchemy.Components = require('application/stores/components.js');
-Alchemy.UIConfig   = require('application/stores/uiconfig.js');
+Alchemy.UI         = require('core/ui');
+Alchemy.Nodes      = require('core/stores/nodes.js');
+Alchemy.Components = require('core/stores/components.js');
+Alchemy.UIConfig   = require('core/stores/uiconfig.js');
 
 // Set Dependencies
 Alchemy.Nodes.setData(require('./demodata.js'));
 
 // Register Node Components
-Alchemy.Components.register(require('application/components/text'));
-Alchemy.Components.register(require('application/components/title'));
-Alchemy.Components.register(require('application/components/container'));
+Alchemy.Components.register(require('core/components/text'));
+Alchemy.Components.register(require('core/components/title'));
+Alchemy.Components.register(require('core/components/container'));
 
-require('application/lib/contentloaded.js').ready(window, function(){
+require('core/lib/contentloaded.js').ready(window, function(){
     React.render(
         <Alchemy.UI />,
         document.body

@@ -1,7 +1,7 @@
-var UIConfig             = require('application/stores/uiconfig.js'),
-    UIControlsComponents = require('application/ui/controls/components.js'),
-    UIControlsNodeconfig = require('application/ui/controls/nodeconfig.js'),
-    UIControlsDevices    = require('application/ui/controls/devices.js'),
+var UIConfig             = require('core/stores/uiconfig.js'),
+    UIControlsComponents = require('core/ui/controls/components.js'),
+    UIControlsNodeconfig = require('core/ui/controls/nodeconfig.js'),
+    UIControlsDevices    = require('core/ui/controls/devices.js'),
     TabbedArea           = require('react-bootstrap').TabbedArea,
     TabPane              = require('react-bootstrap').TabPane;
 

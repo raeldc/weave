@@ -1,6 +1,6 @@
-var Nodes           = require('application/stores/nodes.js'),
-    Canvas          = require('application/stores/canvas.js'),
-    UICanvasFactory = require('application/ui/canvas/factory.js');
+var Nodes           = require('core/stores/nodes.js'),
+    Canvas          = require('core/stores/canvas.js'),
+    UICanvasFactory = require('core/ui/canvas/factory.js');
 
 module.exports = {
     getInitialState: function() {

@@ -1,6 +1,6 @@
-var Components = require('application/stores/components.js'),
-    UIConfig   = require('application/stores/uiconfig.js'),
-    Nodes      = require('application/stores/nodes.js');
+var Components = require('core/stores/components.js'),
+    UIConfig   = require('core/stores/uiconfig.js'),
+    Nodes      = require('core/stores/nodes.js');
 
 module.exports = React.createClass({
     getInitialState: function() {

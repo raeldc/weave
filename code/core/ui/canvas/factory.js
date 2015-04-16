@@ -1,5 +1,5 @@
-var Nodes      = require('application/stores/nodes.js'),
-    Components = require('application/stores/components.js');
+var Nodes      = require('core/stores/nodes.js'),
+    Components = require('core/stores/components.js');
 
 module.exports = {
     createNode: function(id, editMode) {

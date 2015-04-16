@@ -1,5 +1,5 @@
-var UIConfig        = require('application/stores/uiconfig.js'),
-    UICanvasActions = require('application/actions/canvas.js');
+var UIConfig        = require('core/stores/uiconfig.js'),
+    UICanvasActions = require('core/actions/canvas.js');
 
 module.exports = {
     getInitialState: function() {

@@ -1,5 +1,5 @@
-var Controls = require('application/ui/controls');
-var Canvas   = require('application/ui/canvas');
+var Controls = require('core/ui/controls');
+var Canvas   = require('core/ui/canvas');
 
 module.exports = React.createClass({
     render: function(){

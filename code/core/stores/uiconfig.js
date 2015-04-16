@@ -1,5 +1,5 @@
-var CanvasStore   = require('application/stores/canvas.js'),
-    ControlsStore = require('application/stores/controls.js');
+var CanvasStore   = require('core/stores/canvas.js'),
+    ControlsStore = require('core/stores/controls.js');
 
 module.exports = {
     Canvas  : CanvasStore,

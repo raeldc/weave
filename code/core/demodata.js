@@ -63,13 +63,11 @@ module.exports ={
         children : ['sidebar', 'content'],
         parent   : 'root',
         css      : {
-            all: {
-                height: 2000
-            },
-            desktop  : {},
-            laptop   : {},
-            tablet   : {},
-            phone    : {}
+            all    : {},
+            desktop: {},
+            laptop : {},
+            tablet : {},
+            phone  : {}
         },
     },
     'sidebar': {

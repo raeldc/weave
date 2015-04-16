@@ -1,5 +1,5 @@
-var Nodes           = require('application/stores/nodes.js'),
-    UICanvasActions = require('application/actions/canvas.js');
+var Nodes           = require('core/stores/nodes.js'),
+    UICanvasActions = require('core/actions/canvas.js');
 
 module.exports = {
     componentWillMount: function() {

@@ -1,5 +1,5 @@
-var Store         = require('application/stores'),
-    UINodeActions = require('application/actions/node.js');
+var Store         = require('core/stores'),
+    UINodeActions = require('core/actions/node.js');
 
 function addNodeAsFirstChild(parent, node) {
     node.parent = parent;
@@ -21,7 +21,7 @@ function insertNodeAfterSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'after');
 }
 
-module.exports = new Store(require('application/demodata.js'), UINodeActions, {
+module.exports = new Store(require('core/demodata.js'), UINodeActions, {
     addNode: function(properties) {
         var parent,
             node = _.isObject(properties) ? _.clone(properties) : {};

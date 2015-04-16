@@ -1,6 +1,6 @@
-var UICanvasOverlayHover    = require('application/ui/canvas/overlay/hover.js'),
-    UICanvasOverlaySelect   = require('application/ui/canvas/overlay/select.js'),
-    UICanvasOverlayControls = require('application/ui/canvas/overlay/controls.js');
+var UICanvasOverlayHover    = require('core/ui/canvas/overlay/hover.js'),
+    UICanvasOverlaySelect   = require('core/ui/canvas/overlay/select.js'),
+    UICanvasOverlayControls = require('core/ui/canvas/overlay/controls.js');
 
 module.exports = React.createClass({
     render: function() {

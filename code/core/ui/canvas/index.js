@@ -1,9 +1,9 @@
-var UICanvasFrame   = require('application/ui/canvas/frame.js'),
-    UICanvasFactory = require('application/ui/canvas/factory.js'),
-    UIConfig        = require('application/stores/uiconfig.js'),
-    UICanvasActions = require('application/actions/canvas.js'),
-    UICanvasOverlay = require('application/ui/canvas/overlay'),
-    UIDropArea      = require('application/ui/canvas/droparea');
+var UICanvasFrame   = require('core/ui/canvas/frame.js'),
+    UICanvasFactory = require('core/ui/canvas/factory.js'),
+    UIConfig        = require('core/stores/uiconfig.js'),
+    UICanvasActions = require('core/actions/canvas.js'),
+    UICanvasOverlay = require('core/ui/canvas/overlay'),
+    UIDropArea      = require('core/ui/canvas/droparea');
 
 module.exports = React.createClass({
     displayName: 'Canvas',

@@ -1,4 +1,4 @@
-var UICanvasActions = require('application/actions/canvas.js');
+var UICanvasActions = require('core/actions/canvas.js');
 
 module.exports = React.createClass({
     nextState: {},
