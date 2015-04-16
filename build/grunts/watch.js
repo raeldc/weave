@@ -1,7 +1,10 @@
 module.exports = {
+    options: {
+        livereload: true
+    },
     files: [
-        'code/core/**/*.js',
+        'public/js/app.js',
         'public/css/less/**/*.less',
     ],
-    tasks: ['less', 'watchify', 'copy']
+    tasks: ['less', 'copy']
 }

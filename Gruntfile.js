@@ -21,5 +21,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-watchify');
 
     grunt.registerTask('dist', ['less', 'watchify', 'uglify', 'copy']);
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['watchify', 'watch']);
 };
