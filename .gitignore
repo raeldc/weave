@@ -4,3 +4,4 @@ build/tmp
 public/css/*.css
 public/js
 npm-debug.log
+code/core/demodata.js
