@@ -6,11 +6,11 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // jshint        : config('jshint'),
         // cssmin        : config('cssmin'),
-        copy      : config('copy'),
-        uglify    : config('uglify'),
-        less      : config('less'),
-        watch     : config('watch'),
-        watchify  : config('watchify')
+        copy    : config('copy'),
+        uglify  : config('uglify'),
+        less    : config('less'),
+        watch   : config('watch'),
+        watchify: config('watchify'),
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -20,6 +20,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-watchify');
 
-    grunt.registerTask('dist', ['less', 'watchify', 'uglify', 'copy']);
-    grunt.registerTask('default', ['watchify', 'watch']);
+    grunt.registerTask('dist'   , ['less', 'watchify', 'uglify', 'copy']);
+    grunt.registerTask('default', ['watchify', 'watch:main']);
+
+    grunt.registerTask('wpdist' , ['less', 'watchify', 'uglify', 'copy:wpdist']);
+    grunt.registerTask('wpwatch', ['watchify', 'watch:wp']);
 };

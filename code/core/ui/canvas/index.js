@@ -13,11 +13,9 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        var css = <link type="text/css" rel="stylesheet" href="css/style.css" />;
-
         return (
             <div id="alchemy-canvas" className={this.state.device}>
-                <UICanvasFrame head={css} ref="iframe">
+                <UICanvasFrame ref="iframe">
                     <UICanvasOverlay />
                     <UIDropArea />
                     {UICanvasFactory.createNode('root', this.props.editMode)}

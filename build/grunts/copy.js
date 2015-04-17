@@ -27,5 +27,31 @@ module.exports = {
             }
             */
         ]
+    },
+
+    wp: {
+        files: [
+            {
+                src: 'public/js/app.js',
+                dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
+            },
+            {
+                src: 'public/css/style.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
+            }
+        ]
+    },
+
+    wpdist: {
+        files: [
+            {
+                src: 'public/js/app.min.js',
+                dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
+            },
+            {
+                src: 'public/css/style.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
+            }
+        ]
     }
 }
