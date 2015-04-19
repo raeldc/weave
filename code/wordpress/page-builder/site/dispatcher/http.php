@@ -15,17 +15,29 @@
  */
 class ComPagebuilderDispatcherHttp extends ComKoowaDispatcherHttp
 {
-    public function getRequest()
+    /**
+     * Send the response
+     *
+     * @param KDispatcherContextInterface $context  A dispatcher context object
+     */
+    protected function _actionSend(KDispatcherContextInterface $context)
     {
-        $request = parent::getRequest();
+        $request  = $context->request;
+        $response = $context->response;
 
-        $query = $request->query;
+        if(!$response->isDownloadable() && $request->getFormat() == 'html')
+        {
+            //Render the page
+            $this->getObject('com://site/pagebuilder.controller.page',  array('response' => $response))
+                ->layout($request->query->get('view', 'cmd') == 'builder' ? 'koowa' : 'wordpress')
+                ->render();
 
-        // Force tmpl=koowa for form layouts
-        if ($query->view == 'builder') {
-            $query->tmpl = 'koowa';
+            //Pass back to Wordpress
+            if ($request->isGet() && $request->query->get('view', 'cmd') != 'builder') {
+                return true;
+            }
         }
 
-        return $request;
+        KDispatcherHttp::_actionSend($context);
     }
 }
