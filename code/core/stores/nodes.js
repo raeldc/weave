@@ -21,7 +21,7 @@ function insertNodeAfterSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'after');
 }
 
-module.exports = new Store(require('core/demodata.js'), UINodeActions, {
+module.exports = new Store({}, UINodeActions, {
     addNode: function(properties) {
         var parent,
             node = _.isObject(properties) ? _.clone(properties) : {};
