@@ -3,7 +3,7 @@
 <ktml:script src="media://pagebuilder/js/app.js" />
 
 <?php
-    $url = object('request')->getUrl();
+    $url = object('http.url', array('url' => object('request')->getUrl()));
     $url->setQuery('view=preview&page='.object('request')->query->get('page_id', 'cmd'), true);
 ?>
 
