@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <div id="alchemy-canvas" className={this.state.device}>
+            <div id="corebuilder-canvas" className={this.state.device}>
                 <iframe ref="iframe" src={this.props.src} contentID={this.props.contentID} onLoad={this.renderCanvasContent} />
             </div>
         );

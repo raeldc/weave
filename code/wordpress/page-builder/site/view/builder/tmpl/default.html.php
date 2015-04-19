@@ -10,7 +10,7 @@
 <script>
 jQuery(document).ready(function(){
     React.render(
-        Alchemy.initialize({
+        CoreBuilder.initialize({
             src: '<?= $url ?>'
         }),
         document.body

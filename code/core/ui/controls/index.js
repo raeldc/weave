@@ -17,7 +17,7 @@ var Controls = React.createClass({
         var ConfigTab     = <i className="glyphicon glyphicon-cog"></i>;
 
         return (
-            <div id="alchemy-controls">
+            <div id="corebuilder-controls">
                 <TabbedArea defaultActiveKey={this.state.active_section} justified>
                     <TabPane eventKey="edit" tab={EditNodeTab}>
                         <UIControlsDevices />
