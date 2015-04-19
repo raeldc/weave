@@ -1,4 +1,4 @@
-<ktml:style  src="media://pagebuilder/css/style.css" />
+<ktml:style  src="media://pagebuilder/css/ui.css" />
 <ktml:script src="media://pagebuilder/js/jquery.min.js" />
 <ktml:script src="media://pagebuilder/js/app.js" />
 

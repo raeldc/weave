@@ -8,7 +8,7 @@
  */
 
 defined('KOOWA') or die; ?>
-<ktml:style  src="media://pagebuilder/css/canvas.css" />
+<ktml:style  src="media://pagebuilder/css/overlay.css" />
 <ktml:style  src="media://pagebuilder/css/base.css" />
 
 <div id="builder-content"></div>

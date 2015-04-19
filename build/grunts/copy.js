@@ -40,16 +40,16 @@ module.exports = {
                 dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
             },
             {
-                src : 'public/css/style.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
+                src : 'public/css/ui.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/ui.css'
             },
             {
                 src : 'public/css/base.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
             },
             {
-                src : 'public/css/canvas.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/canvas.css'
+                src : 'public/css/overlay.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/overlay.css'
             }
         ]
     },
@@ -71,16 +71,16 @@ module.exports = {
                 dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
             },
             {
-                src : 'public/css/style.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
+                src : 'public/css/ui.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/ui.css'
             },
             {
                 src : 'public/css/base.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
             },
             {
-                src : 'public/css/canvas.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/canvas.css'
+                src : 'public/css/overlay.css',
+                dest: 'code/wordpress/page-builder/resources/assets/css/overlay.css'
             }
         ]
     }
