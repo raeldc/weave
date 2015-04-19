@@ -1,7 +1,7 @@
 module.exports = {
-    dist: {
+    pagebuilder: {
         files: {
-            'public/js/app.min.js': ['public/js/app.js']
+            'public/js/pagebuilder.min.js': ['public/js/pagebuilder.js']
         }
     }
 };

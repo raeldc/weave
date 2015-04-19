@@ -11,8 +11,8 @@ defined('KOOWA') or die; ?>
 <ktml:style  src="media://pagebuilder/css/overlay.css" />
 <ktml:style  src="media://pagebuilder/css/base.css" />
 
-<div id="builder-content"></div>
+<div id="corebuilder-container"></div>
 
 <wpml action="wp_footer">
-<div id="ui-overlay-container"></div>
+<div id="corebuilder-overlay"></div>
 </wpml>

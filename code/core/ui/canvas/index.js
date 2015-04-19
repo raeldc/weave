@@ -14,7 +14,7 @@ module.exports = React.createClass({
     render: function(){
         return (
             <div id="corebuilder-canvas" className={this.state.device}>
-                <iframe ref="iframe" src={this.props.src} contentID={this.props.contentID} onLoad={this.renderCanvasContent} />
+                <iframe ref="iframe" src={this.state.page} onLoad={this.renderCanvasContent} />
             </div>
         );
     },
@@ -51,18 +51,16 @@ module.exports = React.createClass({
         var doc = React.findDOMNode(this.refs.iframe).contentDocument;
 
         React.render(
-            UICanvasFactory.createNode('root', this.props.editMode), 
-            doc.getElementById(this.props.contentID)
+            UICanvasFactory.createNode('root', this.state.editMode),
+            doc.getElementById(this.state.container)
         );
 
         React.render(
-            (
-                <div>
-                    <UICanvasOverlay />
-                    <UIDropArea />
-                </div>
-            ),
-            doc.getElementById('ui-overlay-container')
+            <div>
+                <UICanvasOverlay />
+                <UIDropArea />
+            </div>,
+            doc.getElementById(this.state.overlay)
         )
     },
 });

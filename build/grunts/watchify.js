@@ -2,8 +2,8 @@ module.exports = {
     options: {
         debug: true
     },
-    dist: {
-        src : './code/core/index.js',
-        dest: 'public/js/app.js'
+    pagebuilder: {
+        src : './code/core/pagebuilder.js',
+        dest: 'public/js/pagebuilder.js'
     },
 }

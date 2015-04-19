@@ -20,9 +20,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-watchify');
 
-    grunt.registerTask('dist'   , ['less', 'watchify', 'uglify', 'copy']);
-    grunt.registerTask('default', ['watchify', 'watch:main']);
+    var wp_pagebuilder_watch = [
+        'watchify:pagebuilder',
+        'watch:wp_pagebuilder'
+    ];
 
-    grunt.registerTask('wpdist' , ['less', 'watchify', 'uglify', 'copy:wpdist']);
-    grunt.registerTask('wpwatch', ['watchify', 'watch:wp']);
+    var wp_pagebuilder_dist = [
+        'less', 
+        'watchify', 
+        'uglify:pagebuilder',
+        'copy:wp_pagebuilder_dist'
+    ];
+
+    // Shortcuts
+    grunt.registerTask('default',              wp_pagebuilder_watch);
+    grunt.registerTask('dist' ,                wp_pagebuilder_dist);
+
+    // Specifics
+    grunt.registerTask('wp_pagebuilder_watch', wp_pagebuilder_watch);
+    grunt.registerTask('wp_pagebuilder_dist' , wp_pagebuilder_dist);
 };

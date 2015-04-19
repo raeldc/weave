@@ -3,19 +3,11 @@ module.exports = {
         livereload: true
     },
 
-    main: {
+    wp_pagebuilder: {
         files: [
-            'public/js/app.js',
+            'public/js/pagebuilder.js',
             'public/css/less/**/*.less',
         ],
-        tasks: ['less', 'copy:main']
-    },
-
-    wp: {
-        files: [
-            'public/js/app.js',
-            'public/css/less/**/*.less',
-        ],
-        tasks: ['less', 'copy:wp']
+        tasks: ['less', 'copy:wp_pagebuilder_watch']
     }
 }

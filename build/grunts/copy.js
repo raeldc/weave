@@ -29,15 +29,15 @@ module.exports = {
         ]
     },
 
-    wp: {
+    wp_pagebuilder_watch: {
         files: [
             {
                 src : 'node_modules/jquery/dist/jquery.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
             },
             {
-                src : 'public/js/app.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
+                src : 'public/js/pagebuilder.js',
+                dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
             },
             {
                 src : 'public/css/ui.css',
@@ -54,7 +54,7 @@ module.exports = {
         ]
     },
 
-    wpdist: {
+    wp_pagebuilder_dist: {
         files: [
             {
                 src : 'node_modules/jquery/dist/jquery.min.js',
@@ -67,8 +67,8 @@ module.exports = {
                 expand: true
             },
             {
-                src : 'public/js/app.min.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
+                src : 'public/js/pagebuilder.min.js',
+                dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
             },
             {
                 src : 'public/css/ui.css',
