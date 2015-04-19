@@ -5,8 +5,8 @@ module.exports = React.createClass({
     render: function(){
         return (
             <div>
-                <Controls ref="controls"/>
-                <Canvas   ref="canvas" editMode={true} />
+                <Controls />
+                <Canvas src={this.props.src} contentID={this.props.contentID} editMode={true} />
             </div>
         )
     }

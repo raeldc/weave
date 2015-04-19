@@ -10,3 +10,6 @@ code/wordpress/page-builder/resources/assets/css/style.css
 code/wordpress/page-builder/resources/assets/js/app.js
 code/wordpress/page-builder/resources/assets/js/app.min.js
 code/wordpress/page-builder/resources/assets/fonts/*
+code/wordpress/page-builder/resources/assets/js/jquery.min.js
+code/wordpress/page-builder/resources/assets/css/base.css
+code/wordpress/page-builder/resources/assets/css/canvas.css

@@ -8,5 +8,11 @@
  */
 
 defined('KOOWA') or die; ?>
+<ktml:style  src="media://pagebuilder/css/canvas.css" />
+<ktml:style  src="media://pagebuilder/css/base.css" />
 
-<ktml:content>
+<div id="builder-content"></div>
+
+<wpml action="wp_footer">
+<div id="ui-overlay-container"></div>
+</wpml>

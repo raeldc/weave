@@ -1,5 +1,4 @@
-var UICanvasFrame   = require('core/ui/canvas/frame.js'),
-    UICanvasFactory = require('core/ui/canvas/factory.js'),
+var UICanvasFactory = require('core/ui/canvas/factory.js'),
     UIConfig        = require('core/stores/uiconfig.js'),
     UICanvasActions = require('core/actions/canvas.js'),
     UICanvasOverlay = require('core/ui/canvas/overlay'),
@@ -15,11 +14,7 @@ module.exports = React.createClass({
     render: function(){
         return (
             <div id="alchemy-canvas" className={this.state.device}>
-                <UICanvasFrame ref="iframe">
-                    <UICanvasOverlay />
-                    <UIDropArea />
-                    {UICanvasFactory.createNode('root', this.props.editMode)}
-                </UICanvasFrame>
+                <iframe ref="iframe" src={this.props.src} contentID={this.props.contentID} onLoad={this.renderCanvasContent} />
             </div>
         );
     },
@@ -50,5 +45,24 @@ module.exports = React.createClass({
 
     changeCanvas: function() {
         this.setState(this.getInitialState());
+    },
+
+    renderCanvasContent: function() {
+        var doc = React.findDOMNode(this.refs.iframe).contentDocument;
+
+        React.render(
+            UICanvasFactory.createNode('root', this.props.editMode), 
+            doc.getElementById(this.props.contentID)
+        );
+
+        React.render(
+            (
+                <div>
+                    <UICanvasOverlay />
+                    <UIDropArea />
+                </div>
+            ),
+            doc.getElementById('ui-overlay-container')
+        )
     },
 });
