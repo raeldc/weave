@@ -32,23 +32,23 @@ module.exports = {
     wp: {
         files: [
             {
-                src: 'node_modules/jquery/dist/jquery.min.js',
+                src : 'node_modules/jquery/dist/jquery.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
             },
             {
-                src: 'public/js/app.js',
+                src : 'public/js/app.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
             },
             {
-                src: 'public/css/style.css',
+                src : 'public/css/style.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
             },
             {
-                src: 'public/css/base.css',
+                src : 'public/css/base.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
             },
             {
-                src: 'public/css/canvas.css',
+                src : 'public/css/canvas.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/canvas.css'
             }
         ]
@@ -57,23 +57,29 @@ module.exports = {
     wpdist: {
         files: [
             {
-                src: 'node_modules/jquery/dist/jquery.min.js',
+                src : 'node_modules/jquery/dist/jquery.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
             },
             {
-                src: 'public/js/app.min.js',
+                cwd   : 'public/fonts',
+                src   : '**/*',
+                dest  : 'code/wordpress/page-builder/resources/assets/fonts/',
+                expand: true
+            },
+            {
+                src : 'public/js/app.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/app.js'
             },
             {
-                src: 'public/css/style.css',
+                src : 'public/css/style.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/style.css'
             },
             {
-                src: 'public/css/base.css',
+                src : 'public/css/base.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
             },
             {
-                src: 'public/css/canvas.css',
+                src : 'public/css/canvas.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/canvas.css'
             }
         ]
