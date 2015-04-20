@@ -8,9 +8,7 @@
  */
 
 return array(
-    'identifiers' => array(
-        'com://site/pagebuilder.view.builder.html' => array(
-            'template_filters' => array('wpml')
-        )
-    ),
+    'aliases' => array(
+        'com://site/pagebuilder.model.pages' => 'com://site/pagebuilder.model.page',
+    )
 );

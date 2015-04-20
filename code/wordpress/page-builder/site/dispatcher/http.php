@@ -16,6 +16,24 @@
 class ComPagebuilderDispatcherHttp extends ComKoowaDispatcherHttp
 {
     /**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   KObjectConfig $config An optional ObjectConfig object with configuration options.
+     * @return  void
+     */
+    protected function _initialize(KObjectConfig $config)
+    {
+        parent::_initialize($config);
+
+        if(WP_DEBUG) {
+            // TODO: Add Referrer and Token on Request
+            $config->authenticators  = array();
+        }
+    }
+
+    /**
      * Send the response
      *
      * @param KDispatcherContextInterface $context  A dispatcher context object

@@ -10,8 +10,15 @@ CoreBuilder.Components.register(require('core/components/container'));
 CoreBuilder.PageBuilder = function(config) {
     var page      = config.page      || null,
         container = config.container || 'corebuilder-container',
-        overlay   = config.overlay   || 'corebuilder-overlay',
-        data      = config.data      || {
+        overlay   = config.overlay   || 'corebuilder-overlay';
+
+    CoreBuilder.UIConfig.Canvas.set('page',      page);
+    CoreBuilder.UIConfig.Canvas.set('container', container);
+    CoreBuilder.UIConfig.Canvas.set('overlay',   overlay);
+    CoreBuilder.UIConfig.Canvas.set('editMode',  true);
+
+    jQuery.getJSON(config.data, function(result){
+        var data  = result.entities.length ? result.entities.pop() : {
             root: {
                 id       : 'root', 
                 className: 'corebuilder',
@@ -24,19 +31,16 @@ CoreBuilder.PageBuilder = function(config) {
                     phone  : {}
                 },
             }
-        }
+        };
 
-    CoreBuilder.UIConfig.Canvas.set('page',      page);
-    CoreBuilder.UIConfig.Canvas.set('container', container);
-    CoreBuilder.UIConfig.Canvas.set('overlay',   overlay);
-    CoreBuilder.UIConfig.Canvas.set('editMode',  true);
+        CoreBuilder.Nodes.setData(data);
 
-    CoreBuilder.Nodes.setData(data);
-
-    return (
-        <div>
-            <Controls />
-            <Canvas />
-        </div>
-    );
+        React.render(
+            <div>
+                <Controls />
+                <Canvas />
+            </div>,
+            config.target || document.body
+        );
+    });
 }

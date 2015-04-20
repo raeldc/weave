@@ -3,17 +3,17 @@
 <ktml:script src="media://pagebuilder/js/pagebuilder.js" />
 
 <?php
-    $page = object('http.url', array('url' => object('request')->getUrl()));
-    $page->setQuery('view=preview&page='.object('request')->query->get('page_id', 'cmd'), true);
+    $id   = object('request')->query->get('id', 'int');
+    $type = object('request')->query->get('type', 'cmd');
+    $url  = object('http.url', array('url' => object('request')->getUrl()));
 ?>
 
 <script>
 jQuery(document).ready(function(){
-    React.render(
-        CoreBuilder.PageBuilder({
-            page: '<?= $page ?>'
-        }),
-        document.body
-    );
+    CoreBuilder.PageBuilder({
+        page  : '<?= $url->setQuery('component=pagebuilder&view=page&type='.$type.'&id='.$id) ?>',
+        data  : '<?= $url->setQuery('component=pagebuilder&view=page&format=json&id='.$id) ?>',
+        target: document.body
+    });
 });
 </script>
