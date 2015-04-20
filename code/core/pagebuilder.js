@@ -18,7 +18,8 @@ CoreBuilder.PageBuilder = function(config) {
     CoreBuilder.UIConfig.Canvas.set('editMode',  true);
 
     jQuery.getJSON(config.data, function(result){
-        var data  = result.entities.length ? result.entities.pop() : {
+        // TODO: The default should be initialized at the store object
+        var data = _.extend({
             root: {
                 id       : 'root', 
                 className: 'corebuilder',
@@ -31,7 +32,9 @@ CoreBuilder.PageBuilder = function(config) {
                     phone  : {}
                 },
             }
-        };
+        }, result.entities.pop() || {});
+
+        delete data['links'];
 
         CoreBuilder.Nodes.setData(data);
 
@@ -40,6 +43,7 @@ CoreBuilder.PageBuilder = function(config) {
                 <Controls />
                 <Canvas />
             </div>,
+
             config.target || document.body
         );
     });
