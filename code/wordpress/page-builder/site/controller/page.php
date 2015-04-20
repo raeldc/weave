@@ -1,6 +1,6 @@
 <?php
 
-class ComPagebuilderControllerPreview extends KControllerView
+class ComPagebuilderControllerPage extends KControllerView
 {
     public function __construct(KObjectConfig $config)
     {
