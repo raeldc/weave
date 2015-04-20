@@ -28,7 +28,7 @@ class ComPagebuilderDispatcherHttp extends ComKoowaDispatcherHttp
         if(!$response->isDownloadable() && $request->getFormat() == 'html')
         {
             //Render the page
-            $this->getObject('com://site/pagebuilder.controller.page',  array('response' => $response))
+            $this->getObject('com://site/pagebuilder.controller.core',  array('response' => $response))
                 ->layout($request->query->get('view', 'cmd') == 'builder' ? 'koowa' : 'wordpress')
                 ->render();
 

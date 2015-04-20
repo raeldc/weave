@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\View\Page
  */
-class ComPagebuilderViewPageHtml extends ComKoowaViewPageHtml
+class ComPagebuilderViewCoreHtml extends ComKoowaViewPageHtml
 {
     
 }
