@@ -8,12 +8,14 @@
  */
 
 /**
- * Core HTML View that etends for Page. Used by the dispatcher to for wrapping the response.
+ * Page HTML View.
+ *
+ * We needed to override this to avoid falling back to ComKoowaViewPageHtml
  *
  * @author  Israel Canasa <https://www.simplins.com>
  * @package Pagebuilder\View\Core
  */
-class ComPagebuilderViewCoreHtml extends ComKoowaViewPageHtml
+class ComPagebuilderViewPageHtml extends ComKoowaViewHtml
 {
-    
+
 }
