@@ -26,15 +26,15 @@ class ComPagebuilderControllerPage extends KControllerModel
             return $query;
         });
 
-        $this->addCommandCallback('before.edit', 'normalizeData');
+        $this->addCommandCallback('before.edit', 'setDefaultData');
     }
 
-    public function normalizeData(KDispatcherContextInterface $context)
+    public function setDefaultData(KDispatcherContextInterface $context)
     {
         if($context->request->query->has('id', 'int')) {
             $context->request->data['id'] = $context->request->query->get('id', 'int');
         }
 
-        return true;
+        return $this;
     }
 }
