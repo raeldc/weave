@@ -22,7 +22,7 @@ module.exports = React.createClass({
 
         return (
             <div className={className} style={style}>
-                <a className="btn btn-danger btn-xs" onClick={this.deleteNode}><i className="glyphicon glyphicon-trash"></i></a>
+                <a className="btn" onClick={this.deleteNode}>Delete</a>
             </div>
         );
     },
