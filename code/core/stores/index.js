@@ -61,6 +61,10 @@ var StoreDefinition = {
         return this;
     },
 
+    hasProperty: function(key) {
+        return this.data[key] !== undefined;
+    },
+
     removeObject: function(key) {
         delete this.data[key];
     },

@@ -18,22 +18,7 @@ CoreBuilder.PageBuilder = function(config) {
     CoreBuilder.UIConfig.Canvas.set('editMode',  true);
 
     jQuery.getJSON(config.data, function(result){
-        // TODO: The default should be initialized at the store object
-        var data = _.extend({
-            root: {
-                id       : 'root', 
-                className: 'corebuilder',
-                component: 'container',
-                css      : {
-                    all    : {},
-                    desktop: {},
-                    laptop : {},
-                    tablet : {},
-                    phone  : {}
-                },
-            }
-        }, result.entities.pop() || {});
-
+        var data = _.isArray(result.entities) ? result.entities.pop() : {};
         delete data['links'];
 
         CoreBuilder.Nodes.setData(data);

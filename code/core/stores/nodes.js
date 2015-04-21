@@ -22,6 +22,33 @@ function insertNodeAfterSibling(node, sibling) {
 }
 
 module.exports = new Store({}, UINodeActions, {
+    setData: function(data) {
+        if(_.isObject(data)) {
+            _.each(data, function(data, index){
+                data.id = index;
+                this.addNode(data);
+            }.bind(this));
+        }else this.addNode({
+            root: {
+                id       : 'root', 
+                className: 'corebuilder',
+                component: 'container'
+            }
+        });
+
+        return this;
+    },
+
+    getDefaultCss: function() {
+        return {
+            all      : {},
+            desktop  : {},
+            laptop   : {},
+            tablet   : {},
+            phone    : {}
+        };
+    },
+
     addNode: function(properties) {
         var parent,
             node = _.isObject(properties) ? _.clone(properties) : {};
@@ -34,13 +61,7 @@ module.exports = new Store({}, UINodeActions, {
             node.parent = 'root';
         }
 
-        node.css = node.css || {
-            all      : {},
-            desktop  : {},
-            laptop   : {},
-            tablet   : {},
-            phone    : {}
-        }
+        node.css = _.extend(node.css || {}, this.getDefaultCss());
 
         if(!_.isArray(node.children)) {
             node.children = [];
