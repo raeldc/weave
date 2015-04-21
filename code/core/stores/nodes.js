@@ -190,5 +190,9 @@ module.exports = new Store({}, UINodeActions, {
     onUpdateNodeCSS: function(id, device, property, value) {
         this.getStore(id).getStore('css').getStore(device).set(property, value);
         this.getStore(id).getStore('css').trigger(property, value);
+    },
+
+    onUpdateText: function(id, text) {
+        this.getStore(id).set('text', text).trigger(id, text);
     }
 });

@@ -1,5 +1,6 @@
 var UICanvasActions   = require('core/actions/canvas.js'),
     UIControlsActions = require('core/actions/controls.js'),
+    NodeActions       = require('core/actions/node.js'),
     UIConfig          = require('core/stores/uiconfig.js');
 
 module.exports = {
@@ -57,7 +58,7 @@ module.exports = {
 
     saveTextChanges: function(event) {
         if(this.isText()) {
-            UIControlsActions.changeText(this.props.id, event.target.innerHTML);
+            NodeActions.updateText(this.props.id, event.target.innerHTML);
         }
 
         event.stopPropagation();
