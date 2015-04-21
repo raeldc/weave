@@ -61,7 +61,7 @@ module.exports = new Store({}, UINodeActions, {
             node.parent = 'root';
         }
 
-        node.css = _.extend(node.css || {}, this.getDefaultCss());
+        node.css = _.extend(this.getDefaultCss(), node.css || {});
 
         if(!_.isArray(node.children)) {
             node.children = [];
