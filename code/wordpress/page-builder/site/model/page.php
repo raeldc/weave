@@ -11,10 +11,8 @@ class ComPagebuilderModelPage extends KModelAbstract
 
     protected function _actionFetch(KModelContext $context)
     {
-        return $this->create(array(
-            (array) json_decode(
-                get_post_meta($this->getState()->id, 'pagebuilder_nodes', true)
-            )
-        ));
+        $result = get_post_meta($this->getState()->id, 'pagebuilder_nodes');
+
+        return $this->create($result);
     }
 }

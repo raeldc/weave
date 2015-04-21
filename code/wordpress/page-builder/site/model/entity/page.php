@@ -18,7 +18,7 @@ class ComPagebuilderModelEntityPage extends KModelEntityAbstract
     public function save()
     {
         if($this->hasProperty('id')) {
-            return update_post_meta($this->id, 'pagebuilder_nodes', json_encode($this->nodes));
+            return update_post_meta($this->id, 'pagebuilder_nodes', $this->nodes);
         }
 
         return false;
