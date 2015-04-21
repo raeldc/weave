@@ -13,7 +13,7 @@ class ComPagebuilderModelPage extends KModelAbstract
     {
         return $this->create(array(
             (array) json_decode(
-                get_post_meta($this->getState()->id, 'corebuilder_pagebuilder_nodes', true)
+                get_post_meta($this->getState()->id, 'pagebuilder_nodes', true)
             )
         ));
     }

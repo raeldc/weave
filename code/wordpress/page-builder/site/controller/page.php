@@ -17,7 +17,7 @@ class ComPagebuilderControllerPage extends KControllerModel
             show_admin_bar(false);
         }
 
-        // Make sure the query uses the id as "p"
+        // Make sure the query uses the id as "p" or "page_id" depending on post type
         add_filter('request', function($query) use ($request)
         {
             $identifier         = $request->query->get('type', 'cmd') == 'page' ? 'page_id' : 'p';
@@ -25,5 +25,16 @@ class ComPagebuilderControllerPage extends KControllerModel
 
             return $query;
         });
+
+        $this->addCommandCallback('before.edit', 'normalizeData');
+    }
+
+    public function normalizeData(KDispatcherContextInterface $context)
+    {
+        if($context->request->query->has('id', 'int')) {
+            $context->request->data['id'] = $context->request->query->get('id', 'int');
+        }
+
+        return true;
     }
 }
