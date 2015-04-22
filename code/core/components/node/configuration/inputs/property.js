@@ -21,7 +21,7 @@ module.exports = React.createClass({
     },
 
     getCurrentValue: function() {
-        return Nodes.getStore(this.props.node).get('css')[this.props.device][this.props.propertyName] || this.props.default;
+        return Nodes.getStore(this.props.node).getStore('css').getStore(this.props.device).get(this.props.propertyName) || this.props.default;
     },
 
     saveInput: function(event) {

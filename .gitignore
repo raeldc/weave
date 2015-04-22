@@ -5,3 +5,7 @@ public/css/*.css
 public/js
 npm-debug.log
 code/core/demodata.js
+public/wp
+code/wordpress/page-builder/resources/assets/css/*
+code/wordpress/page-builder/resources/assets/js/*
+code/wordpress/page-builder/resources/assets/fonts/*

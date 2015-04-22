@@ -6,11 +6,11 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // jshint        : config('jshint'),
         // cssmin        : config('cssmin'),
-        copy      : config('copy'),
-        uglify    : config('uglify'),
-        less      : config('less'),
-        watch     : config('watch'),
-        watchify  : config('watchify')
+        copy    : config('copy'),
+        uglify  : config('uglify'),
+        less    : config('less'),
+        watch   : config('watch'),
+        watchify: config('watchify'),
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -20,6 +20,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-watchify');
 
-    grunt.registerTask('dist', ['less', 'watchify', 'uglify', 'copy']);
-    grunt.registerTask('default', ['watchify', 'watch']);
+    var wp_pagebuilder_watch = [
+        'watchify:pagebuilder',
+        'watch:wp_pagebuilder'
+    ];
+
+    var wp_pagebuilder_dist = [
+        'less', 
+        'watchify', 
+        'uglify:pagebuilder',
+        'copy:wp_pagebuilder_dist'
+    ];
+
+    // Shortcuts
+    grunt.registerTask('default',              wp_pagebuilder_watch);
+    grunt.registerTask('dist' ,                wp_pagebuilder_dist);
+
+    // Specifics
+    grunt.registerTask('wp_pagebuilder_watch', wp_pagebuilder_watch);
+    grunt.registerTask('wp_pagebuilder_dist' , wp_pagebuilder_dist);
 };

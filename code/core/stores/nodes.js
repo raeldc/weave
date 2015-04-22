@@ -21,7 +21,34 @@ function insertNodeAfterSibling(node, sibling) {
     insertNodeBesideSibling(node, sibling, 'after');
 }
 
-module.exports = new Store(require('core/demodata.js'), UINodeActions, {
+module.exports = new Store({}, UINodeActions, {
+    setData: function(data) {
+        if(_.isObject(data)) {
+            _.each(data, function(data, index){
+                data.id = index;
+                this.addNode(data);
+            }.bind(this));
+        }else this.addNode({
+            root: {
+                id       : 'root', 
+                className: 'corebuilder',
+                component: 'container'
+            }
+        });
+
+        return this;
+    },
+
+    getDefaultCss: function() {
+        return {
+            all      : {},
+            desktop  : {},
+            laptop   : {},
+            tablet   : {},
+            phone    : {}
+        };
+    },
+
     addNode: function(properties) {
         var parent,
             node = _.isObject(properties) ? _.clone(properties) : {};
@@ -34,13 +61,7 @@ module.exports = new Store(require('core/demodata.js'), UINodeActions, {
             node.parent = 'root';
         }
 
-        node.css = node.css || {
-            all      : {},
-            desktop  : {},
-            laptop   : {},
-            tablet   : {},
-            phone    : {}
-        }
+        node.css = _.extend(this.getDefaultCss(), node.css || {});
 
         if(!_.isArray(node.children)) {
             node.children = [];
@@ -169,5 +190,9 @@ module.exports = new Store(require('core/demodata.js'), UINodeActions, {
     onUpdateNodeCSS: function(id, device, property, value) {
         this.getStore(id).getStore('css').getStore(device).set(property, value);
         this.getStore(id).getStore('css').trigger(property, value);
+    },
+
+    onUpdateText: function(id, text) {
+        this.getStore(id).set('text', text).trigger(id, text);
     }
 });
