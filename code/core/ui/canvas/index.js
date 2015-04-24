@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     render: function(){
         return (
-            <div id="corebuilder-canvas" className={this.state.device}>
+            <div id="corebuilder-canvas-frame" className={this.state.device}>
                 <iframe ref="iframe" src={this.state.page} onLoad={this.renderCanvasContent} />
             </div>
         );

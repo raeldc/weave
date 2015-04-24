@@ -17,19 +17,20 @@ CoreBuilder.PageBuilder = function(config) {
     CoreBuilder.UIConfig.Canvas.set('overlay',   overlay);
     CoreBuilder.UIConfig.Canvas.set('editMode',  true);
 
+    React.render(
+        <div>
+            <div id="corebuilder-canvas" />
+            <Controls />
+        </div>, 
+        document.body
+    );
+
     jQuery.getJSON(config.data, function(result){
         var data = _.isArray(result.entities) ? result.entities.pop() : {};
         delete data['links'];
 
         CoreBuilder.Nodes.setData(data);
 
-        React.render(
-            <div>
-                <Controls />
-                <Canvas />
-            </div>,
-
-            config.target || document.body
-        );
+        React.render(<Canvas />, document.getElementById('corebuilder-canvas'));
     });
 }

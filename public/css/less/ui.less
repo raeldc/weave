@@ -1,22 +1,18 @@
 @import "bootstrap/bootstrap.less";
 @import "lib/elements.less";
 
-.ui-component-group {
-    float: left;
-    margin: 0 30px;
-
-    .btn {
-        margin: 0 5px;
-    }
+body {
+    background: black;
+    position: relative;
 }
 
 #corebuilder-controls {
     position   : fixed;
     border-left: 1px solid #aaa;
-    width      : 220px;
-    height     : 100%;
-    right      : 0;
-    top        : 0;
+    width      : 100%;
+    height     : 20vh;
+    left       : 0;
+    bottom     : 0;
     background : #ebeced;
 
     h5 {
@@ -26,6 +22,12 @@
 }
 
 #corebuilder-canvas {
+    width : 100%;
+    height: 80vh;
+    overflow: auto;
+}
+
+#corebuilder-canvas-frame {
     width  : 100%;
     margin : 0;
     padding: 0;
@@ -37,8 +39,8 @@
     }
 
     &.laptop {
-        width     : 992px;
-        height    : 80vh;
+        width     : 1024px;
+        height    : 768px;
         display   : block;
         margin    : 10vh auto;
         overflow-y: auto;
@@ -47,7 +49,7 @@
 
     &.tablet {
         width     : 768px;
-        height    : 90vh;
+        height    : 1024px;
         display   : block;
         margin    : 5vh auto;
         overflow-y: auto;
@@ -55,8 +57,8 @@
     }
 
     &.phone {
-        width     : 420px;
-        height    : 70vh;
+        width     : 320px;
+        height    : 568px;
         display   : block;
         margin    : 15vh auto;
         overflow-y: auto;
@@ -73,14 +75,14 @@
     }
 }
 
-body {
-    background: black;
-}
 
-body#page-builder-ui {
-    margin-right: 220px !important;
-    background: black;
-    position: relative;
+.ui-component-group {
+    float: left;
+    margin: 0 30px;
+
+    .btn {
+        margin: 0 5px;
+    }
 }
 
 .btn i,

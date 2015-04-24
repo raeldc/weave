@@ -24,7 +24,7 @@ defined('KOOWA') or die; ?>
     <ktml:style>
     <ktml:script>
 </head>
-<body id="page-builder-ui">
+<body>
     <ktml:content>
 </body>
 </html>
