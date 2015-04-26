@@ -1,6 +1,7 @@
 var Core     = require('core'),
     Controls = require('core/ui/controls'),
-    Canvas   = require('core/ui/canvas');
+    Canvas   = require('core/ui/canvas'),
+    Layout   = require('core/ui/layout');
 
 // Register Node Components
 CoreBuilder.Components.register(require('core/components/text'));
@@ -31,6 +32,7 @@ CoreBuilder.PageBuilder = function(config) {
 
         CoreBuilder.Nodes.setData(data);
 
+        React.render(<Layout />, document.getElementById('corebuilder-layout'));
         React.render(<Canvas />, document.getElementById('corebuilder-canvas'));
     });
 }
