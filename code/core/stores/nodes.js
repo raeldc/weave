@@ -23,17 +23,14 @@ function insertNodeAfterSibling(node, sibling) {
 
 module.exports = new Store({}, UINodeActions, {
     setData: function(data) {
-        if(_.isObject(data)) {
+        if(_.isObject(data) && !_.isEmpty(data)) {
             _.each(data, function(data, index){
                 data.id = index;
                 this.addNode(data);
             }.bind(this));
         }else this.addNode({
-            root: {
-                id       : 'root', 
-                className: 'corebuilder',
-                component: 'container'
-            }
+            id       : 'root', 
+            component: 'container'
         });
 
         return this;
@@ -57,7 +54,7 @@ module.exports = new Store({}, UINodeActions, {
             node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
         }
 
-        if(node.parent === undefined) {
+        if(node.parent === undefined && node.id !== 'root') {
             node.parent = 'root';
         }
 
