@@ -10,11 +10,11 @@ module.exports = React.createClass({
 
     render: function() {
         return  (
-            <ButtonGroup className="ui-devices">
-                <Button className="btn-xs" active={this.state.device === 'desktop'} onClick={this.setDevice.bind(this, 'desktop')}>Full</Button>
-                <Button className="btn-xs" active={this.state.device === 'laptop'} onClick={this.setDevice.bind(this, 'laptop')}>Laptop</Button>
-                <Button className="btn-xs" active={this.state.device === 'tablet'} onClick={this.setDevice.bind(this, 'tablet')}>Tablet</Button>
-                <Button className="btn-xs" active={this.state.device === 'phone'} onClick={this.setDevice.bind(this, 'phone')}>Phone</Button>
+            <ButtonGroup className="ui-controls-topbar-devices">
+                <Button className="btn-xs" active={this.state.device === 'desktop'} onClick={this.setDevice.bind(this, 'desktop')}><i className="fa fa-desktop"></i></Button>
+                <Button className="btn-xs" active={this.state.device === 'laptop'} onClick={this.setDevice.bind(this, 'laptop')}><i className="fa fa-laptop"></i></Button>
+                <Button className="btn-xs" active={this.state.device === 'tablet'} onClick={this.setDevice.bind(this, 'tablet')}><i className="fa fa-tablet"></i></Button>
+                <Button className="btn-xs" active={this.state.device === 'phone'} onClick={this.setDevice.bind(this, 'phone')}><i className="fa fa-mobile"></i></Button>
             </ButtonGroup>
         );
     },

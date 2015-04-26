@@ -1,9 +1,9 @@
 @import "bootstrap/bootstrap.less";
-@import "lib/elements.less";
 
 body {
     background: black;
-    position: relative;
+    position  : relative;
+    height    : 100%;
 }
 
 #corebuilder-controls {
@@ -13,11 +13,29 @@ body {
     height     : 20vh;
     left       : 0;
     bottom     : 0;
-    background : #ebeced;
+    background : #fff;
 
     h5 {
         text-transform: uppercase;
         text-align: center;
+    }
+
+    .ui-controls-topbar {
+        border-top   : 1px solid #c0c0c0;
+        border-bottom: 1px solid #c0c0c0;
+        padding      : 0 5px 0 0;
+        min-height   : auto;
+        margin       : 0;
+
+        .ui-controls-topbar-devices {
+            text-align: center;
+        }
+
+        .btn {
+            border-radius: 0;
+            padding: 1px 20px;
+            outline: none;
+        }
     }
 }
 
@@ -35,7 +53,7 @@ body {
 
     &.desktop {
         min-width: 1200px;
-        height   : 100vh;
+        height   : 100%;
     }
 
     &.laptop {
