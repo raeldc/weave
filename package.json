@@ -19,7 +19,8 @@
         "grunt-contrib-less"     : "~0.11.0",
         "grunt-contrib-cssmin"   : "~0.9.0",
         "grunt-contrib-copy"     : "~0.5.x",
-        "grunt-watchify"         : "0.5.x",
-        "reactify"               : "1.1.x"
+        "grunt-watchify"         : "*",
+        "reactify"               : "1.1.x",
+        "font-awesome"           : "*"
     }
 }
