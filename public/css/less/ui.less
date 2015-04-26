@@ -10,7 +10,7 @@ body {
     position   : fixed;
     border-left: 1px solid #aaa;
     width      : 100%;
-    height     : 20vh;
+    height     : 50vh;
     left       : 0;
     bottom     : 0;
     background : #fff;
@@ -23,12 +23,22 @@ body {
     .ui-controls-topbar {
         border-top   : 1px solid #c0c0c0;
         border-bottom: 1px solid #c0c0c0;
-        padding      : 0 5px 0 0;
         min-height   : auto;
-        margin       : 0;
 
         .ui-controls-topbar-devices {
             text-align: center;
+        }
+
+        .ui-controls-topbar-toolbar {
+            text-align: right;
+        }
+
+        &.row div:first-child {
+            padding-left: 0;
+        }
+
+        &.row div:last-child {
+            padding-right: 0;
         }
 
         .btn {
@@ -37,11 +47,15 @@ body {
             outline: none;
         }
     }
+
+    .ui-controls-layout {
+
+    }
 }
 
 #corebuilder-canvas {
     width : 100%;
-    height: 80vh;
+    height: 50vh;
     overflow: auto;
 }
 

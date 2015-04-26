@@ -5,16 +5,18 @@ var Nodes   = require('core/stores/nodes.js'),
 module.exports = React.createClass({
     render: function() {
         return (
-            <nav className="navbar navbar-collapse ui-controls-topbar">
-                <ul className="nav navbar-nav ui-controls-topbar-panels">
-                    <li><button className="btn btn-primary btn-xs">Layouts <i className="fa fa-angle-double-right"></i></button></li>
-                </ul>
-                <ul className="nav navbar-nav navbar-right ui-controls-topbar-toolbar">
-                    <li><button className="btn btn-primary btn-xs">Insert Components <i className="fa fa-angle-double-down"></i></button></li>
-                    <li><Devices /></li>
-                    <li><Toolbar /></li>
-                </ul>
-            </nav>
+            <div className="row ui-controls-topbar">
+                <div className="col-lg-3 ui-controls-topbar-panels">
+                    <button className="btn btn-primary btn-xs">Layouts <i className="fa fa-angle-double-right"></i></button>
+                    <button className="btn btn-primary btn-xs">Insert Components <i className="fa fa-angle-double-down"></i></button>
+                </div>
+                <div className="col-lg-2 col-lg-offset-2 ui-controls-topbar-devices">
+                    <Devices />
+                </div>
+                <div className="col-lg-2 col-lg-offset-3 ui-controls-topbar-toolbar">
+                    <Toolbar />
+                </div>
+            </div>
         );
     },
 });

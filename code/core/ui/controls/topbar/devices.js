@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
     render: function() {
         return  (
-            <ButtonGroup className="ui-controls-topbar-devices">
+            <ButtonGroup>
                 <Button className="btn-xs" active={this.state.device === 'desktop'} onClick={this.setDevice.bind(this, 'desktop')}><i className="fa fa-desktop"></i></Button>
                 <Button className="btn-xs" active={this.state.device === 'laptop'} onClick={this.setDevice.bind(this, 'laptop')}><i className="fa fa-laptop"></i></Button>
                 <Button className="btn-xs" active={this.state.device === 'tablet'} onClick={this.setDevice.bind(this, 'tablet')}><i className="fa fa-tablet"></i></Button>
