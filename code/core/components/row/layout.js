@@ -10,12 +10,13 @@ module.exports = React.createClass({
         if(_.isEmpty(this.props.children)) {
             return this.renderEmpty();
         }
-        else return this.renderNode();
+        
+        return this.renderNode();
     },
 
     renderNode: function() {
         return (
-            <div className="root">
+            <div className="row">
                 {this.props.children}
             </div>
         );
@@ -23,8 +24,8 @@ module.exports = React.createClass({
 
     renderEmpty: function() {
         return (
-            <div className="root">
-                <h3>Add a Section</h3>
+            <div className="row">
+                <h3>Add a Column</h3>
             </div>
         );
     }

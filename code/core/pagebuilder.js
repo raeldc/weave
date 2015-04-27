@@ -5,6 +5,8 @@ var Core     = require('core'),
 
 // Register Node Components
 CoreBuilder.Components.register(require('core/components/root'));
+CoreBuilder.Components.register(require('core/components/row'));
+CoreBuilder.Components.register(require('core/components/column'));
 CoreBuilder.Components.register(require('core/components/text'));
 CoreBuilder.Components.register(require('core/components/title'));
 CoreBuilder.Components.register(require('core/components/container'));
@@ -31,9 +33,9 @@ CoreBuilder.PageBuilder = function(config) {
         var data = _.isArray(result.entities) ? result.entities.pop() : {};
         delete data['links'];
 
-        CoreBuilder.Nodes.setData(data);
+        CoreBuilder.Nodes.setData(require('core/demolayout.js'));
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
-        React.render(<Canvas />, document.getElementById('corebuilder-canvas'));
+        //React.render(<Canvas />, document.getElementById('corebuilder-canvas'));
     });
 }

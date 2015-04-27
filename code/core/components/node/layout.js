@@ -7,24 +7,9 @@ module.exports = React.createClass({
     mixins: [LifeCycleMixin],
 
     render: function() {
-        if(_.isEmpty(this.props.children)) {
-            return this.renderEmpty();
-        }
-        else return this.renderNode();
-    },
-
-    renderNode: function() {
         return (
-            <div className="root">
-                {this.props.children}
-            </div>
-        );
-    },
-
-    renderEmpty: function() {
-        return (
-            <div className="root">
-                <h3>Add a Section</h3>
+            <div className="content">
+                {this.state.text || "Empty Text"}
             </div>
         );
     }

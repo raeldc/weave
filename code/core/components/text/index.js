@@ -5,6 +5,7 @@ module.exports = {
     description: 'A paragraph of text',
     iconClass  : 'glyphicon glyphicon-align-left',
     node       : require('../node/node.js'),
+    layout     : require('../node/layout.js'),
     configurations: [
         require('../node/configuration/formatting.js'),
         require('../node/configuration/alignment.js'),

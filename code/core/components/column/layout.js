@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
     renderNode: function() {
         return (
-            <div className="root">
+            <div className="column">
                 {this.props.children}
             </div>
         );
@@ -23,8 +23,8 @@ module.exports = React.createClass({
 
     renderEmpty: function() {
         return (
-            <div className="root">
-                <h3>Add a Section</h3>
+            <div className="column">
+                <h3>Add a Content</h3>
             </div>
         );
     }

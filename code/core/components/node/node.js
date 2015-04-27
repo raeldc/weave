@@ -1,7 +1,7 @@
-var LifeCycleMixin = require('./mixins/lifecycle.js');
-var EventsMixin    = require('./mixins/events.js');
-var EditModeMixin  = require('./mixins/editmode.js');
-var UIEventsMixin  = require('./mixins/uievents.js');
+var LifeCycleMixin = require('./mixins/node/lifecycle.js'),
+    EventsMixin    = require('./mixins/node/events.js'),
+    EditModeMixin  = require('./mixins/node/editmode.js'),
+    UIEventsMixin  = require('./mixins/node/uievents.js');
 
 module.exports = React.createClass({
     mixins: [LifeCycleMixin, EventsMixin, EditModeMixin, UIEventsMixin],
