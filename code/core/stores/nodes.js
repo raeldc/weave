@@ -169,15 +169,19 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(id).trigger(id);
     },
 
-    onAddChildNode: function(parent, properties, position) {
+    onAddChildNode: function(parent, properties) {
         properties.parent = parent;
         this.addChildNode(properties);
-        this.getStore(parent).trigger();
+        this.getStore(parent).trigger(parent);
     },
 
     onUpdateNode: function(id, properties, nested_properties) {
         this.updateNode(id, properties, nested_properties);
         this.getStore(id).trigger(id);
+    },
+
+    onUpdateColspan: function(id, value) {
+        this.getStore(id).set('colspan', value).trigger(id, value);
     },
 
     onDeleteNode: function(id) {

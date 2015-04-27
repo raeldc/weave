@@ -7,12 +7,10 @@ module.exports = {
 
         if(properties) {
             var component = Components.get(properties.component);
-            var children  = this.createChildNodes(properties.children);
-
             return React.createElement(component.layout, {
                 id : properties.id,
                 key: properties.id
-            }, children);
+            });
         }
 
         return null;

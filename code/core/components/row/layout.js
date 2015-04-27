@@ -1,18 +1,7 @@
 var Nodes          = require('core/stores/nodes.js'),
+    NodeActions    = require('core/actions/node.js'),
     LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    EventsMixin    = require('core/components/node/mixins/layout/events.js'),
-    EditModeMixin  = require('core/components/node/mixins/layout/editmode.js'),
-    UIEventsMixin  = require('core/components/node/mixins/layout/uievents.js');
-
-var ColumnOptions = React.createClass({
-    render: function() {
-        return (
-            <ul className="dropdown-menu">
-                <li><a href="#">1</a></li>
-            </ul>
-        )
-    }
-});
+    ChangesMixin  = require('core/components/node/mixins/layout/changes.js');
 
 var ColumnSelect = React.createClass({
     getInitialState: function() {
@@ -25,10 +14,11 @@ var ColumnSelect = React.createClass({
         var columns  = Nodes.get(this.props.node).columns || 4;
 
         var options = _.map([2,4,6,8,10,12], function(value){
-            var disabled = (value <= occupied) ? 'disabled' : '';
+            var disabled = (value <= occupied) ? 'disabled' : null;
             var selected = (value == columns) ? <i className="fa fa-check"></i> : '';
+            var onClick  = !disabled ? this.selectColumnsValue.bind(this, value) : null;
 
-            return <li className={disabled} key={value}><a href="#" onClick={this.selectColumnsValue.bind(this, value)}>{value} {selected}</a></li>
+            return <li className={disabled} key={value}><a href="#" onClick={onClick}>{value} {selected}</a></li>
         }.bind(this));
 
         return (
@@ -48,7 +38,7 @@ var ColumnSelect = React.createClass({
         var count    = 0;
 
         _.each(children, function(node) {
-            count += Nodes.get(node).span || 0;
+            count += Nodes.get(node).colspan || 0;
         });
 
         return count;
@@ -82,7 +72,7 @@ var ColumnSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    //mixins: [LifeCycleMixin],
+    mixins: [LifeCycleMixin, ChangesMixin],
 
     render: function() {
         return (
@@ -92,7 +82,7 @@ module.exports = React.createClass({
                         <h3 className="title">
                             Row
                             <div className="btn-group pull-right">
-                                <button className="btn btn-xs">
+                                <button className="btn btn-xs" onClick={this.addColumn}>
                                     Add Column <i className="fa fa-plus"></i>
                                 </button>
                                 <button className="btn btn-xs">
@@ -108,9 +98,17 @@ module.exports = React.createClass({
                             <ColumnSelect node={this.props.id} />
                         </h3>
                     </div>
-                    {this.props.children}
+                    {this.children}
                 </div>
             </div>
         );
+    },
+
+    addColumn: function() {
+        NodeActions.addChildNode(this.props.id, {
+            component: 'column',
+            parent   : this.props.id,
+            colspan  : 1
+        });
     }
 });
