@@ -30,7 +30,7 @@ module.exports = new Store({}, UINodeActions, {
             }.bind(this));
         }else this.addNode({
             id       : 'root', 
-            component: 'container'
+            component: 'root'
         });
 
         return this;

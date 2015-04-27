@@ -66,8 +66,8 @@ var Components = {
     },
 
     // Returns the React Class
-    getReactComponent: function(id) {
-        return this.get(id).reactComponent;
+    getNode: function(id) {
+        return this.get(id).node;
     },
 
     getConfigurations: function(id) {

@@ -4,6 +4,7 @@ var Core     = require('core'),
     Layout   = require('core/ui/layout');
 
 // Register Node Components
+CoreBuilder.Components.register(require('core/components/root'));
 CoreBuilder.Components.register(require('core/components/text'));
 CoreBuilder.Components.register(require('core/components/title'));
 CoreBuilder.Components.register(require('core/components/container'));

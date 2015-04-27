@@ -2,14 +2,15 @@ var Nodes      = require('core/stores/nodes.js'),
     Components = require('core/stores/components.js');
 
 module.exports = {
-    createNode: function(id, editMode) {
+    createNode: function(id) {
         var properties = Nodes.get(id);
 
         if(properties) {
-            return React.createElement('div', {
-                id       : properties.id,
-                key      : properties.id,
-                className: 'node'
+            var component = Components.get(properties.component);
+
+            return React.createElement(component.layout, {
+                id : properties.id,
+                key: properties.id
             });
         }
 
