@@ -84,7 +84,7 @@ module.exports = React.createClass({
         var colspan = this.getColspan();
 
         return (
-            <div className={"column col-lg-"+colspan}>
+            <div className={"column col-md-"+colspan+" col-sm-"+colspan}>
                 <div className="inner">
                     <div className="controls">
                         <h4 className="title">Column

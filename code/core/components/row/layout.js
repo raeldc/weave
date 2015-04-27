@@ -24,8 +24,8 @@ var ColumnSelect = React.createClass({
         var occupied = calculateOccupiedColumns(this.props.node);
         var columns  = Nodes.get(this.props.node).columns || 4;
 
-        var options = _.map([2,4,6,12], function(value){
-            var disabled = (value <= occupied) ? 'disabled' : null;
+        var options = _.map([2,3,4,6,12], function(value){
+            var disabled = (value < occupied) ? 'disabled' : null;
             var selected = (value == columns) ? <i className="fa fa-check"></i> : '';
             var onClick  = !disabled ? this.selectColumnsValue.bind(this, value) : null;
 
