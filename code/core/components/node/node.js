@@ -5,6 +5,7 @@ var UIEventsMixin  = require('./mixins/uievents.js');
 
 module.exports = React.createClass({
     mixins: [LifeCycleMixin, EventsMixin, EditModeMixin, UIEventsMixin],
+
     render: function() {
         this.nodeProperties.className = _.uniq(this.nodeProperties.classNames).join(' ');
 

@@ -1,11 +1,11 @@
 module.exports = {
-    name          : 'title',
-    group         : 'content',
-    title         : 'Header Title',
-    description   : 'Header Title',
-    iconClass     : 'glyphicon glyphicon-header',
-    reactComponent: require('../node/component.js'),
-    defaults: {
+    name       : 'title',
+    group      : 'content',
+    title      : 'Header Title',
+    description: 'Header Title',
+    iconClass  : 'glyphicon glyphicon-header',
+    node       : require('../node/node.js'),
+    defaults   : {
         element: 'h1',
         text   : 'Title (click here to edit)'
     },

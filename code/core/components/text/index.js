@@ -1,10 +1,10 @@
 module.exports = {
-    name          : 'text',
-    group         : 'content',
-    title         : 'Text',
-    description   : 'A paragraph of text',
-    iconClass     : 'glyphicon glyphicon-align-left',
-    reactComponent: require('../node/component.js'),
+    name       : 'text',
+    group      : 'content',
+    title      : 'Text',
+    description: 'A paragraph of text',
+    iconClass  : 'glyphicon glyphicon-align-left',
+    node       : require('../node/node.js'),
     configurations: [
         require('../node/configuration/formatting.js'),
         require('../node/configuration/alignment.js'),

@@ -8,7 +8,7 @@ module.exports = {
         if(properties) {
             var component = Components.get(properties.component);
 
-            return React.createElement(component.reactComponent, {
+            return React.createElement(component.node, {
                 id       : properties.id,
                 key      : properties.id,
                 component: component.name,
