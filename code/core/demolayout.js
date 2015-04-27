@@ -8,7 +8,7 @@ module.exports ={
         id       : 'header',
         component: 'row',
         parent   : 'root',
-        columns  : 12,
+        columns  : 4,
         //children : ['col1', 'col2', 'col3']
     },
     /*

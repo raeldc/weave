@@ -4,6 +4,7 @@ module.exports = Reflux.createActions([
     'addNode',
     'deleteNode',
     'updateNode',
+    'updateColumns',
     'updateColspan',
     'updateText',
     'updateNodeCSS',

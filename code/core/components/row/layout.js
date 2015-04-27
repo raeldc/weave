@@ -3,6 +3,17 @@ var Nodes          = require('core/stores/nodes.js'),
     LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
     ChangesMixin  = require('core/components/node/mixins/layout/changes.js');
 
+function calculateOccupiedColumns(node) {
+    var children = Nodes.get(node).children || [];
+    var count    = 0;
+
+    _.each(children, function(node) {
+        count += Nodes.get(node).colspan || 0;
+    });
+
+    return count;
+}
+
 var ColumnSelect = React.createClass({
     getInitialState: function() {
         return {open: false};
@@ -10,10 +21,10 @@ var ColumnSelect = React.createClass({
 
     render: function() {
         var open     = this.state.open ? ' open' : '';
-        var occupied = this.calculateOccupiedColumns();
+        var occupied = calculateOccupiedColumns(this.props.node);
         var columns  = Nodes.get(this.props.node).columns || 4;
 
-        var options = _.map([2,4,6,8,10,12], function(value){
+        var options = _.map([2,4,6,12], function(value){
             var disabled = (value <= occupied) ? 'disabled' : null;
             var selected = (value == columns) ? <i className="fa fa-check"></i> : '';
             var onClick  = !disabled ? this.selectColumnsValue.bind(this, value) : null;
@@ -33,20 +44,8 @@ var ColumnSelect = React.createClass({
         )
     },
 
-    calculateOccupiedColumns: function() {
-        var children = Nodes.get(this.props.node).children || [];
-        var count    = 0;
-
-        _.each(children, function(node) {
-            count += Nodes.get(node).colspan || 0;
-        });
-
-        return count;
-    },
-
     selectColumnsValue: function(value) {
-        // TODO: Execute this through an action
-        Nodes.getStore(this.props.node).set('columns', value);
+        NodeActions.updateColumns(this.props.node, value);
     },
 
     toggleOpen: function(event) {
@@ -79,7 +78,7 @@ module.exports = React.createClass({
             <div className="container-fluid">
                 <div className="row">
                     <div className="controls col-lg-12">
-                        <h3 className="title">
+                        <h4 className="title">
                             Row
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs" onClick={this.addColumn}>
@@ -96,7 +95,7 @@ module.exports = React.createClass({
                                 </button>
                             </div>
                             <ColumnSelect node={this.props.id} />
-                        </h3>
+                        </h4>
                     </div>
                     {this.children}
                 </div>
@@ -105,10 +104,12 @@ module.exports = React.createClass({
     },
 
     addColumn: function() {
-        NodeActions.addChildNode(this.props.id, {
-            component: 'column',
-            parent   : this.props.id,
-            colspan  : 1
-        });
+        if(calculateOccupiedColumns(this.props.id) < this.state.columns) {
+            NodeActions.addChildNode(this.props.id, {
+                component: 'column',
+                parent   : this.props.id,
+                colspan  : 1
+            });
+        }
     }
 });

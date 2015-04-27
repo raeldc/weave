@@ -180,6 +180,10 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(id).trigger(id);
     },
 
+    onUpdateColumns: function(id, value) {
+        this.getStore(id).set('columns', value).trigger(id, value);
+    },
+
     onUpdateColspan: function(id, value) {
         this.getStore(id).set('colspan', value).trigger(id, value);
     },

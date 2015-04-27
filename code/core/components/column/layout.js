@@ -81,13 +81,13 @@ module.exports = React.createClass({
     mixins: [LifeCycleMixin, ChangesMixin],
 
     render: function() {
-        var colspan = this.state.colspan;
+        var colspan = this.getColspan();
 
         return (
             <div className={"column col-lg-"+colspan}>
                 <div className="inner">
                     <div className="controls">
-                        <h3 className="title">Column
+                        <h4 className="title">Column
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs">
                                     <i className="fa fa-pencil"></i>
@@ -100,11 +100,18 @@ module.exports = React.createClass({
                                 </button>
                             </div>
                             <ColspanSelect node={this.props.id} />
-                        </h3>
+                        </h4>
                     </div>
                     {this.children}
                 </div>
             </div>
         );
+    },
+
+    getColspan: function() {
+        var colspan = Nodes.get(this.state.id).colspan || 1;
+        var columns = Nodes.get(this.state.parent).columns || 4;
+
+        return colspan * (12 / columns);
     }
 });
