@@ -11,8 +11,8 @@ var ColspanSelect = React.createClass({
     render: function() {
         var open     = this.state.open ? ' open' : '';
         var node     = Nodes.get(this.props.node);
-        var colspan  = node.colspan || 1;
-        var columns  = Nodes.get(node.parent).columns;
+        var colspan  = Number(node.colspan) || 1;
+        var columns  = Number(Nodes.get(node.parent).columns);
         var occupied = this.calculateOccupiedColumns(node.parent);
         var options  = [];
 
@@ -45,7 +45,7 @@ var ColspanSelect = React.createClass({
         var count    = 0;
 
         _.each(children, function(node) {
-            count += Nodes.get(node).colspan || 0;
+            count += Number(Nodes.get(node).colspan) || 0;
         });
 
         return count;

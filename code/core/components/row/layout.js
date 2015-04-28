@@ -8,7 +8,7 @@ function calculateOccupiedColumns(node) {
     var count    = 0;
 
     _.each(children, function(node) {
-        count += Nodes.get(node).colspan || 0;
+        count += Number(Nodes.get(node).colspan) || 0;
     });
 
     return count;
@@ -22,7 +22,7 @@ var ColumnSelect = React.createClass({
     render: function() {
         var open     = this.state.open ? ' open' : '';
         var occupied = calculateOccupiedColumns(this.props.node);
-        var columns  = Nodes.get(this.props.node).columns || 4;
+        var columns  = Number(Nodes.get(this.props.node).columns);
 
         var options = _.map([2,3,4,6,12], function(value){
             var disabled = (value < occupied) ? 'disabled' : null;
@@ -35,7 +35,7 @@ var ColumnSelect = React.createClass({
         return (
             <div className={"btn-group pull-right" + open}>
                 <button type="button" className="btn btn-xs dropdown-toggle" onClick={this.toggleOpen}>
-                    Column Limit <span className="caret"></span>
+                    Column Slots <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
                     {options}
