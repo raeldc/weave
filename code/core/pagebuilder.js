@@ -33,7 +33,7 @@ CoreBuilder.PageBuilder = function(config) {
         var data = _.isArray(result.entities) ? result.entities.pop() : {};
         delete data['links'];
 
-        CoreBuilder.Nodes.setData(require('core/demolayout.js'));
+        CoreBuilder.Nodes.setData(data);
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
         //React.render(<Canvas />, document.getElementById('corebuilder-canvas'));

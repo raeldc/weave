@@ -8,29 +8,28 @@ module.exports ={
         id       : 'header',
         component: 'row',
         parent   : 'root',
-        columns  : 4,
-        //children : ['col1', 'col2', 'col3']
+        columns  : 12,
+        children : ['col1', 'col2', 'col3']
     },
-    /*
     'col1' : {
         id       : 'col1',
         component: 'column',
         parent   : 'header',
-        span     : 2,
+        colspan  : 2,
         children : ['content1', 'content2']
     },
     'col2' : {
         id       : 'col2',
         component: 'column',
         parent   : 'header',
-        span     : 2,
+        colspan  : 2,
         children : ['content3', 'content4']
     },
     'col3' : {
         id       : 'col3',
         component: 'column',
         parent   : 'header',
-        span     : 2,
+        colspan  : 2,
         children : ['content5', 'content6']
     },
     'content1' : {
@@ -69,5 +68,4 @@ module.exports ={
         parent   : 'col3',
         text     : 'Content 6'
     }
-    */
 };

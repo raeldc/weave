@@ -1,7 +1,7 @@
 var Nodes          = require('core/stores/nodes.js'),
     NodeActions    = require('core/actions/node.js'),
     LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin  = require('core/components/node/mixins/layout/changes.js');
+    ChangesMixin   = require('core/components/node/mixins/layout/changes.js');
 
 function calculateOccupiedColumns(node) {
     var children = Nodes.get(node).children || [];
@@ -75,7 +75,7 @@ module.exports = React.createClass({
 
     render: function() {
         return (
-            <div className="container-fluid">
+            <div className="container-fluid container-row">
                 <div className="row">
                     <div className="controls col-lg-12">
                         <h4 className="title">

@@ -31,7 +31,7 @@ var ColspanSelect = React.createClass({
         return (
             <div className={"btn-group pull-right" + open}>
                 <button type="button" className="btn btn-xs dropdown-toggle" onClick={this.toggleOpen}>
-                    Column Span <span className="caret"></span>
+                    Span <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
                     {options}
@@ -84,7 +84,7 @@ module.exports = React.createClass({
         var colspan = this.getColspan();
 
         return (
-            <div className={"column col-md-"+colspan+" col-sm-"+colspan}>
+            <div className={"column col-md-"+colspan}>
                 <div className="inner">
                     <div className="controls">
                         <h4 className="title">Column
@@ -95,7 +95,7 @@ module.exports = React.createClass({
                                 <button className="btn btn-xs">
                                     <i className="fa fa-copy"></i>
                                 </button>
-                                <button className="btn btn-xs">
+                                <button className="btn btn-xs" onClick={this.deleteNode}>
                                     <i className="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -113,5 +113,9 @@ module.exports = React.createClass({
         var columns = Nodes.get(this.state.parent).columns || 4;
 
         return colspan * (12 / columns);
+    },
+
+    deleteNode: function() {
+        NodeActions.deleteNode(this.props.id);
     }
 });
