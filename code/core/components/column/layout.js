@@ -1,12 +1,11 @@
 var Nodes          = require('core/stores/nodes.js'),
     NodeActions    = require('core/actions/node.js'),
     LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin   = require('core/components/node/mixins/layout/changes.js');
+    ChangesMixin   = require('core/components/node/mixins/layout/changes.js'),
+    GridSelect     = require('core/components/node/mixins/layout/gridselect.js');
 
 var ColspanSelect = React.createClass({
-    getInitialState: function() {
-        return {open: false};
-    },
+    mixins: [GridSelect],
 
     render: function() {
         var open     = this.state.open ? ' open' : '';
@@ -40,40 +39,8 @@ var ColspanSelect = React.createClass({
         )
     },
 
-    calculateOccupiedColumns: function(node) {
-        var children = Nodes.get(node).children || [];
-        var count    = 0;
-
-        _.each(children, function(node) {
-            count += Number(Nodes.get(node).colspan) || 0;
-        });
-
-        return count;
-    },
-
     selectColspanValue: function(value) {
         NodeActions.updateColspan(this.props.node, value);
-    },
-
-    toggleOpen: function(event) {
-        if(!this.state.open) {
-            this.setState({open: true});
-
-            this.bindClick()
-        }else {
-            this.setState({open: false});
-            this.unbindClick()
-        }
-
-        event.stopPropagation();
-    },
-
-    bindClick: function() {
-        jQuery(window).bind('click.ColspanSelect' + this.props.node, this.toggleOpen);
-    },
-
-    unbindClick: function() {
-        jQuery(window).unbind('click.ColspanSelect' + this.props.node);
     }
 });
 

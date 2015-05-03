@@ -1,30 +1,18 @@
 var Nodes          = require('core/stores/nodes.js'),
     NodeActions    = require('core/actions/node.js'),
     LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin   = require('core/components/node/mixins/layout/changes.js');
-
-function calculateOccupiedColumns(node) {
-    var children = Nodes.get(node).children || [];
-    var count    = 0;
-
-    _.each(children, function(node) {
-        count += Number(Nodes.get(node).colspan) || 0;
-    });
-
-    return count;
-}
+    ChangesMixin   = require('core/components/node/mixins/layout/changes.js'),
+    GridSelect     = require('core/components/node/mixins/layout/gridselect.js');
 
 var ColumnSelect = React.createClass({
-    getInitialState: function() {
-        return {open: false};
-    },
+    mixins: [GridSelect],
 
     render: function() {
         var open     = this.state.open ? ' open' : '';
-        var occupied = calculateOccupiedColumns(this.props.node);
+        var occupied = this.calculateOccupiedColumns(this.props.node);
         var columns  = Number(Nodes.get(this.props.node).columns);
 
-        var options = _.map([2,3,4,6,12], function(value){
+        var options = _.map([2,3,4,6], function(value){
             var disabled = (value < occupied) ? 'disabled' : null;
             var selected = (value == columns) ? <i className="fa fa-check"></i> : '';
             var onClick  = !disabled ? this.selectColumnsValue.bind(this, value) : null;
@@ -46,27 +34,6 @@ var ColumnSelect = React.createClass({
 
     selectColumnsValue: function(value) {
         NodeActions.updateColumns(this.props.node, value);
-    },
-
-    toggleOpen: function(event) {
-        if(!this.state.open) {
-            this.setState({open: true});
-
-            this.bindClick()
-        }else {
-            this.setState({open: false});
-            this.unbindClick()
-        }
-
-        event.stopPropagation();
-    },
-
-    bindClick: function() {
-        jQuery(window).bind('click.ColumnSelect' + this.props.node, this.toggleOpen);
-    },
-
-    unbindClick: function() {
-        jQuery(window).unbind('click.ColumnSelect' + this.props.node);
     }
 });
 
@@ -90,7 +57,7 @@ module.exports = React.createClass({
                                 <button className="btn btn-xs">
                                     <i className="fa fa-copy"></i>
                                 </button>
-                                <button className="btn btn-xs">
+                                <button className="btn btn-xs" onClick={this.deleteNode}>
                                     <i className="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -111,5 +78,9 @@ module.exports = React.createClass({
                 colspan  : 1
             });
         }
+    },
+
+    deleteNode: function() {
+        NodeActions.deleteNode(this.props.id);
     }
 });
