@@ -18,22 +18,5 @@ module.exports = {
         }
 
         return null;
-    },
-
-    createChildNodes: function(children, editMode) {
-        var childNodes = [];
-
-        if(!_.isArray(children) || _.size(children) === 0){
-            return null;
-        }
-
-        _.each(children, function(id){
-            var child = this.createNode(id, editMode);
-            if(React.isValidElement(child)){
-                childNodes.push(child);
-            }
-        }.bind(this));
-
-        return childNodes;
     }
 };
