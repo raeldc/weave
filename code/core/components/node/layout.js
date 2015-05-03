@@ -1,7 +1,7 @@
-var LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js');
+var Changeable = require('core/components/node/mixins/layout/changeable.js');
 
 module.exports = React.createClass({
-    mixins: [LifeCycleMixin],
+    mixins: [Changeable],
 
     render: function() {
         return (

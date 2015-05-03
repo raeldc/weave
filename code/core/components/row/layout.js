@@ -1,8 +1,8 @@
-var Nodes          = require('core/stores/nodes.js'),
-    NodeActions    = require('core/actions/node.js'),
-    LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin   = require('core/components/node/mixins/layout/changes.js'),
-    GridSelect     = require('core/components/node/mixins/layout/gridselect.js');
+var Nodes       = require('core/stores/nodes.js'),
+    NodeActions = require('core/actions/node.js'),
+    Childable   = require('core/components/node/mixins/layout/childable.js'),
+    Changeable  = require('core/components/node/mixins/layout/changeable.js'),
+    GridSelect  = require('core/components/node/mixins/layout/gridselect.js');
 
 var ColumnSelect = React.createClass({
     mixins: [GridSelect],
@@ -38,7 +38,11 @@ var ColumnSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [LifeCycleMixin, ChangesMixin],
+    mixins: [Childable, Changeable],
+
+    getInitialState: function() {
+        return Nodes.get(this.props.id);
+    },
 
     render: function() {
         return (
@@ -64,14 +68,14 @@ module.exports = React.createClass({
                             <ColumnSelect node={this.props.id} />
                         </h4>
                     </div>
-                    {this.children}
+                    {this.getChildren()}
                 </div>
             </div>
         );
     },
 
     addColumn: function() {
-        if(calculateOccupiedColumns(this.props.id) < this.state.columns) {
+        if(GridSelect.calculateOccupiedColumns(this.props.id) < this.state.columns) {
             NodeActions.addChildNode(this.props.id, {
                 component: 'column',
                 parent   : this.props.id,

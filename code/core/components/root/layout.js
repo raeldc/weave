@@ -1,14 +1,19 @@
-var LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin   = require('core/components/node/mixins/layout/changes.js'),
-    NodeActions    = require('core/actions/node.js');
+var Nodes       = require('core/stores/nodes.js'),
+    Childable   = require('core/components/node/mixins/layout/childable.js'),
+    Changeable  = require('core/components/node/mixins/layout/changeable.js'),
+    NodeActions = require('core/actions/node.js');
 
 module.exports = React.createClass({
-    mixins: [LifeCycleMixin, ChangesMixin],
+    mixins: [Childable, Changeable],
+
+    getInitialState: function() {
+        return Nodes.get(this.props.id);
+    },
 
     render: function() {
         return (
             <div className="root">
-                {this.children}
+                {this.getChildren()}
 
                 <div className="controls add-row">
                     <button className="btn btn-sm" onClick={this.addRow}>Add Row <i className="fa fa-plus" /></button>

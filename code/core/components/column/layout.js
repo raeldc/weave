@@ -1,8 +1,10 @@
-var Nodes          = require('core/stores/nodes.js'),
-    NodeActions    = require('core/actions/node.js'),
-    LifeCycleMixin = require('core/components/node/mixins/layout/lifecycle.js'),
-    ChangesMixin   = require('core/components/node/mixins/layout/changes.js'),
-    GridSelect     = require('core/components/node/mixins/layout/gridselect.js');
+var Nodes       = require('core/stores/nodes.js'),
+    NodeActions = require('core/actions/node.js'),
+    Childable   = require('core/components/node/mixins/layout/childable.js'),
+    Changeable  = require('core/components/node/mixins/layout/changeable.js'),
+    Eventable   = require('core/components/node/mixins/layout/eventable.js'),
+    DropMixin   = require('core/components/node/mixins/layout/droppable.js'),
+    GridSelect  = require('core/components/node/mixins/layout/gridselect.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -45,34 +47,43 @@ var ColspanSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [LifeCycleMixin, ChangesMixin],
+    mixins: [Childable, Changeable, Eventable],
+
+    getInitialState: function() {
+        return Nodes.get(this.props.id);
+    },
 
     render: function() {
-        var colspan = this.getColspan();
+        var colspan    = this.getColspan();
+        var properties = {
+            className: "column col-md-" + colspan
+        };
 
-        return (
-            <div className={"column col-md-"+colspan}>
-                <div className="inner">
-                    <div className="controls">
-                        <h4 className="title">Column
-                            <div className="btn-group pull-right">
-                                <button className="btn btn-xs">
-                                    <i className="fa fa-pencil"></i>
-                                </button>
-                                <button className="btn btn-xs">
-                                    <i className="fa fa-copy"></i>
-                                </button>
-                                <button className="btn btn-xs" onClick={this.deleteNode}>
-                                    <i className="fa fa-trash"></i>
-                                </button>
-                            </div>
-                            <ColspanSelect node={this.props.id} />
-                        </h4>
-                    </div>
-                    {this.children}
+        this.setEvents(properties);
+
+        var Column = (
+            <div className="inner">
+                <div className="controls">
+                    <h4 className="title">Column
+                        <div className="btn-group pull-right">
+                            <button className="btn btn-xs">
+                                <i className="fa fa-pencil"></i>
+                            </button>
+                            <button className="btn btn-xs">
+                                <i className="fa fa-copy"></i>
+                            </button>
+                            <button className="btn btn-xs" onClick={this.deleteNode}>
+                                <i className="fa fa-trash"></i>
+                            </button>
+                        </div>
+                        <ColspanSelect node={this.props.id} />
+                    </h4>
                 </div>
+                {this.getChildren()}
             </div>
         );
+
+        return React.createElement('div', properties, Column);
     },
 
     getColspan: function() {

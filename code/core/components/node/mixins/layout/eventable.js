@@ -12,8 +12,6 @@ module.exports = {
         if(typeof fn === 'function') {
             this.events[event].push(fn);
         }
-
-        this.attachEvents();
     },
 
     removeEvent: function(oldevent, fn) {
@@ -27,15 +25,13 @@ module.exports = {
         if(_.size(events[oldevent]) === 0) {
             delete events[oldevent];
         }
-
-        this.attachEvents();
     },
 
-    attachEvents: function() {
-        var self       = this;
-        var properties = this.nodeProperties;
+    setEvents: function(properties) {
+        var self   = this;
+        properties = properties || {};
 
-        _.each(this.events, function(functions, index){
+        _.each(this.events || [], function(functions, index){
             if(_.size(functions)) {
                 properties[index] = (function(functions){
                     return function(event){
@@ -46,5 +42,7 @@ module.exports = {
                 })(functions);
             }
         });
+
+        return properties;
     },
 }
