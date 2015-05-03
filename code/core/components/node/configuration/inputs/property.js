@@ -1,6 +1,6 @@
-var Nodes           = require('core/stores/nodes.js'),
-    UINodeActions   = require('core/actions/node.js'),
-    UICanvasActions = require('core/actions/canvas.js');
+var Nodes         = require('core/stores/nodes.js'),
+    UINodeActions = require('core/actions/node.js'),
+    LayoutActions = require('core/actions/layout.js');
 
 module.exports = React.createClass({
     render: function() {
@@ -39,7 +39,7 @@ module.exports = React.createClass({
         }
 
         UINodeActions.updateNodeCSS(this.props.node, this.props.device, this.props.propertyName, value);
-        UICanvasActions.nodeTouched();
+        LayoutActions.nodeTouched();
 
         event.preventDefault();
     },

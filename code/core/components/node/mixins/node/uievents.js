@@ -1,4 +1,4 @@
-var UICanvasActions   = require('core/actions/canvas.js'),
+var LayoutActions     = require('core/actions/layout.js'),
     UIControlsActions = require('core/actions/controls.js'),
     NodeActions       = require('core/actions/node.js'),
     UIConfig          = require('core/stores/uiconfig.js');
@@ -42,15 +42,15 @@ module.exports = {
     },
 
     mouseOverNode: function(event) {
-        UICanvasActions.mouseOverNode(this.props.id, this);
+        LayoutActions.mouseOverNode(this.props.id, this);
         event.stopPropagation();
     },
 
     selectNode: function(event) {
         if(!this.state.enableEditable) {
-            UICanvasActions.selectNode(this.props.id, this);
+            LayoutActions.selectNode(this.props.id, this);
             this.enableEditable();
-            this.stopListeningToUnselectNode = UICanvasActions.unSelectNode.listen(this.disableEditable);
+            this.stopListeningToUnselectNode = LayoutActions.unSelectNode.listen(this.disableEditable);
         }
 
         event.stopPropagation();
@@ -66,7 +66,7 @@ module.exports = {
 
     textChanged: function(event) {
         if(this.isText() && this.nodeProperties.contentEditable) {
-            UICanvasActions.nodeTouched();
+            LayoutActions.nodeTouched();
         }
 
         event.stopPropagation();
@@ -94,10 +94,10 @@ module.exports = {
     onDragOver: function(event) {
         var previousDropSubject = UIConfig.Canvas.get('pending_drop_subject');
 
-        UICanvasActions.droppingOnNode(this.props.id, this, event);
+        LayoutActions.droppingOnNode(this.props.id, this, event);
 
         if(previousDropSubject !== this.props.id) {
-            UICanvasActions.mouseOverNode(this.props.id, this);
+            LayoutActions.mouseOverNode(this.props.id, this);
         }
 
         event.preventDefault();
@@ -109,8 +109,8 @@ module.exports = {
             subject   = UIConfig.Canvas.get('pending_drop_subject'),
             position  = UIConfig.Canvas.get('pending_drop_position');
 
-        UICanvasActions.mouseOutNode();
-        UICanvasActions.insertComponent(component, subject, position);
+        LayoutActions.mouseOutNode();
+        LayoutActions.insertComponent(component, subject, position);
 
         event.stopPropagation();
     }

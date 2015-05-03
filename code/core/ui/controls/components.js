@@ -1,5 +1,5 @@
 var UIControlsActions = require('core/actions/controls.js'),
-    UICanvasActions   = require('core/actions/canvas.js'),
+    LayoutActions     = require('core/actions/layout.js'),
     Components        = require('core/stores/components.js');
 
 var ComponentSelection = React.createClass({

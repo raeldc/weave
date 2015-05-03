@@ -1,4 +1,4 @@
-var UICanvasActions      = require('core/actions/canvas.js'),
+var LayoutActions        = require('core/actions/layout.js'),
     UICanvasOverlayMixin = require('core/ui/canvas/overlay/mixin.js');
 
 module.exports = React.createClass({
@@ -21,7 +21,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToSelectNode = UICanvasActions.selectNode.listen(this.displayOverlay);
+        this.stopListeningToSelectNode = LayoutActions.selectNode.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
@@ -30,7 +30,7 @@ module.exports = React.createClass({
     },
 
     listenToReverseSelection: function() {
-        this.stopListeningToUnSelectNode = UICanvasActions.unSelectNode.listen(this.hideOverlay);
+        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen(this.hideOverlay);
     },
 
     stopListeningToReverseSelection: function() {

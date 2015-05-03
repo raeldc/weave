@@ -1,5 +1,5 @@
-var Nodes           = require('core/stores/nodes.js'),
-    UICanvasActions = require('core/actions/canvas.js');
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutActions = require('core/actions/layout.js');
 
 module.exports = {
     componentWillMount: function() {
@@ -26,7 +26,7 @@ module.exports = {
         if(this.props.editMode) {
             this.stopListeningToNodeChanges   = Nodes.getStore(this.props.id).listen(this.renderChanges);
             this.stopListeningToCSSChanges    = Nodes.getStore(this.props.id).getStore('css').listen(this.renderChanges);
-            this.stopListeningToDeviceChanges = UICanvasActions.setDevice.listen(this.renderChanges);
+            this.stopListeningToDeviceChanges = LayoutActions.setDevice.listen(this.renderChanges);
         }
     },
 

@@ -1,4 +1,4 @@
-var UICanvasActions = require('core/actions/canvas.js');
+var LayoutActions = require('core/actions/layout.js');
 
 module.exports = React.createClass({
     nextState: {},
@@ -37,13 +37,13 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToDroppingOnNode     = UICanvasActions.droppingOnNode.listen(this.displayDropArea);
-        this.stopListeningToInsertingComponent = UICanvasActions.endInsertingComponent.listen(this.hideDropArea);
+        this.stopListeningToDroppingOnNode     = LayoutActions.droppingOnNode.listen(this.displayDropArea);
+        this.stopListeningToInsertingComponent = LayoutActions.endInsertingComponent.listen(this.hideDropArea);
     },
 
     componentDidUpdate: function() {
         if(this.state.position) {
-            UICanvasActions.droppingOnNodePosition(this.state.position);
+            LayoutActions.droppingOnNodePosition(this.state.position);
         }
     },
 

@@ -1,4 +1,4 @@
-var UICanvasActions = require('core/actions/canvas.js');
+var LayoutActions = require('core/actions/layout.js');
 
 module.exports = React.createClass({
     render: function() {
@@ -6,12 +6,12 @@ module.exports = React.createClass({
     },
 
     onDragStart: function(event) {
-        UICanvasActions.insertingComponent(this.props.component);
+        LayoutActions.insertingComponent(this.props.component);
         event.stopPropagation();
     },
 
     onDragEnd: function(event) {
-        UICanvasActions.endInsertingComponent(this.props.component);
+        LayoutActions.endInsertingComponent(this.props.component);
         event.stopPropagation();
     }
 });

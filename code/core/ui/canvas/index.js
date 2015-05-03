@@ -1,6 +1,6 @@
 var UICanvasFactory = require('core/ui/canvas/factory.js'),
     UIConfig        = require('core/stores/uiconfig.js'),
-    UICanvasActions = require('core/actions/canvas.js'),
+    LayoutActions   = require('core/actions/layout.js'),
     UICanvasOverlay = require('core/ui/canvas/overlay');
 
 module.exports = React.createClass({
@@ -38,7 +38,7 @@ module.exports = React.createClass({
     },
 
     onFrameEvent: function(event) {
-        UICanvasActions.frameChanged(null, event);
+        LayoutActions.frameChanged(null, event);
         event.stopPropagation();
     },
 

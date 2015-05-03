@@ -1,4 +1,4 @@
-var CanvasActions = require('core/actions/canvas.js'),
+var CanvasActions = require('core/actions/layout.js'),
     Config        = require('core/stores/uiconfig.js'),
     ButtonGroup   = require('react-bootstrap').ButtonGroup,
     Button        = require('react-bootstrap').Button;  

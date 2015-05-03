@@ -1,5 +1,5 @@
 var Nodes           = require('core/stores/nodes.js'),
-    Canvas          = require('core/stores/canvas.js'),
+    Canvas          = require('core/stores/layout.js'),
     UICanvasFactory = require('core/ui/canvas/factory.js');
 
 module.exports = {
