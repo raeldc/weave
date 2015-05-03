@@ -1,8 +1,7 @@
 var UICanvasFactory = require('core/ui/canvas/factory.js'),
     UIConfig        = require('core/stores/uiconfig.js'),
     UICanvasActions = require('core/actions/canvas.js'),
-    UICanvasOverlay = require('core/ui/canvas/overlay'),
-    UIDropArea      = require('core/ui/canvas/droparea');
+    UICanvasOverlay = require('core/ui/canvas/overlay');
 
 module.exports = React.createClass({
     displayName: 'Canvas',
@@ -58,7 +57,6 @@ module.exports = React.createClass({
         React.render(
             <div>
                 <UICanvasOverlay />
-                <UIDropArea />
             </div>,
             doc.getElementById(this.state.overlay)
         )

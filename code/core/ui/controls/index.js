@@ -1,4 +1,5 @@
-var TopBar = require('core/ui/controls/topbar');
+var TopBar     = require('core/ui/controls/topbar'),
+    Components = require('core/ui/controls/components');
 
 var Controls = React.createClass({
     render: function() {
@@ -6,7 +7,10 @@ var Controls = React.createClass({
             <div id="corebuilder-controls" className="container-fluid">
                 <TopBar />
                 <div className="row">
-                    <div id="corebuilder-layout" className="col-lg-12"></div>
+                    <div className="col-lg-12">
+                        <Components />
+                        <div id="corebuilder-layout" />
+                    </div>
                 </div>
             </div>
         );

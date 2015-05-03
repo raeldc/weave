@@ -6,6 +6,7 @@ module.exports = {
     iconClass  : 'glyphicon glyphicon-align-left',
     node       : require('../node/node.js'),
     layout     : require('../node/layout.js'),
+    paneview   : require('../node/paneview.js'),
     configurations: [
         require('../node/configuration/formatting.js'),
         require('../node/configuration/alignment.js'),
