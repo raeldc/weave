@@ -21,7 +21,7 @@ module.exports = {
     removeEvent: function(event) {
         var events = this.events || {};
 
-        if(events[event])) {
+        if(events[event]) {
             delete events[event];
         }
     },
