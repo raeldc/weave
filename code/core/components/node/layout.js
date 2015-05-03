@@ -1,7 +1,12 @@
-var Changeable = require('core/components/node/mixins/layout/changeable.js');
+var Nodes      = require('core/stores/nodes.js'),
+    Changeable = require('core/components/node/mixins/layout/changeable.js');
 
 module.exports = React.createClass({
     mixins: [Changeable],
+
+    getInitialState: function() {
+        return Nodes.get(this.props.id);
+    },
 
     render: function() {
         return (

@@ -3,7 +3,7 @@ var Nodes       = require('core/stores/nodes.js'),
     Childable   = require('core/components/node/mixins/layout/childable.js'),
     Changeable  = require('core/components/node/mixins/layout/changeable.js'),
     Eventable   = require('core/components/node/mixins/layout/eventable.js'),
-    DropMixin   = require('core/components/node/mixins/layout/droppable.js'),
+    Droppable   = require('core/components/node/mixins/layout/droppable.js'),
     GridSelect  = require('core/components/node/mixins/layout/gridselect.js');
 
 var ColspanSelect = React.createClass({
@@ -47,7 +47,7 @@ var ColspanSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable, Eventable],
+    mixins: [Childable, Changeable, Eventable, Droppable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);

@@ -48,6 +48,9 @@ module.exports = (new Store({device: 'desktop'})).setActions(LayoutActions, {
             case 'top':
                 NodeActions.insertNodeBeforeSibling(properties, subject);
             break;
+            default:
+                NodeActions.addChildNode(subject, properties);
+            break;
         }
     }
 });
