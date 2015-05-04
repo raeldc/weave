@@ -11,7 +11,7 @@ module.exports = {
             device   = device || LayoutStore.get('device'),
             count    = 0;
 
-        if(['desktop', 'laptop'].indexOf(device) !== -1) {
+        if(device === 'desktop') {
             _.each(children, function(node) {
                 count += Number(Nodes.getStore(node).getStore('colspan').get(device)) || 0;
             });
