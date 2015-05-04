@@ -45,6 +45,10 @@ var Components = {
         return component;
     },
 
+    has: function(name) {
+        return _components[name] !== undefined;
+    },
+
     registerGroup: function(id, title, description) {
         _groups[id] = {
             title      : title,

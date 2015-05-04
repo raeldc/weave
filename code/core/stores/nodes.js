@@ -1,49 +1,24 @@
 var Store         = require('core/stores'),
+    NodeDefaults  = require('core/components/node').defaults || {},
+    Components    = require('core/stores/components.js'),
     UINodeActions = require('core/actions/node.js');
-
-function addNodeAsFirstChild(parent, node) {
-    node.parent = parent;
-    return addChildNode(node, 'first');
-}
-
-function addNodeAsLastChild(parent, node) {
-    node.parent = parent;
-    return addChildNode(node, 'last');
-}
-
-
-
-function insertNodeBeforeSibling(node, sibling) {
-    insertNodeBesideSibling(node, sibling, 'before');
-}
-
-function insertNodeAfterSibling(node, sibling) {
-    insertNodeBesideSibling(node, sibling, 'after');
-}
 
 module.exports = new Store({}, UINodeActions, {
     setData: function(data) {
         if(_.isObject(data) && !_.isEmpty(data)) {
-            _.each(data, function(data, index){
-                data.id = index;
-                this.addNode(data);
+            _.each(data, function(node, index){
+                node.id = index;
+                this.addNode(node);
             }.bind(this));
-        }else this.addNode({
-            id       : 'root', 
-            component: 'root'
-        });
+        }
 
         return this;
     },
 
-    getDefaultCss: function() {
-        return {
-            all      : {},
-            desktop  : {},
-            laptop   : {},
-            tablet   : {},
-            phone    : {}
-        };
+    getDefaults: function(component) {
+        var defaults = Components.getDefaults(component) || {};
+
+        return _.deepExtend(_.deepClone(NodeDefaults), _.deepClone(defaults));
     },
 
     addNode: function(properties) {
@@ -58,11 +33,7 @@ module.exports = new Store({}, UINodeActions, {
             node.parent = 'root';
         }
 
-        node.css = _.extend(this.getDefaultCss(), node.css || {});
-
-        if(!_.isArray(node.children)) {
-            node.children = [];
-        }
+        node = _.deepExtend(this.getDefaults(node.component), node);
 
         this.set(node.id, node);
 

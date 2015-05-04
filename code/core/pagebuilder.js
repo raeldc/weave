@@ -1,4 +1,5 @@
 var Core     = require('core'),
+    Utils    = require('core/lib/utils.js'),
     Controls = require('core/ui/controls'),
     Preview  = require('core/ui/preview'),
     Layout   = require('core/ui/layout');
@@ -32,7 +33,7 @@ CoreBuilder.PageBuilder = function(config) {
         var data = _.isArray(result.entities) ? result.entities.pop() : {};
         delete data['links'];
 
-        CoreBuilder.Nodes.setData(data);
+        CoreBuilder.Nodes.setData(_.extend({root: {id: 'root', component: 'root'}},data));
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
         React.render(<Preview />, document.getElementById('corebuilder-preview'));

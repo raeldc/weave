@@ -16,20 +16,15 @@ module.exports = React.createClass({
     render: function() {
         var properties = {};
 
-        this.setDefaults(properties);
         this.setEvents(properties);
         this.setEditable(properties);
         this.setStyles(properties);
         this.setClass(properties);
 
         return React.createElement(
-            this.state.element || properties.element || 'div', 
+            this.state.element || 'div', 
             properties,
             this.getChildren()
         );
-    },
-
-    setDefaults: function(properties) {
-        return _.extend(properties || {}, this.props.component.defaults);
     }
 });
