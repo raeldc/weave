@@ -1,6 +1,6 @@
 var Nodes       = require('core/stores/nodes.js'),
-    Childable   = require('core/components/node/mixins/layout/childable.js'),
-    Changeable  = require('core/components/node/mixins/layout/changeable.js'),
+    Childable   = require('core/components/node/mixins/childable.js'),
+    Changeable  = require('core/components/node/mixins/changeable.js'),
     NodeActions = require('core/actions/node.js');
 
 module.exports = React.createClass({

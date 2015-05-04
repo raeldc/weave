@@ -1,5 +1,5 @@
 var Nodes   = require('core/stores/nodes.js'),
-    Factory = require('core/ui/layout/factory.js');
+    Factory = require('core/components/node/factory.js');
 
 module.exports = {
     getChildren: function(children) {
@@ -11,7 +11,7 @@ module.exports = {
         }
 
         _.each(children, function(id){
-            var child = Factory.createNode(id);
+            var child = Factory.createNode(id, this.props.type);
             if(React.isValidElement(child)){
                 nodes.push(child);
             }

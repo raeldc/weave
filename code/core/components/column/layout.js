@@ -1,10 +1,10 @@
 var Nodes       = require('core/stores/nodes.js'),
     NodeActions = require('core/actions/node.js'),
-    Childable   = require('core/components/node/mixins/layout/childable.js'),
-    Changeable  = require('core/components/node/mixins/layout/changeable.js'),
-    Eventable   = require('core/components/node/mixins/layout/eventable.js'),
-    Droppable   = require('core/components/node/mixins/layout/droppable.js'),
-    GridSelect  = require('core/components/node/mixins/layout/gridselect.js');
+    Childable   = require('core/components/node/mixins/childable.js'),
+    Changeable  = require('core/components/node/mixins/changeable.js'),
+    Eventable   = require('core/components/node/mixins/eventable.js'),
+    Droppable   = require('core/components/node/mixins/droppable.js'),
+    GridSelect  = require('core/components/node/mixins/gridselect.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],

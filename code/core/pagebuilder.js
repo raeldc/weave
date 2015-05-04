@@ -1,6 +1,6 @@
 var Core     = require('core'),
     Controls = require('core/ui/controls'),
-    Preview   = require('core/ui/preview'),
+    Preview  = require('core/ui/preview'),
     Layout   = require('core/ui/layout');
 
 // Register Node Components
@@ -9,7 +9,6 @@ CoreBuilder.Components.register(require('core/components/row'));
 CoreBuilder.Components.register(require('core/components/column'));
 CoreBuilder.Components.register(require('core/components/text'));
 CoreBuilder.Components.register(require('core/components/title'));
-CoreBuilder.Components.register(require('core/components/container'));
 
 CoreBuilder.PageBuilder = function(config) {
     var page      = config.page      || null,

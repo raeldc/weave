@@ -1,6 +1,6 @@
-var UIPreviewFactory = require('core/ui/preview/factory.js'),
-    UIConfig        = require('core/stores/uiconfig.js'),
-    LayoutActions   = require('core/actions/layout.js'),
+var UIPreviewFactory = require('core/components/node/factory.js'),
+    UIConfig         = require('core/stores/uiconfig.js'),
+    LayoutActions    = require('core/actions/layout.js'),
     UIPreviewOverlay = require('core/ui/preview/overlay');
 
 module.exports = React.createClass({
@@ -50,7 +50,7 @@ module.exports = React.createClass({
         var doc = React.findDOMNode(this.refs.iframe).contentDocument;
 
         React.render(
-            UIPreviewFactory.createNode('root', this.state.editMode),
+            UIPreviewFactory.createNode('root', 'node'),
             doc.getElementById(this.state.container)
         );
 

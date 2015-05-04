@@ -1,5 +1,5 @@
 var Nodes      = require('core/stores/nodes.js'),
-    Changeable = require('core/components/node/mixins/layout/changeable.js');
+    Changeable = require('core/components/node/mixins/changeable.js');
 
 module.exports = React.createClass({
     mixins: [Changeable],
