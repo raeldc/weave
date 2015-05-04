@@ -6,6 +6,22 @@ body {
     height    : 100%;
 }
 
+.desktop {
+    min-width: 1200px;
+}
+
+.laptop {
+    width: 1024px;
+}
+
+.tablet {
+    width: 768px;
+}
+
+.phone {
+    width: 320px;
+}
+
 #corebuilder-controls {
     position   : fixed;
     border-left: 1px solid #aaa;
@@ -92,17 +108,20 @@ body {
         padding: 0 0 20px 0;
         position: relative;
         border: 1px solid grey;
+        .clearfix();
     }
 
     .column {
         padding: 0 5px;
+        margin : 0 0 20px 0;
+
         .inner {
             border-radius: 5px;
             border: 1px solid grey;
         }
 
         .content {
-            margin: 15px;
+            margin: 10px;
             background: #fff;
 
             .controls {
@@ -134,12 +153,12 @@ body {
     border : none;
 
     &.desktop {
-        min-width: 1200px;
+        .desktop;
         height   : 100%;
     }
 
     &.laptop {
-        width     : 1024px;
+        .laptop;
         height    : 768px;
         display   : block;
         margin    : 10vh auto;
@@ -148,7 +167,7 @@ body {
     }
 
     &.tablet {
-        width     : 768px;
+        .tablet;
         height    : 1024px;
         display   : block;
         margin    : 5vh auto;
@@ -157,7 +176,7 @@ body {
     }
 
     &.phone {
-        width     : 320px;
+        .phone;
         height    : 568px;
         display   : block;
         margin    : 15vh auto;

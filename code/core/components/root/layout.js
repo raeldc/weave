@@ -2,18 +2,26 @@ var Nodes       = require('core/stores/nodes.js'),
     LayoutStore = require('core/stores/layout.js'),
     Childable   = require('core/components/node/mixins/childable.js'),
     Changeable  = require('core/components/node/mixins/changeable.js'),
+    Classable   = require('core/components/node/mixins/classable.js'),
     NodeActions = require('core/actions/node.js');
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable],
+    mixins: [Childable, Changeable, Classable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
     },
 
     render: function() {
+        var properties = {};
+
+        this.addClass('root');
+        this.addClass(LayoutStore.get('device'));
+
+        this.setClass(properties);
+
         return (
-            <div className="root">
+            <div className={properties.className}>
                 {this.getChildren()}
 
                 <div className="controls add-row">
