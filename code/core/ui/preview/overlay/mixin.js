@@ -51,7 +51,7 @@ module.exports = {
 
             this.nextState.width  = $dom.outerWidth();
             this.nextState.height = $dom.outerHeight();
-            this.nextState.top    = position.top - jQuery(window.canvas).scrollTop();
+            this.nextState.top    = position.top - jQuery(window.preview).scrollTop();
             this.nextState.left   = position.left
         }
 

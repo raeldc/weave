@@ -14,7 +14,7 @@ module.exports = React.createClass({
     },
 
     save: function(event) {
-        jQuery.post(Config.Canvas.get('page'), {nodes: Nodes.toObject()}, function(result){
+        jQuery.post(Config.Preview.get('page'), {nodes: Nodes.toObject()}, function(result){
 
         });
     }

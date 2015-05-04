@@ -92,7 +92,7 @@ module.exports = {
     },
 
     onDragOver: function(event) {
-        var previousDropSubject = UIConfig.Canvas.get('pending_drop_subject');
+        var previousDropSubject = UIConfig.Preview.get('pending_drop_subject');
 
         LayoutActions.droppingOnNode(this.props.id, this, event);
 
@@ -105,9 +105,9 @@ module.exports = {
     },
 
     onDrop: function(event) {
-        var component = UIConfig.Canvas.get('pending_component'),
-            subject   = UIConfig.Canvas.get('pending_drop_subject'),
-            position  = UIConfig.Canvas.get('pending_drop_position');
+        var component = UIConfig.Preview.get('pending_component'),
+            subject   = UIConfig.Preview.get('pending_drop_subject'),
+            position  = UIConfig.Preview.get('pending_drop_position');
 
         LayoutActions.mouseOutNode();
         LayoutActions.insertComponent(component, subject, position);

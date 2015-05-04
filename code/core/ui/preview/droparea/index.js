@@ -28,7 +28,7 @@ module.exports = React.createClass({
         var className = this.state.visible ? this.state.position : 'hidden';
 
         return (
-            <div id="ui-canvas-droparea" style={style} className={className} />
+            <div id="ui-preview-droparea" style={style} className={className} />
         );
     },
 
@@ -95,7 +95,7 @@ module.exports = React.createClass({
         this.nodeInfo = {
             width : $target.outerWidth(),
             height: $target.outerHeight(),
-            top   : nodeOffset.top - jQuery(window.canvas).scrollTop(),
+            top   : nodeOffset.top - jQuery(window.preview).scrollTop(),
             left  : nodeOffset.left
         };
 

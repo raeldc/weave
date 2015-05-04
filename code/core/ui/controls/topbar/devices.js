@@ -1,11 +1,11 @@
-var CanvasActions = require('core/actions/layout.js'),
+var PreviewActions = require('core/actions/layout.js'),
     Config        = require('core/stores/uiconfig.js'),
     ButtonGroup   = require('react-bootstrap').ButtonGroup,
     Button        = require('react-bootstrap').Button;  
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return Config.Canvas.toObject();
+        return Config.Preview.toObject();
     },
 
     render: function() {
@@ -20,7 +20,7 @@ module.exports = React.createClass({
     },
 
     setDevice: function(device) {
-        CanvasActions.setDevice(device);
+        PreviewActions.setDevice(device);
     },
 
     onDeviceChange: function(node){
@@ -33,7 +33,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToDeviceChange = Config.Canvas.listen(this.onDeviceChange);
+        this.stopListeningToDeviceChange = Config.Preview.listen(this.onDeviceChange);
     },
 
     componentWillUnmount: function() {

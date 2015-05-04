@@ -10,10 +10,11 @@ body {
     position   : fixed;
     border-left: 1px solid #aaa;
     width      : 100%;
-    height     : 100vh;
+    height     : 40vh;
     left       : 0;
     bottom     : 0;
     background : #fff;
+    overflow-y : auto;
 
     h5 {
         text-transform: uppercase;
@@ -51,7 +52,8 @@ body {
 
 #corebuilder-layout {
     margin-top: 20px;
-    min-width: 1024px;
+    min-width : 1024px;
+    width     : 100%;
 
     .controls {
         margin-bottom: 20px;
@@ -119,13 +121,13 @@ body {
 }
 
 
-#corebuilder-canvas {
+#corebuilder-preview {
     width : 100%;
-    height: 0vh;
+    height: 60vh;
     overflow: auto;
 }
 
-#corebuilder-canvas-frame {
+#corebuilder-preview-frame {
     width  : 100%;
     margin : 0;
     padding: 0;

@@ -1,8 +1,8 @@
 var LayoutActions        = require('core/actions/layout.js'),
-    UICanvasOverlayMixin = require('core/ui/canvas/overlay/mixin.js');
+    UIPreviewOverlayMixin = require('core/ui/preview/overlay/mixin.js');
 
 module.exports = React.createClass({
-    mixins: [UICanvasOverlayMixin],    
+    mixins: [UIPreviewOverlayMixin],    
 
     getInitialState: function() {
         return {type: 'hover'};

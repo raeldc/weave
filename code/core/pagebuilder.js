@@ -1,6 +1,6 @@
 var Core     = require('core'),
     Controls = require('core/ui/controls'),
-    Canvas   = require('core/ui/canvas'),
+    Preview   = require('core/ui/preview'),
     Layout   = require('core/ui/layout');
 
 // Register Node Components
@@ -16,14 +16,14 @@ CoreBuilder.PageBuilder = function(config) {
         container = config.container || 'corebuilder-container',
         overlay   = config.overlay   || 'corebuilder-overlay';
 
-    CoreBuilder.UIConfig.Canvas.set('page',      page);
-    CoreBuilder.UIConfig.Canvas.set('container', container);
-    CoreBuilder.UIConfig.Canvas.set('overlay',   overlay);
-    CoreBuilder.UIConfig.Canvas.set('editMode',  true);
+    CoreBuilder.UIConfig.Preview.set('page',      page);
+    CoreBuilder.UIConfig.Preview.set('container', container);
+    CoreBuilder.UIConfig.Preview.set('overlay',   overlay);
+    CoreBuilder.UIConfig.Preview.set('editMode',  true);
 
     React.render(
         <div>
-            <div id="corebuilder-canvas" />
+            <div id="corebuilder-preview" />
             <Controls />
         </div>, 
         document.body
@@ -36,6 +36,6 @@ CoreBuilder.PageBuilder = function(config) {
         CoreBuilder.Nodes.setData(data);
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
-        //React.render(<Canvas />, document.getElementById('corebuilder-canvas'));
+        React.render(<Preview />, document.getElementById('corebuilder-preview'));
     });
 }
