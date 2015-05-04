@@ -1,4 +1,12 @@
 module.exports = {
+    componentDidMount: function() {
+        this.classes = [];
+    },
+
+    componentDidUpdate: function() {
+        this.classes = [];
+    },
+
     addClass: function(name) {
         this.classes = this.classes || [];
 
@@ -19,7 +27,7 @@ module.exports = {
         var classes  = this.classes       || [];
         var defaults = properties.classes || [];
 
-        classes = _.uniq(classes.concat(defaults));
+        classes = _.uniq(classes.concat(this.state.classes || [], defaults));
 
         if(classes.length) {
             properties.className = classes.join(' ');

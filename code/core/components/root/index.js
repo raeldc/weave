@@ -6,6 +6,7 @@ module.exports = {
     node       : require('core/components/node/node.js'),
     layout     : require('core/components/root/layout.js'),
     defaults   : {
-        element: 'div'
+        element: 'div',
+        classes: 'container-fluid'
     }
 }
