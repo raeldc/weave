@@ -155,8 +155,9 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(id).set('columns', value).trigger(id, value);
     },
 
-    onUpdateColspan: function(id, value) {
-        this.getStore(id).set('colspan', value).trigger(id, value);
+    onUpdateColspan: function(id, value, device) {
+        this.getStore(id).getStore('colspan').set(device, value);
+        this.getStore(id).trigger(id, value, device);
     },
 
     onDeleteNode: function(id) {

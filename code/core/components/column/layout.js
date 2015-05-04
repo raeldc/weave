@@ -1,5 +1,7 @@
 var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js'),
     NodeActions = require('core/actions/node.js'),
+    DeviceIcon  = require('core/ui/controls/topbar/deviceicon.js'),
     Childable   = require('core/components/node/mixins/childable.js'),
     Changeable  = require('core/components/node/mixins/changeable.js'),
     Eventable   = require('core/components/node/mixins/eventable.js'),
@@ -12,9 +14,10 @@ var ColspanSelect = React.createClass({
     render: function() {
         var open     = this.state.open ? ' open' : '';
         var node     = Nodes.get(this.props.node);
-        var colspan  = Number(node.colspan) || 1;
+        var device   = LayoutStore.get('device');
+        var colspan  = Number(Nodes.getStore(this.props.node).getStore('colspan').get(device));
         var columns  = Number(Nodes.get(node.parent).columns);
-        var occupied = this.calculateOccupiedColumns(node.parent);
+        var occupied = this.calculateOccupiedColumns(node.parent, LayoutStore.get('device'));
         var options  = [];
 
         for(var i = 1; i <= columns; i++) {
@@ -35,6 +38,8 @@ var ColspanSelect = React.createClass({
                     Span <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
+                    <li className="text-center"><DeviceIcon /></li>
+                    <li className="divider" />
                     {options}
                 </ul>
             </div>
@@ -42,7 +47,7 @@ var ColspanSelect = React.createClass({
     },
 
     selectColspanValue: function(value) {
-        NodeActions.updateColspan(this.props.node, value);
+        NodeActions.updateColspan(this.props.node, value, LayoutStore.get('device'));
     }
 });
 
@@ -87,8 +92,9 @@ module.exports = React.createClass({
     },
 
     getColspan: function() {
-        var colspan = Nodes.get(this.state.id).colspan || 1;
-        var columns = Nodes.get(this.state.parent).columns || 4;
+        var device  = LayoutStore.get('device');
+        var colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
+        var columns = Nodes.get(this.state.parent).columns;
 
         return colspan * (12 / columns);
     },

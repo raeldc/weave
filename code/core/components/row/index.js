@@ -7,6 +7,7 @@ module.exports = {
     layout     : require('core/components/row/layout.js'),
     defaults   : {
         element: 'div',
-        classes: ['row']
+        classes: ['row'],
+        columns: 4
     }
 }

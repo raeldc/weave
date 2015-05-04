@@ -1,4 +1,5 @@
 var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js'),
     NodeActions = require('core/actions/node.js'),
     Childable   = require('core/components/node/mixins/childable.js'),
     Changeable  = require('core/components/node/mixins/changeable.js'),
@@ -9,7 +10,7 @@ var ColumnSelect = React.createClass({
 
     render: function() {
         var open     = this.state.open ? ' open' : '';
-        var occupied = this.calculateOccupiedColumns(this.props.node);
+        var occupied = this.calculateOccupiedColumns(this.props.node, LayoutStore.get('device'), LayoutStore.get('device'));
         var columns  = Number(Nodes.get(this.props.node).columns);
 
         var options = _.map([2,3,4,6], function(value){
@@ -75,11 +76,10 @@ module.exports = React.createClass({
     },
 
     addColumn: function() {
-        if(GridSelect.calculateOccupiedColumns(this.props.id) < this.state.columns) {
+        if(GridSelect.calculateOccupiedColumns(this.props.id, LayoutStore.get('device')) < this.state.columns) {
             NodeActions.addChildNode(this.props.id, {
                 component: 'column',
-                parent   : this.props.id,
-                colspan  : 1
+                parent   : this.props.id
             });
         }
     },

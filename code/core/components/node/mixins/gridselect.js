@@ -5,12 +5,12 @@ module.exports = {
         return {open: false};
     },
 
-    calculateOccupiedColumns: function(node) {
+    calculateOccupiedColumns: function(node, device) {
         var children = Nodes.get(node).children || [];
         var count    = 0;
 
         _.each(children, function(node) {
-            count += Number(Nodes.get(node).colspan) || 0;
+            count += Number(Nodes.getStore(node).getStore('colspan').get(device)) || 0;
         });
 
         return count;

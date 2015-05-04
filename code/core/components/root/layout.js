@@ -25,7 +25,6 @@ module.exports = React.createClass({
     addRow: function() {
         NodeActions.addChildNode(this.props.id, {
             component: 'row',
-            parent   : this.props.id,
             columns  : 4
         });
     }
