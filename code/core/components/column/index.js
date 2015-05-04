@@ -11,7 +11,7 @@ module.exports = {
             desktop: 1,
             laptop : 1,
             tablet : 2,
-            phone  : 6
+            phone  : 4
         }
     }
 }

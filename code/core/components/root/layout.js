@@ -1,4 +1,5 @@
 var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js'),
     Childable   = require('core/components/node/mixins/childable.js'),
     Changeable  = require('core/components/node/mixins/changeable.js'),
     NodeActions = require('core/actions/node.js');
@@ -22,10 +23,21 @@ module.exports = React.createClass({
         );
     },
 
+    componentDidMount: function() {
+        this.stopListeningToDeviceChanges = LayoutStore.listen(this.reRender);
+    },
+
+    componentWillUnmount: function() {
+        this.stopListeningToDeviceChanges();
+    },
+
+    reRender: function(device) {
+        this.setState(this.getInitialState());
+    },
+
     addRow: function() {
         NodeActions.addChildNode(this.props.id, {
-            component: 'row',
-            columns  : 4
+            component: 'row'
         });
     }
 });

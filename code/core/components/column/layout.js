@@ -6,7 +6,9 @@ var Nodes       = require('core/stores/nodes.js'),
     Changeable  = require('core/components/node/mixins/changeable.js'),
     Eventable   = require('core/components/node/mixins/eventable.js'),
     Droppable   = require('core/components/node/mixins/droppable.js'),
-    GridSelect  = require('core/components/node/mixins/gridselect.js');
+    GridSelect  = require('core/components/node/mixins/gridselect.js'),
+    Classable   = require('core/components/node/mixins/classable.js'),
+    Colspanable = require('core/components/column/mixins/colspanable.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -17,7 +19,7 @@ var ColspanSelect = React.createClass({
         var device   = LayoutStore.get('device');
         var colspan  = Number(Nodes.getStore(this.props.node).getStore('colspan').get(device));
         var columns  = Number(Nodes.get(node.parent).columns);
-        var occupied = this.calculateOccupiedColumns(node.parent, LayoutStore.get('device'));
+        var occupied = this.calculateOccupiedColumns(node.parent);
         var options  = [];
 
         for(var i = 1; i <= columns; i++) {
@@ -25,7 +27,7 @@ var ColspanSelect = React.createClass({
         }
 
         options = _.map(options, function(value){
-            var disabled = ((value + occupied) - colspan) > columns ? 'disabled' : null;
+            var disabled = ((value + occupied) - colspan) > columns && occupied !== null ? 'disabled' : null;
             var selected = (value == colspan) ? <i className="fa fa-check"></i>  : '';
             var onClick  = !disabled ? this.selectColspanValue.bind(this, value) : null;
 
@@ -52,19 +54,20 @@ var ColspanSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable, Eventable, Droppable],
+    mixins: [Childable, Changeable, Eventable, Droppable, Classable, Colspanable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
     },
 
     render: function() {
-        var colspan    = this.getColspan();
-        var properties = {
-            className: "column col-md-" + colspan
-        };
+        var properties = {};
+
+        this.addClass('column');
+        this.addClass('col-lg-' + this.getColspan());
 
         this.setEvents(properties);
+        this.setClass(properties);
 
         var Column = (
             <div className="inner">
@@ -89,14 +92,6 @@ module.exports = React.createClass({
         );
 
         return React.createElement('div', properties, Column);
-    },
-
-    getColspan: function() {
-        var device  = LayoutStore.get('device');
-        var colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
-        var columns = Nodes.get(this.state.parent).columns;
-
-        return colspan * (12 / columns);
     },
 
     deleteNode: function() {

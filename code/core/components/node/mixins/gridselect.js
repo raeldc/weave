@@ -1,4 +1,5 @@
-var Nodes = require('core/stores/nodes.js');
+var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js');
 
 module.exports = {
     getInitialState: function() {
@@ -6,14 +7,19 @@ module.exports = {
     },
 
     calculateOccupiedColumns: function(node, device) {
-        var children = Nodes.get(node).children || [];
-        var count    = 0;
+        var children = Nodes.get(node).children || [],
+            device   = device || LayoutStore.get('device'),
+            count    = 0;
 
-        _.each(children, function(node) {
-            count += Number(Nodes.getStore(node).getStore('colspan').get(device)) || 0;
-        });
+        if(['desktop', 'laptop'].indexOf(device) !== -1) {
+            _.each(children, function(node) {
+                count += Number(Nodes.getStore(node).getStore('colspan').get(device)) || 0;
+            });
 
-        return count;
+            return count;
+        }
+
+        return null;
     },
 
     toggleOpen: function(event) {
