@@ -1,10 +1,10 @@
-var UICanvasActions      = require('core/actions/canvas.js'),
+var LayoutActions        = require('core/actions/layout.js'),
     UINodeActions        = require('core/actions/node.js'),
-    CanvasStore          = require('core/stores/canvas.js'),
-    UICanvasOverlayMixin = require('core/ui/canvas/overlay/mixin.js');
+    PreviewStore          = require('core/stores/layout.js'),
+    UIPreviewOverlayMixin = require('core/ui/preview/overlay/mixin.js');
 
 module.exports = React.createClass({
-    mixins: [UICanvasOverlayMixin],    
+    mixins: [UIPreviewOverlayMixin],    
 
     getInitialState: function() {
         return {type: 'controls'};
@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToSelectNode = UICanvasActions.selectNode.listen(this.displayOverlay);
+        this.stopListeningToSelectNode = LayoutActions.selectNode.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
@@ -37,7 +37,7 @@ module.exports = React.createClass({
     },
 
     listenToReverseSelection: function() {
-        this.stopListeningToUnSelectNode = UICanvasActions.unSelectNode.listen(this.hideOverlay);
+        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen(this.hideOverlay);
     },
 
     stopListeningToReverseSelection: function() {
@@ -45,11 +45,11 @@ module.exports = React.createClass({
     },
 
     deleteNode: function(event) {
-        var node   = CanvasStore.get('selectedNode');
+        var node   = PreviewStore.get('selectedNode');
         var parent = node.parent;
 
-        UICanvasActions.unSelectNode();
-        UICanvasActions.mouseOutNode();
+        LayoutActions.unSelectNode();
+        LayoutActions.mouseOutNode();
         UINodeActions.deleteNode(node);
 
         event.stopPropagation();

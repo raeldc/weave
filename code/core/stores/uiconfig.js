@@ -1,12 +1,12 @@
-var CanvasStore   = require('core/stores/canvas.js'),
+var PreviewStore   = require('core/stores/layout.js'),
     ControlsStore = require('core/stores/controls.js');
 
 module.exports = {
-    Canvas  : CanvasStore,
+    Preview  : PreviewStore,
     Controls: ControlsStore,
     toObject: function() {
         return {
-            canvas  : CanvasStore.toObject(),
+            preview  : PreviewStore.toObject(),
             controls: ControlsStore.toObject()
         }
     }

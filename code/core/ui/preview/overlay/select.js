@@ -1,11 +1,11 @@
-var UICanvasActions      = require('core/actions/canvas.js'),
-    UICanvasOverlayMixin = require('core/ui/canvas/overlay/mixin.js');
+var LayoutActions        = require('core/actions/layout.js'),
+    UIPreviewOverlayMixin = require('core/ui/preview/overlay/mixin.js');
 
 module.exports = React.createClass({
-    mixins: [UICanvasOverlayMixin],    
+    mixins: [UIPreviewOverlayMixin],    
 
     getInitialState: function() {
-        return {type: 'hover'};
+        return {type: 'select'};
     },
 
     render: function() {
@@ -21,19 +21,19 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToMouseOverNode = UICanvasActions.mouseOverNode.listen(this.displayOverlay);
+        this.stopListeningToSelectNode = LayoutActions.selectNode.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToMouseOverNode();
-        this.stopListeningToMouseOutNode();
+        this.stopListeningSelectNode();
+        this.stopListeningUnselectNode();
     },
 
     listenToReverseSelection: function() {
-        this.stopListeningToMouseOutNode  = UICanvasActions.mouseOutNode.listen(this.hideOverlay);
+        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen(this.hideOverlay);
     },
 
     stopListeningToReverseSelection: function() {
-        this.stopListeningToMouseOutNode();
+        this.stopListeningToUnSelectNode();
     }
 });

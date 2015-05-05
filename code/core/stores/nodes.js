@@ -1,52 +1,24 @@
 var Store         = require('core/stores'),
+    NodeDefaults  = require('core/components/node').defaults || {},
+    Components    = require('core/stores/components.js'),
     UINodeActions = require('core/actions/node.js');
-
-function addNodeAsFirstChild(parent, node) {
-    node.parent = parent;
-    return addChildNode(node, 'first');
-}
-
-function addNodeAsLastChild(parent, node) {
-    node.parent = parent;
-    return addChildNode(node, 'last');
-}
-
-
-
-function insertNodeBeforeSibling(node, sibling) {
-    insertNodeBesideSibling(node, sibling, 'before');
-}
-
-function insertNodeAfterSibling(node, sibling) {
-    insertNodeBesideSibling(node, sibling, 'after');
-}
 
 module.exports = new Store({}, UINodeActions, {
     setData: function(data) {
-        if(_.isObject(data)) {
-            _.each(data, function(data, index){
-                data.id = index;
-                this.addNode(data);
+        if(_.isObject(data) && !_.isEmpty(data)) {
+            _.each(data, function(node, index){
+                node.id = index;
+                this.addNode(node);
             }.bind(this));
-        }else this.addNode({
-            root: {
-                id       : 'root', 
-                className: 'corebuilder',
-                component: 'container'
-            }
-        });
+        }
 
         return this;
     },
 
-    getDefaultCss: function() {
-        return {
-            all      : {},
-            desktop  : {},
-            laptop   : {},
-            tablet   : {},
-            phone    : {}
-        };
+    getDefaults: function(component) {
+        var defaults = Components.getDefaults(component) || {};
+
+        return _.deepExtend(_.deepClone(NodeDefaults), _.deepClone(defaults));
     },
 
     addNode: function(properties) {
@@ -57,15 +29,11 @@ module.exports = new Store({}, UINodeActions, {
             node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
         }
 
-        if(node.parent === undefined) {
+        if(node.parent === undefined && node.id !== 'root') {
             node.parent = 'root';
         }
 
-        node.css = _.extend(this.getDefaultCss(), node.css || {});
-
-        if(!_.isArray(node.children)) {
-            node.children = [];
-        }
+        node = _.deepExtend(this.getDefaults(node.component), node);
 
         this.set(node.id, node);
 
@@ -172,15 +140,24 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(id).trigger(id);
     },
 
-    onAddChildNode: function(parent, properties, position) {
+    onAddChildNode: function(parent, properties) {
         properties.parent = parent;
         this.addChildNode(properties);
-        this.getStore(parent).trigger();
+        this.getStore(parent).trigger(parent);
     },
 
     onUpdateNode: function(id, properties, nested_properties) {
         this.updateNode(id, properties, nested_properties);
         this.getStore(id).trigger(id);
+    },
+
+    onUpdateColumns: function(id, value) {
+        this.getStore(id).set('columns', value).trigger(id, value);
+    },
+
+    onUpdateColspan: function(id, value, device) {
+        this.getStore(id).getStore('colspan').set(device, value);
+        this.getStore(id).trigger(id, value, device);
     },
 
     onDeleteNode: function(id) {

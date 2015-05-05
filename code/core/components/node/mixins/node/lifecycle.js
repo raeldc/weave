@@ -1,6 +1,6 @@
 var Nodes           = require('core/stores/nodes.js'),
-    Canvas          = require('core/stores/canvas.js'),
-    UICanvasFactory = require('core/ui/canvas/factory.js');
+    Preview          = require('core/stores/layout.js'),
+    UIPreviewFactory = require('core/ui/preview/factory.js');
 
 module.exports = {
     getInitialState: function() {
@@ -29,7 +29,7 @@ module.exports = {
     prepareChildren: function(nextProps, nextState) {
         var nextProps = nextProps || this.props;
         var nextState = nextState || this.state;
-        this.children = UICanvasFactory.createChildNodes(nextState.children, nextProps.editMode) || [];
+        this.children = UIPreviewFactory.createChildNodes(nextState.children, nextProps.editMode) || [];
         return this.children;
     },
 
@@ -38,7 +38,7 @@ module.exports = {
         var nextState = nextState || this.state;
         var style     = nextState.css;
 
-        this.nodeProperties.style = _.extend(_.clone(style.all), style[Canvas.get('device')]);
+        this.nodeProperties.style = _.extend(_.clone(style.all), style[Preview.get('device')]);
 
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';

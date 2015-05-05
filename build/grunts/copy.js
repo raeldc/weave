@@ -61,7 +61,7 @@ module.exports = {
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
             },
             {
-                cwd   : 'public/fonts',
+                cwd   : 'node_modules/font-awesome/fonts',
                 src   : '**/*',
                 dest  : 'code/wordpress/page-builder/resources/assets/fonts/',
                 expand: true
@@ -69,6 +69,12 @@ module.exports = {
             {
                 src : 'public/js/pagebuilder.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
+            },
+            {
+                cwd : 'node_modules/font-awesome/css',
+                src : '**/*',
+                dest: 'code/wordpress/page-builder/resources/assets/css/',
+                expand: true
             },
             {
                 src : 'public/css/ui.css',

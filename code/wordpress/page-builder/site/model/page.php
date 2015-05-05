@@ -13,6 +13,10 @@ class ComPagebuilderModelPage extends KModelAbstract
     {
         $result = get_post_meta($this->getState()->id, 'pagebuilder_nodes');
 
-        return $this->create($result);
+        if(is_array($result) && count($result) && is_array($result[0])) {
+            return $this->create($result);
+        }
+
+        return $this->create(array(array()));
     }
 }

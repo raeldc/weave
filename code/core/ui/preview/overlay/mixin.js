@@ -1,5 +1,5 @@
-var UIConfig        = require('core/stores/uiconfig.js'),
-    UICanvasActions = require('core/actions/canvas.js');
+var UIConfig      = require('core/stores/uiconfig.js'),
+    LayoutActions = require('core/actions/layout.js');
 
 module.exports = {
     getInitialState: function() {
@@ -17,8 +17,8 @@ module.exports = {
     },
 
     componentDidMount: function() {
-        this.stopListeningToFrameChanged = UICanvasActions.frameChanged.listen(this.adaptOverlay);
-        this.stopListeningToNodeTouched  = UICanvasActions.nodeTouched.listen(this.adaptOverlay);
+        this.stopListeningToFrameChanged = LayoutActions.frameChanged.listen(this.adaptOverlay);
+        this.stopListeningToNodeTouched  = LayoutActions.nodeTouched.listen(this.adaptOverlay);
     },
 
     componentWillUnmount: function() {
@@ -51,7 +51,7 @@ module.exports = {
 
             this.nextState.width  = $dom.outerWidth();
             this.nextState.height = $dom.outerHeight();
-            this.nextState.top    = position.top - jQuery(window.canvas).scrollTop();
+            this.nextState.top    = position.top - jQuery(window.preview).scrollTop();
             this.nextState.left   = position.left
         }
 

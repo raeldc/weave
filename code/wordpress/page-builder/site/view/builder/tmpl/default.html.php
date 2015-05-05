@@ -1,3 +1,4 @@
+<ktml:style  src="media://pagebuilder/css/font-awesome.min.css" />
 <ktml:style  src="media://pagebuilder/css/ui.css" />
 <ktml:script src="media://pagebuilder/js/jquery.min.js" />
 <ktml:script src="media://pagebuilder/js/pagebuilder.js" />

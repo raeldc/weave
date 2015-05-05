@@ -4,7 +4,7 @@ var Components = require('core/stores/components.js'),
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return UIConfig.Canvas.toObject();
+        return UIConfig.Preview.toObject();
     },
 
     render: function() {
@@ -38,14 +38,14 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToCanvasConfigChanges = UIConfig.Canvas.listen(this.onCanvasConfigChanged);
+        this.stopListeningToPreviewConfigChanges = UIConfig.Preview.listen(this.onPreviewConfigChanged);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToCanvasConfigChanges();
+        this.stopListeningToPreviewConfigChanges();
     },
 
-    onCanvasConfigChanged: function(node){
+    onPreviewConfigChanged: function(node){
         this.setState(this.getInitialState());
     }
 });
