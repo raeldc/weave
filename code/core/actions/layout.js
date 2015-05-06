@@ -50,6 +50,9 @@ var Actions = Reflux.createActions({
     },
     insertComponent: {
         sync: true
+    },
+    displaySelectOverlay: {
+        sync: true
     }
 });
 
