@@ -36,6 +36,10 @@ module.exports = {
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
             },
             {
+                src : 'node_modules/jquery/dist/jquery.min.map',
+                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.map'
+            },
+            {
                 src : 'public/js/pagebuilder.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
             },
@@ -59,6 +63,10 @@ module.exports = {
             {
                 src : 'node_modules/jquery/dist/jquery.min.js',
                 dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
+            },
+            {
+                src : 'node_modules/jquery/dist/jquery.min.map',
+                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.map'
             },
             {
                 cwd   : 'node_modules/font-awesome/fonts',
