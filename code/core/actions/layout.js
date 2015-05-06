@@ -3,7 +3,6 @@ var Reflux = require('reflux');
 var Actions = Reflux.createActions({
     // Fired when the frame has scrolled and if the frame is resized
     frameChanged: {
-        sync: true,
     },
     // Fired when a device is chosen.
     setDevice     : {

@@ -27,6 +27,7 @@ module.exports = React.createClass({
         
         jQuery(window.preview).scroll(this.onFrameEvent);
         jQuery(window.preview).resize(this.onFrameEvent);
+        jQuery(window.preview).mouseup(this.onFrameEvent);
 
         this.stopListeningToPreviewChanges = UIConfig.Preview.listen(this.changePreview);
     },
