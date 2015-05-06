@@ -1,4 +1,5 @@
-var Nodes = require('core/stores/nodes.js');
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutActions = require('core/actions/layout.js');
 
 module.exports = {
     componentDidMount: function() {
@@ -10,6 +11,7 @@ module.exports = {
     },
 
     renderChanges: function(id) {
+        LayoutActions.nodeTouched(this.props.id);
         this.setState(Nodes.get(this.props.id));
     }
 }

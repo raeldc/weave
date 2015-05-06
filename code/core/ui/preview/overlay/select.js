@@ -21,19 +21,19 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToSelectNode = LayoutActions.selectNode.listen(this.displayOverlay);
+        this.stopListeningToDisplaySelectOverlay = LayoutActions.displaySelectOverlay.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningSelectNode();
-        this.stopListeningUnselectNode();
+        this.stopListeningToDisplaySelectOverlay();
+        this.stopListeningToUnselectNode();
     },
 
     listenToReverseSelection: function() {
-        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen(this.hideOverlay);
+        this.stopListeningToUnselectNode = LayoutActions.unSelectNode.listen(this.hideOverlay);
     },
 
     stopListeningToReverseSelection: function() {
-        this.stopListeningToUnSelectNode();
+        this.stopListeningToUnselectNode();
     }
 });

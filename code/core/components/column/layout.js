@@ -1,14 +1,15 @@
-var Nodes       = require('core/stores/nodes.js'),
-    LayoutStore = require('core/stores/layout.js'),
-    NodeActions = require('core/actions/node.js'),
-    DeviceIcon  = require('core/ui/controls/topbar/deviceicon.js'),
-    Childable   = require('core/components/node/mixins/childable.js'),
-    Changeable  = require('core/components/node/mixins/changeable.js'),
-    Eventable   = require('core/components/node/mixins/eventable.js'),
-    Droppable   = require('core/components/node/mixins/droppable.js'),
-    GridSelect  = require('core/components/node/mixins/gridselect.js'),
-    Classable   = require('core/components/node/mixins/classable.js'),
-    Colspanable = require('core/components/column/mixins/colspanable.js');
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutStore   = require('core/stores/layout.js'),
+    LayoutActions = require('core/actions/layout.js'),
+    NodeActions   = require('core/actions/node.js'),
+    DeviceIcon    = require('core/ui/controls/topbar/deviceicon.js'),
+    Childable     = require('core/components/node/mixins/childable.js'),
+    Changeable    = require('core/components/node/mixins/changeable.js'),
+    Eventable     = require('core/components/node/mixins/eventable.js'),
+    Droppable     = require('core/components/node/mixins/droppable.js'),
+    GridSelect    = require('core/components/column/mixins/gridselect.js'),
+    Classable     = require('core/components/node/mixins/classable.js'),
+    Colspanable   = require('core/components/column/mixins/colspanable.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -50,6 +51,7 @@ var ColspanSelect = React.createClass({
 
     selectColspanValue: function(value) {
         NodeActions.updateColspan(this.props.node, value, LayoutStore.get('device'));
+        this.setState({open: false});
     }
 });
 
@@ -58,6 +60,18 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
+    },
+
+    componentWillMount: function() {
+        this.addEvent('onClick.selectable', function(event) {
+            LayoutActions.selectNode(this.props.id);
+            event.stopPropagation();
+        });
+
+        this.addEvent('onMouseOver.hoverable', function(event) {
+            LayoutActions.mouseOverNode(this.props.id);
+            event.stopPropagation();
+        });
     },
 
     render: function() {

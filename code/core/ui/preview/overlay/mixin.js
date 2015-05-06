@@ -26,12 +26,11 @@ module.exports = {
         this.stopListeningToNodeTouched();
     },
 
-    displayOverlay: function(id, node) {
+    displayOverlay: function(node) {
         this.listenToReverseSelection();
 
-        this.nextState.node    = id;
         this.nextState.visible = true;
-        this.nextState.target  = React.findDOMNode(node);
+        this.nextState.target  = node;
 
         this.adaptOverlay();
     },

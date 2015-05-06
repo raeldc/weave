@@ -16,10 +16,7 @@ CoreBuilder.PageBuilder = function(config) {
         container = config.container || 'corebuilder-container',
         overlay   = config.overlay   || 'corebuilder-overlay';
 
-    CoreBuilder.UIConfig.Preview.set('page',      page);
-    CoreBuilder.UIConfig.Preview.set('container', container);
-    CoreBuilder.UIConfig.Preview.set('overlay',   overlay);
-    CoreBuilder.UIConfig.Preview.set('editMode',  true);
+    CoreBuilder.UIConfig.Preview.set('page', page);
 
     React.render(
         <div>

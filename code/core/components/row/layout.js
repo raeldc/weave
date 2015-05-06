@@ -1,9 +1,12 @@
-var Nodes       = require('core/stores/nodes.js'),
-    LayoutStore = require('core/stores/layout.js'),
-    NodeActions = require('core/actions/node.js'),
-    Childable   = require('core/components/node/mixins/childable.js'),
-    Changeable  = require('core/components/node/mixins/changeable.js'),
-    GridSelect  = require('core/components/node/mixins/gridselect.js');
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutStore   = require('core/stores/layout.js'),
+    LayoutActions = require('core/actions/layout.js'),
+    NodeActions   = require('core/actions/node.js'),
+    Classable     = require('core/components/node/mixins/classable.js'),
+    Eventable     = require('core/components/node/mixins/eventable.js'),
+    Childable     = require('core/components/node/mixins/childable.js'),
+    Changeable    = require('core/components/node/mixins/changeable.js'),
+    GridSelect    = require('core/components/column/mixins/gridselect.js');
 
 var ColumnSelect = React.createClass({
     mixins: [GridSelect],
@@ -39,40 +42,60 @@ var ColumnSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable],
+    mixins: [Childable, Classable, Eventable, Changeable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
     },
 
+    componentWillMount: function() {
+        this.addEvent('onClick.selectable', function(event) {
+            LayoutActions.selectNode(this.props.id);
+            event.stopPropagation();
+        });
+
+        this.addEvent('onMouseOver.hoverable', function(event) {
+            LayoutActions.mouseOverNode(this.props.id);
+            event.stopPropagation();
+        });
+    },
+
     render: function() {
-        return (
-            <div className="container-fluid container-row">
-                <div className="row">
-                    <div className="controls col-lg-12">
-                        <h4 className="title">
-                            Row
-                            <div className="btn-group pull-right">
-                                <button className="btn btn-xs" onClick={this.addColumn}>
-                                    Add Column <i className="fa fa-plus"></i>
-                                </button>
-                                <button className="btn btn-xs">
-                                    <i className="fa fa-pencil"></i>
-                                </button>
-                                <button className="btn btn-xs">
-                                    <i className="fa fa-copy"></i>
-                                </button>
-                                <button className="btn btn-xs" onClick={this.deleteNode}>
-                                    <i className="fa fa-trash"></i>
-                                </button>
-                            </div>
-                            <ColumnSelect node={this.props.id} />
-                        </h4>
-                    </div>
-                    {this.getChildren()}
+        var properties = {};
+
+        this.addClass('container-row');
+        this.addClass('container-fluid');
+
+        this.setEvents(properties);
+        this.setClass(properties);
+
+        var Row = (
+            <div className="row">
+                <div className="controls col-lg-12">
+                    <h4 className="title">
+                        Row
+                        <div className="btn-group pull-right">
+                            <button className="btn btn-xs" onClick={this.addColumn}>
+                                Add Column <i className="fa fa-plus"></i>
+                            </button>
+                            <button className="btn btn-xs">
+                                <i className="fa fa-pencil"></i>
+                            </button>
+                            <button className="btn btn-xs">
+                                <i className="fa fa-copy"></i>
+                            </button>
+                            <button className="btn btn-xs" onClick={this.deleteNode}>
+                                <i className="fa fa-trash"></i>
+                            </button>
+                        </div>
+                        <ColumnSelect node={this.props.id} />
+                    </h4>
                 </div>
+                {this.getChildren()}
             </div>
         );
+
+        return React.createElement('div', properties, Row);
     },
 
     addColumn: function() {

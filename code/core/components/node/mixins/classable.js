@@ -27,7 +27,7 @@ module.exports = {
         var classes  = this.classes       || [];
         var defaults = properties.classes || [];
 
-        classes = _.uniq(classes.concat(this.state.classes || [], defaults));
+        classes = _.uniq(classes.concat(defaults));
 
         if(classes.length) {
             properties.className = classes.join(' ');

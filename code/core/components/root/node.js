@@ -4,7 +4,6 @@ var Nodes         = require('core/stores/nodes.js'),
     Childable     = require('core/components/node/mixins/childable.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
-    Editable      = require('core/components/node/mixins/editable.js'),
     Stylable      = require('core/components/node/mixins/stylable.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
     Colspanable   = require('core/components/column/mixins/colspanable.js'),
@@ -12,23 +11,26 @@ var Nodes         = require('core/stores/nodes.js'),
     Hoverable     = require('core/components/node/mixins/hoverable.js');
 
 module.exports = React.createClass({
-    mixins: [Childable, Eventable, Changeable, Editable, Stylable, Classable, Colspanable, Selectable, Hoverable],
+    mixins: [Childable, Eventable, Changeable, Stylable, Classable, Selectable, Hoverable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
     },
 
+    componentWillMount: function() {
+        this.addEvent('onMouseOut', function() {
+            LayoutActions.mouseOutNode();
+        });
+    },
+
     render: function() {
         var properties = {};
 
-        this.setColspan(properties);
         this.setEvents(properties);
-        this.setEditable(properties);
         this.setStyles(properties);
         this.setClass(properties);
 
-        return React.createElement(
-            this.state.element || properties.element || 'div', 
+        return React.createElement('div', 
             properties,
             this.getChildren()
         );

@@ -27,6 +27,7 @@ module.exports = React.createClass({
         
         jQuery(window.preview).scroll(this.onFrameEvent);
         jQuery(window.preview).resize(this.onFrameEvent);
+        jQuery(window.preview).mouseup(this.onFrameEvent);
 
         this.stopListeningToPreviewChanges = UIConfig.Preview.listen(this.changePreview);
     },
@@ -51,14 +52,12 @@ module.exports = React.createClass({
 
         React.render(
             UIPreviewFactory.createNode('root', 'node'),
-            doc.getElementById(this.state.container)
+            doc.getElementById('corebuilder-container')
         );
 
         React.render(
-            <div>
-                <UIPreviewOverlay />
-            </div>,
-            doc.getElementById(this.state.overlay)
+            <UIPreviewOverlay />,
+            doc.getElementById('corebuilder-overlay')
         )
     },
 });

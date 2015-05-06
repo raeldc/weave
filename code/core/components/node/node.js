@@ -4,17 +4,21 @@ var Nodes      = require('core/stores/nodes.js'),
     Eventable  = require('./mixins/eventable.js'),
     Editable   = require('./mixins/editable.js'),
     Stylable   = require('./mixins/stylable.js'),
-    Classable  = require('./mixins/classable.js');
+    Classable  = require('./mixins/classable.js'),
+    Selectable = require('./mixins/selectable.js'),
+    Hoverable  = require('./mixins/hoverable.js');
 
 module.exports = React.createClass({
-    mixins: [Childable, Eventable, Changeable, Editable, Stylable, Classable],
+    mixins: [Childable, Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
     },
 
     render: function() {
-        var properties = {};
+        var properties = {
+            classes: this.state.classes || []
+        };
 
         this.setEvents(properties);
         this.setEditable(properties);
