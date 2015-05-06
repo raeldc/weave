@@ -6,7 +6,7 @@ var Nodes         = require('core/stores/nodes.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
     Childable     = require('core/components/node/mixins/childable.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
-    GridSelect    = require('core/components/node/mixins/gridselect.js');
+    GridSelect    = require('core/components/column/mixins/gridselect.js');
 
 var ColumnSelect = React.createClass({
     mixins: [GridSelect],

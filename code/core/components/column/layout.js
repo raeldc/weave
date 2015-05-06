@@ -7,7 +7,7 @@ var Nodes         = require('core/stores/nodes.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
     Droppable     = require('core/components/node/mixins/droppable.js'),
-    GridSelect    = require('core/components/node/mixins/gridselect.js'),
+    GridSelect    = require('core/components/column/mixins/gridselect.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
     Colspanable   = require('core/components/column/mixins/colspanable.js');
 
@@ -51,6 +51,7 @@ var ColspanSelect = React.createClass({
 
     selectColspanValue: function(value) {
         NodeActions.updateColspan(this.props.node, value, LayoutStore.get('device'));
+        this.setState({open: false});
     }
 });
 
