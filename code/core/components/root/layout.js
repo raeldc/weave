@@ -24,7 +24,7 @@ module.exports = React.createClass({
         this.setEvents(properties);
         this.setClass(properties);
 
-        children = this.getChildren();
+        children = this.getChildren() || [];
         children.push( 
             <div className="controls add-row" key="add-row">
                 <button className="btn btn-sm" onClick={this.addRow}>Add Row <i className="fa fa-plus" /></button>
