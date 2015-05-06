@@ -3,7 +3,7 @@ module.exports = {
     title      : 'Root',
     description: '',
     iconClass  : '',
-    node       : require('core/components/node/node.js'),
+    node       : require('core/components/root/node.js'),
     layout     : require('core/components/root/layout.js'),
     defaults   : {
         element: 'div',
