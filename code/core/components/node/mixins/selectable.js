@@ -13,6 +13,8 @@ module.exports = {
     },
 
     componentWillUnmount: function() {
+        LayoutActions.unSelectNode();
+        LayoutActions.mouseOutNode();
         this.stopListeningToSelectNode();
     },
 
