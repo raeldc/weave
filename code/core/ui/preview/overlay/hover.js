@@ -21,11 +21,11 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        this.stopListeningToMouseOverNode = LayoutActions.mouseOverNode.listen(this.displayOverlay);
+        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen(this.displayOverlay);
     },
 
     componentWillUnmount: function() {
-        this.stopListeningToMouseOverNode();
+        this.stopListeningToDisplayHoverOverlay();
         this.stopListeningToMouseOutNode();
     },
 
