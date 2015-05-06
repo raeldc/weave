@@ -5,13 +5,10 @@ var UIPreviewOverlayHover    = require('core/ui/preview/overlay/hover.js'),
 module.exports = React.createClass({
     render: function() {
         return (
-            <div id="ui-preview-overlay">
-                <UIPreviewOverlayControls />
-                <svg>
-                    <UIPreviewOverlayHover />
-                    <UIPreviewOverlaySelect />
-                </svg>
-            </div>
+            <svg>
+                <UIPreviewOverlayHover />
+                <UIPreviewOverlaySelect />
+            </svg>
         );
     },
 

@@ -51,14 +51,12 @@ module.exports = React.createClass({
 
         React.render(
             UIPreviewFactory.createNode('root', 'node'),
-            doc.getElementById(this.state.container)
+            doc.getElementById('corebuilder-container')
         );
 
         React.render(
-            <div>
-                <UIPreviewOverlay />
-            </div>,
-            doc.getElementById(this.state.overlay)
+            <UIPreviewOverlay />,
+            doc.getElementById('corebuilder-overlay')
         )
     },
 });
