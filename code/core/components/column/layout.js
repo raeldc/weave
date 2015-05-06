@@ -61,15 +61,23 @@ module.exports = React.createClass({
         return Nodes.get(this.props.id);
     },
 
+    componentWillMount: function() {
+        this.addEvent('onClick.selectable', function(event) {
+            LayoutActions.selectNode(this.props.id);
+            event.stopPropagation();
+        });
+
+        this.addEvent('onMouseOver.hoverable', function(event) {
+            LayoutActions.mouseOverNode(this.props.id);
+            event.stopPropagation();
+        });
+    },
+
     render: function() {
         var properties = {};
 
         this.addClass('column');
         this.addClass('col-lg-' + this.getColspan());
-
-        this.addEvent('onClick', function() {
-            LayoutActions.selectNode(this.props.id);
-        });
 
         this.setEvents(properties);
         this.setClass(properties);

@@ -53,6 +53,9 @@ var Actions = Reflux.createActions({
     },
     displaySelectOverlay: {
         sync: true
+    },
+    displayHoverOverlay: {
+        sync: true
     }
 });
 
