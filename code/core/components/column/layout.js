@@ -1,14 +1,15 @@
-var Nodes       = require('core/stores/nodes.js'),
-    LayoutStore = require('core/stores/layout.js'),
-    NodeActions = require('core/actions/node.js'),
-    DeviceIcon  = require('core/ui/controls/topbar/deviceicon.js'),
-    Childable   = require('core/components/node/mixins/childable.js'),
-    Changeable  = require('core/components/node/mixins/changeable.js'),
-    Eventable   = require('core/components/node/mixins/eventable.js'),
-    Droppable   = require('core/components/node/mixins/droppable.js'),
-    GridSelect  = require('core/components/node/mixins/gridselect.js'),
-    Classable   = require('core/components/node/mixins/classable.js'),
-    Colspanable = require('core/components/column/mixins/colspanable.js');
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutStore   = require('core/stores/layout.js'),
+    LayoutActions = require('core/actions/layout.js'),
+    NodeActions   = require('core/actions/node.js'),
+    DeviceIcon    = require('core/ui/controls/topbar/deviceicon.js'),
+    Childable     = require('core/components/node/mixins/childable.js'),
+    Changeable    = require('core/components/node/mixins/changeable.js'),
+    Eventable     = require('core/components/node/mixins/eventable.js'),
+    Droppable     = require('core/components/node/mixins/droppable.js'),
+    GridSelect    = require('core/components/node/mixins/gridselect.js'),
+    Classable     = require('core/components/node/mixins/classable.js'),
+    Colspanable   = require('core/components/column/mixins/colspanable.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -65,6 +66,10 @@ module.exports = React.createClass({
 
         this.addClass('column');
         this.addClass('col-lg-' + this.getColspan());
+
+        this.addEvent('onClick', function() {
+            LayoutActions.selectNode(this.props.id);
+        });
 
         this.setEvents(properties);
         this.setClass(properties);
