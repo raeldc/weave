@@ -25,12 +25,10 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('content');
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Controls = (
             <div className="controls">
@@ -51,7 +49,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Controls);
+        return React.createElement('div', this.properties || {}, Controls);
     },
 
     deleteNode: function() {

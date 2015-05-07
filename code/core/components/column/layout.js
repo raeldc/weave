@@ -75,13 +75,11 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('column');
         this.addClass('col-lg-' + this.getColspan());
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Column = (
             <div className="inner">
@@ -105,7 +103,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Column);
+        return React.createElement('div', this.properties || {}, Column);
     },
 
     deleteNode: function() {

@@ -1,4 +1,10 @@
 module.exports = {
+    getInitialState: function() {
+        if(this.properties === undefined) {
+            this.properties = {};
+        }
+    },
+
     componentDidMount: function() {
         this.classes = [];
     },
@@ -13,6 +19,8 @@ module.exports = {
         if(this.classes.indexOf(name) === -1) {
             this.classes.push(name);
         }
+
+        return this;
     },
 
     removeClass: function(name) {
@@ -21,18 +29,20 @@ module.exports = {
         if(this.classes.indexOf(name) !== -1) {
             this.classes = _.without(this.classes, name);
         }
+
+        return this;
     },
 
-    setClass: function(properties) {
-        var classes  = this.classes       || [];
-        var defaults = properties.classes || [];
+    setClass: function() {
+        var classes  = this.classes            || [];
+        var defaults = this.properties.classes || [];
 
         classes = _.uniq(classes.concat(defaults));
 
         if(classes.length) {
-            properties.className = classes.join(' ');
+            this.properties.className = classes.join(' ');
         }
 
-        return properties;
+        return this.properties;
     }
 }

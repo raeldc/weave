@@ -2,7 +2,7 @@ var Nodes       = require('core/stores/nodes.js'),
     LayoutStore = require('core/stores/layout.js');
 
 module.exports = {
-    setColspan: function(properties) {
+    setColspan: function() {
         this.addClass('col-lg-' + this.getColspan('desktop'));
         this.addClass('col-md-' + this.getColspan('laptop'));
         this.addClass('col-sm-' + this.getColspan('tablet'));

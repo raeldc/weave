@@ -61,13 +61,11 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('container-row');
         this.addClass('container-fluid');
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Row = (
             <div className="row">
@@ -95,7 +93,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Row);
+        return React.createElement('div', this.properties || {}, Row);
     },
 
     addColumn: function() {
