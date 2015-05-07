@@ -36,10 +36,10 @@ module.exports = {
     },
 
     bindClick: function() {
-        jQuery(window).bind('mouseup.GridSelect' + this.props.node, this.toggleOpen);
+        jQuery(window).bind('mousedown.GridSelect' + this.props.node, this.toggleOpen);
     },
 
     unbindClick: function() {
-        jQuery(window).unbind('mouseup.GridSelect' + this.props.node);
+        jQuery(window).unbind('mousedown.GridSelect' + this.props.node);
     }
 }
