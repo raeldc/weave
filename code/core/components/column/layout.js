@@ -51,7 +51,6 @@ var ColspanSelect = React.createClass({
 
     selectColspanValue: function(value) {
         NodeActions.updateColspan(this.props.node, value, LayoutStore.get('device'));
-        this.setState({open: false});
     }
 });
 
