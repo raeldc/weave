@@ -21,10 +21,7 @@ module.exports = {
     },
 
     onDrop: function(event) {
-        var component = UIConfig.Preview.get('pending_component');
-
-        LayoutActions.insertComponent(component, this.props.id);
-
+        LayoutActions.droppedOnNode(this.props.id, this, event);
         event.stopPropagation();
     }
 }
