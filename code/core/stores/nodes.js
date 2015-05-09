@@ -60,17 +60,20 @@ module.exports = new Store({}, UINodeActions, {
             return;
         }
 
-        var node   = this.get(id);
-        var parent = this.get(node.parent);
+        if(this.hasProperty(id)) {
 
-        if(_.isArray(node.children)) {
-            _.each(node.children, function(child, index) {
-                this.deleteNode(child);
-            }.bind(this));
-        }
+            var node   = this.get(id);
+            var parent = this.get(node.parent);
 
-        this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
-        this.removeObject(node.id);
+            if(_.isArray(node.children)) {
+                _.each(node.children, function(child, index) {
+                    this.deleteNode(child);
+                }.bind(this));
+            }
+
+            this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+            this.remove(node.id);
+        }  
     },
 
     addChildNode: function(properties, position) {
@@ -89,6 +92,14 @@ module.exports = new Store({}, UINodeActions, {
         }
 
         throw new Error('Parent does not exist');
+    },
+
+    moveNodeBesideSibling: function(id, sibling, position) {
+        if(this.hasProperty(id) && this.hasProperty(sibling)) {
+            var node = _.clone(this.get(id));
+            this.deleteNode(id);
+            this.insertNodeBesideSibling(node, sibling, position);
+        }
     },
 
     insertNodeBesideSibling: function(node, sibling, position) {
@@ -125,6 +136,10 @@ module.exports = new Store({}, UINodeActions, {
 
         this.getStore(parent.id).trigger();
         this.getStore(node.id).trigger();
+    },
+
+    onInsertNodeBesideSibling: function(node, sibling, position) {
+        this.insertNodeBesideSibling(node, sibling, position);
     },
 
     onInsertNodeAfterSibling: function(node, sibling) {

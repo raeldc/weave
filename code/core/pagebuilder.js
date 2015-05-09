@@ -6,6 +6,7 @@ var Core     = require('core'),
 
 // Register Node Components
 CoreBuilder.Components.register(require('core/components/root'));
+CoreBuilder.Components.register(require('core/components/placeholder'));
 CoreBuilder.Components.register(require('core/components/row'));
 CoreBuilder.Components.register(require('core/components/column'));
 CoreBuilder.Components.register(require('core/components/text'));
@@ -33,6 +34,6 @@ CoreBuilder.PageBuilder = function(config) {
         CoreBuilder.Nodes.setData(_.extend({root: {id: 'root', component: 'root'}},data));
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
-        React.render(<Preview />, document.getElementById('corebuilder-preview'));
+        //React.render(<Preview />, document.getElementById('corebuilder-preview'));
     });
 }

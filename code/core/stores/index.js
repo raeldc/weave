@@ -65,13 +65,13 @@ var StoreDefinition = {
         return this.data[key] !== undefined;
     },
 
-    removeObject: function(key) {
+    remove: function(key) {
         delete this.data[key];
     },
 
     removeObjects: function(keys) {
         _.each(keys, function(key) {
-            this.removeObject(key);
+            this.remove(key);
         }.bind(this));
     },
 

@@ -1,10 +1,10 @@
 var LayoutActions = require('core/actions/layout.js'),
-    LayoutStore   = require('core/stores/layout.js');
+    LayoutStore   = require('core/stores/layout.js'),
     UIConfig      = require('core/stores/uiconfig.js');
 
 module.exports = {
     componentWillMount: function() {
-        this.addEvent('onMouseOver.droppable', this.getNodeInfo.bind(this));
+        this.addEvent('onMouseOver.droppable', this.getNodeInfo);
         this.addEvent('onMouseOut.droppable',  this.resetNodeInfo);
         this.addEvent('onMouseMove.droppable', this.setDraggingPosition);
     },
