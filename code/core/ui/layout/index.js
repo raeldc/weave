@@ -6,14 +6,19 @@ var Factory       = require('core/components/node/factory.js'),
 
 module.exports = React.createClass({
     componentWillMount: function() {
+        this.stopListentingToStartDrag        = LayoutActions.startDrag.listen(this.insertPlaceholderOnTop);
         this.stopListentingToDraggingOnTop    = LayoutActions.draggingOnTop.listen(this.insertPlaceholderOnTop);
+        this.stopListentingToDraggingOnRight  = LayoutActions.draggingOnRight.listen(this.insertPlaceholderOnTop);
         this.stopListentingToDraggingOnBottom = LayoutActions.draggingOnBottom.listen(this.insertPlaceholderOnBottom);
+        this.stopListentingToDraggingOnLeft   = LayoutActions.draggingOnLeft.listen(this.insertPlaceholderOnTop);
         this.stopListeningToStopDrag          = LayoutActions.stopDrag.listen(this.deletePlaceholder);
     },
 
     componentWillUnmount: function() {
+        this.stopListentingToStartDrag();
         this.stopListentingToDraggingOnTop();
         this.stopListentingToDraggingOnBottom();
+        this.stopListeningToStopDrag();
     },
 
     render: function() {

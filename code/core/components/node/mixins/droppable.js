@@ -81,9 +81,9 @@ module.exports = {
 
         if(this.nodeInfo) {
 
-            if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .2))) {
+            if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .5))) {
                 position = 'top';
-            }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .2)))) {
+            }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .5)))) {
                 position = 'bottom';
             }
 
