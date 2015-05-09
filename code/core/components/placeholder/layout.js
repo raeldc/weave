@@ -12,7 +12,7 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function() {
-        if(LayoutStore.get('drag_subject') === undefined) {
+        if(LayoutStore.get('drag_subject') === undefined && this.state.sibling != this.subject) {
             Nodes.moveNodeBesideSibling(this.subject, this.state.sibling, this.state.position);
         }
     },

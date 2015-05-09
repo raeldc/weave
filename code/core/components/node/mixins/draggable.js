@@ -13,10 +13,20 @@ module.exports = {
     componentWillMount: function() {        
         this.addEvent('onDragStart.movable', this.onDragStart);
         this.properties.draggable = true;
+
+        if(LayoutStore.get('drag_subject') === this.props.id) {
+            this.addClass('hidden');
+        }
+        else this.removeClass('hidden');
     },
 
     componentWillUpdate: function() {
         this.properties.draggable = true;
+
+        if(LayoutStore.get('drag_subject') === this.props.id) {
+            this.addClass('hidden');
+        }
+        else this.removeClass('hidden');
     },
 
     /**
@@ -45,9 +55,12 @@ module.exports = {
         jQuery(window).on('mouseup.movable', function() {
             jQuery(window).unbind('mouseup.movable');
             LayoutActions.stopDrag();
-        });
+            this.forceUpdate();
+        }.bind(this));
 
         event.stopPropagation();
         event.preventDefault();
+
+        this.forceUpdate();
     }
 }

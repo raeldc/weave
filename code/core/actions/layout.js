@@ -32,9 +32,10 @@ var Actions = Reflux.createActions({
         }
     },
     startDrag: {
-
+        sync: true
     },
     stopDrag: {
+        sync: true,
         preEmit: function() {
             Actions.unSelectNode();
             Actions.mouseOutNode();
