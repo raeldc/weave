@@ -1,4 +1,6 @@
 var Factory       = require('core/components/node/factory.js'),
+    Nodes         = require('core/stores/nodes.js'),
+    LayoutStore   = require('core/stores/layout.js'),
     LayoutActions = require('core/actions/layout.js'),
     Classable     = require('core/components/node/mixins/classable.js');
 
@@ -9,11 +11,18 @@ module.exports = React.createClass({
         this.addClass('invisible');
 
         this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode);
-        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer);
+        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(function(){
+            this.hideContainer();
+            // We only want to respond if there is a drag subject
+            if(LayoutStore.get('drag_subject')) {
+                this.moveNode();
+            }
+        }.bind(this));
     },
 
     componentWillUnmount: function() {
         this.stopListeningToStartDrag();
+        this.stopListeningToStopDrag();
     },
 
     render: function() {
@@ -55,18 +64,37 @@ module.exports = React.createClass({
         var subject   = React.findDOMNode(instance);
         var info      = this.getNodeInfo(instance);
 
+        // Make a clone of the node inside the container
         React.render(Factory.createNode(node, 'layout'), container);
 
+        // Record the current clientX and clientY
         this.previousX = event.clientX;
         this.previousY = event.clientY;
 
+        // Register the mousemove event on the document
         jQuery(document).on('mousemove.dragcontainer', this.followCursor);
 
+        // Show the container
         this.removeClass('invisible');
 
+        // Adapt the size and coordinates of the container to the drag_subject
         this.properties.style = info;
 
         this.forceUpdate();
+    },
+
+    moveNode: function() {
+        var drag_subject  = LayoutStore.get('drag_subject');
+        var drop_subject  = LayoutStore.get('drop_subject');
+        var drop_position = LayoutStore.get('drop_position');
+
+        if(drag_subject && drag_subject !== drop_subject) {
+            Nodes.moveNodeBesideSibling(drag_subject, drop_subject, drop_position);
+        }
+
+        LayoutStore.remove('drag_subject');
+        LayoutStore.remove('drop_subject');
+        LayoutStore.remove('drop_position');
     },
 
     getNodeInfo: function(instance) {
