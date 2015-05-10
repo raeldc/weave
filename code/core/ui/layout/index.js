@@ -2,27 +2,35 @@ var Factory       = require('core/components/node/factory.js'),
     Nodes         = require('core/stores/nodes.js')
     LayoutStore   = require('core/stores/layout.js'),
     NodeActions   = require('core/actions/node.js'),
-    LayoutActions = require('core/actions/layout.js');
+    LayoutActions = require('core/actions/layout.js'),
+    DragContainer = require('core/ui/layout/dragcontainer.js');
 
 module.exports = React.createClass({
     componentWillMount: function() {
-        this.stopListentingToStartDrag        = LayoutActions.startDrag.listen(this.insertPlaceholderOnTop);
-        this.stopListentingToDraggingOnTop    = LayoutActions.draggingOnTop.listen(this.insertPlaceholderOnTop);
-        this.stopListentingToDraggingOnRight  = LayoutActions.draggingOnRight.listen(this.insertPlaceholderOnTop);
-        this.stopListentingToDraggingOnBottom = LayoutActions.draggingOnBottom.listen(this.insertPlaceholderOnBottom);
-        this.stopListentingToDraggingOnLeft   = LayoutActions.draggingOnLeft.listen(this.insertPlaceholderOnTop);
-        this.stopListeningToStopDrag          = LayoutActions.stopDrag.listen(this.deletePlaceholder);
+        this.stopListeningToStartDrag        = LayoutActions.startDrag.listen(this.insertPlaceholderOnTop);
+        this.stopListeningToDraggingOnTop    = LayoutActions.draggingOnTop.listen(this.insertPlaceholderOnTop);
+        this.stopListeningToDraggingOnRight  = LayoutActions.draggingOnRight.listen(this.insertPlaceholderOnTop);
+        this.stopListeningToDraggingOnBottom = LayoutActions.draggingOnBottom.listen(this.insertPlaceholderOnBottom);
+        this.stopListeningToDraggingOnLeft   = LayoutActions.draggingOnLeft.listen(this.insertPlaceholderOnTop);
+        this.stopListeningToStopDrag         = LayoutActions.stopDrag.listen(this.deletePlaceholder);
     },
 
     componentWillUnmount: function() {
-        this.stopListentingToStartDrag();
-        this.stopListentingToDraggingOnTop();
-        this.stopListentingToDraggingOnBottom();
+        this.stopListeningToStartDrag();
+        this.stopListeningToDraggingOnTop();
+        this.stopListeningToDraggingOnRight();
+        this.stopListeningToDraggingOnBottom();
+        this.stopListeningToDraggingOnLeft();
         this.stopListeningToStopDrag();
     },
 
     render: function() {
-        return Factory.createNode('root', 'layout');
+        return (
+            <div>
+                <DragContainer />
+                {Factory.createNode('root', 'layout')}
+            </div>
+        )
     },
 
     insertPlaceholderOnTop: function(id) {

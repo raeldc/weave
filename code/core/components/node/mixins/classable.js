@@ -3,6 +3,8 @@ module.exports = {
         if(this.properties === undefined) {
             this.properties = {};
         }
+
+        return null;
     },
 
     componentDidMount: function() {

@@ -8,25 +8,26 @@ module.exports = {
         if(this.properties === undefined) {
             this.properties = {};
         }
+
+        this.properties.draggable = true;
+
+        return null;
     },
 
     componentWillMount: function() {        
         this.addEvent('onDragStart.movable', this.onDragStart);
-        this.properties.draggable = true;
 
         if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.addClass('hidden');
+            this.addClass('invisible');
         }
-        else this.removeClass('hidden');
+        else this.removeClass('invisible');
     },
 
     componentWillUpdate: function() {
-        this.properties.draggable = true;
-
         if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.addClass('hidden');
+            this.addClass('invisible');
         }
-        else this.removeClass('hidden');
+        else this.removeClass('invisible');
     },
 
     /**
@@ -49,7 +50,7 @@ module.exports = {
      * onMouseUp: End the artificial Drag&Drop Sequence
      */
     onDragStart: function(event) {
-        LayoutActions.startDrag(this.props.id, this);
+        LayoutActions.startDrag(this.props.id, this, event);
 
         //Register mouseUp event on Window
         jQuery(window).on('mouseup.movable', function() {

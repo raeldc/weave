@@ -134,10 +134,23 @@ body {
                 }
             }
         }
+    }
 
-        .hidden {
-            display   : none;
-            visibility: hidden;
+    .invisible {
+        display   : none;
+        visibility: hidden;
+    }
+
+    .drag-container {
+        border       : 1px solid red;
+        height       : 100px;
+        position     : fixed;
+        z-index      : 1000;
+        pointer-events: none;
+
+        .invisible {
+            display   : block;
+            visibility: visible;
         }
     }
 
