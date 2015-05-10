@@ -32,6 +32,10 @@ module.exports = {
     },
 
     show: function() {
+        if(this.stopListeningToStopDrag) {
+            this.stopListeningToStopDrag();
+        }
+
         this.removeClass('invisible');
         this.forceUpdate();
     },
