@@ -8,12 +8,12 @@ var Factory       = require('core/components/node/factory.js'),
 
 module.exports = React.createClass({
     componentWillMount: function() {
-        this.stopListeningToStartDrag        = LayoutActions.startDrag.listen(this.insertPlaceholderOnTop);
-        this.stopListeningToDraggingOnTop    = LayoutActions.draggingOnTop.listen(this.insertPlaceholderOnTop);
-        this.stopListeningToDraggingOnRight  = LayoutActions.draggingOnRight.listen(this.insertPlaceholderOnRight);
-        this.stopListeningToDraggingOnBottom = LayoutActions.draggingOnBottom.listen(this.insertPlaceholderOnBottom);
-        this.stopListeningToDraggingOnLeft   = LayoutActions.draggingOnLeft.listen(this.insertPlaceholderOnLeft);
-        this.stopListeningToDraggingInside   = LayoutActions.draggingInside.listen(this.insertPlaceholderInside);
+        this.stopListeningToStartDrag        = LayoutActions.startDrag.listen(this.draggingOnTop);
+        this.stopListeningToDraggingOnTop    = LayoutActions.draggingOnTop.listen(this.draggingOnTop);
+        this.stopListeningToDraggingOnRight  = LayoutActions.draggingOnRight.listen(this.draggingOnRight);
+        this.stopListeningToDraggingOnBottom = LayoutActions.draggingOnBottom.listen(this.draggingOnBottom);
+        this.stopListeningToDraggingOnLeft   = LayoutActions.draggingOnLeft.listen(this.draggingOnLeft);
+        this.stopListeningToDraggingInside   = LayoutActions.draggingInside.listen(this.draggingInside);
         this.stopListeningToStopDrag         = LayoutActions.stopDrag.listen(this.deletePlaceholder);
     },
 
@@ -35,7 +35,7 @@ module.exports = React.createClass({
         )
     },
 
-    insertPlaceholderOnTop: function(id) {
+    draggingOnTop: function(id) {
         var component = Components.get(Nodes.get(id).component);
         var layout    = component.layout || {};
 
@@ -44,7 +44,7 @@ module.exports = React.createClass({
         }
     },
 
-    insertPlaceholderOnRight: function(id) {
+    draggingOnRight: function(id) {
         var component = Components.get(Nodes.get(id).component);
         var layout    = component.layout || {};
 
@@ -53,7 +53,7 @@ module.exports = React.createClass({
         }
     },
 
-    insertPlaceholderOnBottom: function(id) {
+    draggingOnBottom: function(id) {
         var component = Components.get(Nodes.get(id).component);
         var layout    = component.layout || {};
 
@@ -62,7 +62,7 @@ module.exports = React.createClass({
         }
     },
 
-    insertPlaceholderOnLeft: function(id) {
+    draggingOnLeft: function(id) {
         var component = Components.get(Nodes.get(id).component);
         var layout    = component.layout || {};
 
@@ -71,7 +71,7 @@ module.exports = React.createClass({
         }
     },
 
-    insertPlaceholderInside: function(id) {
+    draggingInside: function(id) {
         var component = Components.get(Nodes.get(id).component);
         var layout    = component.layout || {};
 
