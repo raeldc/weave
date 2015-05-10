@@ -1,5 +1,6 @@
-var Factory   = require('core/components/node/factory.js'),
-    Classable = require('core/components/node/mixins/classable.js');
+var Factory       = require('core/components/node/factory.js'),
+    LayoutActions = require('core/actions/layout.js'),
+    Classable     = require('core/components/node/mixins/classable.js');
 
 module.exports = React.createClass({
     mixins: [Classable],

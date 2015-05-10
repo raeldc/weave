@@ -9,5 +9,8 @@ module.exports = {
         element: 'div',
         columns: 4,
         classes: ['row']
+    },
+    rules: {
+        parents: ['root']
     }
 }

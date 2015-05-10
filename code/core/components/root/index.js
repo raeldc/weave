@@ -8,5 +8,8 @@ module.exports = {
     defaults   : {
         element: 'div',
         classes: 'container-fluid'
+    },
+    rules: {
+        
     }
 }

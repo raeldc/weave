@@ -6,7 +6,10 @@ var Nodes         = require('core/stores/nodes.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
     Childable     = require('core/components/node/mixins/childable.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
-    GridSelect    = require('core/components/column/mixins/gridselect.js');
+    GridSelect    = require('core/components/column/mixins/gridselect.js'),
+    Droppable     = require('core/components/node/mixins/droppable.js'),
+    Draggable     = require('core/components/node/mixins/draggable.js'),
+    DropRules     = require('core/components/node/mixins/droprules.js');
 
 var ColumnSelect = React.createClass({
     mixins: [GridSelect],
@@ -42,7 +45,8 @@ var ColumnSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Classable, Eventable, Changeable],
+    mixins : [Childable, Classable, Eventable, Changeable, Draggable, Droppable],
+    statics: DropRules.rows,
 
     getInitialState: function() {
         return Nodes.get(this.props.id);

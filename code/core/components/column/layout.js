@@ -9,7 +9,8 @@ var Nodes         = require('core/stores/nodes.js'),
     Droppable     = require('core/components/node/mixins/droppable.js'),
     GridSelect    = require('core/components/column/mixins/gridselect.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
-    Colspanable   = require('core/components/column/mixins/colspanable.js');
+    Colspanable   = require('core/components/column/mixins/colspanable.js'),
+    Draggable     = require('core/components/node/mixins/draggable.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -55,7 +56,7 @@ var ColspanSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable, Eventable, Droppable, Classable, Colspanable],
+    mixins: [Childable, Changeable, Eventable, Classable, Colspanable],
 
     getInitialState: function() {
         return Nodes.get(this.props.id);

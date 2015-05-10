@@ -5,10 +5,12 @@ var Nodes         = require('core/stores/nodes.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
     Droppable     = require('core/components/node/mixins/droppable.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
-    Draggable     = require('core/components/node/mixins/draggable.js');
+    Draggable     = require('core/components/node/mixins/draggable.js'),
+    DropRules     = require('core/components/node/mixins/droprules.js');
 
 module.exports = React.createClass({
-    mixins: [Changeable, Classable, Eventable, Droppable, Draggable],
+    mixins : [Changeable, Classable, Eventable, Droppable, Draggable],
+    statics: DropRules.nodes,
 
     getInitialState: function() {
         return Nodes.get(this.props.id);

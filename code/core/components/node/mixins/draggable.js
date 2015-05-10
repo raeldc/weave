@@ -1,5 +1,6 @@
 var Nodes         = require('core/stores/nodes.js'),
     Components    = require('core/stores/components.js'),
+    LayoutStore   = require('core/stores/layout.js'),
     LayoutActions = require('core/actions/layout.js'),
     NodeActions   = require('core/actions/node.js');
 

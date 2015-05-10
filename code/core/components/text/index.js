@@ -21,4 +21,7 @@ module.exports = {
         element: 'p',
         text   : 'Double click here to edit'
     },
+    rules: {
+        parents: ['column']
+    }
 }

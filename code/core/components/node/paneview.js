@@ -7,13 +7,13 @@ module.exports = React.createClass({
 
     onDragStart: function(event) {
         LayoutActions.insertingComponent(this.props.component);
-        this.startListeningToDroppedOnNode = LayoutActions.droppedOnNode.listen(this.onDrop);
+        this.stopListeningToDroppedOnNode = LayoutActions.droppedOnNode.listen(this.onDrop);
         event.stopPropagation();
     },
 
     onDragEnd: function(event) {
         LayoutActions.endInsertingComponent(this.props.component);
-        this.startListeningToDroppedOnNode();
+        this.stopListeningToDroppedOnNode();
         event.stopPropagation();
     },
 
