@@ -56,9 +56,5 @@ module.exports = (new Store({device: 'desktop'})).setActions(LayoutActions, {
 
     onStartDrag: function(id) {
         this.set('drag_subject', id);
-    },
-
-    onStopDrag: function() {
-        this.remove('drag_subject');
     }
 });

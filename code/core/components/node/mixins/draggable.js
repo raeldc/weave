@@ -24,11 +24,27 @@ module.exports = {
         else this.removeClass('invisible');
     },
 
-    componentWillUpdate: function() {
+    componentWillUpdate: function() {        
         if(LayoutStore.get('drag_subject') === this.props.id) {
             this.addClass('invisible');
         }
         else this.removeClass('invisible');
+    },
+
+    show: function() {
+        this.removeClass('invisible');
+        this.forceUpdate();
+    },
+
+    hide: function() {
+        this.addClass('invisible');
+        this.forceUpdate();
+    },
+
+    componentWillUnmount: function() {
+        if(this.stopListeningToStopDrag) {
+            this.stopListeningToStopDrag();
+        }
     },
 
     /**
@@ -57,12 +73,13 @@ module.exports = {
         jQuery(window).on('mouseup.movable', function() {
             jQuery(window).unbind('mouseup.movable');
             LayoutActions.stopDrag();
-            this.forceUpdate();
         }.bind(this));
+
+        this.stopListeningToStopDrag = LayoutActions.stopDrag.listen(this.show);
 
         event.stopPropagation();
         event.preventDefault();
 
-        this.forceUpdate();
+        this.hide();
     }
 }
