@@ -66,9 +66,13 @@ module.exports = {
                 this.constructor.draggingInside(subject, this.props.id);
                 this.cursorPosition = 'inside';
             }
+
+            // If subject is being dragged in its placeholder, allow the drop.
+            if(subject === this.props.id) {
+                event.preventDefault();
+            }
         }
 
-        event.preventDefault();
         event.stopPropagation();
     },
 
