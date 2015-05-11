@@ -19,7 +19,7 @@ module.exports = {
         this.addEvent('onDragStart.movable', this.onDragStart);
 
         if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.stopListeningToStopDrag = LayoutActions.stopDrag.listen(this.show);
+            this.listenToStopDrag();
             this.addClass('drag-subject');
         }
         else this.removeClass('drag-subject');
@@ -27,12 +27,28 @@ module.exports = {
 
     componentWillUpdate: function() {        
         if(LayoutStore.get('drag_subject') === this.props.id) {
+            this.listenToStopDrag();
             this.addClass('drag-subject');
         }
         else this.removeClass('drag-subject');
     },
 
+    componentWillUnmount: function() {
+        if(this.stopListeningToStopDrag) {
+            this.stopListeningToStopDrag();
+        }
+    },
+
+    listenToStopDrag: function() {
+        if(this.stopListeningToStopDrag) {
+            this.stopListeningToStopDrag();
+        }
+
+        this.stopListeningToStopDrag = LayoutActions.stopDrag.listen(this.show);
+    },
+
     show: function() {
+        console.log('show', this.props.id);
         if(this.stopListeningToStopDrag) {
             this.stopListeningToStopDrag();
         }
@@ -42,14 +58,9 @@ module.exports = {
     },
 
     hide: function() {
+        console.log('hide', this.props.id);
         this.addClass('drag-subject');
         this.forceUpdate();
-    },
-
-    componentWillUnmount: function() {
-        if(this.stopListeningToStopDrag) {
-            this.stopListeningToStopDrag();
-        }
     },
 
     /**
@@ -79,8 +90,6 @@ module.exports = {
             jQuery(window).unbind('mouseup.movable');
             LayoutActions.stopDrag();
         }.bind(this));
-
-        this.stopListeningToStopDrag = LayoutActions.stopDrag.listen(this.show);
 
         event.stopPropagation();
         event.preventDefault();

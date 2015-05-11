@@ -138,6 +138,7 @@ body {
 
     .drag-subject {
         opacity: .5;
+        pointer-events: none;
     }
 
     .drag-container {
@@ -148,8 +149,8 @@ body {
 
         box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.4);
 
-        .drag-subject {
-            border    : none;
+        > .column {
+            width: 100% !important;
         }
     }
 
