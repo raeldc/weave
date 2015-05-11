@@ -41,21 +41,6 @@ var Actions = Reflux.createActions({
             Actions.mouseOutNode();
         }
     },
-    draggingOnTop: {
-
-    },
-    draggingOnRight: {
-
-    },
-    draggingOnBottom: {
-
-    },
-    draggingOnLeft: {
-
-    },
-    draggingInside: {
-
-    },
     insertingComponent: {
         sync: true,
         preEmit: function() {

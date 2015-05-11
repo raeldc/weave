@@ -31,31 +31,24 @@ module.exports = {
      * @return {null}       Returns nothing
      */
     setDraggingPosition: function(event) {
-        if(LayoutStore.hasProperty('drag_subject')) {
+        var subject = LayoutStore.get('drag_subject') || false;
 
-            var cursorPosition = this.getCursorPosition(event.clientX, event.clientY);
-
-            if(this.cursorPosition !== cursorPosition) {
-
-                switch(cursorPosition) {
-                    case 'inside':
-                        LayoutActions.draggingInside(this.props.id);
-                    break;
-                    case 'top':
-                        LayoutActions.draggingOnTop(this.props.id);
-                    break;
-                    case 'right':
-                        LayoutActions.draggingOnRight(this.props.id);
-                    break;
-                    case 'bottom':
-                        LayoutActions.draggingOnBottom(this.props.id);
-                    break;
-                    case 'left':
-                        LayoutActions.draggingOnLeft(this.props.id);
-                    break;
-                }
-
-                this.cursorPosition = cursorPosition;
+        if(subject) {
+            if(typeof this.constructor.draggingOnTop === 'function' && this.isDraggingOnArea(event, 'top') && this.cursorPosition !== 'top') {
+                this.constructor.draggingOnTop(subject, this.props.id);
+                this.cursorPosition = 'top';
+            }else if(typeof this.constructor.draggingOnRight === 'function' && this.isDraggingOnArea(event, 'right') && this.cursorPosition !== 'right') {
+                this.constructor.draggingOnRight(subject, this.props.id);
+                this.cursorPosition = 'right';
+            }else if(typeof this.constructor.draggingOnBottom === 'function' && this.isDraggingOnArea(event, 'bottom') && this.cursorPosition !== 'bottom') {
+                this.constructor.draggingOnBottom(subject, this.props.id);
+                this.cursorPosition = 'bottom';
+            }else if(typeof this.constructor.draggingOnLeft === 'function' && this.isDraggingOnArea(event, 'left') && this.cursorPosition !== 'left') {
+                this.constructor.draggingOnLeft(subject, this.props.id);
+                this.cursorPosition = 'left';
+            }else if(typeof this.constructor.draggingInside === 'function' && this.isDraggingOnArea(event, 'inside') && this.cursorPosition !== 'inside') {
+                this.constructor.draggingInside(subject, this.props.id);
+                this.cursorPosition = 'inside';
             }
         }
 
@@ -76,24 +69,27 @@ module.exports = {
         return this.nodeInfo;
     },
 
-    getCursorPosition: function(mouseX, mouseY) {
-        var position = 'inside';
-
+    isDraggingOnArea: function(event, area) {
         if(this.nodeInfo) {
-
-            if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .25))) {
-                position = 'top';
-            }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .25)))) {
-                position = 'bottom';
-            }
-
-            if(mouseX < this.nodeInfo.left + (this.nodeInfo.width * .25)) {
-                position = 'left'
-            }else if(mouseX > this.nodeInfo.left + (this.nodeInfo.width - (this.nodeInfo.width * .25))) {
-                position = 'right'
+            switch(area) {
+                case 'top':
+                    return event.clientY < (this.nodeInfo.top + (this.nodeInfo.height * .5));
+                break;
+                case 'right':
+                    return event.clientX > this.nodeInfo.left + (this.nodeInfo.width - (this.nodeInfo.width * .5));
+                break;
+                case 'bottom':
+                    return event.clientY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .5)));
+                break;
+                case 'left':
+                    return  event.clientX < this.nodeInfo.left + (this.nodeInfo.width * .5);
+                break;
+                case 'inside':
+                    return (event.clientX <= this.nodeInfo.left + this.nodeInfo.width) && (event.clientY <= this.nodeInfo.top + this.nodeInfo.height);
+                break;
             }
         }
 
-        return position;
+        return false;
     }
 }
