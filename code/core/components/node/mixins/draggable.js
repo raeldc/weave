@@ -48,7 +48,6 @@ module.exports = {
     },
 
     show: function() {
-        console.log('show', this.props.id);
         if(this.stopListeningToStopDrag) {
             this.stopListeningToStopDrag();
         }
@@ -58,7 +57,6 @@ module.exports = {
     },
 
     hide: function() {
-        console.log('hide', this.props.id);
         this.addClass('drag-subject');
         this.forceUpdate();
     },
