@@ -8,7 +8,7 @@ module.exports = React.createClass({
     mixins: [Classable],
 
     componentWillMount: function() {
-        this.addClass('invisible');
+        this.addClass('hidden');
 
         this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode);
         this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer);
@@ -24,33 +24,35 @@ module.exports = React.createClass({
         this.setClass();
 
         this.properties.ref = 'container';
+
         return React.createElement('div', this.properties);
     },
 
     followCursor: function(event) {
-        var x = this.previousX - this.properties.style.left;
-        var y = this.previousY - this.properties.style.top;
+        if(this.properties.style) {
+            var x = this.previousX - this.properties.style.left;
+            var y = this.previousY - this.properties.style.top;
 
-        this.properties.style.left = event.clientX - x;
-        this.properties.style.top  = event.clientY - y;
+            this.properties.style.left = event.clientX - x;
+            this.properties.style.top  = event.clientY - y;
 
-        this.previousX = event.clientX;
-        this.previousY = event.clientY;
+            this.previousX = event.clientX;
+            this.previousY = event.clientY;
 
-        this.forceUpdate();
+            this.forceUpdate();
+        }
     },
 
     hideContainer: function(){
-        this.addClass('invisible');
+        this.addClass('hidden');
 
         this.previousX = undefined;
         this.previousY = undefined;
 
         jQuery(document).unbind('mousemove.dragcontainer');
+        React.unmountComponentAtNode(React.findDOMNode(this.refs.container));
 
         this.forceUpdate();
-
-        React.unmountComponentAtNode(React.findDOMNode(this.refs.container));
     },
 
     grabNode: function(node, instance, event) {
@@ -71,7 +73,7 @@ module.exports = React.createClass({
             jQuery(document).on('mousemove.dragcontainer', this.followCursor);
 
             // Show the container
-            this.removeClass('invisible');
+            this.removeClass('hidden');
 
             // Adapt the size and coordinates of the container to the drag_subject
             this.properties.style = info;

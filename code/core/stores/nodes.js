@@ -101,17 +101,22 @@ module.exports = new Store({}, UINodeActions, {
         var node, parent;
 
         if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
-            node   = _.clone(this.get(id));
+            node = _.clone(this.get(id));
+
+            // Non-recursive removal of node            
+            this.remove(id);
 
             if(node.parent) {
                 parent = this.getStore(node.parent);
                 // Non-recursive removal from parent
                 parent.set('children', _.without(parent.get('children'), id));
-                parent.trigger();
-            }
 
-            // Non-recursive removal of node            
-            this.remove(id);
+                // We only trigger the parent if we're moving to a different parent
+                // else we let this.insertNodeBesideSibling trigger the parent
+                if(node.parent !== this.get(sibling).parent) {
+                    parent.trigger();
+                }
+            }
 
             this.insertNodeBesideSibling(node, sibling, position);
         }
