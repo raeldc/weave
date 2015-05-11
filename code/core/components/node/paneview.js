@@ -1,4 +1,6 @@
-var LayoutActions = require('core/actions/layout.js');
+var Nodes         = require('core/stores/nodes.js'),
+    Components    = require('core/stores/components.js'),
+    LayoutActions = require('core/actions/layout.js');
 
 module.exports = React.createClass({
     render: function() {
@@ -6,12 +8,23 @@ module.exports = React.createClass({
     },
 
     onDragStart: function(event) {
-        LayoutActions.insertingComponent(this.props.component);
+        var component = this.props.component,
+            defaults  = _.deepExtend({component: component, unmounted: true}, Components.getDefaults(component));
+            node      = Nodes.addNode(defaults);
+            this.node = node;
+
+        LayoutActions.startDrag(node);
         event.stopPropagation();
     },
 
     onDragEnd: function(event) {
-        LayoutActions.endInsertingComponent(this.props.component);
+        var node = Nodes.get(this.node) || {};
+
+        if(node.unmounted) {
+            Nodes.deleteNode(this.node);
+        }
+
+        LayoutActions.stopDrag();
         event.stopPropagation();
     }
 });

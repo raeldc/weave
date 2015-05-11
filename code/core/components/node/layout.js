@@ -3,10 +3,14 @@ var Nodes         = require('core/stores/nodes.js'),
     LayoutActions = require('core/actions/layout.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
-    Changeable    = require('core/components/node/mixins/changeable.js');
+    Droppable     = require('core/components/node/mixins/droppable.js'),
+    Changeable    = require('core/components/node/mixins/changeable.js'),
+    Draggable     = require('core/components/node/mixins/draggable.js'),
+    DragRules     = require('core/components/node/statics/dragrules.js');
 
 module.exports = React.createClass({
-    mixins: [Changeable, Classable, Eventable],
+    mixins : [Changeable, Classable, Eventable, Droppable, Draggable],
+    statics: DragRules,
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
@@ -25,12 +29,10 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('content');
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Controls = (
             <div className="controls">
@@ -51,7 +53,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Controls);
+        return React.createElement('div', this.properties || {}, Controls);
     },
 
     deleteNode: function() {

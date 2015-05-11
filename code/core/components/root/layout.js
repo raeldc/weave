@@ -15,14 +15,13 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {},
-            children;
+        var children;
 
         this.addClass('root');
         this.addClass(LayoutStore.get('device'));
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         children = this.getChildren() || [];
         children.push( 
@@ -31,7 +30,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, children);
+        return React.createElement('div', this.properties || {}, children);
     },
 
     componentWillMount: function() {

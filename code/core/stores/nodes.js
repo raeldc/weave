@@ -26,11 +26,7 @@ module.exports = new Store({}, UINodeActions, {
             node = _.isObject(properties) ? _.clone(properties) : {};
 
         if(node.id === undefined) {
-            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-        }
-
-        if(node.parent === undefined && node.id !== 'root') {
-            node.parent = 'root';
+            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '-' + node.component;
         }
 
         node = _.deepExtend(this.getDefaults(node.component), node);
@@ -56,21 +52,31 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     deleteNode: function(id) {
+        var node, parent;
+
         if(id === 'root') {
             return;
         }
 
-        var node   = this.get(id);
-        var parent = this.get(node.parent);
+        if(this.hasProperty(id)) {
+            node = this.get(id);
 
-        if(_.isArray(node.children)) {
-            _.each(node.children, function(child, index) {
-                this.deleteNode(child);
-            }.bind(this));
-        }
+            // Delete the Children of the node
+            if(_.isArray(node.children)) {
+                _.each(node.children, function(child, index) {
+                    this.deleteNode(child);
+                }.bind(this));
+            }
 
-        this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
-        this.removeObject(node.id);
+            // Remove this node from its parent
+            if(node.parent) {
+                parent = this.get(node.parent);
+                this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+            }
+
+            // Remove this node
+            this.remove(node.id);
+        }  
     },
 
     addChildNode: function(properties, position) {
@@ -89,6 +95,50 @@ module.exports = new Store({}, UINodeActions, {
         }
 
         throw new Error('Parent does not exist');
+    },
+
+    onMoveNodeToParent: function(node, parent) {
+        var previous;
+
+        if(this.hasProperty(node) && this.hasProperty(parent)) {
+            node     = this.get(node);
+            previous = this.getStore(node.parent);
+
+            previous.set('children', _.without(previous.get('children'), node.id));
+            previous.trigger();
+
+            node.parent = parent;
+
+            this.remove(node.id);
+
+            this.addChildNode(node, 'after');
+            this.getStore(parent).trigger();
+        }
+    },
+
+    moveNodeBesideSibling: function(id, sibling, position) {
+        var node, parent;
+
+        if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
+            node = _.clone(this.get(id));
+
+            // Non-recursive removal of node            
+            this.remove(id);
+
+            if(node.parent) {
+                parent = this.getStore(node.parent);
+                // Non-recursive removal from parent
+                parent.set('children', _.without(parent.get('children'), id));
+
+                // We only trigger the parent if we're moving to a different parent
+                // else we let this.insertNodeBesideSibling trigger the parent
+                if(node.parent !== this.get(sibling).parent) {
+                    parent.trigger();
+                }
+            }
+
+            this.insertNodeBesideSibling(node, sibling, position);
+        }
     },
 
     insertNodeBesideSibling: function(node, sibling, position) {
@@ -125,6 +175,10 @@ module.exports = new Store({}, UINodeActions, {
 
         this.getStore(parent.id).trigger();
         this.getStore(node.id).trigger();
+    },
+
+    onInsertNodeBesideSibling: function(node, sibling, position) {
+        this.insertNodeBesideSibling(node, sibling, position);
     },
 
     onInsertNodeAfterSibling: function(node, sibling) {

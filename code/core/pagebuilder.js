@@ -33,6 +33,6 @@ CoreBuilder.PageBuilder = function(config) {
         CoreBuilder.Nodes.setData(_.extend({root: {id: 'root', component: 'root'}},data));
 
         React.render(<Layout />, document.getElementById('corebuilder-layout'));
-        React.render(<Preview />, document.getElementById('corebuilder-preview'));
+        //React.render(<Preview />, document.getElementById('corebuilder-preview'));
     });
 }

@@ -6,14 +6,19 @@ var Nodes         = require('core/stores/nodes.js'),
     Eventable     = require('core/components/node/mixins/eventable.js'),
     Childable     = require('core/components/node/mixins/childable.js'),
     Changeable    = require('core/components/node/mixins/changeable.js'),
-    GridSelect    = require('core/components/column/mixins/gridselect.js');
+    GridSelect    = require('core/components/column/mixins/gridselect.js'),
+    Droppable     = require('core/components/node/mixins/droppable.js'),
+    Draggable     = require('core/components/node/mixins/draggable.js'),
+    DragRules     = require('core/components/node/statics/dragrules.js'),
+    RowRules      = require('core/components/row/statics/dragrules.js'),
+    RowChecks     = require('core/components/row/statics/checks.js');
 
 var ColumnSelect = React.createClass({
     mixins: [GridSelect],
 
     render: function() {
         var open     = this.state.open ? ' open' : '';
-        var occupied = this.calculateOccupiedColumns(this.props.node, 'desktop');
+        var occupied = RowChecks.calculateOccupiedColumns(this.props.node, 'desktop');
         var columns  = Number(Nodes.get(this.props.node).columns);
 
         var options = _.map([2,3,4,6], function(value){
@@ -42,7 +47,8 @@ var ColumnSelect = React.createClass({
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Classable, Eventable, Changeable],
+    mixins : [Childable, Classable, Eventable, Changeable, Draggable, Droppable],
+    statics: _.extend(DragRules, RowRules),
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
@@ -61,13 +67,11 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('container-row');
         this.addClass('container-fluid');
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Row = (
             <div className="row">
@@ -95,11 +99,11 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Row);
+        return React.createElement('div', this.properties || {}, Row);
     },
 
     addColumn: function() {
-        if(GridSelect.calculateOccupiedColumns(this.props.id, 'desktop') < this.state.columns) {
+        if(RowChecks.calculateOccupiedColumns(this.props.id, 'desktop') < this.state.columns) {
             NodeActions.addChildNode(this.props.id, {
                 component: 'column',
                 parent   : this.props.id

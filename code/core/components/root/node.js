@@ -24,14 +24,12 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
-        this.setEvents(properties);
-        this.setStyles(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setStyles();
+        this.setClass();
 
         return React.createElement('div', 
-            properties,
+            this.properties || {},
             this.getChildren()
         );
     }

@@ -19,13 +19,13 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
+        var properties = this.properties || {};
 
-        this.setColspan(properties);
-        this.setEvents(properties);
-        this.setEditable(properties);
-        this.setStyles(properties);
-        this.setClass(properties);
+        this.setColspan();
+        this.setEvents();
+        this.setEditable();
+        this.setStyles();
+        this.setClass();
 
         return React.createElement(
             this.state.element || properties.element || 'div', 

@@ -1,4 +1,10 @@
 module.exports = {
+    getInitialState: function() {
+        if(this.properties === undefined) {
+            this.properties = {};
+        }
+    },
+
     /**
      * Add an event
      * @param {string}   event The event name. Can be namespaced with "."
@@ -12,6 +18,8 @@ module.exports = {
         if(this.events[event] === undefined) {
             this.events[event] = fn;
         }
+
+        return this;
     },
 
     /**
@@ -24,6 +32,8 @@ module.exports = {
         if(events[event]) {
             delete events[event];
         }
+
+        return this;
     },
 
     /**
@@ -33,10 +43,10 @@ module.exports = {
      * @param {object} properties The properties object
      * @return {object} The properties object with events
      */
-    setEvents: function(properties) {
-        var self   = this;
-        properties = properties || {};
-        var events = {};
+    setEvents: function() {
+        var self       = this;
+        var properties = this.properties || {};
+        var events     = {};
 
         // Attach the functions from different namespaces
         _.each(this.events || [], function(fn, index){

@@ -2,13 +2,13 @@ var Nodes         = require('core/stores/nodes.js'),
     LayoutActions = require('core/actions/layout.js');
 
 module.exports = {
-    setEditable: function(properties) {
+    setEditable: function() {
         if(this.isText()) {
             var text = this.state.text.length ? this.state.text: '&nbsp;';
-            properties.dangerouslySetInnerHTML = {__html: text};
+            this.properties.dangerouslySetInnerHTML = {__html: text};
         }
 
-        return properties;
+        return this.properties;
     },
 
     isText: function() {

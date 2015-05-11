@@ -14,5 +14,8 @@ module.exports = {
     configurables: {
         resize: false,
         text: true,
+    },
+    rules: {
+        parents: ['column']
     }
 }

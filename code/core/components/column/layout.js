@@ -9,7 +9,10 @@ var Nodes         = require('core/stores/nodes.js'),
     Droppable     = require('core/components/node/mixins/droppable.js'),
     GridSelect    = require('core/components/column/mixins/gridselect.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
-    Colspanable   = require('core/components/column/mixins/colspanable.js');
+    Colspanable   = require('core/components/column/mixins/colspanable.js'),
+    Draggable     = require('core/components/node/mixins/draggable.js'),
+    DragRules     = require('core/components/column/statics/dragrules.js'),
+    RowChecks     = require('core/components/row/statics/checks.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -20,7 +23,7 @@ var ColspanSelect = React.createClass({
         var device   = LayoutStore.get('device');
         var colspan  = Number(Nodes.getStore(this.props.node).getStore('colspan').get(device));
         var columns  = Number(Nodes.get(node.parent).columns);
-        var occupied = this.calculateOccupiedColumns(node.parent);
+        var occupied = RowChecks.calculateOccupiedColumns(node.parent);
         var options  = [];
 
         for(var i = 1; i <= columns; i++) {
@@ -51,12 +54,12 @@ var ColspanSelect = React.createClass({
 
     selectColspanValue: function(value) {
         NodeActions.updateColspan(this.props.node, value, LayoutStore.get('device'));
-        this.setState({open: false});
     }
 });
 
 module.exports = React.createClass({
-    mixins: [Childable, Changeable, Eventable, Droppable, Classable, Colspanable],
+    mixins : [Childable, Changeable, Eventable, Classable, Colspanable, Droppable, Draggable],
+    statics: DragRules,
 
     getInitialState: function() {
         return Nodes.get(this.props.id);
@@ -75,13 +78,11 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        var properties = {};
-
         this.addClass('column');
         this.addClass('col-lg-' + this.getColspan());
 
-        this.setEvents(properties);
-        this.setClass(properties);
+        this.setEvents();
+        this.setClass();
 
         var Column = (
             <div className="inner">
@@ -105,7 +106,7 @@ module.exports = React.createClass({
             </div>
         );
 
-        return React.createElement('div', properties, Column);
+        return React.createElement('div', this.properties || {}, Column);
     },
 
     deleteNode: function() {

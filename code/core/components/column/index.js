@@ -13,5 +13,8 @@ module.exports = {
             tablet : 2,
             phone  : 4
         }
+    },
+    rules: {
+        parents: ['row']
     }
 }

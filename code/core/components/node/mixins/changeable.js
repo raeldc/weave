@@ -6,6 +6,11 @@ module.exports = {
         this.stopListeningToNodeChanges = Nodes.getStore(this.props.id).listen(this.renderChanges);
     },
 
+    componentDidUpdate: function() { 
+        this.stopListeningToNodeChanges();
+        this.stopListeningToNodeChanges = Nodes.getStore(this.props.id).listen(this.renderChanges);
+    },
+
     componentWillUnmount: function() { 
         this.stopListeningToNodeChanges();
     },

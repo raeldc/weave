@@ -31,11 +31,15 @@ var Actions = Reflux.createActions({
             Actions.unSelectNode();
         }
     },
-    droppingOnNode: {
+    startDrag: {
         sync: true
     },
-    droppingOnNodePosition: {
-        sync: true
+    stopDrag: {
+        sync: true,
+        preEmit: function() {
+            Actions.unSelectNode();
+            Actions.mouseOutNode();
+        }
     },
     insertingComponent: {
         sync: true,
@@ -43,6 +47,9 @@ var Actions = Reflux.createActions({
             Actions.unSelectNode();
             Actions.mouseOutNode();
         }
+    },
+    resetDropSubject: {
+        sync: true
     },
     endInsertingComponent: {
         sync: true
