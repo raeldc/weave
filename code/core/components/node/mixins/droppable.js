@@ -1,12 +1,28 @@
-var LayoutActions = require('core/actions/layout.js'),
+var Nodes         = require('core/stores/nodes.js'),
+    LayoutActions = require('core/actions/layout.js'),
     LayoutStore   = require('core/stores/layout.js'),
     UIConfig      = require('core/stores/uiconfig.js');
 
 module.exports = {
     componentWillMount: function() {
         this.addEvent('onMouseOver.droppable', this.getNodeInfo);
+        this.addEvent('onDragEnter.droppable', this.getNodeInfo);
+
+        this.addEvent('onMouseMove.droppable', this.executeDraggingRules);
+        this.addEvent('onDragOver.droppable', this.executeDraggingRules);
+
         this.addEvent('onMouseOut.droppable',  this.resetNodeInfo);
-        this.addEvent('onMouseMove.droppable', this.setDraggingPosition);
+        this.addEvent('onDragLeave.droppable',  this.resetNodeInfo);
+
+        // This only works when an new component from the Components Pane is dropped
+        this.addEvent('onDrop.droppable',  function(event){
+            if(LayoutStore.get('drag_subject') === this.props.id){
+                Nodes.getStore(this.props.id).remove('unmounted');
+                LayoutActions.stopDrag();
+            }
+
+            event.stopPropagation();
+        }.bind(this));
     },
 
     resetNodeInfo: function(event) {
@@ -30,7 +46,7 @@ module.exports = {
      * @param  {object} event The event object
      * @return {null}       Returns nothing
      */
-    setDraggingPosition: function(event) {
+    executeDraggingRules: function(event) {
         var subject = LayoutStore.get('drag_subject') || false;
 
         if(subject) {
@@ -52,6 +68,7 @@ module.exports = {
             }
         }
 
+        event.preventDefault();
         event.stopPropagation();
     },
 

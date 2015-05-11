@@ -54,27 +54,30 @@ module.exports = React.createClass({
     },
 
     grabNode: function(node, instance, event) {
-        var container = React.findDOMNode(this.refs.container);
-        var subject   = React.findDOMNode(instance);
-        var info      = this.getNodeInfo(instance);
+        var info, container;
 
-        // Make a clone of the node inside the container
-        React.render(Factory.createNode(node, 'layout'), container);
+        if(instance) {
+            container = React.findDOMNode(this.refs.container);
+            info      = this.getNodeInfo(instance);
 
-        // Record the current clientX and clientY
-        this.previousX = event.clientX;
-        this.previousY = event.clientY;
+            // Make a clone of the node inside the container
+            React.render(Factory.createNode(node, 'layout'), container);
 
-        // Register the mousemove event on the document
-        jQuery(document).on('mousemove.dragcontainer', this.followCursor);
+            // Record the current clientX and clientY
+            this.previousX = event.clientX;
+            this.previousY = event.clientY;
 
-        // Show the container
-        this.removeClass('invisible');
+            // Register the mousemove event on the document
+            jQuery(document).on('mousemove.dragcontainer', this.followCursor);
 
-        // Adapt the size and coordinates of the container to the drag_subject
-        this.properties.style = info;
+            // Show the container
+            this.removeClass('invisible');
 
-        this.forceUpdate();
+            // Adapt the size and coordinates of the container to the drag_subject
+            this.properties.style = info;
+
+            this.forceUpdate();
+        }
     },
 
     getNodeInfo: function(instance) {

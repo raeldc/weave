@@ -26,11 +26,7 @@ module.exports = new Store({}, UINodeActions, {
             node = _.isObject(properties) ? _.clone(properties) : {};
 
         if(node.id === undefined) {
-            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-        }
-
-        if(node.parent === undefined && node.id !== 'root') {
-            node.parent = 'root';
+            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '-' + node.component;
         }
 
         node = _.deepExtend(this.getDefaults(node.component), node);
@@ -56,22 +52,29 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     deleteNode: function(id) {
+        var node, parent;
+
         if(id === 'root') {
             return;
         }
 
         if(this.hasProperty(id)) {
+            node = this.get(id);
 
-            var node   = this.get(id);
-            var parent = this.get(node.parent);
-
+            // Delete the Children of the node
             if(_.isArray(node.children)) {
                 _.each(node.children, function(child, index) {
                     this.deleteNode(child);
                 }.bind(this));
             }
 
-            this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+            // Remove this node from its parent
+            if(node.parent) {
+                parent = this.get(node.parent);
+                this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+            }
+
+            // Remove this node
             this.remove(node.id);
         }  
     },
@@ -95,13 +98,17 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     moveNodeBesideSibling: function(id, sibling, position) {
+        var node, parent;
+
         if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
-            var node   = _.clone(this.get(id));
-            var parent = this.getStore(node.parent);
-            
-            // Non-recursive removal from parent
-            parent.set('children', _.without(parent.get('children'), id));
-            parent.trigger();
+            node   = _.clone(this.get(id));
+
+            if(node.parent) {
+                parent = this.getStore(node.parent);
+                // Non-recursive removal from parent
+                parent.set('children', _.without(parent.get('children'), id));
+                parent.trigger();
+            }
 
             // Non-recursive removal of node            
             this.remove(id);
