@@ -19,16 +19,17 @@ module.exports = {
         this.addEvent('onDragStart.movable', this.onDragStart);
 
         if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.addClass('invisible');
+            this.stopListeningToStopDrag = LayoutActions.stopDrag.listen(this.show);
+            this.addClass('drag-subject');
         }
-        else this.removeClass('invisible');
+        else this.removeClass('drag-subject');
     },
 
     componentWillUpdate: function() {        
         if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.addClass('invisible');
+            this.addClass('drag-subject');
         }
-        else this.removeClass('invisible');
+        else this.removeClass('drag-subject');
     },
 
     show: function() {
@@ -36,12 +37,12 @@ module.exports = {
             this.stopListeningToStopDrag();
         }
 
-        this.removeClass('invisible');
+        this.removeClass('drag-subject');
         this.forceUpdate();
     },
 
     hide: function() {
-        this.addClass('invisible');
+        this.addClass('drag-subject');
         this.forceUpdate();
     },
 

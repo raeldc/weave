@@ -95,7 +95,7 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     moveNodeBesideSibling: function(id, sibling, position) {
-        if(this.hasProperty(id) && this.hasProperty(sibling)) {
+        if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
             var node   = _.clone(this.get(id));
             var parent = this.getStore(node.parent);
             

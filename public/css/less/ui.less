@@ -136,30 +136,21 @@ body {
         }
     }
 
-    .invisible {
-        display   : none;
-        visibility: hidden;
+    .drag-subject {
+        opacity: .5;
     }
 
     .drag-container {
-        border        : 1px solid red;
         height        : 100px;
         position      : fixed;
         z-index       : 1000;
         pointer-events: none;
 
-        .invisible {
-            display   : block;
-            visibility: visible;
-        }
-    }
+        box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.4);
 
-    .placeholder {
-        .inner {
-            background: grey;
+        .drag-subject {
+            border    : none;
         }
-
-        border: 1px solid blue;
     }
 
     .btn {

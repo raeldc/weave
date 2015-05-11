@@ -81,15 +81,15 @@ module.exports = {
 
         if(this.nodeInfo) {
 
-            if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .5))) {
+            if(mouseY < (this.nodeInfo.top + (this.nodeInfo.height * .25))) {
                 position = 'top';
-            }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .5)))) {
+            }else if(mouseY > (this.nodeInfo.top + (this.nodeInfo.height - (this.nodeInfo.height * .25)))) {
                 position = 'bottom';
             }
 
-            if(mouseX < this.nodeInfo.left + (this.nodeInfo.width * .1)) {
+            if(mouseX < this.nodeInfo.left + (this.nodeInfo.width * .25)) {
                 position = 'left'
-            }else if(mouseX > this.nodeInfo.left + (this.nodeInfo.width - (this.nodeInfo.width * .1))) {
+            }else if(mouseX > this.nodeInfo.left + (this.nodeInfo.width - (this.nodeInfo.width * .25))) {
                 position = 'right'
             }
         }

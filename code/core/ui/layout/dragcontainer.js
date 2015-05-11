@@ -11,13 +11,7 @@ module.exports = React.createClass({
         this.addClass('invisible');
 
         this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode);
-        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(function(){
-            this.hideContainer();
-            // We only want to respond if there is a drag subject
-            if(LayoutStore.get('drag_subject')) {
-                this.moveNode();
-            }
-        }.bind(this));
+        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer);
     },
 
     componentWillUnmount: function() {
@@ -81,20 +75,6 @@ module.exports = React.createClass({
         this.properties.style = info;
 
         this.forceUpdate();
-    },
-
-    moveNode: function() {
-        var drag_subject  = LayoutStore.get('drag_subject');
-        var drop_subject  = LayoutStore.get('drop_subject');
-        var drop_position = LayoutStore.get('drop_position');
-
-        if(drag_subject && drag_subject !== drop_subject) {
-            Nodes.moveNodeBesideSibling(drag_subject, drop_subject, drop_position);
-        }
-
-        LayoutStore.remove('drag_subject');
-        LayoutStore.remove('drop_subject');
-        LayoutStore.remove('drop_position');
     },
 
     getNodeInfo: function(instance) {
