@@ -102,7 +102,7 @@ module.exports = {
         this.nodeInfo = {
             width : $target.outerWidth(),
             height: $target.outerHeight(),
-            top   : nodeOffset.top - jQuery(window.preview).scrollTop(),
+            top   : nodeOffset.top - jQuery(window).scrollTop(),
             left  : nodeOffset.left
         };
 

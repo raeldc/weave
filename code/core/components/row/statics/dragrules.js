@@ -1,11 +1,11 @@
 var Nodes       = require('core/stores/nodes.js'),
     Checks      = require('core/components/node/statics/checks.js'),
-    RowChecks      = require('core/components/row/statics/checks.js'),
+    RowChecks   = require('core/components/row/statics/checks.js'),
     NodeActions = require('core/actions/node.js');
 
 module.exports = {
     draggingInside: function(subject, target) {
-        var properties, column, row;
+        var column, row;
 
         column = Nodes.get(subject);
         row    = Nodes.get(target);
