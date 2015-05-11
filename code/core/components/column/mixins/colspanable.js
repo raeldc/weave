@@ -10,9 +10,11 @@ module.exports = {
     },
 
     getColspan: function(device) {
-        var device  = device || LayoutStore.get('device');
-        var colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
-        var columns = Nodes.get(this.state.parent).columns;
+        var device, colspan, columns;
+
+        device  = device || LayoutStore.get('device');
+        colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
+        columns = Nodes.get(this.state.parent).columns;
 
         return colspan * (12 / columns);
     },

@@ -97,6 +97,25 @@ module.exports = new Store({}, UINodeActions, {
         throw new Error('Parent does not exist');
     },
 
+    onMoveNodeToParent: function(node, parent) {
+        var previous;
+
+        if(this.hasProperty(node) && this.hasProperty(parent)) {
+            node     = this.get(node);
+            previous = this.getStore(node.parent);
+
+            previous.set('children', _.without(previous.get('children'), node.id));
+            previous.trigger();
+
+            node.parent = parent;
+
+            this.remove(node.id);
+
+            this.addChildNode(node, 'after');
+            this.getStore(parent).trigger();
+        }
+    },
+
     moveNodeBesideSibling: function(id, sibling, position) {
         var node, parent;
 

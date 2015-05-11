@@ -11,7 +11,8 @@ var Nodes         = require('core/stores/nodes.js'),
     Classable     = require('core/components/node/mixins/classable.js'),
     Colspanable   = require('core/components/column/mixins/colspanable.js'),
     Draggable     = require('core/components/node/mixins/draggable.js'),
-    DragRules     = require('core/components/column/statics/dragrules.js');
+    DragRules     = require('core/components/column/statics/dragrules.js'),
+    RowChecks     = require('core/components/row/statics/checks.js');
 
 var ColspanSelect = React.createClass({
     mixins: [GridSelect],
@@ -22,7 +23,7 @@ var ColspanSelect = React.createClass({
         var device   = LayoutStore.get('device');
         var colspan  = Number(Nodes.getStore(this.props.node).getStore('colspan').get(device));
         var columns  = Number(Nodes.get(node.parent).columns);
-        var occupied = this.calculateOccupiedColumns(node.parent);
+        var occupied = RowChecks.calculateOccupiedColumns(node.parent);
         var options  = [];
 
         for(var i = 1; i <= columns; i++) {
