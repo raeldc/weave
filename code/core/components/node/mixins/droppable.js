@@ -50,22 +50,41 @@ module.exports = {
         var subject = LayoutStore.get('drag_subject') || false;
 
         if(subject) {
-            if(typeof this.constructor.draggingOnTop === 'function' && this.isDraggingOnArea(event, 'top') && this.cursorPosition !== 'top') {
-                this.constructor.draggingOnTop(subject, this.props.id);
+            if(
+                this.cursorPosition !== 'top' &&
+                typeof this.constructor.draggingOnTop === 'function' && 
+                this.isDraggingOnArea(event, 'top') && 
+                this.constructor.draggingOnTop.call(this, subject, this.props.id)
+            ) 
                 this.cursorPosition = 'top';
-            }else if(typeof this.constructor.draggingOnRight === 'function' && this.isDraggingOnArea(event, 'right') && this.cursorPosition !== 'right') {
-                this.constructor.draggingOnRight(subject, this.props.id);
+            else if(
+                this.cursorPosition !== 'right' &&
+                typeof this.constructor.draggingOnRight === 'function' && 
+                this.isDraggingOnArea(event, 'right') && 
+                this.constructor.draggingOnRight.call(this, subject, this.props.id)
+            )
                 this.cursorPosition = 'right';
-            }else if(typeof this.constructor.draggingOnBottom === 'function' && this.isDraggingOnArea(event, 'bottom') && this.cursorPosition !== 'bottom') {
-                this.constructor.draggingOnBottom(subject, this.props.id);
+            else if(
+                this.cursorPosition !== 'bottom' && 
+                typeof this.constructor.draggingOnBottom === 'function' && 
+                this.isDraggingOnArea(event, 'bottom') && 
+                this.constructor.draggingOnBottom.call(this, subject, this.props.id)
+            )
                 this.cursorPosition = 'bottom';
-            }else if(typeof this.constructor.draggingOnLeft === 'function' && this.isDraggingOnArea(event, 'left') && this.cursorPosition !== 'left') {
-                this.constructor.draggingOnLeft(subject, this.props.id);
+            else if(
+                this.cursorPosition !== 'left' &&
+                typeof this.constructor.draggingOnLeft === 'function' &&
+                this.isDraggingOnArea(event, 'left') &&
+                this.constructor.draggingOnLeft.call(this, subject, this.props.id)
+            )
                 this.cursorPosition = 'left';
-            }else if(typeof this.constructor.draggingInside === 'function' && this.isDraggingOnArea(event, 'inside') && this.cursorPosition !== 'inside') {
-                this.constructor.draggingInside(subject, this.props.id);
+            else if(
+                this.cursorPosition !== 'inside' &&
+                typeof this.constructor.draggingInside === 'function' &&
+                this.isDraggingOnArea(event, 'inside') &&
+                this.constructor.draggingInside.call(this, subject, this.props.id)
+            )
                 this.cursorPosition = 'inside';
-            }
 
             // If subject is being dragged in its placeholder, allow the drop.
             if(subject === this.props.id) {

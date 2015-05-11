@@ -12,6 +12,26 @@ module.exports = {
 
             Nodes.deleteNode(subject);
             NodeActions.addChildNode(target, properties);
+
+            return true;
         }
+
+        return false;
+    },
+
+    draggingInside: function(subject, target) {
+        var properties,
+            node = Nodes.get(subject);
+
+        if(Checks.canBeChild(subject, target) && Checks.nodeIsEmpty(target, ['placeholder', subject]) && target !== node.parent) {
+            properties = _.clone(node);
+
+            Nodes.deleteNode(subject);
+            NodeActions.addChildNode(target, properties);
+
+            return true;
+        }
+
+        return false;
     }
 }
