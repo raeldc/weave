@@ -1,5 +1,6 @@
-var Nodes      = require('core/stores/nodes.js'),
-    Components = require('core/stores/components.js');
+var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js'),
+    Components  = require('core/stores/components.js');
 
 module.exports = {
     createNode: function(id, type) {
@@ -13,6 +14,7 @@ module.exports = {
                 id       : properties.id,
                 key      : properties.id,
                 type     : type,
+                device   : LayoutStore.get('device'),
                 component: component
             });
         }
