@@ -3,7 +3,14 @@ var Nodes         = require('core/stores/nodes.js'),
 
 module.exports = {
     shouldComponentUpdate: function(nextProps, nextState) {
-        return !_.isEqual(nextState, this.state);
+        return (
+            !_.isEqual(nextState, this.state) || 
+            this.props.device !== nextProps.device || 
+            (
+                typeof this.constructor.shouldComponentUpdate === 'function' && 
+                this.constructor.shouldComponentUpdate.call(this, nextProps, nextState)
+            )
+        )
     },
 
     componentDidMount: function() {
