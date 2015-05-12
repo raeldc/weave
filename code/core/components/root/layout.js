@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
     reRender: function(device) {
         if(device) {
-            this.setState(this.getInitialState());
+            this.forceUpdate();
         }
     },
 
