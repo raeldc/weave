@@ -3,20 +3,21 @@ var Nodes       = require('core/stores/nodes.js'),
     Components  = require('core/stores/components.js');
 
 module.exports = {
-    createNode: function(id, type) {
-        var properties = Nodes.get(id),
-            type       = type || 'node';
+    createNode: function(id, props) {
+        var component,
+            properties = Nodes.get(id);
 
         if(properties) {
-            var component = Components.get(properties.component);
-
-            return React.createElement(component[type], {
+            component = Components.get(properties.component);
+            props     = _.extend({
                 id       : properties.id,
                 key      : properties.id,
-                type     : type,
+                type     : 'node',
                 device   : LayoutStore.get('device'),
                 component: component
-            });
+            }, props || {});
+
+            return React.createElement(component[props.type] || 'div', props);
         }
 
         return null;

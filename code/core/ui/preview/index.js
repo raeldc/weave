@@ -51,7 +51,7 @@ module.exports = React.createClass({
         var doc = React.findDOMNode(this.refs.iframe).contentDocument;
 
         React.render(
-            UIPreviewFactory.createNode('root', 'node'),
+            UIPreviewFactory.createNode('root'),
             doc.getElementById('corebuilder-container')
         );
 

@@ -6,7 +6,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <DragContainer />
-                {Factory.createNode('root', 'layout')}
+                {Factory.createNode('root', {type: 'layout'})}
             </div>
         )
     }

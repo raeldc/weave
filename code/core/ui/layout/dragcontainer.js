@@ -63,7 +63,7 @@ module.exports = React.createClass({
             info      = this.getNodeInfo(instance);
 
             // Make a clone of the node inside the container
-            React.render(Factory.createNode(node, 'layout'), container);
+            React.render(Factory.createNode(node, {type: 'layout'}), container);
 
             // Record the current clientX and clientY
             this.previousX = event.clientX;
