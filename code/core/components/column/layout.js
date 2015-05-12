@@ -23,7 +23,7 @@ var ColspanSelect = React.createClass({
         var device   = LayoutStore.get('device');
         var colspan  = Number(Nodes.getStore(this.props.node).getStore('colspan').get(device));
         var columns  = Number(Nodes.get(node.parent).columns);
-        var occupied = RowChecks.calculateOccupiedColumns(node.parent);
+        var occupied = RowChecks.calculateOccupiedColumns(node.parent, device);
         var options  = [];
 
         for(var i = 1; i <= columns; i++) {
