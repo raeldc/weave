@@ -104,17 +104,21 @@ module.exports = {
     },
 
     getNodeInfo: function() {
-        var $target    = jQuery(React.findDOMNode(this)),
+        var $target, nodeOffset;
+
+        if(LayoutStore.get('drag_subject')) {
+            $target    = jQuery(React.findDOMNode(this)),
             nodeOffset = $target.offset();
 
-        this.nodeInfo = {
-            width : $target.outerWidth(),
-            height: $target.outerHeight(),
-            top   : nodeOffset.top - jQuery(window).scrollTop(),
-            left  : nodeOffset.left
-        };
+            this.nodeInfo = {
+                width : $target.outerWidth(),
+                height: $target.outerHeight(),
+                top   : nodeOffset.top - jQuery(window).scrollTop(),
+                left  : nodeOffset.left
+            };
 
-        return this.nodeInfo;
+            return this.nodeInfo;
+        }
     },
 
     isDraggingOnArea: function(event, area) {
