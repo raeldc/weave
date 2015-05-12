@@ -80,18 +80,22 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     addChildNode: function(properties, position) {
-        var parent = this.get(properties.parent);
+        var children, node, 
+            parent = this.get(properties.parent);
 
         if(parent) {
-            var child = this.addNode(properties);
+            node     = this.addNode(properties);
+            children = _.clone(parent.children);
 
             if(position === 'first') {
-                parent.children.unshift(child);
+                children.unshift(node);
             }else{
-                parent.children.push(child);
+                children.push(node);
             }
 
-            return child;
+            this.getStore(parent.id).set('children', children);
+
+            return node;
         }
 
         throw new Error('Parent does not exist');
