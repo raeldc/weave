@@ -7,14 +7,11 @@ var Nodes       = require('core/stores/nodes.js'),
 module.exports = {
     draggingInside: function(subject, target) {
         var properties,
-            node = Nodes.get(subject);
+            node   = Nodes.get(subject),
+            column = Nodes.get(target);
 
         if(Checks.canBeChild(subject, target) && Checks.nodeIsEmpty(target, [subject]) && target !== node.parent) {
-            properties = _.clone(node);
-
-            Nodes.deleteNode(subject);
-            NodeActions.addChildNode(target, properties);
-
+            NodeActions.moveNodeToParent(node.id, column.id);
             return true;
         }
 
