@@ -11,6 +11,6 @@ module.exports = {
         classes: ['row']
     },
     rules: {
-        parents: ['root']
+        parents: ['root', 'column']
     }
 }
