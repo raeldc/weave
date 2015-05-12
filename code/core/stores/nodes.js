@@ -102,14 +102,20 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     onMoveNodeToParent: function(node, parent) {
-        var previous;
+        var previous, children;
 
         if(this.hasProperty(node) && this.hasProperty(parent)) {
             node     = this.get(node);
             previous = this.getStore(node.parent);
 
-            previous.set('children', _.without(previous.get('children'), node.id));
-            previous.trigger();
+            // We check if there is a previous parent
+            // If none, that means we're dragging from the components pane
+            if(previous) {
+                children = previous.get('children');
+
+                previous.set('children', _.without(children, node.id));
+                previous.trigger();
+            }
 
             node.parent = parent;
 
