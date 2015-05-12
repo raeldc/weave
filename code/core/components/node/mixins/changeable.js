@@ -2,6 +2,10 @@ var Nodes         = require('core/stores/nodes.js'),
     LayoutActions = require('core/actions/layout.js');
 
 module.exports = {
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return !_.isEqual(nextState, this.state);
+    },
+
     componentDidMount: function() {
         this.stopListeningToNodeChanges = Nodes.getStore(this.props.id).listen(this.renderChanges);
     },

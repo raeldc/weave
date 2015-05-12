@@ -5,6 +5,19 @@ var Nodes         = require('core/stores/nodes.js'),
 
 module.exports = {
     componentWillMount: function() {
+        this.registerEvents();
+    },
+
+    componentWillUpdate: function() {
+        this.registerEvents();
+    },
+
+    resetNodeInfo: function(event) {
+        this.nodeInfo       = undefined;
+        this.cursorPosition = undefined;
+    },
+
+    registerEvents: function() {
         this.addEvent('onMouseOver.droppable', this.getNodeInfo);
         this.addEvent('onDragEnter.droppable', this.getNodeInfo);
 
@@ -23,11 +36,6 @@ module.exports = {
 
             event.stopPropagation();
         }.bind(this));
-    },
-
-    resetNodeInfo: function(event) {
-        this.nodeInfo       = undefined;
-        this.cursorPosition = undefined;
     },
 
     /**

@@ -48,7 +48,9 @@ module.exports = React.createClass({
     },
 
     reRender: function(device) {
-        this.setState(this.getInitialState());
+        if(device) {
+            this.setState(this.getInitialState());
+        }
     },
 
     addRow: function() {

@@ -80,7 +80,7 @@ module.exports = new Store({}, UINodeActions, {
     },
 
     addChildNode: function(properties, position) {
-        var parent = this.get(properties.parent) || this.get('root');
+        var parent = this.get(properties.parent);
 
         if(parent) {
             var child = this.addNode(properties);
@@ -143,9 +143,9 @@ module.exports = new Store({}, UINodeActions, {
 
     insertNodeBesideSibling: function(node, sibling, position) {
         var children = [];
-        var sibling  = this.get(sibling);
-        var parent   = this.get(sibling.parent);
-        var node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node));
+            sibling  = this.get(sibling),
+            parent   = this.get(sibling.parent),
+            node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node));
 
         if(sibling === undefined) {
             throw new Error('Sibling does not exist');
@@ -159,7 +159,7 @@ module.exports = new Store({}, UINodeActions, {
                     if(position === 'before') {
                         children.push(node.id);
                         if(child !== node.id) children.push(child);
-                    }else {
+                    }else { 
                         if(child !== node.id) children.push(child);
                         children.push(node.id);
                     }
@@ -171,9 +171,7 @@ module.exports = new Store({}, UINodeActions, {
             children.push(node.id);
         }
 
-        this.updateNode(parent.id, 'children', children);
-
-        this.getStore(parent.id).trigger();
+        this.getStore(parent.id).set('children', children).trigger();
         this.getStore(node.id).trigger();
     },
 
