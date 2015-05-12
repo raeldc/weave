@@ -202,6 +202,24 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(parent).trigger(parent);
     },
 
+    onAddColumn: function(row) {
+        var defaults = Components.getDefaults('column');
+        row          = this.get(row);
+
+        this.addChildNode({
+            component: 'column',
+            parent   : row.id,
+            colspan  : {
+                desktop: defaults.colspan.desktop > row.columns ? row.columns : defaults.colspan.desktop,
+                laptop : defaults.colspan.laptop  > row.columns ? row.columns : defaults.colspan.laptop,
+                tablet : defaults.colspan.tablet  > row.columns ? row.columns : defaults.colspan.tablet,
+                phone  : defaults.colspan.phone   > row.columns ? row.columns : defaults.colspan.phone
+            }
+        });
+
+        this.getStore(row.id).trigger();
+    },
+
     onUpdateNode: function(id, properties, nested_properties) {
         this.updateNode(id, properties, nested_properties);
         this.getStore(id).trigger(id);

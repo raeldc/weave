@@ -103,11 +103,8 @@ module.exports = React.createClass({
     },
 
     addColumn: function() {
-        if(RowChecks.calculateOccupiedColumns(this.props.id, 'desktop') < this.state.columns) {
-            NodeActions.addChildNode(this.props.id, {
-                component: 'column',
-                parent   : this.props.id
-            });
+        if(RowChecks.calculateOccupiedColumns(this.props.id) < this.state.columns) {
+            NodeActions.addColumn(this.props.id);
         }
     },
 
