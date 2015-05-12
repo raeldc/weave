@@ -12,9 +12,9 @@ module.exports = {
     getColspan: function(device) {
         var device, colspan, columns;
 
-        device  = device || LayoutStore.get('device');
-        colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
+        device  = device || this.props.device;
         columns = Nodes.get(this.state.parent).columns;
+        colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
 
         return colspan * (12 / columns);
     },

@@ -95,7 +95,7 @@ module.exports = React.createClass({
                         <ColumnSelect node={this.props.id} />
                     </h4>
                 </div>
-                {this.getChildren()}
+                {this.getChildren({columns: this.state.columns})}
             </div>
         );
 

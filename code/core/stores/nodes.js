@@ -207,13 +207,36 @@ module.exports = new Store({}, UINodeActions, {
         this.getStore(id).trigger(id);
     },
 
-    onUpdateColumns: function(id, value) {
-        this.getStore(id).set('columns', value).trigger(id, value);
+    onUpdateColumns: function(id, columns) {
+        var row      = this.getStore(id);
+            children = row.get('children');
+
+        if(row.get('columns') !== columns) {
+            // All Children that has value more than the new value should be updated
+            _.each(children, function(column){
+                var colspan;
+                    column = this.getStore(column);
+
+                colspan = column.get('colspan');
+
+                _.each(colspan, function(value, device){
+                    if(value > columns) {
+                        column.getStore('colspan').set(device, columns);
+                    }
+                }.bind(this));
+            }.bind(this));
+
+            row.set('columns', columns).trigger(id, columns);
+        }
     },
 
     onUpdateColspan: function(id, value, device) {
-        this.getStore(id).getStore('colspan').set(device, value);
-        this.getStore(id).trigger(id, value, device);
+        var column  = this.getStore(id),
+            row     = this.getStore(column.get('parent')),
+            colspan = value > row.get('columns') ? row.get('columns') : value;
+
+        column.getStore('colspan').set(device, colspan);
+        column.trigger(id, value, device);
     },
 
     onDeleteNode: function(id) {
