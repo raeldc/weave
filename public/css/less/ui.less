@@ -140,6 +140,10 @@ body {
     .drag-subject {
         opacity: .5;
         pointer-events: none;
+
+        &.unmounted {
+            pointer-events: auto;
+        }
     }
 
     .drag-container {

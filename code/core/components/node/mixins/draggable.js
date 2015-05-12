@@ -17,26 +17,29 @@ module.exports = {
 
     componentWillMount: function() {        
         this.addEvent('onDragStart.movable', this.onDragStart);
-
-        if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.listenToStopDrag();
-            this.addClass('drag-subject');
-        }
-        else this.removeClass('drag-subject');
+        this.registerClasses();
     },
 
     componentWillUpdate: function() {        
-        if(LayoutStore.get('drag_subject') === this.props.id) {
-            this.listenToStopDrag();
-            this.addClass('drag-subject');
-        }
-        else this.removeClass('drag-subject');
+        this.registerClasses();
     },
 
     componentWillUnmount: function() {
         if(this.stopListeningToStopDrag) {
             this.stopListeningToStopDrag();
         }
+    },
+
+    registerClasses: function() {
+        if(LayoutStore.get('drag_subject') === this.props.id) {
+            this.listenToStopDrag();
+            this.addClass('drag-subject');
+
+            if(this.state.unmounted) {
+                this.addClass('unmounted');
+            }
+        }
+        else this.removeClass('drag-subject');
     },
 
     listenToStopDrag: function() {
