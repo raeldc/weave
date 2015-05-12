@@ -3,7 +3,7 @@ var Nodes       = require('core/stores/nodes.js'),
     Checks      = require('core/components/row/statics/checks.js');
 
 function rowHasSpace(row, column) {
-    var gridspace, colspan, device;
+    var gridspace, colspan;
 
     row = Nodes.get(row || this.props.id);
 
@@ -12,9 +12,7 @@ function rowHasSpace(row, column) {
         gridspace = row.columns - calculateOccupiedColumns(row.id);
 
         if(_.isObject(column)) {
-
-            device  = LayoutStore.get('device');
-            colspan = Number(column.colspan[device]);
+            colspan = Number(column.colspan['desktop']);
 
             // If dragging at the same row, add the columns's colspan to the space.
             if(row.id === column.parent) {
@@ -30,12 +28,12 @@ function rowHasSpace(row, column) {
 
 function calculateOccupiedColumns(node, device) {
     var children = Nodes.get(node).children || [],
-        device   = device || LayoutStore.get('device'),
+        device   = device || 'desktop',
         count    = 0;
 
     if(device === 'desktop') {
         _.each(children, function(node) {
-            count += Number(Nodes.getStore(node).getStore('colspan').get(device)) || 0;
+            count += Number(Nodes.getStore(node).getStore('colspan').get('desktop')) || 0;
         });
 
         return count;
