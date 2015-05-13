@@ -8,11 +8,21 @@
 
         <title>Alchemy v0.01 Prototype</title>
 
-        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/ui.css" rel="stylesheet">
 
         <script src="/js/jquery.min.js"></script>
-        <script src="/js/interact.js"></script>
-        <script src="/js/app.js"></script>
+        <script src="/js/pagebuilder.js"></script>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                CoreBuilder.PageBuilder({
+                    page  : '/preview.php',
+                    data  : '/demodata.json',
+                    target: document.body
+                });
+            });
+        </script>
     </head>
-    <body id="alchemy-ui"></body>
+    <body></body>
 </html>

@@ -29,7 +29,9 @@ module.exports = function(grunt) {
         'less', 
         'watchify', 
         'uglify:pagebuilder',
-        'copy:wp_pagebuilder_dist'
+        'copy:wp_pagebuilder_dist',
+        // Copy files to the Standalone App also
+        'copy:pagebuilder_dist',
     ];
 
     // Shortcuts

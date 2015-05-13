@@ -29,6 +29,31 @@ module.exports = {
         ]
     },
 
+    pagebuilder_dist: {
+        files: [
+            {
+                src : 'node_modules/jquery/dist/jquery.min.js',
+                dest: 'public/js/jquery.min.js'
+            },
+            {
+                src : 'node_modules/jquery/dist/jquery.min.map',
+                dest: 'public/js/jquery.min.map'
+            },
+            {
+                cwd   : 'node_modules/font-awesome/fonts',
+                src   : '**/*',
+                dest  : 'public/fonts/',
+                expand: true
+            },
+            {
+                cwd : 'node_modules/font-awesome/css',
+                src : '**/*',
+                dest: 'public/css/',
+                expand: true
+            }
+        ]
+    },
+
     wp_pagebuilder_watch: {
         files: [
             {
