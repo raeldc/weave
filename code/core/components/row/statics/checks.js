@@ -36,7 +36,10 @@ function calculateOccupiedColumns(node, device) {
             count += Number(Nodes.getStore(node).getStore('colspan').get('desktop')) || 0;
         });
 
-        return count;
+        // Limit the the amount of columns in a row
+        // return count;
+        // Unlimited Columns in a Row.
+        return null;
     }
 
     return null;
