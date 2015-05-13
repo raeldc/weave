@@ -82,12 +82,6 @@ module.exports = React.createClass({
                             <button className="btn btn-xs" onClick={this.addColumn}>
                                 Add Column <i className="fa fa-plus"></i>
                             </button>
-                            <button className="btn btn-xs">
-                                <i className="fa fa-pencil"></i>
-                            </button>
-                            <button className="btn btn-xs">
-                                <i className="fa fa-copy"></i>
-                            </button>
                             <button className="btn btn-xs" onClick={this.deleteNode}>
                                 <i className="fa fa-trash"></i>
                             </button>
