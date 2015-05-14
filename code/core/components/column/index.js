@@ -9,9 +9,7 @@ module.exports = {
         element: 'div',
         colspan: {
             desktop: 1,
-            laptop : 1,
-            tablet : 2,
-            phone  : 4
+            laptop : 2
         }
     },
     rules: {

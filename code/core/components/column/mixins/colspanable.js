@@ -14,7 +14,7 @@ module.exports = {
 
         device  = device || this.props.device;
         columns = Nodes.get(this.state.parent).columns;
-        colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device);
+        colspan = Nodes.getStore(this.props.id).getStore('colspan').get(device) || columns;
 
         return colspan * (12 / columns);
     },
