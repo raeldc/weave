@@ -1,3 +1,5 @@
+window._ = require('underscore');
+
 var Core     = require('core'),
     Utils    = require('core/lib/utils.js'),
     Controls = require('core/ui/controls'),
