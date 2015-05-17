@@ -5,5 +5,12 @@ module.exports = {
             "public/css/overlay.css": "public/css/less/overlay.less",
             "public/css/base.css"   : "public/css/less/base.less",
         }
+    },
+    themebuilder: {
+        files: {
+            "public/css/themebuilder.css": "public/css/less/themebuilder.less",
+            "public/css/overlay.css"     : "public/css/less/overlay.less",
+            "public/css/base.css"        : "public/css/less/base.less",
+        }
     }
 };
