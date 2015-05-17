@@ -1,5 +1,4 @@
 // Declare global variables
-window._       = require('underscore');
 window.React   = require('react');
 window.CoreBuilder = {};
 
