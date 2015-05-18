@@ -61,14 +61,16 @@ add_action('customize_controls_print_styles', function() {
     echo '<link rel="stylesheet" href="'.get_template_directory_uri() . '/css/themebuilder.css'.'" type="text/css" media="all" />';
 });
 
-add_action('customize_preview_init', function() {
+add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style(
         'mt-themebuilder-css-base',
         get_template_directory_uri() . '/css/base.css',
         array(),
         '1.0.0'
     );
+});
 
+add_action('customize_preview_init', function() {
     wp_enqueue_style(
         'mt-themebuilder-css-overlay',
         get_template_directory_uri() . '/css/overlay.css',
@@ -80,3 +82,4 @@ add_action('customize_preview_init', function() {
 add_action('customize_controls_print_footer_scripts', function() {
     echo '<div id="corebuilder-controls"></div>';
 });
+require __DIR__.'/components/factory.php';
