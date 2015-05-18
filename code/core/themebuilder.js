@@ -5,7 +5,6 @@ var Core             = require('core'),
     Devices          = require('core/ui/controls/topbar/devices.js'),
     Components       = require('core/ui/controls/components'),
     LayoutActions    = require('core/actions/layout.js'),
-    demodata         = require('core/demolayout.js'),
     UIPreviewFactory = require('core/components/node/factory.js'),
     UIPreviewOverlay = require('core/ui/preview/overlay');
 
@@ -17,8 +16,38 @@ CoreBuilder.Components.register(require('core/components/text'));
 CoreBuilder.Components.register(require('core/components/title'));
 
 CoreBuilder.ThemeBuilder = function(config) {
-    CoreBuilder.Nodes.setData(_.extend({root: {id: 'root', component: 'root'}}, demodata));
+    var frame  = config.preview || wp.customize.previewer.loading.targetWindow();
+    var $frame = jQuery(frame);
+    var query  = wp.customize.previewer.query;
 
+    /**
+     * Customize the query function so we can add the nodes data to the request query
+     * @return {object} The query object for the request
+     */
+    wp.customize.previewer.query = function() {
+        var values = query.call(wp.customize.previewer);
+        return jQuery.extend(values, {
+            nodes: CoreBuilder.Nodes.toObject()
+        });
+    };
+
+    /**
+     * Trigger framechange on various events
+     * @param  {object} event Event Object
+     */
+    function onFrameEvent(event) {
+        LayoutActions.frameChanged(null, event);
+        event.stopPropagation();
+    }
+
+    $frame.scroll(onFrameEvent);
+    $frame.resize(onFrameEvent);
+    $frame.mouseup(onFrameEvent);
+
+    /**
+     * Render the Layout
+     * @type {String}
+     */
     React.render(
         <div id="corebuilder-controls" className="container-fluid">
             <div className="ui-controls-topbar">
@@ -38,6 +67,9 @@ CoreBuilder.ThemeBuilder = function(config) {
         document.getElementById('corebuilder-controls')
     );
 
+    /**
+     * Render the Style Settings on the Sidebar of WP Customizer
+     */
     React.render(
         <span>
             Styles
@@ -45,38 +77,33 @@ CoreBuilder.ThemeBuilder = function(config) {
         document.getElementById('corebuilder-styles')
     );
 
-    var stopListeningToChangeDevice = LayoutActions.setDevice.listen(function(device){
+    /**
+     * Render the Nodes on the Preview
+     */
+    React.render(
+        UIPreviewFactory.createNode('root'),
+        frame.document.getElementById('corebuilder-container')
+    );
+
+    /**
+     * Render the Overlay Boxes
+     */
+    React.render(
+        <UIPreviewOverlay />,
+        frame.document.getElementById('corebuilder-overlay')
+    );
+
+    /**
+     * Set the device of the preview iFrame when it's changed
+     */
+    jQuery('#customize-preview iframe').addClass('desktop');
+
+    LayoutActions.setDevice.listen(function(device){
         jQuery('#customize-preview iframe').removeClass('desktop laptop tablet phone');
         jQuery('#customize-preview iframe').addClass(device);
     });
-}
 
-jQuery(document).ready(function(){
-    wp.customize.previewer.loading.done(function(){
-        var frame  = this.targetWindow();
-        var $frame = jQuery(frame);
-
-        function onFrameEvent(event) {
-            LayoutActions.frameChanged(null, event);
-            event.stopPropagation();
-        }
-
-        $frame.scroll(onFrameEvent);
-        $frame.resize(onFrameEvent);
-        $frame.mouseup(onFrameEvent);
-
-        jQuery('#customize-preview iframe').addClass('desktop');
-
-        CoreBuilder.ThemeBuilder();
-
-        React.render(
-            UIPreviewFactory.createNode('root'),
-            frame.document.getElementById('corebuilder-container')
-        );
-
-        React.render(
-            <UIPreviewOverlay />,
-            frame.document.getElementById('corebuilder-overlay')
-        );
+    CoreBuilder.Nodes.listen(function(){
+        wp.customize.trigger('change');
     });
-});
+}

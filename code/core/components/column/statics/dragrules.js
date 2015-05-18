@@ -26,7 +26,7 @@ module.exports = {
         parent  = Nodes.get(target.parent);
 
         if(subject.component === 'column' && subject.id !== target.id && RowChecks.rowHasSpace(parent.id, subject.id)) {
-            Nodes.moveNodeBesideSibling(subject.id, target.id, 'before');
+            NodesActions.moveNodeBesideSibling(subject.id, target.id, 'before');
             return true;
         }
 
@@ -41,7 +41,7 @@ module.exports = {
         parent  = Nodes.get(target.parent);
 
         if(subject.component === 'column' && subject.id !== target.id && RowChecks.rowHasSpace(parent.id, subject.id)) {
-            Nodes.moveNodeBesideSibling(subject.id, target.id, 'after');
+            NodesActions.moveNodeBesideSibling(subject.id, target.id, 'after');
             return true;
         }
 

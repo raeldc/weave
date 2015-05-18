@@ -45,7 +45,24 @@ add_action( 'customize_register', function( $wp_customize ) {
     $wp_customize->remove_section('nav');
 }, 100);
 
- // end tcx_customizer_live_preview
+add_action('customize_controls_print_footer_scripts', function() {
+?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    wp.customize.previewer.loading.done(function(){
+        CoreBuilder.Nodes.setData(
+            <?= json_encode(get_option(get_stylesheet().'_nodes', array()))?>
+        );
+
+        CoreBuilder.ThemeBuilder({
+            preview: this.targetWindow()
+        });
+    });
+});
+</script>
+<?
+});
+
 add_action('customize_controls_enqueue_scripts', function() {
     wp_enqueue_script(
         'mt-themebuilder-customizer',
@@ -82,4 +99,11 @@ add_action('customize_preview_init', function() {
 add_action('customize_controls_print_footer_scripts', function() {
     echo '<div id="corebuilder-controls"></div>';
 });
+
+add_action('customize_save', function() {
+    if(isset($_POST['nodes']) && is_array($_POST['nodes'])) {
+        update_option(get_stylesheet().'_nodes', $_POST['nodes']);
+    }
+});
+
 require __DIR__.'/components/factory.php';

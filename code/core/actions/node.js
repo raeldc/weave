@@ -11,6 +11,7 @@ module.exports = Reflux.createActions([
     'updateNodeCSS',
     'addChildNode',
     'moveNodeToParent',
+    'moveNodeBesideSibling',
     'insertNodeBesideSibling',
     'insertNodeBeforeSibling',
     'insertNodeAfterSibling'
