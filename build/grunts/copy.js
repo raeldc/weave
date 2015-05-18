@@ -164,8 +164,8 @@ module.exports = {
                 expand: true
             },
             {
-                src : 'public/css/ui.css',
-                dest: 'code/wordpress/ether/css/ui.css'
+                src : 'public/css/themebuilder.css',
+                dest: 'code/wordpress/ether/css/themebuilder.css'
             },
             {
                 src : 'public/css/base.css',
