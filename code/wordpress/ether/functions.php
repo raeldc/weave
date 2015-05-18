@@ -50,9 +50,13 @@ add_action('customize_controls_print_footer_scripts', function() {
 <script type="text/javascript">
 jQuery(document).ready(function(){
     wp.customize.previewer.loading.done(function(){
-        CoreBuilder.Nodes.setData(
-            <?= json_encode(get_option(get_stylesheet().'_nodes', array()))?>
-        );
+        var data = <?= json_encode(get_option(get_stylesheet().'_nodes', array()))?>;
+
+        if(_.isEmpty(data)) {
+            data = {root: {component: 'root', id: 'root'}};
+        }
+
+        CoreBuilder.Nodes.setData(data);
 
         CoreBuilder.ThemeBuilder({
             preview: this.targetWindow()
