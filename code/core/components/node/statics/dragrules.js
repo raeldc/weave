@@ -1,10 +1,11 @@
-var Nodes  = require('core/stores/nodes.js'),
-    Checks = require('core/components/node/statics/checks.js');
+var Nodes       = require('core/stores/nodes.js'),
+    Checks      = require('core/components/node/statics/checks.js'),
+    NodeActions = require('core/actions/node.js');
 
 module.exports = {
     draggingOnTop: function(subject, target) {
         if(Checks.canBeSiblings(subject, target)) {
-            Nodes.moveNodeBesideSibling(subject, target, 'before');
+            NodeActions.moveNodeBesideSibling(subject, target, 'before');
             return true;
         }
 
@@ -12,7 +13,7 @@ module.exports = {
     },
     draggingOnBottom: function(subject, target) {
         if(Checks.canBeSiblings(subject, target)) {
-            Nodes.moveNodeBesideSibling(subject, target, 'after');
+            NodeActions.moveNodeBesideSibling(subject, target, 'after');
             return true;
         }
 

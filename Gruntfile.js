@@ -25,6 +25,11 @@ module.exports = function(grunt) {
         'watch:wp_pagebuilder'
     ];
 
+    var wp_themebuilder_watch = [
+        'watchify:themebuilder',
+        'watch:wp_themebuilder'
+    ];
+
     var wp_pagebuilder_dist = [
         'less', 
         'watchify', 
@@ -34,9 +39,18 @@ module.exports = function(grunt) {
         'copy:pagebuilder_dist',
     ];
 
+    var wp_themebuilder_dist = [
+        'less:themebuilder', 
+        'watchify', 
+        'uglify:themebuilder',
+        'copy:wp_themebuilder_dist',
+        // Copy files to the Standalone App also
+        'copy:pagebuilder_dist',
+    ];
+
     // Shortcuts
-    grunt.registerTask('default',              wp_pagebuilder_watch);
-    grunt.registerTask('dist' ,                wp_pagebuilder_dist);
+    grunt.registerTask('default',              wp_themebuilder_watch);
+    grunt.registerTask('dist' ,                wp_themebuilder_dist);
 
     // Specifics
     grunt.registerTask('wp_pagebuilder_watch', wp_pagebuilder_watch);

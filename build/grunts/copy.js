@@ -83,6 +83,27 @@ module.exports = {
         ]
     },
 
+    wp_themebuilder_watch: {
+        files: [
+            {
+                src : 'public/js/themebuilder.js',
+                dest: 'code/wordpress/ether/js/themebuilder.js'
+            },
+            {
+                src : 'public/css/themebuilder.css',
+                dest: 'code/wordpress/ether/css/themebuilder.css'
+            },
+            {
+                src : 'public/css/base.css',
+                dest: 'code/wordpress/ether/css/base.css'
+            },
+            {
+                src : 'public/css/overlay.css',
+                dest: 'code/wordpress/ether/css/overlay.css'
+            }
+        ]
+    },
+
     wp_pagebuilder_dist: {
         files: [
             {
@@ -120,6 +141,39 @@ module.exports = {
             {
                 src : 'public/css/overlay.css',
                 dest: 'code/wordpress/page-builder/resources/assets/css/overlay.css'
+            }
+        ]
+    },
+
+    wp_themebuilder_dist: {
+        files: [
+            {
+                cwd   : 'node_modules/font-awesome/fonts',
+                src   : '**/*',
+                dest  : 'code/wordpress/ether/fonts/',
+                expand: true
+            },
+            {
+                src : 'public/js/themebuilder.min.js',
+                dest: 'code/wordpress/ether/js/themebuilder.js'
+            },
+            {
+                cwd : 'node_modules/font-awesome/css',
+                src : '**/*',
+                dest: 'code/wordpress/ether/css/',
+                expand: true
+            },
+            {
+                src : 'public/css/themebuilder.css',
+                dest: 'code/wordpress/ether/css/themebuilder.css'
+            },
+            {
+                src : 'public/css/base.css',
+                dest: 'code/wordpress/ether/css/base.css'
+            },
+            {
+                src : 'public/css/overlay.css',
+                dest: 'code/wordpress/ether/css/overlay.css'
             }
         ]
     }
