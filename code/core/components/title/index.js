@@ -9,7 +9,7 @@ module.exports = {
     paneview   : require('../node/paneview.js'),
     defaults   : {
         element: 'h1',
-        text   : 'Title (click here to edit)'
+        text   : '[Title]'
     },
     configurables: {
         resize: false,

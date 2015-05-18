@@ -19,7 +19,7 @@ module.exports = {
     },
     defaults: {
         element: 'p',
-        text   : 'Double click here to edit'
+        text   : '[Text]'
     },
     rules: {
         parents: ['column']

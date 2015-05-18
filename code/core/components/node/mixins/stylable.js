@@ -1,12 +1,14 @@
-Layout = require('core/stores/layout.js'),
+var Nodes       = require('core/stores/nodes.js'),
+    LayoutStore = require('core/stores/layout.js');
 
 module.exports = {
+    getInitialState: function() {
+        if(this.properties === undefined) {
+            this.properties = {};
+        }
+    },
+
     setStyles: function() {
-        var style      = this.state.css;
-        var properties = this.properties || {};
-
-        properties.style = _.extend(_.clone(style.all), style[Layout.get('device')]);
-
-        return properties;
+        this.properties.style = _.deepExtend(_.deepClone(this.state.css.all), this.state.css[this.props.device]);
     }
 };

@@ -1,6 +1,7 @@
 var Core             = require('core'),
     Utils            = require('core/lib/utils.js'),
     Preview          = require('core/ui/preview'),
+    UIConfig         = require('core/ui/controls/nodeconfig.js'),
     Layout           = require('core/ui/layout'),
     Devices          = require('core/ui/controls/topbar/devices.js'),
     Components       = require('core/ui/controls/components'),
@@ -71,9 +72,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      * Render the Style Settings on the Sidebar of WP Customizer
      */
     React.render(
-        <span>
-            Styles
-        </span>,
+        <UIConfig />,
         document.getElementById('corebuilder-styles')
     );
 
