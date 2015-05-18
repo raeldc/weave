@@ -53,16 +53,19 @@ CoreBuilder.ThemeBuilder = function(config) {
 
 jQuery(document).ready(function(){
     wp.customize.previewer.loading.done(function(){
-        var frame = this.targetWindow();
+        var frame  = this.targetWindow();
+        var $frame = jQuery(frame);
 
         function onFrameEvent(event) {
             LayoutActions.frameChanged(null, event);
             event.stopPropagation();
         }
 
-        jQuery(frame).scroll(onFrameEvent);
-        jQuery(frame).resize(onFrameEvent);
-        jQuery(frame).mouseup(onFrameEvent);
+        $frame.scroll(onFrameEvent);
+        $frame.resize(onFrameEvent);
+        $frame.mouseup(onFrameEvent);
+
+        jQuery('#customize-preview iframe').addClass('desktop');
 
         CoreBuilder.ThemeBuilder();
 
