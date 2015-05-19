@@ -4,6 +4,6 @@
     "private"   : true,
     "main"      : "index.js",
     "browserify": {
-        "transform": ["reactify"]
+        "transform": ["babelify"]
     }
 }
