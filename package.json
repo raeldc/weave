@@ -13,6 +13,7 @@
     "interact.js": "~1.2.x"
   },
   "devDependencies": {
+    "babel": "^5.4.3",
     "babelify": "^6.1.1",
     "font-awesome": "*",
     "grunt": "~0.4.2",
