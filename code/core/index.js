@@ -1,8 +1,18 @@
-// Declare global variables
-window.React       = require('react');
-window.Reflux      = require('reflux');
-window.CoreBuilder = {};
+'use strict'
 
-CoreBuilder.Nodes      = require('core/stores/nodes.js');
-CoreBuilder.Components = require('core/stores/components.js');
-CoreBuilder.UIConfig   = require('core/stores/uiconfig.js');
+import React      from 'react'
+import Reflux     from 'reflux'
+import Nodes      from 'core/stores/nodes.js'
+import Components from 'core/stores/components.js'
+import UIConfig   from 'core/stores/uiconfig.js'
+
+// Declare global variables
+window.React       = React
+window.Reflux      = Reflux
+window.CoreBuilder = {
+    Nodes     : Nodes,
+    Comopnents: Components,
+    UIConfig  : UIConfig
+}
+
+export default window.CoreBuilder

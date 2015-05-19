@@ -1,8 +1,10 @@
-var Factory       = require('core/components/node/factory.js'),
-    DragContainer = require('core/ui/layout/dragcontainer.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
+import Factory       from 'core/components/node/factory.js'
+import DragContainer from 'core/ui/layout/dragcontainer.js'
+
+export default class Layout extends React.Component {
+    render() {
         return (
             <div>
                 <DragContainer />
@@ -10,4 +12,4 @@ module.exports = React.createClass({
             </div>
         )
     }
-});
+}

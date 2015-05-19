@@ -1,8 +1,10 @@
-var TopBar     = require('core/ui/controls/topbar'),
-    Components = require('core/ui/controls/components');
+'use strict'
 
-var Controls = React.createClass({
-    render: function() {
+import TopBar     from 'core/ui/controls/topbar'
+import Components from 'core/ui/controls/components'
+
+export default class Controls extends React.Component {
+    render() {
         return (
             <div id="corebuilder-controls" className="container-fluid">
                 <TopBar />
@@ -13,8 +15,6 @@ var Controls = React.createClass({
                     </div>
                 </div>
             </div>
-        );
-    },
-});
-
-module.exports = Controls;
+        )
+    }
+}

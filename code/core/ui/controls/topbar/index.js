@@ -1,9 +1,11 @@
-var Nodes   = require('core/stores/nodes.js'),
-    Devices = require('core/ui/controls/topbar/devices.js'),
-    Toolbar = require('core/ui/controls/topbar/toolbar.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
+import Nodes   from 'core/stores/nodes.js'
+import Devices from 'core/ui/controls/topbar/devices.js'
+import Toolbar from 'core/ui/controls/topbar/toolbar.js'
+
+export default class TopBar extends React.Component {
+    render() {
         return (
             <div className="row ui-controls-topbar">
                 <div className="col-lg-3 ui-controls-topbar-panels">
@@ -17,6 +19,6 @@ module.exports = React.createClass({
                     <Toolbar />
                 </div>
             </div>
-        );
-    },
-});
+        )
+    }
+}

@@ -1,237 +1,247 @@
-var Store         = require('core/stores'),
-    NodeDefaults  = require('core/components/node').defaults || {},
-    Components    = require('core/stores/components.js'),
-    UINodeActions = require('core/actions/node.js');
+'use strict'
 
-module.exports = new Store({}, UINodeActions, {
+import Store         from 'core/stores'
+import Node          from 'core/components/node'
+import Components    from 'core/stores/components.js'
+import UINodeActions from 'core/actions/node.js'
+
+export default new Store({}, UINodeActions, {
     setData: function(data) {
         if(_.isObject(data) && !_.isEmpty(data)) {
-            _.each(data, function(node, index){
-                node.id = index;
-                this.addNode(node);
-            }.bind(this));
+            for(let id of data) {
+                let node = data[id]
+
+                node.id = id
+                this.addNode(node)
+            }
         }
 
-        return this;
+        return this
     },
 
     getDefaults: function(component) {
-        var defaults = Components.getDefaults(component) || {};
+        var defaults = Components.getDefaults(component) || {}
 
-        return _.deepExtend(_.deepClone(NodeDefaults), _.deepClone(defaults));
+        return _.deepExtend(_.deepClone(Node.defaults), _.deepClone(defaults))
     },
 
     addNode: function(properties) {
         var parent,
-            node = _.isObject(properties) ? _.clone(properties) : {};
+            node = _.isObject(properties) ? _.clone(properties) : {}
 
         if(node.id === undefined) {
-            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '-' + node.component;
+            node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '-' + node.component
         }
 
-        node = _.deepExtend(this.getDefaults(node.component), node);
+        node = _.deepExtend(this.getDefaults(node.component), node)
 
-        this.set(node.id, node);
+        this.set(node.id, node)
 
-        return node.id;
+        return node.id
     },
 
     updateNode: function(id, properties, nested_properties) {
-        var node = this.getStore(id);
+        var node = this.getStore(id)
         if(node){
             if(_.isString(properties)) {
-                node.set(properties, _.extend(node.getObject(properties) || {}, nested_properties));
+                node.set(properties, _.extend(node.getObject(properties) || {}, nested_properties))
             }else if(_.isObject(properties)) {
-                this.set(id, _.extend(node.toObject(), properties));
+                this.set(id, _.extend(node.toObject(), properties))
             }
 
-            return id;
+            return id
         }
 
-        throw new Error('Error in updating node');
+        throw new Error('Error in updating node')
     },
 
     deleteNode: function(id) {
-        var node, parent;
+        var node, parent
 
         if(id === 'root') {
-            return;
+            return
         }
 
         if(this.hasProperty(id)) {
-            node = this.get(id);
+            node = this.get(id)
 
             // Delete the Children of the node
             if(_.isArray(node.children)) {
-                _.each(node.children, function(child, index) {
-                    this.deleteNode(child);
-                }.bind(this));
+                for(let child in node.children) {
+                    this.deleteNode(child)
+                }
             }
 
             // Remove this node from its parent
             if(node.parent) {
-                parent = this.get(node.parent);
-                this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger();
+                parent = this.get(node.parent)
+                this.getStore(parent.id).set('children', _.without(parent.children, id)).trigger()
             }
 
             // Remove this node
-            this.remove(node.id);
+            this.remove(node.id)
         }  
     },
 
     addChildNode: function(properties, position) {
         var children, node, 
-            parent = this.get(properties.parent);
+            parent = this.get(properties.parent)
 
         if(parent) {
-            node     = this.addNode(properties);
-            children = _.clone(parent.children);
+            node     = this.addNode(properties)
+            children = _.clone(parent.children)
 
             if(position === 'first') {
-                children.unshift(node);
+                children.unshift(node)
             }else{
-                children.push(node);
+                children.push(node)
             }
 
-            this.getStore(parent.id).set('children', children);
+            this.getStore(parent.id).set('children', children)
 
-            return node;
+            return node
         }
 
-        throw new Error('Parent does not exist');
+        throw new Error('Parent does not exist')
     },
 
     insertNodeBesideSibling: function(node, sibling, position) {
-        var children = [];
+        var children = []
             sibling  = this.get(sibling),
             parent   = this.get(sibling.parent),
-            node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node));
+            node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node))
 
         if(sibling === undefined) {
-            throw new Error('Sibling does not exist');
+            throw new Error('Sibling does not exist')
         }
 
-        this.getStore(node.id).set('parent', parent.id);
+        this.getStore(node.id).set('parent', parent.id)
 
         if(_.size(parent.children) > 0){
-            _.each(parent.children || [], function(child, index){
+            for(let child in parent.children) {
                 if(child === sibling.id) {
                     if(position === 'before') {
-                        children.push(node.id);
-                        if(child !== node.id) children.push(child);
+                        children.push(node.id)
+
+                        if(child !== node.id) {
+                            children.push(child)
+                        }
                     }else { 
-                        if(child !== node.id) children.push(child);
-                        children.push(node.id);
+                        if(child !== node.id) {
+                            children.push(child)
+                        }
+
+                        children.push(node.id)
                     }
                 }else if(child !== node.id) {
-                    children.push(child);
+                    children.push(child)
                 }
-            });
+            }
         }else {
-            children.push(node.id);
+            children.push(node.id)
         }
 
-        this.getStore(parent.id).set('children', children).trigger();
-        this.getStore(node.id).trigger();
+        this.getStore(parent.id).set('children', children).trigger()
+        this.getStore(node.id).trigger()
     },
 
     onMoveNodeToParent: function(node, parent) {
-        var previous, children;
+        var previous, children
 
         if(this.hasProperty(node) && this.hasProperty(parent)) {
-            node     = this.get(node);
-            previous = this.getStore(node.parent);
+            node     = this.get(node)
+            previous = this.getStore(node.parent)
 
             // We check if there is a previous parent
             // If none, that means we're dragging from the components pane
             if(previous) {
-                children = previous.get('children');
+                children = previous.get('children')
 
-                previous.set('children', _.without(children, node.id));
-                previous.trigger();
+                previous.set('children', _.without(children, node.id))
+                previous.trigger()
             }
 
-            node.parent = parent;
+            node.parent = parent
 
-            this.remove(node.id);
+            this.remove(node.id)
 
-            this.addChildNode(node, 'after');
-            this.getStore(parent).trigger();
+            this.addChildNode(node, 'after')
+            this.getStore(parent).trigger()
 
             // Trigger Change on main Node Store
-            this.trigger('onMoveNodeToParent', node, parent);
+            this.trigger('onMoveNodeToParent', node, parent)
         }
     },
 
     onMoveNodeBesideSibling: function(id, sibling, position) {
-        var node, parent;
+        var node, parent
 
         if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
-            node = _.clone(this.get(id));
+            node = _.clone(this.get(id))
 
             // Non-recursive removal of node            
-            this.remove(id);
+            this.remove(id)
 
             if(node.parent) {
-                parent = this.getStore(node.parent);
+                parent = this.getStore(node.parent)
                 // Non-recursive removal from parent
-                parent.set('children', _.without(parent.get('children'), id));
+                parent.set('children', _.without(parent.get('children'), id))
 
                 // We only trigger the parent if we're moving to a different parent
                 // else we let this.insertNodeBesideSibling trigger the parent
                 if(node.parent !== this.get(sibling).parent) {
-                    parent.trigger();
+                    parent.trigger()
                 }
             }
 
-            this.insertNodeBesideSibling(node, sibling, position);
+            this.insertNodeBesideSibling(node, sibling, position)
 
             // Trigger Change on main Node Store
-            this.trigger('onMoveNodeBesideSibling', id, sibling, position);
+            this.trigger('onMoveNodeBesideSibling', id, sibling, position)
         }
     },
 
     onInsertNodeBesideSibling: function(node, sibling, position) {
-        this.insertNodeBesideSibling(node, sibling, position);
+        this.insertNodeBesideSibling(node, sibling, position)
 
         // Trigger Change on main Node Store
-        this.trigger('onInsertNodeBesideSibling', node, sibling, position);
+        this.trigger('onInsertNodeBesideSibling', node, sibling, position)
     },
 
     onInsertNodeAfterSibling: function(node, sibling) {
-        this.insertNodeBesideSibling(node, sibling, 'after');
+        this.insertNodeBesideSibling(node, sibling, 'after')
 
         // Trigger Change on main Node Store
-        this.trigger('onInsertNodeAfterSibling', node, sibling);
+        this.trigger('onInsertNodeAfterSibling', node, sibling)
     },
 
     onInsertNodeBeforeSibling: function(node, sibling) {
-        this.insertNodeBesideSibling(node, sibling, 'before');
+        this.insertNodeBesideSibling(node, sibling, 'before')
 
         // Trigger Change on main Node Store
-        this.trigger('onInsertNodeBeforeSibling', node, sibling);
+        this.trigger('onInsertNodeBeforeSibling', node, sibling)
     },
 
     onAddNode: function(properties) {
-        var id = this.addNode(properties);
-        this.getStore(id).trigger(id);
+        var id = this.addNode(properties)
+        this.getStore(id).trigger(id)
 
         // Trigger Change on main Node Store
-        this.trigger('onAddNode', properties);
+        this.trigger('onAddNode', properties)
     },
 
     onAddChildNode: function(parent, properties) {
-        properties.parent = parent;
-        this.addChildNode(properties);
-        this.getStore(parent).trigger(parent);
+        properties.parent = parent
+        this.addChildNode(properties)
+        this.getStore(parent).trigger(parent)
 
         // Trigger Change on main Node Store
-        this.trigger('onAddChildNode', parent, properties);
+        this.trigger('onAddChildNode', parent, properties)
     },
 
     onAddColumn: function(row) {
-        var defaults = Components.getDefaults('column');
-        row          = this.get(row);
+        var defaults = Components.getDefaults('column')
+        row          = this.get(row)
 
         this.addChildNode({
             component: 'column',
@@ -242,79 +252,81 @@ module.exports = new Store({}, UINodeActions, {
                 tablet : defaults.colspan.tablet  > row.columns ? row.columns : defaults.colspan.tablet,
                 phone  : defaults.colspan.phone   > row.columns ? row.columns : defaults.colspan.phone
             }
-        });
+        })
 
-        this.getStore(row.id).trigger();
+        this.getStore(row.id).trigger()
 
         // Trigger Change on main Node Store
-        this.trigger('onAddColumn', row);
+        this.trigger('onAddColumn', row)
     },
 
     onUpdateNode: function(id, properties, nested_properties) {
-        this.updateNode(id, properties, nested_properties);
-        this.getStore(id).trigger(id);
+        this.updateNode(id, properties, nested_properties)
+        this.getStore(id).trigger(id)
 
         // Trigger Change on main Node Store
-        this.trigger('onUpdateNode', id, properties, nested_properties);
+        this.trigger('onUpdateNode', id, properties, nested_properties)
     },
 
     onUpdateColumns: function(id, columns) {
-        var row      = this.getStore(id);
-            children = row.get('children');
+        var row      = this.getStore(id)
+            children = row.get('children')
 
         if(row.get('columns') !== columns) {
             // All Children that has value more than the new value should be updated
-            _.each(children, function(column){
-                var colspan;
-                    column = this.getStore(column);
+            for(let column in children) {
+                let colspan
+                    column = this.getStore(column)
 
-                colspan = column.get('colspan');
+                colspan = column.get('colspan')
 
-                _.each(colspan, function(value, device){
+                for(let device of colspan) {
+                    let value = colspan[device]
+
                     if(value > columns) {
-                        column.getStore('colspan').set(device, columns);
+                        column.getStore('colspan').set(device, columns)
                     }
-                }.bind(this));
-            }.bind(this));
+                }
+            }
 
-            row.set('columns', columns).trigger(id, columns);
+            row.set('columns', columns).trigger(id, columns)
 
             // Trigger Change on main Node Store
-            this.trigger('onUpdateColumns', id, columns);
+            this.trigger('onUpdateColumns', id, columns)
         }
     },
 
     onUpdateColspan: function(id, value, device) {
         var column  = this.getStore(id),
             row     = this.getStore(column.get('parent')),
-            colspan = value > row.get('columns') ? row.get('columns') : value;
+            colspan = value > row.get('columns') ? row.get('columns') : value
 
-        column.getStore('colspan').set(device, colspan);
-        column.trigger(id, value, device);
+        column.getStore('colspan').set(device, colspan)
+        column.trigger(id, value, device)
 
         // Trigger Change on main Node Store
-        this.trigger('onUpdateColspan', id, value, device);
+        this.trigger('onUpdateColspan', id, value, device)
     },
 
     onDeleteNode: function(id) {
-        this.deleteNode(id);
+        this.deleteNode(id)
 
         // Trigger Change on main Node Store
-        this.trigger('onDeleteNode', id);
+        this.trigger('onDeleteNode', id)
     },
 
     onUpdateNodeCSS: function(id, device, property, value) {
-        this.getStore(id).getStore('css').getStore(device).set(property, value);
-        this.getStore(id).trigger(property, value);
+        this.getStore(id).getStore('css').getStore(device).set(property, value)
+        this.getStore(id).trigger(property, value)
 
         // Trigger Change on main Node Store
-        this.trigger('onUpdateNodeCSS', id, device, property, value);
+        this.trigger('onUpdateNodeCSS', id, device, property, value)
     },
 
     onUpdateText: function(id, text) {
-        this.getStore(id).set('text', text).trigger(id, text);
+        this.getStore(id).set('text', text).trigger(id, text)
 
         // Trigger Change on main Node Store
-        this.trigger('onUpdateText', id, text);
+        this.trigger('onUpdateText', id, text)
     }
 });

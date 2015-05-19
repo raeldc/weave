@@ -1,17 +1,25 @@
-var Components = require('core/stores/components.js'),
-    UIConfig   = require('core/stores/uiconfig.js'),
-    Nodes      = require('core/stores/nodes.js');
+'use strict'
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return UIConfig.Preview.toObject();
-    },
+import Components from 'core/stores/components.js'
+import UIConfig   from 'core/stores/uiconfig.js'
+import Nodes      from 'core/stores/nodes.js'
 
-    render: function() {
-        var node = Nodes.get(this.state.selectedNode);
+export default class NodeConfig extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.state = this.initialState()
+        this.onPreviewConfigChanged = this.onPreviewConfigChanged.bind(this)
+    }
+
+    initialState() {
+        return UIConfig.Preview.toObject()
+    }
+
+    render() {
+        var node = Nodes.get(this.state.selectedNode)
 
         if(node) {
-            var component      = Components.get(node.component);
+            var component      = Components.get(node.component)
             var Configurations = _.map(component.configurations, function(config, index){
                 return React.createElement(config, {
                     key          : 'config-'+index,
@@ -19,33 +27,33 @@ module.exports = React.createClass({
                     device       : this.state.device,
                     defaults     : component.defaults,
                     configurables: component.configurables,
-                });
-            }.bind(this));
+                })
+            }.bind(this))
 
             return ( 
                 <div className="ui-nodeconfig">
                     {Configurations}
                 </div>
-            );
+            )
         }
 
-        return <div />;
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-        // Update only when the selected node is different from the previous one
-        return this.state.selectedNode !== nextState.selectedNode || this.state.device !== nextState.device;
-    },
-
-    componentDidMount: function() {
-        this.stopListeningToPreviewConfigChanges = UIConfig.Preview.listen(this.onPreviewConfigChanged);
-    },
-
-    componentWillUnmount: function() {
-        this.stopListeningToPreviewConfigChanges();
-    },
-
-    onPreviewConfigChanged: function(node){
-        this.setState(this.getInitialState());
+        return <div />
     }
-});
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // Update only when the selected node is different from the previous one
+        return this.state.selectedNode !== nextState.selectedNode || this.state.device !== nextState.device
+    }
+
+    componentDidMount() {
+        this.stopListeningToPreviewConfigChanges = UIConfig.Preview.listen(this.onPreviewConfigChanged)
+    }
+
+    componentWillUnmount() {
+        this.stopListeningToPreviewConfigChanges()
+    }
+
+    onPreviewConfigChanged(node){
+        this.setState(this.initialState())
+    }
+}

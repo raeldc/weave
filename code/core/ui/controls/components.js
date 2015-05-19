@@ -1,39 +1,41 @@
-var UIControlsActions = require('core/actions/controls.js'),
-    LayoutActions     = require('core/actions/layout.js'),
-    Components        = require('core/stores/components.js');
+'use strict'
 
-var ComponentSelection = React.createClass({
-    render: function() {
-        var groups = []
+import * as Components   from 'core/stores/components.js'
+import LayoutActions     from 'core/actions/layout.js'
+import UIControlsActions from 'core/actions/controls.js'
 
-        _.each(Components.getGroups(), function(group, index){
+export default class ComponentSelection extends React.Component {
+    render() {
+        let groups          = []
+        let componentGroups = Components.getGroups()
+
+        for(let key of Object.keys(componentGroups)) {
+            let group = componentGroups[key]
+
             if(_.size(group.components)) {
-                var components = [];
-                _.each(group.components, function(name, index){
-                    var component = Components.get(name);
+                let components = []
+
+                for(let name in group.components) {
+                    let component = Components.get(name)
 
                     if(component.paneview !== undefined) {
                         components.push(
                             <component.paneview key={component.name} component={component.name} title={component.title} iconClass={component.iconClass} /> 
-                        );
+                        )
                     }
-                }.bind(this));
+                }
 
                 if(components.length) {
                     groups.push(
-                        <div className="components-group" key={index}>
+                        <div className="components-group" key={key}>
                             <h5>{group.title}</h5>
                             {components}
                         </div>
-                    );
+                    )
                 }
             }
-        }.bind(this));
+        }
 
         return <div id="corebuilder-components">{groups}</div>
-    },
-});
-
-
-
-module.exports = ComponentSelection;
+    }
+}

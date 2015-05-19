@@ -1,20 +1,37 @@
-var Core             = require('core'),
-    Utils            = require('core/lib/utils.js'),
-    Preview          = require('core/ui/preview'),
-    UIConfig         = require('core/ui/controls/nodeconfig.js'),
-    Layout           = require('core/ui/layout'),
-    Devices          = require('core/ui/controls/topbar/devices.js'),
-    Components       = require('core/ui/controls/components'),
-    LayoutActions    = require('core/actions/layout.js'),
-    UIPreviewFactory = require('core/components/node/factory.js'),
-    UIPreviewOverlay = require('core/ui/preview/overlay');
+'use strict'
+
+require('babel/polyfill');
+
+import Core  from 'core'
+import Utils from 'core/lib/utils.js'
+
+// UI Components
+import Preview          from 'core/ui/preview'
+import NodeConfig       from 'core/ui/controls/nodeconfig.js'
+import Layout           from 'core/ui/layout'
+import Devices          from 'core/ui/controls/topbar/devices.js'
+import UIComponents     from 'core/ui/controls/components'
+import UIPreviewOverlay from 'core/ui/preview/overlay'
+import UIPreviewFactory from 'core/components/node/factory.js'
+
+//Actions
+import LayoutActions from 'core/actions/layout.js'
+
+/*
+// Node Components
+import Root   from 'core/components/root'
+import Row    from 'core/components/row'
+import Column from 'core/components/column'
+import Text   from 'core/components/text'
+import Title  from 'core/components/title'
 
 // Register Node Components
-CoreBuilder.Components.register(require('core/components/root'));
-CoreBuilder.Components.register(require('core/components/row'));
-CoreBuilder.Components.register(require('core/components/column'));
-CoreBuilder.Components.register(require('core/components/text'));
-CoreBuilder.Components.register(require('core/components/title'));
+CoreBuilder.Components.register(Root)
+CoreBuilder.Components.register(Row)
+CoreBuilder.Components.register(Column)
+CoreBuilder.Components.register(Text)
+CoreBuilder.Components.register(Title)
+*/
 
 CoreBuilder.ThemeBuilder = function(config) {
     var frame  = config.preview || wp.customize.previewer.loading.targetWindow();
@@ -58,9 +75,9 @@ CoreBuilder.ThemeBuilder = function(config) {
             </div>
             <div className="row">
                 <div className="col-lg-12">
-                    <Components />
+                    <UIComponents />
                     <div id="corebuilder-layout">
-                        <Layout />
+                        
                     </div>
                 </div>
             </div>
@@ -72,17 +89,19 @@ CoreBuilder.ThemeBuilder = function(config) {
      * Render the Style Settings on the Sidebar of WP Customizer
      */
     React.render(
-        <UIConfig />,
+        <NodeConfig />,
         document.getElementById('corebuilder-styles')
     );
 
     /**
      * Render the Nodes on the Preview
      */
+    /*
     React.render(
         UIPreviewFactory.createNode('root'),
         frame.document.getElementById('corebuilder-container')
     );
+    */
 
     /**
      * Render the Overlay Boxes

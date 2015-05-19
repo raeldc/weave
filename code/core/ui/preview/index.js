@@ -1,63 +1,69 @@
-var UIPreviewFactory = require('core/components/node/factory.js'),
-    UIConfig         = require('core/stores/uiconfig.js'),
-    LayoutActions    = require('core/actions/layout.js'),
-    UIPreviewOverlay = require('core/ui/preview/overlay');
+'use strict'
 
-module.exports = React.createClass({
-    displayName: 'Preview',
+import UIPreviewFactory from 'core/components/node/factory.js'
+import UIConfig         from 'core/stores/uiconfig.js'
+import LayoutActions    from 'core/actions/layout.js'
+import UIPreviewOverlay from 'core/ui/preview/overlay'
 
-    getInitialState: function(){
-        return UIConfig.Preview.toObject();
-    },
+export default class Preview extends React.Component {
+    constructor(props, context) {
+        super(props, context)
 
-    render: function(){
+        this.state = this.initialState()
+    }
+
+    initialState() {
+        return UIConfig.Preview.toObject()
+    }
+
+    render() {
         return (
             <div id="corebuilder-preview-frame" className={this.state.device}>
                 <iframe ref="iframe" src={this.state.page} onLoad={this.renderPreviewContent} />
             </div>
-        );
-    },
+        )
+    }
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-        return this.state.device !== nextState.device;
-    },
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.device !== nextState.device
+    }
 
-    componentDidMount: function() {
-        window.preview = React.findDOMNode(this.refs.iframe).contentWindow;
+    componentDidMount() {
+        window.preview = React.findDOMNode(this.refs.iframe).contentWindow
         
-        jQuery(window.preview).scroll(this.onFrameEvent);
-        jQuery(window.preview).resize(this.onFrameEvent);
-        jQuery(window.preview).mouseup(this.onFrameEvent);
+        jQuery(window.preview).scroll(this.onFrameEvent)
+        jQuery(window.preview).resize(this.onFrameEvent)
+        jQuery(window.preview).mouseup(this.onFrameEvent)
 
-        this.stopListeningToPreviewChanges = UIConfig.Preview.listen(this.changePreview);
-    },
+        this.stopListeningToPreviewChanges = UIConfig.Preview.listen(this.changePreview)
+    }
 
-    componentWillUnmount: function() {
-        this.stopListeningToPreviewChanges();
-        jQuery(window.preview).unbind('scroll');
-        jQuery(window.preview).unbind('resize');
-    },
+    componentWillUnmount() {
+        this.stopListeningToPreviewChanges()
+        jQuery(window.preview).unbind('scroll')
+        jQuery(window.preview).unbind('resize')
+    }
 
-    onFrameEvent: function(event) {
-        LayoutActions.frameChanged(null, event);
-        event.stopPropagation();
-    },
+    onFrameEvent(event) {
+        LayoutActions.frameChanged(null, event)
+        event.stopPropagation()
+    }
 
-    changePreview: function() {
-        this.setState(this.getInitialState());
-    },
+    changePreview() {
+        this.setState(this.initialState())
+    }
 
-    renderPreviewContent: function() {
-        var doc = React.findDOMNode(this.refs.iframe).contentDocument;
+    renderPreviewContent() {
+        var doc = React.findDOMNode(this.refs.iframe).contentDocument
 
         React.render(
             UIPreviewFactory.createNode('root'),
             doc.getElementById('corebuilder-container')
-        );
+        )
 
         React.render(
             <UIPreviewOverlay />,
             doc.getElementById('corebuilder-overlay')
         )
-    },
-});
+    }
+}

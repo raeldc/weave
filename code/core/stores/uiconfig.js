@@ -1,13 +1,17 @@
-var PreviewStore   = require('core/stores/layout.js'),
-    ControlsStore = require('core/stores/controls.js');
+'use strict'
 
-module.exports = {
-    Preview  : PreviewStore,
-    Controls: ControlsStore,
+import Preview  from 'core/stores/layout.js'
+import Controls from 'core/stores/controls.js'
+
+let UIConfig = {
+    Preview : Preview,
+    Controls: Controls,
     toObject: function() {
         return {
-            preview  : PreviewStore.toObject(),
-            controls: ControlsStore.toObject()
+            preview : Preview.toObject(),
+            controls: Controls.toObject()
         }
     }
 }
+
+export default UIConfig

@@ -1,90 +1,100 @@
-var Factory       = require('core/components/node/factory.js'),
-    Nodes         = require('core/stores/nodes.js'),
-    LayoutStore   = require('core/stores/layout.js'),
-    LayoutActions = require('core/actions/layout.js'),
-    Classable     = require('core/components/node/mixins/classable.js');
+'use strict'
 
-module.exports = React.createClass({
-    mixins: [Classable],
+import Factory       from 'core/components/node/factory.js'
+import Nodes         from 'core/stores/nodes.js'
+import LayoutStore   from 'core/stores/layout.js'
+import LayoutActions from 'core/actions/layout.js'
 
-    componentWillMount: function() {
-        this.addClass('hidden');
+export default class DragContainer extends React.Component {
+    constructor(props, context) {
+        super(props, context)
 
-        this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode);
-        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer);
-    },
-
-    componentWillUnmount: function() {
-        this.stopListeningToStartDrag();
-        this.stopListeningToStopDrag();
-    },
-
-    render: function() {
-        this.addClass('drag-container');
-        this.setClass();
-
-        this.properties.ref = 'container';
-
-        return React.createElement('div', this.properties);
-    },
-
-    followCursor: function(event) {
-        if(this.properties.style) {
-            var x = this.previousX - this.properties.style.left;
-            var y = this.previousY - this.properties.style.top;
-
-            this.properties.style.left = event.clientX - x;
-            this.properties.style.top  = event.clientY - y;
-
-            this.previousX = event.clientX;
-            this.previousY = event.clientY;
-
-            this.forceUpdate();
+        this.properties = {}
+        this.state      = {
+            hidden: true
         }
-    },
+    }
 
-    hideContainer: function(){
-        this.addClass('hidden');
+    componentWillMount() {
+        this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode)
+        this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer)
+    }
 
-        this.previousX = undefined;
-        this.previousY = undefined;
+    componentWillUnmount() {
+        this.stopListeningToStartDrag()
+        this.stopListeningToStopDrag()
+    }
 
-        jQuery(document).unbind('mousemove.dragcontainer');
-        React.unmountComponentAtNode(React.findDOMNode(this.refs.container));
+    render() {
+        let classes = ['drag-container']
 
-        this.forceUpdate();
-    },
+        if(this.state.hidden) {
+            classes.push('hidden')
+        }
 
-    grabNode: function(node, instance, event) {
-        var info, container;
+        return React.createElement('div', _.extend(this.properties, {
+            ref      : 'container',
+            className: classes.join(' ')
+        }))
+    }
+
+    followCursor(event) {
+        if(this.properties.style) {
+            var x = this.previousX - this.properties.style.left
+            var y = this.previousY - this.properties.style.top
+
+            this.properties.style.left = event.clientX - x
+            this.properties.style.top  = event.clientY - y
+
+            this.previousX = event.clientX
+            this.previousY = event.clientY
+
+            this.forceUpdate()
+        }
+    }
+
+    hideContainer() {
+        this.previousX = undefined
+        this.previousY = undefined
+
+        jQuery(document).unbind('mousemove.dragcontainer')
+        React.unmountComponentAtNode(React.findDOMNode(this.refs.container))
+
+        // Hide the container
+        this.state.hidden = true
+        this.forceUpdate()
+    }
+
+    grabNode(node, instance, event) {
+        var info, container
 
         if(instance) {
-            container = React.findDOMNode(this.refs.container);
-            info      = this.getNodeInfo(instance);
+            container = React.findDOMNode(this.refs.container)
+            info      = this.getNodeInfo(instance)
 
             // Make a clone of the node inside the container
-            React.render(Factory.createNode(node, {type: 'layout'}), container);
+            React.render(Factory.createNode(node, {type: 'layout'}), container)
 
             // Record the current clientX and clientY
-            this.previousX = event.clientX;
-            this.previousY = event.clientY;
+            this.previousX = event.clientX
+            this.previousY = event.clientY
 
             // Register the mousemove event on the document
-            jQuery(document).on('mousemove.dragcontainer', this.followCursor);
-
-            // Show the container
-            this.removeClass('hidden');
+            jQuery(document).on('mousemove.dragcontainer', this.followCursor)
 
             // Adapt the size and coordinates of the container to the drag_subject
-            this.properties.style = info;
+            this.properties.style = info
 
-            this.forceUpdate();
+
+            // Show the container
+            this.state.hidden = false
+            this.forceUpdate()
         }
-    },
+    }
 
-    getNodeInfo: function(instance) {
+    getNodeInfo(instance) {
         var $target    = jQuery(React.findDOMNode(instance)),
-            nodeOffset = $target.offset();
+            nodeOffset = $target.offset()
 
         return {
             width : $target.outerWidth(),
@@ -92,5 +102,5 @@ module.exports = React.createClass({
             top   : nodeOffset.top - jQuery(window).scrollTop(),
             left  : nodeOffset.left
         }
-    },
-});
+    }
+}

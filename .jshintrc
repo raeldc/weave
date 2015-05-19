@@ -11,5 +11,5 @@
   "unused": true,
   "asi": true,
   "validthis": true,
-  "predef": [ "jQuery", "React", "_", "CoreBuilder", "console" ]
+  "predef": [ "jQuery", "React", "_", "CoreBuilder", "console", "window" ]
 }
