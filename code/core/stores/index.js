@@ -1,5 +1,3 @@
-Reflux = require('reflux');
-
 var StoreDefinition = {
     init: function() {
         this.data = {};

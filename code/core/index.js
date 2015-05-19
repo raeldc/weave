@@ -1,5 +1,6 @@
 // Declare global variables
-window.React   = require('react');
+window.React       = require('react');
+window.Reflux      = require('reflux');
 window.CoreBuilder = {};
 
 CoreBuilder.Nodes      = require('core/stores/nodes.js');
