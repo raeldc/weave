@@ -1,9 +1,9 @@
 'use strict'
 
-require('babel/polyfill');
+require('babelify/polyfill');
 
-import Core  from 'core'
-import Utils from 'core/lib/utils.js'
+import CoreBuilder  from 'core'
+import Utils        from 'core/lib/utils.js'
 
 // UI Components
 import Preview          from 'core/ui/preview'
@@ -17,7 +17,7 @@ import UIPreviewFactory from 'core/components/node/factory.js'
 //Actions
 import LayoutActions from 'core/actions/layout.js'
 
-/*
+
 // Node Components
 import Root   from 'core/components/root'
 import Row    from 'core/components/row'
@@ -31,7 +31,6 @@ CoreBuilder.Components.register(Row)
 CoreBuilder.Components.register(Column)
 CoreBuilder.Components.register(Text)
 CoreBuilder.Components.register(Title)
-*/
 
 CoreBuilder.ThemeBuilder = function(config) {
     var frame  = config.preview || wp.customize.previewer.loading.targetWindow();
@@ -77,7 +76,7 @@ CoreBuilder.ThemeBuilder = function(config) {
                 <div className="col-lg-12">
                     <UIComponents />
                     <div id="corebuilder-layout">
-                        
+                        <Layout />
                     </div>
                 </div>
             </div>
@@ -96,12 +95,10 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Render the Nodes on the Preview
      */
-    /*
     React.render(
         UIPreviewFactory.createNode('root'),
         frame.document.getElementById('corebuilder-container')
     );
-    */
 
     /**
      * Render the Overlay Boxes

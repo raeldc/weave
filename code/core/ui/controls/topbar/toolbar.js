@@ -1,11 +1,12 @@
 'use strict'
 
+import Component   from 'core/component.js'
 import Nodes       from 'core/stores/nodes.js'
 import Config      from 'core/stores/uiconfig.js'
 import Button      from 'react-bootstrap'
 import ButtonGroup from 'react-bootstrap'
 
-export default class ToolBar extends React.Component {
+export default class ToolBar extends Component {
     render() {
         return (
             <ButtonGroup className="ui-controls-topbar-toolbar">

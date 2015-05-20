@@ -1,14 +1,10 @@
 'use strict'
 
+import Component      from 'core/component.js'
 import PreviewActions from 'core/actions/layout.js'
 import Config         from 'core/stores/uiconfig.js'
 
-export default class Devices extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = this.initialState()
-    }
-
+export default class Devices extends Component {
     initialState() {
         return Config.Preview.toObject()
     }
@@ -37,16 +33,16 @@ export default class Devices extends React.Component {
         this.setState(this.initialState())
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldUpdate(nextProps, nextState) {
         // Update only when the selected node is different from the previous one
         return this.state.device !== nextState.device
     }
 
-    componentDidMount() {
+    afterMount() {
         this.stopListeningToDeviceChange = Config.Preview.listen(this.onDeviceChange.bind(this))
     }
 
-    componentWillUnmount() {
+    beforeUnmount() {
         this.stopListeningToDeviceChange()
     }
 }

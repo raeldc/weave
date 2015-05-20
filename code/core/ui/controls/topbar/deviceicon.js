@@ -1,13 +1,9 @@
 'use strict'
 
+import Component   from 'core/component.js'
 import LayoutStore from 'core/stores/layout.js'
 
-export default class DeviceIcon extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = this.initialState()
-    }
-
+export default class DeviceIcon extends Component {
     initialState() {
         return {device: LayoutStore.get('device')}
     }
@@ -24,11 +20,11 @@ export default class DeviceIcon extends React.Component {
         return <i className={"fa fa-" + icon} />
     }
 
-    componentDidMount() {
+    afterMount() {
         this.stopListeningToDeviceChanges = LayoutStore.listen(this.updateIcon)
     }
 
-    componentWillUnmount() {
+    beforeUnmount() {
         this.stopListeningToDeviceChanges()
     }
 

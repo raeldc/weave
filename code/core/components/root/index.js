@@ -1,10 +1,13 @@
-module.exports = {
+import Node   from 'core/components/root/node.js'
+import Layout from 'core/components/root/layout.js'
+
+export default {
     name       : 'root',
     title      : 'Root',
     description: '',
     iconClass  : '',
-    node       : require('core/components/root/node.js'),
-    layout     : require('core/components/root/layout.js'),
+    node       : Node,
+    layout     : Layout,
     defaults   : {
         element: 'div',
         classes: 'container-fluid'

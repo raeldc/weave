@@ -1,26 +1,30 @@
 'use strict'
 
+import Component     from 'core/component.js'
 import Factory       from 'core/components/node/factory.js'
 import Nodes         from 'core/stores/nodes.js'
 import LayoutStore   from 'core/stores/layout.js'
 import LayoutActions from 'core/actions/layout.js'
 
-export default class DragContainer extends React.Component {
+export default class DragContainer extends Component {
     constructor(props, context) {
         super(props, context)
 
         this.properties = {}
-        this.state      = {
+    }
+
+    initialState(props) {
+        return {
             hidden: true
         }
     }
 
-    componentWillMount() {
+    beforeMount() {
         this.stopListeningToStartDrag = LayoutActions.startDrag.listen(this.grabNode)
         this.stopListeningToStopDrag  = LayoutActions.stopDrag.listen(this.hideContainer)
     }
 
-    componentWillUnmount() {
+    beforeUnmout() {
         this.stopListeningToStartDrag()
         this.stopListeningToStopDrag()
     }

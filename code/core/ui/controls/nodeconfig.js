@@ -1,16 +1,11 @@
 'use strict'
 
+import Component       from 'core/component.js'
+import Nodes           from 'core/stores/nodes.js'
+import UIConfig        from 'core/stores/uiconfig.js'
 import Components from 'core/stores/components.js'
-import UIConfig   from 'core/stores/uiconfig.js'
-import Nodes      from 'core/stores/nodes.js'
 
-export default class NodeConfig extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = this.initialState()
-        this.onPreviewConfigChanged = this.onPreviewConfigChanged.bind(this)
-    }
-
+export default class NodeConfig extends Component {
     initialState() {
         return UIConfig.Preview.toObject()
     }
@@ -40,16 +35,16 @@ export default class NodeConfig extends React.Component {
         return <div />
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldUpdate(nextProps, nextState) {
         // Update only when the selected node is different from the previous one
         return this.state.selectedNode !== nextState.selectedNode || this.state.device !== nextState.device
     }
 
-    componentDidMount() {
+    afterMount() {
         this.stopListeningToPreviewConfigChanges = UIConfig.Preview.listen(this.onPreviewConfigChanged)
     }
 
-    componentWillUnmount() {
+    beforeUnmount() {
         this.stopListeningToPreviewConfigChanges()
     }
 

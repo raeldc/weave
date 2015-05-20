@@ -1,10 +1,13 @@
-module.exports = {
+import Node   from 'core/components/node/node.js'
+import Layout from 'core/components/row/layout.js'
+
+export default {
     name       : 'row',
     title      : 'Row',
     description: '',
     iconClass  : '',
-    node       : require('core/components/node/node.js'),
-    layout     : require('core/components/row/layout.js'),
+    node       : Node,
+    layout     : Layout,
     defaults   : {
         element: 'div',
         columns: 4,

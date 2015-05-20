@@ -1,39 +1,55 @@
-var Nodes         = require('core/stores/nodes.js'),
-    NodeActions   = require('core/actions/node.js'),
-    LayoutActions = require('core/actions/layout.js'),
-    Classable     = require('core/components/node/mixins/classable.js'),
-    Eventable     = require('core/components/node/mixins/eventable.js'),
-    Droppable     = require('core/components/node/mixins/droppable.js'),
-    Changeable    = require('core/components/node/mixins/changeable.js'),
-    Draggable     = require('core/components/node/mixins/draggable.js'),
-    DragRules     = require('core/components/node/statics/dragrules.js');
+'use strict'
 
-module.exports = React.createClass({
-    mixins : [Changeable, Classable, Eventable, Droppable, Draggable],
-    statics: DragRules,
+import Component     from 'core/component.js'
 
-    getInitialState: function() {
-        return Nodes.get(this.props.id);
-    },
+// Stores
+import Nodes         from 'core/stores/nodes.js'
 
-    componentWillMount: function() {
-        this.addEvent('onClick.selectable', function(event) {
-            LayoutActions.selectNode(this.props.id);
-            event.stopPropagation();
-        });
+// Actions
+import NodeActions   from 'core/actions/node.js'
+import LayoutActions from 'core/actions/layout.js'
 
-        this.addEvent('onMouseOver.hoverable', function(event) {
-            LayoutActions.mouseOverNode(this.props.id);
-            event.stopPropagation();
-        });
-    },
+// Behaviors
+import Classable     from 'core/components/node/behaviors/classable.js'
+import Eventable     from 'core/components/node/behaviors/eventable.js'
+import Droppable     from 'core/components/node/behaviors/droppable.js'
+import Changeable    from 'core/components/node/behaviors/changeable.js'
+import Draggable     from 'core/components/node/behaviors/draggable.js'
 
-    render: function() {
-        this.addClass('content');
+// Drag Rules
+import {draggingOnTop, draggingOnBottom} from 'core/components/node/behaviors/dragrules.js'
 
-        this.setEvents();
-        this.setClass();
+export default class NodeLayout extends Component {
+    constructor(props, context) {
+        super(props, context)
 
+        this.addBehavior(Changeable, Classable, Eventable, Droppable, Draggable)
+
+        Draggable.setDragResponder(this, 'draggingOnTop',  draggingOnTop)
+        Draggable.setDragResponder(this, 'draggingOnBottom', draggingOnBottom)
+    }
+
+    initialState() {
+        return Nodes.get(this.props.id)
+    }
+
+    beforeMount() {
+        Eventable.addEvent(this, 'onClick.selectable', function(event) {
+            LayoutActions.selectNode(this.props.id)
+            event.stopPropagation()
+        })
+
+        Eventable.addEvent(this, 'onMouseOver.hoverable', function(event) {
+            LayoutActions.mouseOverNode(this.props.id)
+            event.stopPropagation()
+        })
+    }
+
+    beforeRender() {
+        Classable.addClass(this, 'content')
+    }
+
+    render() {
         var Controls = (
             <div className="controls">
                 <h5 className="title">
@@ -45,12 +61,12 @@ module.exports = React.createClass({
                     </div>
                 </h5>
             </div>
-        );
+        )
 
-        return React.createElement('div', this.properties || {}, Controls);
-    },
-
-    deleteNode: function() {
-        NodeActions.deleteNode(this.props.id);
+        return React.createElement('div', this.getProperties(), Controls)
     }
-});
+
+    deleteNode() {
+        NodeActions.deleteNode(this.props.id)
+    }
+}

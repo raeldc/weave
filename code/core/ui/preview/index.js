@@ -1,17 +1,12 @@
 'use strict'
 
+import Component        from 'core/component.js'
 import UIPreviewFactory from 'core/components/node/factory.js'
 import UIConfig         from 'core/stores/uiconfig.js'
 import LayoutActions    from 'core/actions/layout.js'
 import UIPreviewOverlay from 'core/ui/preview/overlay'
 
-export default class Preview extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-
-        this.state = this.initialState()
-    }
-
+export default class Preview extends Component {
     initialState() {
         return UIConfig.Preview.toObject()
     }
@@ -24,11 +19,11 @@ export default class Preview extends React.Component {
         )
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldUpdate(nextProps, nextState) {
         return this.state.device !== nextState.device
     }
 
-    componentDidMount() {
+    afterMount() {
         window.preview = React.findDOMNode(this.refs.iframe).contentWindow
         
         jQuery(window.preview).scroll(this.onFrameEvent)
@@ -38,7 +33,7 @@ export default class Preview extends React.Component {
         this.stopListeningToPreviewChanges = UIConfig.Preview.listen(this.changePreview)
     }
 
-    componentWillUnmount() {
+    beforeUnmount() {
         this.stopListeningToPreviewChanges()
         jQuery(window.preview).unbind('scroll')
         jQuery(window.preview).unbind('resize')

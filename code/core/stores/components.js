@@ -78,3 +78,5 @@ export function getConfigurations(id) {
 export function getDefaults(id) {
     return get(id).defaults || {}
 }
+
+export default {register, get, has, registerGroup, getGroups, getFavorites, getRecents, getNode, getConfigurations, getDefaults}

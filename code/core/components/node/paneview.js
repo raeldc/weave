@@ -1,24 +1,27 @@
-var Nodes         = require('core/stores/nodes.js'),
-    Components    = require('core/stores/components.js'),
-    LayoutActions = require('core/actions/layout.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
+import Component     from 'core/component.js'
+import Nodes         from 'core/stores/nodes.js'
+import Components    from 'core/stores/components.js'
+import LayoutActions from 'core/actions/layout.js'
+
+export default class PaneView extends Component {
+    render() {
         return <a draggable type="button" className="btn btn-primary" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}><i className={this.props.iconClass}></i> {this.props.title}</a> 
-    },
+    }
 
-    onDragStart: function(event) {
-        var component = this.props.component,
-            defaults  = _.deepExtend({component: component, unmounted: true}, Components.getDefaults(component));
-            node      = Nodes.addNode(defaults);
-            this.node = node;
+    onDragStart(event) {
+        let component = this.props.component,
+            defaults  = _.deepExtend({component: component, unmounted: true}, Components.getDefaults(component)),
+            node      = Nodes.addNode(defaults)
+            this.node = node
 
         LayoutActions.startDrag(node);
         event.stopPropagation();
-    },
+    }
 
-    onDragEnd: function(event) {
-        var node = Nodes.get(this.node) || {};
+    onDragEnd(event) {
+        let node = Nodes.get(this.node) || {};
 
         if(node.unmounted) {
             Nodes.deleteNode(this.node);
@@ -27,4 +30,4 @@ module.exports = React.createClass({
         LayoutActions.stopDrag();
         event.stopPropagation();
     }
-});
+}

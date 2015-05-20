@@ -1,3 +1,4 @@
+'use strict'
 /*
 
 http://www.w3schools.com/cssref/

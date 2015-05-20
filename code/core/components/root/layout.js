@@ -1,61 +1,64 @@
-var Nodes         = require('core/stores/nodes.js'),
-    LayoutStore   = require('core/stores/layout.js'),
-    LayoutActions = require('core/actions/layout.js'),
-    Childable     = require('core/components/node/mixins/childable.js'),
-    Eventable     = require('core/components/node/mixins/eventable.js'),
-    Changeable    = require('core/components/node/mixins/changeable.js'),
-    Classable     = require('core/components/node/mixins/classable.js'),
-    NodeActions   = require('core/actions/node.js');
+'use strict'
 
-module.exports = React.createClass({
-    mixins: [Childable, Eventable, Changeable, Classable],
+import Component     from 'core/component.js'
+import Nodes         from 'core/stores/nodes.js'
+import LayoutStore   from 'core/stores/layout.js'
+import LayoutActions from 'core/actions/layout.js'
+import Changeable    from 'core/components/node/behaviors/changeable.js'
+import Childable     from 'core/components/node/behaviors/childable.js'
+import Eventable     from 'core/components/node/behaviors/eventable.js'
+import Classable     from 'core/components/node/behaviors/classable.js'
+import NodeActions   from 'core/actions/node.js'
 
-    getInitialState: function() {
-        return Nodes.get(this.props.id);
-    },
+export default class RootLayout extends Component{
+    constructor(props, context) {
+        super(props, context)
 
-    render: function() {
-        var children;
+        this.addBehavior(Changeable, Childable, Eventable, Classable)
+    }
 
-        this.addClass('root');
-        this.addClass(LayoutStore.get('device'));
+    initialState(props) {
+        return Nodes.get(props.id)
+    }
 
-        this.setEvents();
-        this.setClass();
+    beforeMount() {
+        Eventable.addEvent(this, 'onMouseOut', function() {
+            LayoutActions.mouseOutNode()
+        })
+    }
 
-        children = this.getChildren() || [];
-        children.push( 
+    afterMount() {
+        this.stopListeningToDeviceChanges = LayoutStore.listen(this.forceRender)
+    }
+
+    beforeUnmount() {
+        this.stopListeningToDeviceChanges()
+    }
+
+    beforeRender() {
+        Classable.addClass(this, 'root')
+        Classable.addClass(this, LayoutStore.get('device'))
+    }
+
+    render() {
+        this.addChild(
             <div className="controls add-row" key="add-row">
                 <button className="btn btn-sm" onClick={this.addRow}>Add Row <i className="fa fa-plus" /></button>
             </div>
-        );
+        )
 
-        return React.createElement('div', this.properties || {}, children);
-    },
+        return React.createElement('div', this.getProperties(), this.getChildren())
+    }
 
-    componentWillMount: function() {
-        this.addEvent('onMouseOut', function() {
-            LayoutActions.mouseOutNode();
-        });
-    },
-
-    componentDidMount: function() {
-        this.stopListeningToDeviceChanges = LayoutStore.listen(this.reRender);
-    },
-
-    componentWillUnmount: function() {
-        this.stopListeningToDeviceChanges();
-    },
-
-    reRender: function(device) {
+    forceRender(device) {
         if(device) {
-            this.forceUpdate();
+            this.forceUpdate()
         }
-    },
+    }
 
-    addRow: function() {
+    addRow() {
         NodeActions.addChildNode(this.props.id, {
             component: 'row'
-        });
+        })
     }
-});
+}

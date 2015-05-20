@@ -1,10 +1,10 @@
 'use strict'
 
-import LayoutActions from 'core/actions/layout.js'
-import NodeActions   from 'core/actions/node.js'
-import Store         from 'core/stores'
-import Nodes         from 'core/stores/nodes.js'
-import Components    from 'core/stores/components.js'
+import LayoutActions      from 'core/actions/layout.js'
+import NodeActions        from 'core/actions/node.js'
+import Store              from 'core/stores'
+import Nodes              from 'core/stores/nodes.js'
+import * as Components    from 'core/stores/components.js'
 
 let Layout = (new Store({device: 'desktop'})).setActions(LayoutActions, {
     onSetDevice: function(device) {

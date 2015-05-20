@@ -1,6 +1,8 @@
-var Reflux = require('reflux');
+'use strict'
 
-module.exports = Reflux.createActions([
+import Reflux from 'reflux'
+
+export default Reflux.createActions([
     'addNode',
     'deleteNode',
     'updateNode',
@@ -15,4 +17,4 @@ module.exports = Reflux.createActions([
     'insertNodeBesideSibling',
     'insertNodeBeforeSibling',
     'insertNodeAfterSibling'
-]);
+])

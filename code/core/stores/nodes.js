@@ -1,19 +1,17 @@
 'use strict'
 
-import Store         from 'core/stores'
-import Node          from 'core/components/node'
-import Components    from 'core/stores/components.js'
-import UINodeActions from 'core/actions/node.js'
+import Store           from 'core/stores'
+import Node            from 'core/components/node'
+import UINodeActions   from 'core/actions/node.js'
+import * as Components from 'core/stores/components.js'
 
 export default new Store({}, UINodeActions, {
     setData: function(data) {
         if(_.isObject(data) && !_.isEmpty(data)) {
-            for(let id of data) {
-                let node = data[id]
-
+            _.each(data, (node, id) => {
                 node.id = id
                 this.addNode(node)
-            }
+            })
         }
 
         return this
@@ -67,9 +65,9 @@ export default new Store({}, UINodeActions, {
 
             // Delete the Children of the node
             if(_.isArray(node.children)) {
-                for(let child in node.children) {
+                _.each(node.children, child => {
                     this.deleteNode(child)
-                }
+                })
             }
 
             // Remove this node from its parent
@@ -118,7 +116,7 @@ export default new Store({}, UINodeActions, {
         this.getStore(node.id).set('parent', parent.id)
 
         if(_.size(parent.children) > 0){
-            for(let child in parent.children) {
+            _.each(parent.children, child => {
                 if(child === sibling.id) {
                     if(position === 'before') {
                         children.push(node.id)
@@ -136,7 +134,7 @@ export default new Store({}, UINodeActions, {
                 }else if(child !== node.id) {
                     children.push(child)
                 }
-            }
+            })
         }else {
             children.push(node.id)
         }
@@ -263,31 +261,32 @@ export default new Store({}, UINodeActions, {
     onUpdateNode: function(id, properties, nested_properties) {
         this.updateNode(id, properties, nested_properties)
         this.getStore(id).trigger(id)
-
         // Trigger Change on main Node Store
         this.trigger('onUpdateNode', id, properties, nested_properties)
     },
 
+    checkMe: function(compare, id) {
+        console.log('compare:', compare === this.getStore(id))
+    },
+
     onUpdateColumns: function(id, columns) {
-        var row      = this.getStore(id)
+        var row      = this.getStore(id),
             children = row.get('children')
 
         if(row.get('columns') !== columns) {
             // All Children that has value more than the new value should be updated
-            for(let column in children) {
+            _.each(children, column => {
                 let colspan
-                    column = this.getStore(column)
 
+                column  = this.getStore(column)
                 colspan = column.get('colspan')
 
-                for(let device of colspan) {
-                    let value = colspan[device]
-
+                _.each(colspan, (value, device) => {
                     if(value > columns) {
                         column.getStore('colspan').set(device, columns)
                     }
-                }
-            }
+                })
+            })
 
             row.set('columns', columns).trigger(id, columns)
 

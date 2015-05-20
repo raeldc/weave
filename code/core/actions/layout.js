@@ -1,6 +1,8 @@
-var Reflux = require('reflux');
+'use strict'
 
-var Actions = Reflux.createActions({
+import Reflux from 'reflux'
+
+let LayoutActions = Reflux.createActions({
     // Fired when the frame has scrolled and if the frame is resized
     frameChanged: {
     },
@@ -8,7 +10,7 @@ var Actions = Reflux.createActions({
     setDevice     : {
         sync: true,
         preEmit: function() {
-            Actions.mouseOutNode();
+            LayoutActions.mouseOutNode();
         }
     },
     // Fired when the node has changed but the changes aren't saved in the Node Store
@@ -19,7 +21,7 @@ var Actions = Reflux.createActions({
     mouseOverNode: {
         sync: true,
         preEmit: function() {
-            Actions.mouseOutNode();
+            LayoutActions.mouseOutNode();
         }
     },
     unSelectNode: {
@@ -28,7 +30,7 @@ var Actions = Reflux.createActions({
     selectNode : {
         sync: true,
         preEmit: function() {
-            Actions.unSelectNode();
+            LayoutActions.unSelectNode();
         }
     },
     startDrag: {
@@ -37,15 +39,15 @@ var Actions = Reflux.createActions({
     stopDrag: {
         sync: true,
         preEmit: function() {
-            Actions.unSelectNode();
-            Actions.mouseOutNode();
+            LayoutActions.unSelectNode();
+            LayoutActions.mouseOutNode();
         }
     },
     insertingComponent: {
         sync: true,
         preEmit: function() {
-            Actions.unSelectNode();
-            Actions.mouseOutNode();
+            LayoutActions.unSelectNode();
+            LayoutActions.mouseOutNode();
         }
     },
     resetDropSubject: {
@@ -63,6 +65,6 @@ var Actions = Reflux.createActions({
     displayHoverOverlay: {
         sync: true
     }
-});
+})
 
-module.exports = Actions;
+export default LayoutActions

@@ -1,8 +1,11 @@
-var Nodes         = require('core/stores/nodes.js'),
-    PropertyInput = require('core/components/node/configuration/inputs/property.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
+import Component     from 'core/component.js'
+import Nodes         from 'core/stores/nodes.js'
+import PropertyInput from 'core/components/node/configuration/inputs/property.js'
+
+export default class Box extends Component {
+    render() {
         return (
             <div className="form-inline">
                 <h5>Box</h5>
@@ -25,18 +28,18 @@ module.exports = React.createClass({
                     />
                 </div>
             </div>
-        );
-    },
+        )
+    }
 
-    componentDidMount: function() {
-        this.stopListeningToCSSChanges = Nodes.getStore(this.props.node).getStore('css').listen(this.update);
-    },
+    afterMount() {
+        this.stopListeningToCSSChanges = Nodes.getStore(this.props.node).getStore('css').listen(this.update)
+    }
 
-    componentWillUnmount: function() {
+    beforeUnmount() {
         this.stopListeningToCSSChanges();
-    },
+    }
 
-    update: function() {
+    update() {
         this.forceUpdate();
     }
-});
+}

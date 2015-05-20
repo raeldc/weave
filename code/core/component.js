@@ -19,6 +19,11 @@ export default class Component extends React.Component {
             let result = render()
             this.execute('afterRender', result)
 
+            // Reset Children and Properties
+            // We do this so the component is ready to change it again during its lifecycle
+            this[keys.children] = [];
+            this[keys.properties] = {};
+
             return result
         }
 
@@ -85,7 +90,13 @@ export default class Component extends React.Component {
     }
 
     getChildren() {
-        return this[keys.children]
+        let children = this[keys.children]
+
+        if(_.size(children)) {
+            return children
+        }
+
+        return null
     }
 
     setProperty(key, property) {

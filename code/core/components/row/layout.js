@@ -1,37 +1,48 @@
-var Nodes         = require('core/stores/nodes.js'),
-    LayoutStore   = require('core/stores/layout.js'),
-    LayoutActions = require('core/actions/layout.js'),
-    NodeActions   = require('core/actions/node.js'),
-    Classable     = require('core/components/node/mixins/classable.js'),
-    Eventable     = require('core/components/node/mixins/eventable.js'),
-    Childable     = require('core/components/node/mixins/childable.js'),
-    Changeable    = require('core/components/node/mixins/changeable.js'),
-    GridSelect    = require('core/components/column/mixins/gridselect.js'),
-    Droppable     = require('core/components/node/mixins/droppable.js'),
-    Draggable     = require('core/components/node/mixins/draggable.js'),
-    DragRules     = require('core/components/node/statics/dragrules.js'),
-    RowRules      = require('core/components/row/statics/dragrules.js'),
-    RowChecks     = require('core/components/row/statics/checks.js');
+'use strict'
 
-var ColumnSelect = React.createClass({
-    mixins: [GridSelect],
+import Component     from 'core/component.js'
+import Nodes         from 'core/stores/nodes.js'
+import LayoutStore   from 'core/stores/layout.js'
+import LayoutActions from 'core/actions/layout.js'
+import NodeActions   from 'core/actions/node.js'
+import Classable     from 'core/components/node/behaviors/classable.js'
+import Eventable     from 'core/components/node/behaviors/eventable.js'
+import Childable     from 'core/components/node/behaviors/childable.js'
+import Changeable    from 'core/components/node/behaviors/changeable.js'
+import GridSelect    from 'core/components/column/behaviors/gridselect.js'
+import Droppable     from 'core/components/node/behaviors/droppable.js'
+import Draggable     from 'core/components/node/behaviors/draggable.js'
 
-    render: function() {
-        var open     = this.state.open ? ' open' : '';
-        var occupied = RowChecks.calculateOccupiedColumns(this.props.node, 'desktop');
-        var columns  = Number(Nodes.get(this.props.node).columns);
+// Import drag rules
+import {draggingOnTop, draggingOnBottom}                       from 'core/components/node/behaviors/dragrules.js'
+import {rowHasSpace, calculateOccupiedColumns, draggingInside} from 'core/components/row/behaviors/dragrules.js'
 
-        var options = _.map([2,3,4,6], function(value){
-            var disabled = (value < occupied) ? 'disabled' : null;
-            var selected = (value == columns) ? <i className="fa fa-check"></i> : '';
-            var onClick  = !disabled ? this.selectColumnsValue.bind(this, value) : null;
+class ColumnSelect extends Component {
+    constructor(props, context) {
+        super(props, context)
 
-            return <li className={disabled} key={value}><a href="#" onClick={onClick}>{value} {selected}</a></li>
-        }.bind(this));
+        this.addBehavior(GridSelect)
+    }
+
+    initialState(props) {
+        return {open: false}
+    }
+
+    render() {
+        let open     = this.state.open ? ' open' : '',
+            occupied = calculateOccupiedColumns(this.props.node, 'desktop'),
+            columns  = Number(Nodes.get(this.props.node).columns),
+            options  = _.map([2,3,4,6], value => {
+                var disabled = (value < occupied) ? 'disabled' : null
+                var selected = (value == columns) ? <i className="fa fa-check"></i> : ''
+                var onClick  = !disabled ? () => {this.selectColumnsValue(value)} : null
+
+                return <li className={disabled} key={value}><a href="#" onClick={onClick}>{value} {selected}</a></li>
+            })
 
         return (
             <div className={"btn-group pull-right" + open}>
-                <button type="button" className="btn btn-xs dropdown-toggle" onClick={this.toggleOpen}>
+                <button type="button" className="btn btn-xs dropdown-toggle" onClick={() => {GridSelect.toggleOpen(this)}}>
                     Column Slots <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
@@ -39,41 +50,47 @@ var ColumnSelect = React.createClass({
                 </ul>
             </div>
         )
-    },
-
-    selectColumnsValue: function(value) {
-        NodeActions.updateColumns(this.props.node, value);
     }
-});
 
-module.exports = React.createClass({
-    mixins : [Childable, Classable, Eventable, Changeable, Draggable, Droppable],
-    statics: _.extend(DragRules, RowRules),
+    selectColumnsValue(value) {
+        NodeActions.updateColumns(this.props.node, value)
+    }
+}
 
-    getInitialState: function() {
-        return Nodes.get(this.props.id);
-    },
+export default class RowLayout extends Component {
+    constructor(props, context) {
+        super(props, context)
 
-    componentWillMount: function() {
-        this.addEvent('onClick.selectable', function(event) {
-            LayoutActions.selectNode(this.props.id);
-            event.stopPropagation();
-        });
+        this.addBehavior(Childable, Classable, Eventable, Changeable, Draggable, Droppable)
 
-        this.addEvent('onMouseOver.hoverable', function(event) {
-            LayoutActions.mouseOverNode(this.props.id);
-            event.stopPropagation();
-        });
-    },
+        Draggable.setDragResponder(this, 'draggingOnTop',    draggingOnTop)
+        Draggable.setDragResponder(this, 'draggingOnBottom', draggingOnBottom)
+        Draggable.setDragResponder(this, 'draggingInside',   draggingInside)
+    }
 
-    render: function() {
-        this.addClass('container-row');
-        this.addClass('container-fluid');
+    initialState() {
+        return Nodes.get(this.props.id)
+    }
 
-        this.setEvents();
-        this.setClass();
+    beforeMount() {
+        Eventable.addEvent(this, 'onClick.selectable', function(event) {
+            LayoutActions.selectNode(this.props.id)
+            event.stopPropagation()
+        })
 
-        var Row = (
+        Eventable.addEvent(this, 'onMouseOver.hoverable', function(event) {
+            LayoutActions.mouseOverNode(this.props.id)
+            event.stopPropagation()
+        })
+    }
+
+    beforeRender() {
+        Classable.addClass(this, 'container-row')
+        Classable.addClass(this, 'container-fluid')
+    }
+
+    render() {
+        let Row = (
             <div className="row">
                 <div className="controls col-lg-12">
                     <h4 className="title">
@@ -89,20 +106,20 @@ module.exports = React.createClass({
                         <ColumnSelect node={this.props.id} />
                     </h4>
                 </div>
-                {this.getChildren({columns: this.state.columns})}
+                {Childable.createChildrenElements(this, {columns: this.state.columns})}
             </div>
-        );
+        )
 
-        return React.createElement('div', this.properties || {}, Row);
-    },
-
-    addColumn: function() {
-        if(RowChecks.calculateOccupiedColumns(this.props.id) < this.state.columns) {
-            NodeActions.addColumn(this.props.id);
-        }
-    },
-
-    deleteNode: function() {
-        NodeActions.deleteNode(this.props.id);
+        return React.createElement('div', this.getProperties(), Row)
     }
-});
+
+    addColumn() {
+        if(calculateOccupiedColumns(this.props.id) < this.state.columns) {
+            NodeActions.addColumn(this.props.id)
+        }
+    }
+
+    deleteNode() {
+        NodeActions.deleteNode(this.props.id)
+    }
+}

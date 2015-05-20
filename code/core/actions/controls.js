@@ -1,7 +1,9 @@
-var Reflux = require('reflux');
+'use strict';
 
-module.exports = Reflux.createActions([
+import Reflux from 'reflux'
+
+export default Reflux.createActions([
     'startDraggingComponent',
     'stopDraggingComponent',
     'changeText'
-]);
+])

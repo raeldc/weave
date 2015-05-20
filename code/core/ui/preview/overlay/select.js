@@ -1,4 +1,4 @@
-var LayoutActions        = require('core/actions/layout.js'),
+var LayoutActions         = require('core/actions/layout.js'),
     UIPreviewOverlayMixin = require('core/ui/preview/overlay/mixin.js');
 
 module.exports = React.createClass({

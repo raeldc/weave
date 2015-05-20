@@ -1,10 +1,13 @@
-var Nodes         = require('core/stores/nodes.js'),
-    UINodeActions = require('core/actions/node.js'),
-    LayoutActions = require('core/actions/layout.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
-        var value = this.getCurrentValue();
+import Nodes         from 'core/stores/nodes.js'
+import UINodeActions from 'core/actions/node.js'
+import LayoutActions from 'core/actions/layout.js'
+
+export default class Property extends React.Component {
+    render() {
+        let value = this.getCurrentValue()
+
         return (
             <span 
                 className={this.props.className} 
@@ -13,41 +16,44 @@ module.exports = React.createClass({
                 onBlur={this.saveInput} 
                 onKeyDown={this.detectEnter} 
             />
-        );
-    },
+        )
+    }
 
-    componentDidUpdate: function() {
-        React.findDOMNode(this).innerHTML = this.getCurrentValue();
-    },
+    componentDidUpdate() {
+        React.findDOMNode(this).innerHTML = this.getCurrentValue()
+    }
 
-    getCurrentValue: function() {
-        return Nodes.getStore(this.props.node).getStore('css').getStore(this.props.device).get(this.props.propertyName) || this.props.default;
-    },
+    getCurrentValue() {
+        return Nodes.getStore(this.props.node)
+                    .getStore('css')
+                    .getStore(this.props.device)
+                    .get(this.props.propertyName) || this.props.default
+    }
 
-    saveInput: function(event) {
-        var value = event.target.innerHTML;
+    saveInput(event) {
+        var value = event.target.innerHTML
 
         switch(this.props.filter.constructor) {
             case Array:
                 if(this.props.filter.indexOf(value) === -1) {
-                    value = this.getCurrentValue();
+                    value = this.getCurrentValue()
                 }
-            break;
+            break
             case RegExp:
-                value = String(value).match(this.props.filter).join('');
-            break;
+                value = String(value).match(this.props.filter).join('')
+            break
         }
 
-        UINodeActions.updateNodeCSS(this.props.node, this.props.device, this.props.propertyName, value);
-        LayoutActions.nodeTouched();
+        UINodeActions.updateNodeCSS(this.props.node, this.props.device, this.props.propertyName, value)
+        LayoutActions.nodeTouched()
 
-        event.preventDefault();
-    },
+        event.preventDefault()
+    }
 
-    detectEnter: function(event) {
+    detectEnter(event) {
         if(event.keyCode === 13) {
-            this.saveInput(event);
-            event.preventDefault();
+            this.saveInput(event)
+            event.preventDefault()
         }
     }
-});
+}

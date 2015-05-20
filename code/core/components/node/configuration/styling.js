@@ -1,11 +1,13 @@
-var Nodes = require('core/stores/nodes.js');
+'use strict'
+import Component from 'core/component.js'
+import Nodes     from 'core/stores/nodes.js'
 
-module.exports = React.createClass({
-    getInitialState: function() {
-        return Nodes.get(this.props.node);
-    },
-
-    render: function() {
-        return <div><h5>CSS Styles</h5></div>;
+export default class Styling extends Component {
+    initialState(props) {
+        return Nodes.get(props.node)
     }
-});
+
+    render() {
+        return <div><h5>Styling</h5></div>
+    }
+}
