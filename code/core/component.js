@@ -65,6 +65,10 @@ export default class Component extends React.Component {
             for(let behavior of behaviors) {
                 if(this[keys.behaviors].indexOf(behavior) === -1) {
                     this[keys.behaviors].push(behavior)
+
+                    if(typeof behavior.initialize === 'function') {
+                        behavior.initialize(this)
+                    }
                 }
             }
         }
