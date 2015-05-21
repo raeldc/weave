@@ -4,7 +4,7 @@ import Nodes         from 'core/stores/nodes.js'
 import LayoutActions from 'core/actions/layout.js'
 
 function shouldUpdate(component, nextProps, nextState) {
-    return (component.props.device !== nextProps.device || !_.isEqual(nextProps, component.props) || !_.isEqual(nextState, component.state))
+    return (!_.isEqual(nextProps, component.props) || !_.isEqual(nextState, component.state))
 }
 
 function afterMount(component) {
