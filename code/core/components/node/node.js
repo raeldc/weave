@@ -2,7 +2,6 @@
 
 import Component  from 'core/component.js'
 import Nodes      from 'core/stores/nodes.js'
-import Childable  from 'core/components/node/behaviors/childable.js'
 import Changeable from 'core/components/node/behaviors/changeable.js'
 import Eventable  from 'core/components/node/behaviors/eventable.js'
 import Editable   from 'core/components/node/behaviors/editable.js'
