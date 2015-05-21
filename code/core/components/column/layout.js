@@ -1,6 +1,7 @@
 'use strict'
 
 import Component from 'core/component.js'
+import NodeLayout  from 'core/components/node/layout.js'
 
 // Stores
 import Nodes       from 'core/stores/nodes.js'
@@ -15,9 +16,6 @@ import DeviceIcon from 'core/ui/controls/topbar/deviceicon.js'
 
 // Behaviors
 import Childable   from 'core/components/node/behaviors/childable.js'
-import Changeable  from 'core/components/node/behaviors/changeable.js'
-import Eventable   from 'core/components/node/behaviors/eventable.js'
-import Droppable   from 'core/components/node/behaviors/droppable.js'
 import Classable   from 'core/components/node/behaviors/classable.js'
 import Draggable   from 'core/components/node/behaviors/draggable.js'
 import GridSelect  from 'core/components/column/behaviors/gridselect.js'
@@ -81,11 +79,11 @@ class ColspanSelect extends Component {
     }
 }
 
-export default class ColumnLayout extends Component {
+export default class ColumnLayout extends NodeLayout {
     constructor(props, context) {
         super(props, context)
 
-        this.addBehavior(Childable, Changeable, Eventable, Classable, Colspanable, Droppable, Draggable)
+        this.addBehavior(Childable)
 
         Draggable.setDragResponder(this, 'draggingOnLeft',  draggingOnLeft)
         Draggable.setDragResponder(this, 'draggingOnRight', draggingOnRight)
@@ -94,18 +92,6 @@ export default class ColumnLayout extends Component {
 
     initialState() {
         return Nodes.get(this.props.id)
-    }
-
-    beforeMount() {
-        Eventable.addEvent(this, 'onClick.selectable', function(event) {
-            LayoutActions.selectNode(this.props.id)
-            event.stopPropagation();
-        })
-
-        Eventable.addEvent(this, 'onMouseOver.hoverable', function(event) {
-            LayoutActions.mouseOverNode(this.props.id)
-            event.stopPropagation()
-        })
     }
 
     beforeRender() {
@@ -133,9 +119,5 @@ export default class ColumnLayout extends Component {
                 {this.getChildren()}
             </div>
         )
-    }
-
-    deleteNode() {
-        NodeActions.deleteNode(this.props.id)
     }
 }

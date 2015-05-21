@@ -108,8 +108,4 @@ export default class RowLayout extends NodeLayout {
             NodeActions.addColumn(this.props.id)
         }
     }
-
-    deleteNode() {
-        NodeActions.deleteNode(this.props.id)
-    }
 }

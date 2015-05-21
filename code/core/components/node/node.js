@@ -15,7 +15,7 @@ export default class Node extends Component {
     constructor(props, context) {
         super(props, context)
 
-        this.addBehavior(Childable, Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable)
+        this.addBehavior(Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable)
     }
 
     initialState(props) {
