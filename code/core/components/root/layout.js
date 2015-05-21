@@ -27,8 +27,8 @@ export default class RootLayout extends Component{
         })
     }
 
-    afterMount() {
-        this.stopListeningToDeviceChanges = LayoutStore.listen(this.forceRender)
+    afterMount(component) {
+        this.stopListeningToDeviceChanges = LayoutStore.listen(device => {component.forceRender(device)})
     }
 
     beforeUnmount() {
