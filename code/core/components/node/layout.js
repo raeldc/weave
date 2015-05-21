@@ -55,7 +55,7 @@ export default class NodeLayout extends Component {
                 <h5 className="title">
                     {this.state.text || "Empty Text"}
                     <div className="btn-group pull-right">
-                        <button className="btn btn-xs" onClick={this.deleteNode}>
+                        <button className="btn btn-xs" onClick={() => {this.deleteNode(this.props.id)}}>
                             <i className="fa fa-trash"></i>
                         </button>
                     </div>
@@ -66,7 +66,7 @@ export default class NodeLayout extends Component {
         return React.createElement('div', this.getProperties(), Controls)
     }
 
-    deleteNode() {
-        NodeActions.deleteNode(this.props.id)
+    deleteNode(id) {
+        NodeActions.deleteNode(id)
     }
 }

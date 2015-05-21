@@ -89,7 +89,7 @@ export default class RowLayout extends NodeLayout {
                             <button className="btn btn-xs" onClick={this.addColumn}>
                                 Add Column <i className="fa fa-plus"></i>
                             </button>
-                            <button className="btn btn-xs" onClick={this.deleteNode}>
+                            <button className="btn btn-xs" onClick={() => {this.deleteNode(this.props.id)}}>
                                 <i className="fa fa-trash"></i>
                             </button>
                         </div>

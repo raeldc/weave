@@ -109,7 +109,7 @@ export default class ColumnLayout extends NodeLayout {
                 <div className="controls">
                     <h4 className="title">Column
                         <div className="btn-group pull-right">
-                            <button className="btn btn-xs" onClick={this.deleteNode}>
+                            <button className="btn btn-xs" onClick={() => {this.deleteNode(this.props.id)}}>
                                 <i className="fa fa-trash"></i>
                             </button>
                         </div>
