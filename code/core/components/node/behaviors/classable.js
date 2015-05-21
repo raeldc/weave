@@ -7,14 +7,6 @@ function initialize(component) {
     else component.classes = []
 }
 
-function afterMount(component) {
-    initialize(component)
-}
-
-function afterUpdate(component) {
-    initialize(component)
-}
-
 function beforeRender(component) {
     let classes  = component.classes || []
 
@@ -43,4 +35,4 @@ export function removeClass(component, name) {
     component.classes = classes
 }
 
-export default {initialize, afterMount, afterUpdate, beforeRender, addClass, removeClass}
+export default {initialize, beforeRender, addClass, removeClass}
