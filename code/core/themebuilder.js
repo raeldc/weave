@@ -121,4 +121,12 @@ CoreBuilder.ThemeBuilder = function(config) {
     CoreBuilder.Nodes.listen(function(){
         wp.customize.trigger('change');
     });
+
+    LayoutActions.selectNode.listen(function(){
+        let $tab = jQuery('#accordion-section-themebuilder_styles')
+
+        if(!$tab.hasClass('open')) {
+            $tab.find('h3.accordion-section-title').trigger('click')
+        }
+    });
 }
