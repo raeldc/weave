@@ -1,4 +1,4 @@
-import Node   from 'core/components/node/node.js'
+import Node   from 'core/components/row/node.js'
 import Layout from 'core/components/row/layout.js'
 
 export default {
