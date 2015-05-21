@@ -64,7 +64,7 @@ class ColspanSelect extends Component {
 
         return (
             <div className={"btn-group pull-right" + open}>
-                <button type="button" className="btn btn-xs dropdown-toggle" onClick={this.toggleOpen}>
+                <button type="button" className="btn btn-xs dropdown-toggle" onClick={() => {GridSelect.toggleOpen(this)}}>
                     Span <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">

@@ -1,9 +1,5 @@
 'use strict'
 
-function initialState() {
-    return {open: false}
-}
-
 export function toggleOpen(component) {
     if(!component.state.open) {
         component.setState({open: true})
@@ -22,4 +18,4 @@ function unbindClick(component) {
     jQuery(document).unbind('mouseup.GridSelect' + component.props.node)
 }
 
-export default {initialState, toggleOpen}
+export default {toggleOpen}
