@@ -315,8 +315,9 @@ export default new Store({}, UINodeActions, {
     },
 
     onUpdateNodeCSS: function(id, device, property, value) {
-        this.getStore(id).getStore('css').getStore(device).set(property, value)
-        this.getStore(id).trigger(property, value)
+        let css = this.getStore(id).getStore('css')
+            css.getStore(device).set(property, value)
+            css.trigger(property, device, value)
 
         // Trigger Change on main Node Store
         this.trigger('onUpdateNodeCSS', id, device, property, value)
