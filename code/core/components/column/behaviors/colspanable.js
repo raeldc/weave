@@ -10,23 +10,12 @@ function addClasses(component) {
     Classable.addClass(component, 'col-xs-' + getColspan(component, 'phone'))
 }
 
-function removeClasses(component) {
-    Classable.removeClass(component, 'col-lg-' + getColspan(component, 'desktop'))
-    Classable.removeClass(component, 'col-md-' + getColspan(component, 'laptop'))
-    Classable.removeClass(component, 'col-sm-' + getColspan(component, 'tablet'))
-    Classable.removeClass(component, 'col-xs-' + getColspan(component, 'phone'))
-}
-
 function beforeMount(component) {
     addClasses(component)
 }
 
 function beforeUpdate(component) {
     addClasses(component)
-}
-
-function afterRender(component) {
-    removeClasses(component)
 }
 
 export function getColspan(component, device) {
@@ -39,4 +28,4 @@ export function getColspan(component, device) {
     return colspan * (12 / columns)
 }
 
-export default {beforeMount, beforeUpdate, afterRender, getColspan}
+export default {beforeMount, beforeUpdate, getColspan}

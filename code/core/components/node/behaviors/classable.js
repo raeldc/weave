@@ -2,7 +2,7 @@
 
 function initialize(component) {
     if(_.isArray(component.state.classes)) {
-        component.classes = _.uniq(component.state.classes.concat(component.classes || []))
+        component.classes = component.state.classes.concat([])
     }
     else component.classes = []
 }
@@ -13,6 +13,10 @@ function beforeRender(component) {
     if(classes.length) {
         component.setProperty('className', classes.join(' '))
     }
+}
+
+function afterRender(component) {
+    initialize(component)
 }
 
 export function addClass(component, name) {
@@ -35,4 +39,4 @@ export function removeClass(component, name) {
     component.classes = classes
 }
 
-export default {initialize, beforeRender, addClass, removeClass}
+export default {initialize, beforeRender, afterRender, addClass, removeClass}

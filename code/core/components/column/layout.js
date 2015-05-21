@@ -27,7 +27,6 @@ import {calculateOccupiedColumns} from 'core/components/row/behaviors/dragrules.
 // Import Drag Rules
 import {draggingInside, draggingOnLeft, draggingOnRight} from 'core/components/column/behaviors/dragrules.js'
 
-
 class ColspanSelect extends Component {
     constructor(props, context) {
         super(props, context)
