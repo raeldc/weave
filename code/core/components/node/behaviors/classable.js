@@ -1,18 +1,22 @@
 'use strict'
 
+function initialize(component) {
+    if(_.isArray(component.state.classes)) {
+        component.classes = _.uniq(component.state.classes.concat(component.classes || []))
+    }
+    else component.classes = []
+}
+
 function afterMount(component) {
-    component.classes = []
+    initialize(component)
 }
 
 function afterUpdate(component) {
-    component.classes = []
+    initialize(component)
 }
 
 function beforeRender(component) {
-    let classes  = component.classes                || [],
-        defaults = component.getProperty('classes') || []
-
-    classes = _.uniq(classes.concat(defaults))
+    let classes  = component.classes || []
 
     if(classes.length) {
         component.setProperty('className', classes.join(' '))
@@ -20,19 +24,23 @@ function beforeRender(component) {
 }
 
 export function addClass(component, name) {
-    component.classes = component.classes || []
+    let {classes = []} = component
 
-    if(component.classes.indexOf(name) === -1) {
-        component.classes.push(name)
+    if(classes.indexOf(name) === -1) {
+        classes.push(name)
     }
+
+    component.classes = classes
 }
 
 export function removeClass(component, name) {
-    component.classes = component.classes || []
+    let {classes = []} = component
 
-    if(component.classes.indexOf(name) !== -1) {
-        component.classes = _.without(component.classes, name)
+    if(classes.indexOf(name) !== -1) {
+        classes = _.without(classes, name)
     }
+
+    component.classes = classes
 }
 
-export default {afterMount, afterUpdate, beforeRender, addClass, removeClass}
+export default {initialize, afterMount, afterUpdate, beforeRender, addClass, removeClass}

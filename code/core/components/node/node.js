@@ -18,12 +18,8 @@ export default class Node extends Component {
         this.addBehavior(Childable, Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable)
     }
 
-    initialState() {
-        return Nodes.get(this.props.id);
-    }
-
-    beforeRender() {
-        this.setProperty('classes', _.uniq(this.getProperty('classes') || [], this.state.classes || []))
+    initialState(props) {
+        return Nodes.get(props.id);
     }
 
     render() {

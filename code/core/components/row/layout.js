@@ -73,12 +73,12 @@ export default class RowLayout extends Component {
     }
 
     beforeMount() {
-        Eventable.addEvent(this, 'onClick.selectable', function(event) {
+        Eventable.addEvent(this, 'onClick.selectable', event => {
             LayoutActions.selectNode(this.props.id)
             event.stopPropagation()
         })
 
-        Eventable.addEvent(this, 'onMouseOver.hoverable', function(event) {
+        Eventable.addEvent(this, 'onMouseOver.hoverable', event => {
             LayoutActions.mouseOverNode(this.props.id)
             event.stopPropagation()
         })
@@ -87,6 +87,9 @@ export default class RowLayout extends Component {
     beforeRender() {
         Classable.addClass(this, 'container-row')
         Classable.addClass(this, 'container-fluid')
+
+        // We don't want to row class here coz we encapsulate the row
+        Classable.removeClass(this, 'row')
     }
 
     render() {
