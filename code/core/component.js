@@ -118,7 +118,7 @@ export default class Component extends React.Component {
     }
 
     execute(command, ...args) {
-        const commands = ['beforeMount', 'afterMount', 'beforeUpdate', 'afterUpdate', 'beforeUnmount', 'beforeRender', 'afterRender']
+        const commands = ['beforeMount', 'afterMount', 'beforeUpdate', 'afterUpdate', 'beforeUnmount', 'beforeRender', 'afterRender', 'newProps']
 
         if(command === 'shouldUpdate') {
             if(typeof this[command] === 'function') {
@@ -175,6 +175,10 @@ export default class Component extends React.Component {
 
     componentWillUnmount(...args) {
         this.execute('beforeUnmount', ...args)
+    }
+
+    componentWillReceiveProps(...args) {
+        this.execute('newProps', ...args)
     }
 
     render() {
