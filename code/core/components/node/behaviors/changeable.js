@@ -22,8 +22,8 @@ function afterUpdate(component) {
     })
 }
 
-function afterUnmount(component) {
+function beforeUnmount(component) {
     component.stopListeningToNodeChanges()
 }
 
-export default {shouldUpdate, afterMount, afterUpdate, afterUnmount}
+export default {shouldUpdate, afterMount, afterUpdate, beforeUnmount}
