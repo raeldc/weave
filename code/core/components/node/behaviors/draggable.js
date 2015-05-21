@@ -101,6 +101,7 @@ export function setDragResponder(component, type, callback) {
     if(typeof callback === 'function') {
         component[type] = callback.bind(component)
     }
+    else component[type] = callback
 }
 
 export default {beforeMount, beforeUpdate, beforeUnmount, beforeRender, setDragResponder}

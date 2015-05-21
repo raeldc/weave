@@ -88,10 +88,10 @@ export default class ColumnLayout extends NodeLayout {
         Draggable.setDragResponder(this, 'draggingOnLeft',  draggingOnLeft)
         Draggable.setDragResponder(this, 'draggingOnRight', draggingOnRight)
         Draggable.setDragResponder(this, 'draggingInside',  draggingInside)
-    }
 
-    initialState() {
-        return Nodes.get(this.props.id)
+        // Remove the default responders from NodeLayout
+        Draggable.setDragResponder(this, 'draggingOnTop',    null)
+        Draggable.setDragResponder(this, 'draggingOnBottom', null)
     }
 
     beforeRender() {
