@@ -3,7 +3,7 @@
 import Nodes     from 'core/stores/nodes.js'
 import Classable from 'core/components/node/behaviors/classable.js'
 
-function beforeRender(component) {
+function initialize(component) {
     Classable.addClass(component, 'col-lg-' + getColspan(component, 'desktop'))
     Classable.addClass(component, 'col-md-' + getColspan(component, 'laptop'))
     Classable.addClass(component, 'col-sm-' + getColspan(component, 'tablet'))
@@ -20,4 +20,4 @@ export function getColspan(component, device) {
     return colspan * (12 / columns)
 }
 
-export default {beforeRender, getColspan}
+export default {initialize, getColspan}
