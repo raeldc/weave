@@ -1,17 +1,20 @@
 'use strict'
 
-import Component     from 'core/component.js'
-import Nodes         from 'core/stores/nodes.js'
-import LayoutStore   from 'core/stores/layout.js'
-import LayoutActions from 'core/actions/layout.js'
-import NodeActions   from 'core/actions/node.js'
-import Classable     from 'core/components/node/behaviors/classable.js'
-import Eventable     from 'core/components/node/behaviors/eventable.js'
-import Childable     from 'core/components/node/behaviors/childable.js'
-import Changeable    from 'core/components/node/behaviors/changeable.js'
-import GridSelect    from 'core/components/column/behaviors/gridselect.js'
-import Droppable     from 'core/components/node/behaviors/droppable.js'
-import Draggable     from 'core/components/node/behaviors/draggable.js'
+// Components
+import Component   from 'core/component.js'
+import NodeLayout  from 'core/components/node/layout.js'
+
+// Stores
+import Nodes from 'core/stores/nodes.js'
+
+// Actions
+import NodeActions from 'core/actions/node.js'
+
+// Behaviors
+import Childable  from 'core/components/node/behaviors/childable.js'
+import Draggable  from 'core/components/node/behaviors/draggable.js'
+import GridSelect from 'core/components/column/behaviors/gridselect.js'
+import Classable  from 'core/components/node/behaviors/classable.js'
 
 // Import drag rules
 import {draggingOnTop, draggingOnBottom}                       from 'core/components/node/behaviors/dragrules.js'
@@ -57,31 +60,15 @@ class ColumnSelect extends Component {
     }
 }
 
-export default class RowLayout extends Component {
+export default class RowLayout extends NodeLayout {
     constructor(props, context) {
         super(props, context)
 
-        this.addBehavior(Childable, Classable, Eventable, Changeable, Draggable, Droppable)
+        this.addBehavior(Childable)
 
         Draggable.setDragResponder(this, 'draggingOnTop',    draggingOnTop)
         Draggable.setDragResponder(this, 'draggingOnBottom', draggingOnBottom)
         Draggable.setDragResponder(this, 'draggingInside',   draggingInside)
-    }
-
-    initialState() {
-        return Nodes.get(this.props.id)
-    }
-
-    beforeMount() {
-        Eventable.addEvent(this, 'onClick.selectable', event => {
-            LayoutActions.selectNode(this.props.id)
-            event.stopPropagation()
-        })
-
-        Eventable.addEvent(this, 'onMouseOver.hoverable', event => {
-            LayoutActions.mouseOverNode(this.props.id)
-            event.stopPropagation()
-        })
     }
 
     beforeRender() {

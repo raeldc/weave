@@ -29,8 +29,8 @@ export default class NodeLayout extends Component {
         Draggable.setDragResponder(this, 'draggingOnBottom', draggingOnBottom)
     }
 
-    initialState() {
-        return Nodes.get(this.props.id)
+    initialState(props) {
+        return Nodes.get(props.id)
     }
 
     beforeMount() {
