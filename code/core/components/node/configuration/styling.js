@@ -1,13 +1,32 @@
 'use strict'
-import Component from 'core/component.js'
-import Nodes     from 'core/stores/nodes.js'
 
-export default class Styling extends Component {
-    initialState(props) {
-        return Nodes.get(props.node)
+import CSSConfig from 'core/components/node/configuration/cssconfig.js'
+
+// Stores
+import Nodes from 'core/stores/nodes.js'
+
+// Actions
+import UINodeActions from 'core/actions/node.js'
+
+// Components
+import ColorPicker from 'react-colorpicker'
+
+export default class Styling extends CSSConfig {
+    render() {
+        return (
+            <div className="form-inline config config-styling">
+                <h5>Styling</h5>
+                <ul>
+                    <li className="title">Text Color</li>
+                    <li className="textcolor colorpicker-container">
+                        <ColorPicker color={this.state.color} onChange={this.changeColor} />
+                    </li>
+                </ul>
+            </div>
+        )
     }
 
-    render() {
-        return <div><h5>Styling</h5></div>
+    changeColor(color) {
+        UINodeActions.updateNodeCSS(this.props.node, this.props.device, 'color', color.toHex())
     }
 }

@@ -42,6 +42,8 @@
 @import "bootstrap/utilities.less";
 @import "bootstrap/responsive-utilities.less";
 
+@import "lib/colorpicker.less";
+
 @preview-height:  50vh;
 @controls-height: 50vh;
 
@@ -276,5 +278,13 @@
             padding: 0;
             line-height: 1.5em;
         }
+    }
+}
+
+.config {
+    .colorpicker-container {
+        position: relative;
+        height: 400px;
+        width: 100%;
     }
 }
