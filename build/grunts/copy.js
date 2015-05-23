@@ -58,27 +58,27 @@ module.exports = {
         files: [
             {
                 src : 'node_modules/jquery/dist/jquery.min.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/jquery.min.js'
             },
             {
                 src : 'node_modules/jquery/dist/jquery.min.map',
-                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.map'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/jquery.min.map'
             },
             {
                 src : 'public/js/pagebuilder.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/pagebuilder.js'
             },
             {
                 src : 'public/css/ui.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/ui.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/ui.css'
             },
             {
                 src : 'public/css/base.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/base.css'
             },
             {
                 src : 'public/css/overlay.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/overlay.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/overlay.css'
             }
         ]
     },
@@ -108,39 +108,39 @@ module.exports = {
         files: [
             {
                 src : 'node_modules/jquery/dist/jquery.min.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.js'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/jquery.min.js'
             },
             {
                 src : 'node_modules/jquery/dist/jquery.min.map',
-                dest: 'code/wordpress/page-builder/resources/assets/js/jquery.min.map'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/jquery.min.map'
             },
             {
                 cwd   : 'node_modules/font-awesome/fonts',
                 src   : '**/*',
-                dest  : 'code/wordpress/page-builder/resources/assets/fonts/',
+                dest  : 'code/wordpress/pagebuilder/resources/assets/fonts/',
                 expand: true
             },
             {
                 src : 'public/js/pagebuilder.min.js',
-                dest: 'code/wordpress/page-builder/resources/assets/js/pagebuilder.js'
+                dest: 'code/wordpress/pagebuilder/resources/assets/js/pagebuilder.js'
             },
             {
                 cwd : 'node_modules/font-awesome/css',
                 src : '**/*',
-                dest: 'code/wordpress/page-builder/resources/assets/css/',
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/',
                 expand: true
             },
             {
                 src : 'public/css/ui.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/ui.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/ui.css'
             },
             {
                 src : 'public/css/base.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/base.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/base.css'
             },
             {
                 src : 'public/css/overlay.css',
-                dest: 'code/wordpress/page-builder/resources/assets/css/overlay.css'
+                dest: 'code/wordpress/pagebuilder/resources/assets/css/overlay.css'
             }
         ]
     },

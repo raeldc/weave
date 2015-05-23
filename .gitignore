@@ -6,9 +6,9 @@ public/js
 npm-debug.log
 code/core/demodata.js
 public/wp
-code/wordpress/page-builder/resources/assets/css/*
-code/wordpress/page-builder/resources/assets/js/*
-code/wordpress/page-builder/resources/assets/fonts/*
+code/wordpress/pagebuilder/resources/assets/css/*
+code/wordpress/pagebuilder/resources/assets/js/*
+code/wordpress/pagebuilder/resources/assets/fonts/*
 font-awesome.css.map
 fontawesome-webfont.eot
 fontawesome-webfont.svg
