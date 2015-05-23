@@ -6,13 +6,11 @@ import CoreBuilder  from 'core'
 import Utils        from 'core/lib/utils.js'
 
 // UI Components
-import Preview          from 'core/ui/preview'
-import NodeConfig       from 'core/ui/controls/nodeconfig.js'
-import Layout           from 'core/ui/layout'
-import Devices          from 'core/ui/controls/devices.js'
-import UIComponents     from 'core/ui/controls/components.js'
-import UIPreviewOverlay from 'core/ui/preview/overlay'
-import UIPreviewFactory from 'core/components/node/factory.js'
+import Preview            from 'core/ui/preview'
+import NodeConfig         from 'core/ui/controls/nodeconfig.js'
+import ThemeBuilderLayout from 'core/ui/layout/themebuilder.js'
+import UIPreviewOverlay   from 'core/ui/preview/overlay'
+import UIPreviewFactory   from 'core/components/node/factory.js'
 
 //Actions
 import LayoutActions from 'core/actions/layout.js'
@@ -86,21 +84,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      * @type {String}
      */
     React.render(
-        <div id="corebuilder-controls" className="container-fluid">
-            <div className="ui-controls-topbar">
-                <div className="ui-controls-topbar-devices">
-                    <Devices />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-lg-12">
-                    <UIComponents />
-                    <div id="corebuilder-layout">
-                        <Layout />
-                    </div>
-                </div>
-            </div>
-        </div>,
+        <ThemeBuilderLayout />,
         document.getElementById('corebuilder-controls')
     );
 
