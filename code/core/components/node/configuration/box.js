@@ -1,11 +1,6 @@
 'use strict'
 
-import CSSConfig from 'core/components/node/configuration/cssconfig.js'
-
-// Stores
-import Nodes from 'core/stores/nodes.js'
-
-// Actions
+import CSSConfig     from 'core/components/node/configuration/cssconfig.js'
 import UINodeActions from 'core/actions/node.js'
 
 export default class Box extends CSSConfig {

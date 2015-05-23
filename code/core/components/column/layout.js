@@ -12,7 +12,7 @@ import LayoutActions from 'core/actions/layout.js'
 import NodeActions   from 'core/actions/node.js'
 
 // UI
-import DeviceIcon from 'core/ui/controls/topbar/deviceicon.js'
+import DeviceIcon from 'core/ui/elements/deviceicon.js'
 
 // Behaviors
 import Childable   from 'core/components/node/behaviors/childable.js'
