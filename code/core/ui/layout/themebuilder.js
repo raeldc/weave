@@ -3,6 +3,7 @@
 import Component    from 'core/component.js'
 import Layout       from 'core/ui/layout'
 import Devices      from 'core/ui/controls/devices.js'
+import ScreenLayout from 'core/ui/controls/screenlayout.js'
 import UIComponents from 'core/ui/controls/components.js'
 
 export default class ThemeBuilderLayout extends Component {
@@ -12,6 +13,7 @@ export default class ThemeBuilderLayout extends Component {
                 <div className="ui-controls-topbar">
                     <div className="ui-controls-topbar-devices">
                         <Devices />
+                        <ScreenLayout className="pull-right" />
                     </div>
                 </div>
                 <div className="row">

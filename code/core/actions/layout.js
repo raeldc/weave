@@ -3,6 +3,7 @@
 import Reflux from 'reflux'
 
 let LayoutActions = Reflux.createActions({
+    setScreenLayout : {},
     // Fired when the frame has scrolled and if the frame is resized
     frameChanged: {
     },
