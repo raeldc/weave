@@ -35,18 +35,38 @@ CoreBuilder.Components.register(Title)
 CoreBuilder.ThemeBuilder = function(config) {
     var frame  = config.preview || wp.customize.previewer.loading.targetWindow();
     var $frame = jQuery(frame);
-    var query  = wp.customize.previewer.query;
 
     /**
      * Customize the query function so we can add the nodes data to the request query
      * @return {object} The query object for the request
      */
-    wp.customize.previewer.query = function() {
-        var values = query.call(wp.customize.previewer);
-        return jQuery.extend(values, {
-            nodes: CoreBuilder.Nodes.toObject()
-        });
-    };
+    {
+        let query  = wp.customize.previewer.query;
+        wp.customize.previewer.query = function() {
+            var values = query.call(wp.customize.previewer);
+            return jQuery.extend(values, {
+                nodes: CoreBuilder.Nodes.toObject()
+            });
+        };
+    }
+
+    /**
+     * Open the Styling options on the sidebar
+     */
+    {
+        let openStyles = () => {
+            let $tab = jQuery('#accordion-section-themebuilder_styles')
+            if(!$tab.hasClass('open')) {
+                $tab.find('h3.accordion-section-title').trigger('click')
+            }
+        }
+
+        // Open it on page load
+        openStyles()
+
+        // Open it when a node is selected and it's closed
+        LayoutActions.selectNode.listen(openStyles)
+    }
 
     /**
      * Trigger framechange on various events
@@ -120,13 +140,5 @@ CoreBuilder.ThemeBuilder = function(config) {
 
     CoreBuilder.Nodes.listen(function(){
         wp.customize.trigger('change');
-    });
-
-    LayoutActions.selectNode.listen(function(){
-        let $tab = jQuery('#accordion-section-themebuilder_styles')
-
-        if(!$tab.hasClass('open')) {
-            $tab.find('h3.accordion-section-title').trigger('click')
-        }
     });
 }
