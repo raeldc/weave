@@ -115,11 +115,11 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Set the device of the preview iFrame when it's changed
      */
-    jQuery('#customizer-preview iframe').addClass('desktop');
+    jQuery('#customize-preview iframe').addClass('desktop');
 
     LayoutActions.setDevice.listen(function(device){
-        jQuery('#customizer-preview iframe').removeClass('desktop laptop tablet phone');
-        jQuery('#customizer-preview iframe').addClass(device);
+        jQuery('#customize-preview iframe').removeClass('desktop laptop tablet phone');
+        jQuery('#customize-preview iframe').addClass(device);
     });
 
     CoreBuilder.Nodes.listen(function(){
