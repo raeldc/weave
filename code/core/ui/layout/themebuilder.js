@@ -41,12 +41,10 @@ export default class ThemeBuilderLayout extends Component {
                         <Devices />
                         <ScreenLayout className="pull-right" />
                     </div>
+                    <UIComponents />
                 </div>
-                <div className="row">
-                    <div className="col-lg-12">
-                        <UIComponents />
-                        <Layout />
-                    </div>
+                <div className="wrapper">
+                    <Layout />
                 </div>
             </div>
         )

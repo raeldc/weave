@@ -36,6 +36,6 @@ export default class ComponentSelection extends React.Component {
             }
         }
 
-        return <div id="corebuilder-components">{groups}</div>
+        return <div className="ui-controls-components">{groups}</div>
     }
 }

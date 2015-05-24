@@ -102,7 +102,6 @@
         bottom     : 0;
         height     : 100vh;
         background : #fff;
-        overflow-y : auto;
         transition : all .2s;
 
         &.full {
@@ -119,6 +118,17 @@
         }
 
         @import "ui/controls.less";
+
+        .wrapper {
+            height     : 100%;
+            padding-top: 90px;
+
+            .ui-layout {
+                margin-top: -85px;
+                overflow-y: auto;
+                height    : 100%;
+            }
+        }
     }
 
     @import "ui/layout.less";
