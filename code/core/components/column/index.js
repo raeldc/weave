@@ -12,6 +12,7 @@ export default {
     layout     : Layout,
     defaults   : {
         element: 'div',
+        classes: ['column'],
         colspan: {
             desktop: 1,
             laptop : 2
