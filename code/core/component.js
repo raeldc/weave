@@ -20,8 +20,8 @@ export default class Component extends React.Component {
             this.execute('afterRender', result)
 
             // Reset Children and Properties
-            // We do this so the component is ready to change it again during its lifecycle
-            this[keys.children] = [];
+            // We do this so the component and behaviors are ready to change it again during the lifecycle
+            this[keys.children]   = [];
             this[keys.properties] = {};
 
             return result
