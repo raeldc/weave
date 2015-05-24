@@ -13,7 +13,7 @@ function afterMount(component) {
     })
 }
 
-function afterUpdate(component) {
+function newProps(component) {
     component.stopListeningToNodeChanges()
     component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
         onNodeChange(component)
@@ -29,4 +29,4 @@ function onNodeChange(component) {
     component.setState(Nodes.get(component.props.id))
 }
 
-export default {shouldUpdate, afterMount, afterUpdate, beforeUnmount}
+export default {shouldUpdate, newProps, afterMount, beforeUnmount}

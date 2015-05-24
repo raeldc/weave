@@ -1,7 +1,7 @@
 'use strict'
 
-import Node from 'core/components/node/node.js'
-import Childable   from 'core/components/node/behaviors/childable.js'
+import Node      from 'core/components/node/node.js'
+import Childable from 'core/components/node/behaviors/childable.js'
 
 export default class RowNode extends Node {
     constructor(props, context) {
