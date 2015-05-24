@@ -7,7 +7,7 @@ import Utils        from 'core/lib/utils.js'
 
 // UI Components
 import Preview            from 'core/ui/preview'
-import NodeConfig         from 'core/ui/controls/nodeconfig.js'
+import Customizer         from 'core/ui/controls/customizer.js'
 import ThemeBuilderLayout from 'core/ui/layout/themebuilder.js'
 import UIPreviewOverlay   from 'core/ui/preview/overlay'
 import UIPreviewFactory   from 'core/components/node/factory.js'
@@ -85,15 +85,15 @@ CoreBuilder.ThemeBuilder = function(config) {
      */
     React.render(
         <ThemeBuilderLayout />,
-        document.getElementById('corebuilder-controls')
+        document.getElementById('corebuilder-layout')
     );
 
     /**
      * Render the Style Settings on the Sidebar of WP Customizer
      */
     React.render(
-        <NodeConfig />,
-        document.getElementById('corebuilder-styles')
+        <Customizer />,
+        document.getElementById('corebuilder-customizer')
     );
 
     /**
@@ -101,7 +101,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      */
     React.render(
         UIPreviewFactory.createNode('root'),
-        frame.document.getElementById('corebuilder-container')
+        frame.document.getElementById('corebuilder-preview')
     );
 
     /**
@@ -115,11 +115,11 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Set the device of the preview iFrame when it's changed
      */
-    jQuery('#customize-preview iframe').addClass('desktop');
+    jQuery('.ui-preview iframe').addClass('desktop');
 
     LayoutActions.setDevice.listen(function(device){
-        jQuery('#customize-preview iframe').removeClass('desktop laptop tablet phone');
-        jQuery('#customize-preview iframe').addClass(device);
+        jQuery('.ui-preview iframe').removeClass('desktop laptop tablet phone');
+        jQuery('.ui-preview iframe').addClass(device);
     });
 
     CoreBuilder.Nodes.listen(function(){

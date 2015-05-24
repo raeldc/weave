@@ -6,7 +6,7 @@ import DragContainer from 'core/ui/layout/dragcontainer.js'
 export default class Layout extends React.Component {
     render() {
         return (
-            <div>
+            <div className="ui-layout">
                 <DragContainer />
                 {Factory.createNode('root', {type: 'layout'})}
             </div>

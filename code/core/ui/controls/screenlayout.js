@@ -22,16 +22,7 @@ export default class ScreenLayout extends Component {
             className = this.props.className ? ' ' + this.props.className : ''
 
         switch(this.state.screenLayout) {
-            case 'split':
-            case 'full':
-                buttons.push(
-                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'hide')} key="hide"><i className="fa fa-toggle-down"></i></button>
-                )
-            break
-        }
-
-        switch(this.state.screenLayout) {
-            case 'hide':
+            case 'minimized':
             case 'full':
                 buttons.push(
                     <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'split')} key="split"><i className="fa fa-minus-square"></i></button>
@@ -41,7 +32,16 @@ export default class ScreenLayout extends Component {
 
         switch(this.state.screenLayout) {
             case 'split':
-            case 'hide':
+            case 'full':
+                buttons.push(
+                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'minimized')} key="minimized"><i className="fa fa-toggle-down"></i></button>
+                )
+            break
+        }
+
+        switch(this.state.screenLayout) {
+            case 'split':
+            case 'minimized':
                 buttons.push(
                     <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'full')} key="full"><i className="fa fa-toggle-up"></i></button>
                 )
