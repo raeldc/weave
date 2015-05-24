@@ -13,14 +13,20 @@ function afterMount(component) {
     })
 }
 
+function afterUpdate(component) {
+    component.stopListeningToNodeChanges()
+    component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
+        onNodeChange(component)
+    })
+}
+
 function beforeUnmount(component) {
     component.stopListeningToNodeChanges()
 }
 
 function onNodeChange(component) {
-    console.log('node changed', component.props.id);
     LayoutActions.nodeTouched(component.props.id)
     component.setState(Nodes.get(component.props.id))
 }
 
-export default {shouldUpdate, afterMount, beforeUnmount}
+export default {shouldUpdate, afterMount, afterUpdate, beforeUnmount}
