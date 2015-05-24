@@ -110,4 +110,11 @@ add_action('customize_save', function() {
     }
 });
 
+/**
+ * Temporarily Remove that annoying emoji error on 4.2.2
+ * We don't need emoji here so we disable this for now.
+ */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
 require __DIR__.'/components/factory.php';
