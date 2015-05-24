@@ -68,12 +68,26 @@
 @import "ui/customizer.less";
 
 #customize-preview {
-    width : 100%;
-    height: 100vh;
-    overflow: auto;
+    width     : 100%;
+    height    : 100vh;
+    overflow  : auto;
+    transition: all .2s;
 
     &.wp-full-overlay-main.iframe-ready {
         background: #000;
+    }
+
+    &.full {
+        height: 0vh;
+    }
+
+    &.split {
+        height: 50vh;
+    }
+
+    &.minimized {
+        height        : 100vh;
+        padding-bottom: 25px;
     }
 
     @import "ui/preview.less";
@@ -89,6 +103,7 @@
         height     : 100vh;
         background : #fff;
         overflow-y : auto;
+        transition : all .2s;
 
         &.full {
             height: 100vh;
@@ -111,8 +126,10 @@
 
 .wp-full-overlay.expanded #corebuilder-layout > div{
     padding-left: 300px;
+    transition: all .2s;
 }
 
 .wp-full-overlay.collapsed #corebuilder-layout > div{
     padding-left: 0;
+    transition: all .2s;
 }

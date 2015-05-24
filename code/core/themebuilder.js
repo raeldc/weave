@@ -122,6 +122,20 @@ CoreBuilder.ThemeBuilder = function(config) {
         jQuery('#customize-preview iframe').addClass(device);
     });
 
+    /**
+     * Set the class of #customize-preview on different screenLayouts
+     */
+
+     jQuery('#customize-preview').addClass('split');
+
+    LayoutActions.setScreenLayout.listen(function(layout){
+        jQuery('#customize-preview').removeClass('split full minimized');
+        jQuery('#customize-preview').addClass(layout);
+    });
+
+    /**
+     * Trigger a change when something in the Nodes is updated
+     */
     CoreBuilder.Nodes.listen(function(){
         wp.customize.trigger('change');
     });
