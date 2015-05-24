@@ -66,7 +66,18 @@
 }
 
 @import "ui/customizer.less";
-@import "ui/preview.less";
+
+#customizer-preview {
+    width : 100%;
+    height: 100vh;
+    overflow: auto;
+
+    &.wp-full-overlay-main.iframe-ready {
+        background: #000;
+    }
+
+    @import "ui/preview.less";
+}
 
 #corebuilder-layout {
     > div {
@@ -94,6 +105,8 @@
 
         @import "ui/controls.less";
     }
+
+    @import "ui/layout.less";
 }
 
 .wp-full-overlay.expanded #corebuilder-layout > div{
@@ -103,5 +116,3 @@
 .wp-full-overlay.collapsed #corebuilder-layout > div{
     padding-left: 0;
 }
-
-@import "ui/layout.less";

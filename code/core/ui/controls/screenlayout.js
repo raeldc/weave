@@ -25,7 +25,7 @@ export default class ScreenLayout extends Component {
             case 'minimized':
             case 'full':
                 buttons.push(
-                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'split')} key="split"><i className="fa fa-minus-square"></i></button>
+                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'split')} key="split"><i className="fa fa-minus-square-o"></i></button>
                 )
             break
         }
