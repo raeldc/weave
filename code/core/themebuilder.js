@@ -31,8 +31,7 @@ CoreBuilder.Components.register(Text)
 CoreBuilder.Components.register(Title)
 
 CoreBuilder.ThemeBuilder = function(config) {
-    var frame  = config.preview || wp.customize.previewer.loading.targetWindow();
-    var $frame = jQuery(frame);
+    var frame = config.preview || wp.customize.previewer.loading.targetWindow()
 
     /**
      * Customize the query function so we can add the nodes data to the request query
@@ -68,16 +67,21 @@ CoreBuilder.ThemeBuilder = function(config) {
 
     /**
      * Trigger framechange on various events
-     * @param  {object} event Event Object
      */
-    function onFrameEvent(event) {
-        LayoutActions.frameChanged(null, event);
-        event.stopPropagation();
-    }
+    {
+        let $frame = jQuery(frame)
+        // Set global so overlay can access it
+        window.preview = frame
 
-    $frame.scroll(onFrameEvent);
-    $frame.resize(onFrameEvent);
-    $frame.mouseup(onFrameEvent);
+        function onFrameEvent(event) {
+            LayoutActions.frameChanged(null, event);
+            event.stopPropagation();
+        }
+
+        $frame.scroll(onFrameEvent);
+        $frame.resize(onFrameEvent);
+        $frame.mouseup(onFrameEvent);
+    }
 
     /**
      * Render the Layout
