@@ -33,6 +33,9 @@ CoreBuilder.Components.register(Title)
 CoreBuilder.ThemeBuilder = function(config) {
     var frame = config.preview || wp.customize.previewer.loading.targetWindow()
 
+    // Set global so overlay can access it
+    window.preview = frame
+
     /**
      * Customize the query function so we can add the nodes data to the request query
      * @return {object} The query object for the request
@@ -70,8 +73,6 @@ CoreBuilder.ThemeBuilder = function(config) {
      */
     {
         let $frame = jQuery(frame)
-        // Set global so overlay can access it
-        window.preview = frame
 
         function onFrameEvent(event) {
             LayoutActions.frameChanged(null, event);
