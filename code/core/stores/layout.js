@@ -10,9 +10,10 @@ let Layout = (new Store({device: 'desktop', screenLayout: 'split'})).setActions(
     onSetScreenLayout: function(layout) {
         if(this.get('screenLayout') !== layout) {
             this.set('screenLayout', layout)
-            this.trigger(layout)
+            this.trigger('setScreenLayout',layout)
         }
     },
+
     onSetDevice: function(device) {
         if(this.get('device') !== device) {
             this.set('device', device)
