@@ -1,7 +1,8 @@
 'use strict'
 
-import Component from 'core/component.js'
-import Eventable from 'core/components/node/behaviors/eventable.js'
+import Component     from 'core/component.js'
+import Eventable     from 'core/components/node/behaviors/eventable.js'
+import LayoutActions from 'core/actions/layout.js'
 
 // Get Utility functions for getting info about the component
 import {getNodeInfo, resetNodeInfo, getCursorPosition} from 'core/components/node/utilities/nodeinfo.js'
@@ -27,6 +28,7 @@ function registerEvents(component) {
     Eventable.addEvent(component, 'onMouseOver.resizable', event => {getNodeInfo(component, event)})
     Eventable.addEvent(component, 'onMouseOut.resizable',  event => {checkMouseOut(component, event)})
     Eventable.addEvent(component, 'onMouseMove.resizable', event => {renderResizeHandles(component, event)})
+    Eventable.addEvent(component, 'onMouseDown.resizable', event => {startResize(component, event)})
 }
 
 function beforeRender(component) {
@@ -37,6 +39,11 @@ function beforeRender(component) {
         style.cursor = 'ns-resize'
     }else if(component.state.resizeRight || component.state.resizeLeft) {
         style.cursor = 'ew-resize'
+    }
+
+    if(component.state.height) {
+        style.height     = component.state.height
+        style.transition = 'none'
     }
 
     component.setProperty('style', style)
@@ -66,8 +73,6 @@ function renderResizeHandles(component, event) {
     ) {
         component.setState(state)
     }
-
-    event.stopPropagation()
 }
 
 function checkMouseOut(component, event) {
@@ -89,6 +94,60 @@ function checkMouseOut(component, event) {
     }
 }
 
+function startResize(component, event) {
+    var startX = Number(event.clientX),
+        startY = Number(event.clientY)
+
+    // Resize only if state is on resize Mode
+    if(
+        component.state.resizeTop    || 
+        component.state.resizeRight  || 
+        component.state.resizeBottom || 
+        component.state.resizeLeft   
+    ) {
+        let dimensions = {
+            height: component.nodeInfo.height,
+            width : component.nodeInfo.width
+        }
+
+        // Get the node info on startResize
+        getNodeInfo(component, event)
+
+        // Trigger startResize
+        LayoutActions.startResize()
+
+         //Register mouseUp event on Window to cancel the resize wherever mouseup is triggered
+        jQuery(window).on('mouseup.resizable', event => {stopResize(component, event)})
+        jQuery(window.preview).on('mouseup.resizable', event => {stopResize(component, event)})
+
+        jQuery(window).on('mousemove.resizable', function(event){
+            let clientY = Number(event.clientY),
+                clientX = Number(event.clientX)
+
+            if(startY > clientY) {
+                dimensions.height = dimensions.height + (startY - event.clientY)
+            }else if(startY < clientY) {
+                dimensions.height = dimensions.height - (event.clientY - startY)
+            }
+
+            startX = Number(event.clientX)
+            startY = Number(event.clientY)
+
+            component.setState(dimensions)
+        })
+    }
+
+    event.preventDefault()
+    event.stopPropagation()
+}
+
+function stopResize(component, event) {
+    jQuery(window).unbind('mousemove.resizable')
+    jQuery(window).unbind('mouseup.resizable')
+    jQuery(window.preview).unbind('mouseup.resizable')
+    LayoutActions.stopResize()
+}
+
 export function setResizeHandle(component, ...handles) {
     let resizable = component.resizable || {}
 
@@ -96,8 +155,11 @@ export function setResizeHandle(component, ...handles) {
     component.resizable = resizable
 }
 
-export function setCallback(component, position, callback) {
+export function setCallback(component, callback) {
+    let resizable = component.resizable || {}
 
+    resizable.callback  = callback
+    component.resizable = resizable
 }
 
 export default {setResizeHandle, setCallback, beforeMount, beforeUpdate, beforeRender}

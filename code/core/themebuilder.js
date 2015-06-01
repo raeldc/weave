@@ -6,7 +6,6 @@ import CoreBuilder  from 'core'
 import Utils        from 'core/lib/utils.js'
 
 // UI Components
-import Preview            from 'core/ui/preview'
 import Customizer         from 'core/ui/controls/customizer.js'
 import ThemeBuilderLayout from 'core/ui/layout/themebuilder.js'
 import UIPreviewOverlay   from 'core/ui/preview/overlay'
@@ -103,10 +102,12 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Render the Nodes on the Preview
      */
-    React.render(
-        UIPreviewFactory.createNode('root'),
-        frame.document.getElementById('corebuilder-preview')
-    );
+    {
+        React.render(
+            UIPreviewFactory.createNode('root'),
+            frame.document.getElementById('corebuilder-preview')
+        );
+    }
 
     /**
      * Render the Overlay Boxes
@@ -141,6 +142,16 @@ CoreBuilder.ThemeBuilder = function(config) {
             $preview.removeClass('split full minimized');
             $preview.addClass(layout);
         });
+
+        LayoutActions.startResize.listen(function() {
+            console.log('start resize')
+            $preview.addClass('disable-events')
+        })
+
+        LayoutActions.stopResize.listen(function() {
+            console.log('end resize')
+            $preview.removeClass('disable-events')
+        })
     }
 
     /**

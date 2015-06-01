@@ -19,7 +19,8 @@ export default class ThemeBuilderLayout extends Component {
 
     initialState() {
         return {
-            screenLayout: LayoutStore.get('screenLayout') || 'full'
+            screenLayout: LayoutStore.get('screenLayout') || 'full',
+            height      : null
         }
     }
 
@@ -32,7 +33,10 @@ export default class ThemeBuilderLayout extends Component {
     }
 
     beforeRender() {
-        Classable.addClass(this, this.state.screenLayout)
+        if(!this.state.height) {
+            Classable.addClass(this, this.state.screenLayout)
+        }
+
         Classable.addClass(this, 'container-fluid')
     }
 
@@ -55,5 +59,9 @@ export default class ThemeBuilderLayout extends Component {
 
     onLayoutChange() {
         this.setState(this.initialState())
+    }
+
+    setDimensions(dimensions) {
+        
     }
 }
