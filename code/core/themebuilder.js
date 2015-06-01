@@ -15,7 +15,6 @@ import UIPreviewFactory   from 'core/components/node/factory.js'
 //Actions
 import LayoutActions from 'core/actions/layout.js'
 
-
 // Node Components
 import Root   from 'core/components/root'
 import Row    from 'core/components/row'
@@ -120,28 +119,34 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Set the device of the preview iFrame when it's changed
      */
-    jQuery('#customize-preview iframe').addClass('desktop');
+    {
+        let $iframe = jQuery('#customize-preview iframe')
 
-    LayoutActions.setDevice.listen(function(device){
-        jQuery('#customize-preview iframe').removeClass('desktop laptop tablet phone');
-        jQuery('#customize-preview iframe').addClass(device);
-    });
+        $iframe.addClass('desktop');
+        LayoutActions.setDevice.listen(function(device) {
+            $iframe.removeClass('desktop laptop tablet phone')
+            $iframe.addClass(device)
+        });
+    }
 
     /**
      * Set the class of #customize-preview on different screenLayouts
      */
+    {
+        let $preview = jQuery('#customize-preview')
 
-     jQuery('#customize-preview').addClass('split');
+        $preview.addClass('split')
 
-    LayoutActions.setScreenLayout.listen(function(layout){
-        jQuery('#customize-preview').removeClass('split full minimized');
-        jQuery('#customize-preview').addClass(layout);
-    });
+        LayoutActions.setScreenLayout.listen(function (layout) {
+            $preview.removeClass('split full minimized');
+            $preview.addClass(layout);
+        });
+    }
 
     /**
      * Trigger a change when something in the Nodes is updated
      */
     CoreBuilder.Nodes.listen(function(){
-        wp.customize.trigger('change');
+        wp.customize.trigger('change')
     });
 }
