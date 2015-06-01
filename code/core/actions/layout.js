@@ -37,12 +37,18 @@ let LayoutActions = Reflux.createActions({
     startDrag: {
         sync: true
     },
+    startResize: {
+        sync: true
+    },
     stopDrag: {
         sync: true,
         preEmit: function() {
             LayoutActions.unSelectNode();
             LayoutActions.mouseOutNode();
         }
+    },
+    stopResize: {
+        sync: true
     },
     insertingComponent: {
         sync: true,
