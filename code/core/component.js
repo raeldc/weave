@@ -17,7 +17,7 @@ export default class Component extends React.Component {
         this.render = () => {
             this.execute('beforeRender')
             let result = render()
-            this.execute('afterRender', result)
+                result = this.execute('afterRender', result)
 
             // Reset Children and Properties
             // We do this so the component and behaviors are ready to change it again during the lifecycle
@@ -136,9 +136,22 @@ export default class Component extends React.Component {
             }
 
             return true
-        }
+        }else if(command === 'afterRender') {
+            // We let each afterRender method to mutate the render result
+            var [result] = args
 
-        if(commands.indexOf(command) !== -1) {
+            if(typeof this['afterRender'] === 'function') {
+                result = this['afterRender'](this, result)
+            }
+
+            this[keys.behaviors].forEach(behavior => {
+                if(typeof behavior['afterRender'] === 'function') {
+                    result = behavior['afterRender'](this, result) || result
+                }
+            })
+
+            return result
+        }else if (commands.indexOf(command) !== -1) {
             if(typeof this[command] === 'function') {
                 this[command](this, ...args)
             }
