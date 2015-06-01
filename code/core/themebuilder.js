@@ -144,12 +144,18 @@ CoreBuilder.ThemeBuilder = function(config) {
         });
 
         LayoutActions.startResize.listen(function() {
-            console.log('start resize')
             $preview.addClass('disable-events')
         })
 
         LayoutActions.stopResize.listen(function() {
-            console.log('end resize')
+            $preview.removeClass('disable-events')
+        })
+
+        LayoutActions.startDrag.listen(function() {
+            $preview.addClass('disable-events')
+        })
+
+        LayoutActions.stopDrag.listen(function() {
             $preview.removeClass('disable-events')
         })
     }
