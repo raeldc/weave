@@ -6,12 +6,15 @@ import LayoutStore  from 'core/stores/layout.js'
 import Devices      from 'core/ui/controls/devices.js'
 import ScreenLayout from 'core/ui/controls/screenlayout.js'
 import UIComponents from 'core/ui/controls/components.js'
+import Eventable    from 'core/components/node/behaviors/eventable.js'
 import Classable    from 'core/components/node/behaviors/classable.js'
+import Resizable    from 'core/components/node/behaviors/resizable.js'
 
 export default class ThemeBuilderLayout extends Component {
     constructor(props, context) {
         super(props, context)
-        this.addBehavior(Classable)
+        this.addBehavior(Eventable, Classable, Resizable)
+        Resizable.setResizeHandle(this, 'top')
     }
 
     initialState() {
