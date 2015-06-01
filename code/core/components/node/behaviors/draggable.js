@@ -6,7 +6,7 @@ import Eventable     from 'core/components/node/behaviors/eventable.js'
 import Classable     from 'core/components/node/behaviors/classable.js'
 
 function beforeMount(component) {        
-    Eventable.addEvent(component, 'onDragStart.movable', event => {onDragStart(component, event)})
+    Eventable.addEvent(component, 'onDragStart.draggable', event => {onDragStart(component, event)})
 
     // self.
     addClasses(component)
@@ -85,8 +85,8 @@ function onDragStart(component, event) {
     LayoutActions.startDrag(component.props.id, component, event)
 
     //Register mouseUp event on Window
-    jQuery(window).on('mouseup.movable', function() {
-        jQuery(window).unbind('mouseup.movable')
+    jQuery(window).on('mouseup.draggable', function() {
+        jQuery(window).unbind('mouseup.draggable')
         LayoutActions.stopDrag()
     })
 
