@@ -135,10 +135,10 @@ function startResize(component, event) {
 
             component.setState(dimensions)
         })
-    }
 
-    event.preventDefault()
-    event.stopPropagation()
+        event.preventDefault()
+        event.stopPropagation()
+    }
 }
 
 function stopResize(component, event) {
