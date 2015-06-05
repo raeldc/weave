@@ -1,6 +1,7 @@
 .ui-layout {
-    min-width : 1024px;
-    width     : 100%;
+    min-width: 1024px;
+    width    : 100%;
+    color    : #545f66;
 
     .drag-container {
         height        : 100px;
@@ -15,26 +16,19 @@
         }
     }
 
-    .controls {
-        margin-bottom: 20px;
-        border-bottom: 1px solid grey;
-
-        .title {
-            margin: 0;
-        }
-    }
-
     .root {
-        border-radius: 5px;
-        background   : #e3e3e3;
+        border       : 1px solid #d5dbdd;
+        border-radius: 10px;
+        background   : #fff;
         padding      : 15px;
         position     : relative;
-        margin       : 0 auto;
+        margin       : 30px auto 60px auto;
         transition   : all .2s;
+        box-shadow   : 2px 2px 50px 10px rgba(0, 0, 0, 0.2);
 
         &.desktop {
-            max-width: 1200px;
-            min-width: 960px;
+            max-width: 1024px;
+            min-width: 1024px;
         }
 
         .controls.add-row {
@@ -54,33 +48,89 @@
     }
 
     .row {
-        border-radius: 5px;
-        background: #d4d4d4;
+        background: #fff;
         padding: 0 0 20px 0;
         position: relative;
-        border: 1px solid grey;
-        .clearfix();
+        border-top: 5px solid #61c6cf;
+        border-bottom-left-radius:  10px;
+        border-bottom-right-radius: 10px;
+        box-shadow   : 2px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+        > .controls {
+            padding      : 0;
+            margin-bottom: 10px;
+
+            .title {
+                margin: 0 0 0 10px;
+                font-size: 1.25em;
+                color: #61c6cf;
+
+                .btn {
+                    background-color: #61c6cf;
+                    color: #fff;
+                    outline: none;
+                }
+            }
+        }
     }
 
     .column {
-        padding: 0 5px;
+        padding: 0 10px;
         margin : 0 0 20px 0;
 
         .inner {
-            border-radius: 5px;
-            border: 1px solid grey;
+            border-top: 5px solid #5bb7e9;
+            border-bottom-left-radius:  10px;
+            border-bottom-right-radius: 10px;
+            box-shadow   : 2px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 0 0 20px 0;
+            background-color: #fff;
+
+            > .controls {
+                padding: 0;
+
+                .title {
+                    margin: 0 0 0 10px;
+                    font-size: 1em;
+                    line-height: 22px;
+                    color: #5bb7e9;
+
+                    .btn {
+                        background-color: #5bb7e9;
+                        color: #fff;
+                        outline: none;
+                    }
+                }
+            }
         }
 
         .content,
         .container-row {
             margin: 10px;
-            background: #fff;
+            background: #dfebf6;
+            border: 1px solid #bdcfe1;
+            padding: 0;
 
             .controls {
                 border-bottom: none;
 
                 .title {
+                    margin: 0;
+                    color: #617e9c;
+                    font-size: .9em;
                     height: 22px;
+                    line-height: 22px;
+
+                    .btn.icon {
+                        margin-right: 10px;
+                        font-size: 13px;
+                    }
+
+                    .btn {
+                        background-color: #a1b2c1;
+                        color: #fff;
+                        outline: none;
+                    }
                 }
             }
         }

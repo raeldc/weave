@@ -53,6 +53,9 @@ export default class NodeLayout extends Component {
         var Controls = (
             <div className="controls">
                 <h5 className="title">
+                    <button className="btn btn-xs icon">
+                        <i className={this.props.component.icon} />
+                    </button>
                     {this.props.id}
                     <div className="btn-group pull-right">
                         <button className="btn btn-xs" onClick={() => {this.deleteNode(this.props.id)}}>
