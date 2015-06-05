@@ -13,9 +13,9 @@ import Styling    from 'core/components/node/configuration/styling.js'
 module.exports = {
     name       : 'text',
     group      : 'content',
-    title      : 'Text',
+    title      : 'Paragraph',
     description: 'A paragraph of text',
-    iconClass  : 'glyphicon glyphicon-align-left',
+    icon       : 'fa fa-font',
     node       : Node,
     layout     : Layout,
     paneview   : PaneView,

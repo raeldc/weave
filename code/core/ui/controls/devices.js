@@ -16,7 +16,7 @@ export default class Devices extends Component {
             phone   = this.state.device === 'phone'   ? ' active' : ''
 
         return  (
-            <div className="btn-group">
+            <div className={"btn-group " +  this.props.className}>
                 <button className={"btn btn-default btn-xs" + desktop} onClick={this.setDevice.bind(this, 'desktop')}><i className="fa fa-desktop"></i></button>
                 <button className={"btn btn-default btn-xs" + laptop}  onClick={this.setDevice.bind(this, 'laptop')}><i className="fa fa-laptop"></i></button>
                 <button className={"btn btn-default btn-xs" + tablet}  onClick={this.setDevice.bind(this, 'tablet')}><i className="fa fa-tablet"></i></button>

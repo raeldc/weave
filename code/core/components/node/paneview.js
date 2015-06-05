@@ -7,7 +7,16 @@ import LayoutActions from 'core/actions/layout.js'
 
 export default class PaneView extends Component {
     render() {
-        return <a draggable type="button" className="btn btn-primary" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}><i className={this.props.iconClass}></i> {this.props.title}</a> 
+        return (
+            <a  draggable 
+                type="button" 
+                className="btn" 
+                onDragStart={this.onDragStart} 
+                onDragEnd={this.onDragEnd}>
+                    <i className={this.props.icon}></i><br />
+                    {this.props.title}
+            </a> 
+        )
     }
 
     onDragStart(event) {
