@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
     var wp_themebuilder_watch = [
         'watchify:themebuilder',
-        'watch:wp_themebuilder'
+        'watch',
     ];
 
     var wp_pagebuilder_dist = [
