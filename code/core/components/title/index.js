@@ -15,7 +15,7 @@ module.exports = {
     group      : 'content',
     title      : 'Header',
     description: 'A Title or Header',
-    iconClass  : 'glyphicon glyphicon-header',
+    icon       : 'fa fa-header',
     node       : Node,
     layout     : Layout,
     paneview   : PaneView,

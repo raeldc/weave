@@ -44,9 +44,9 @@ export default class ThemeBuilderLayout extends Component {
         return (
             <div {...this.getProperties()}>
                 <div className="ui-controls-topbar">
-                    <div className="ui-controls-devices">
-                        <Devices />
-                        <ScreenLayout className="pull-right" />
+                    <div className="ui-controls-toolbar">
+                        <Devices className="devices" />
+                        <ScreenLayout className="window-controls" />
                     </div>
                     <UIComponents />
                 </div>
