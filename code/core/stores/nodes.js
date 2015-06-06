@@ -162,8 +162,6 @@ export default new Store({}, UINodeActions, {
 
             node.parent = parent
 
-            this.remove(node.id)
-
             this.addChildNode(node, 'after')
             this.getStore(parent).trigger()
 
@@ -177,9 +175,6 @@ export default new Store({}, UINodeActions, {
 
         if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
             node = this.get(id)
-
-            // Non-recursive removal of node            
-            this.remove(id)
 
             if(node.parent) {
                 parent = this.getStore(node.parent)
