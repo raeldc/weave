@@ -84,7 +84,7 @@ export default class RowLayout extends NodeLayout {
             <div className="row">
                 <div className="controls col-lg-12">
                     <h4 className="title">
-                        Row
+                        {this.props.id}
                         <div className="btn-group pull-right">
                             <button className="btn btn-xs" onClick={this.addColumn}>
                                 Add Column <i className="fa fa-plus"></i>

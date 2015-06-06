@@ -41,13 +41,14 @@ export default class RootLayout extends Component{
     }
 
     render() {
-        this.addChild(
-            <div className="controls add-row" key="add-row">
-                <button className="btn btn-sm" onClick={this.addRow}>Add Row <i className="fa fa-plus" /></button>
+        return (
+            <div {...this.getProperties()}>
+                {this.getChildren()}
+                <div className="controls add-row" key="add-row">
+                    <button className="btn btn-sm" onClick={this.addRow}>Add Row <i className="fa fa-plus" /></button>
+                </div>
             </div>
         )
-
-        return React.createElement('div', this.getProperties(), this.getChildren())
     }
 
     forceRender(device) {
