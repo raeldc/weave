@@ -14,15 +14,19 @@
         }
     }
 
+    .controls {
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+        cursor: grab;
+    }
+
     .root {
         border       : 1px solid #d5dbdd;
-        border-radius: 10px;
         background   : #fff;
         padding      : 15px;
         position     : relative;
         margin       : 30px auto 60px auto;
         transition   : all .2s;
-        box-shadow   : 2px 2px 50px 10px rgba(0, 0, 0, 0.2);
 
         &.desktop {
             max-width: 1024px;
