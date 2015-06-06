@@ -12,10 +12,6 @@ function beforeMount(component) {
     registerEvents(component)
 }
 
-function beforeUpdate(component) {
-    registerEvents(component)
-}
-
 function registerEvents(component) {
     Eventable.addEvent(component, 'onMouseOver.droppable', event => {getNodeInfo(component, event)})
     Eventable.addEvent(component, 'onDragEnter.droppable', event => {getNodeInfo(component, event)})
@@ -104,4 +100,4 @@ function executeDraggingRules(component, event) {
     event.stopPropagation()
 }
 
-export default {beforeMount, beforeUpdate}
+export default {beforeMount}
