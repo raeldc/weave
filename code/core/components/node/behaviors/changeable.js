@@ -13,15 +13,23 @@ function afterMount(component) {
     })
 }
 
+function afterUpdate(component) {
+    renewSubscription(component)
+}
+
 function newProps(component) {
-    component.stopListeningToNodeChanges()
-    component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
-        onNodeChange(component)
-    })
+    renewSubscription(component)
 }
 
 function beforeUnmount(component) {
     component.stopListeningToNodeChanges()
+}
+
+function renewSubscription(component) {
+    component.stopListeningToNodeChanges()
+    component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
+        onNodeChange(component)
+    })
 }
 
 function onNodeChange(component) {
@@ -29,4 +37,4 @@ function onNodeChange(component) {
     component.setState(Nodes.get(component.props.id))
 }
 
-export default {shouldUpdate, newProps, afterMount, beforeUnmount}
+export default {shouldUpdate, newProps, afterMount, afterUpdate, beforeUnmount}
