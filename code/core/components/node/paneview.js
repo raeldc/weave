@@ -25,18 +25,18 @@ export default class PaneView extends Component {
             node      = Nodes.addNode(defaults)
             this.node = node
 
-        LayoutActions.startDrag(node);
-        event.stopPropagation();
+        LayoutActions.startDrag(node)
+        event.stopPropagation()
     }
 
     onDragEnd(event) {
-        let node = Nodes.get(this.node) || {};
+        let node = Nodes.get(this.node) || {}
 
         if(node.unmounted) {
-            Nodes.deleteNode(this.node);
+            Nodes.deleteNode(this.node)
         }
 
-        LayoutActions.stopDrag();
-        event.stopPropagation();
+        LayoutActions.stopDrag()
+        event.stopPropagation()
     }
 }
