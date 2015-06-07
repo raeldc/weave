@@ -15,7 +15,7 @@ module.exports = {
     group      : 'content',
     title      : 'Paragraph',
     description: 'A paragraph of text',
-    icon       : 'fa fa-font',
+    icon       : 'fa fa-paragraph',
     node       : Node,
     layout     : Layout,
     paneview   : PaneView,
