@@ -1,12 +1,26 @@
-.config-box {
-    .margin,
-    .padding {
-        input {
-            width: 40px;
-            font-size: 10px;
-            padding: 0;
-            line-height: 1.5em;
-        }
+#accordion-section-themebuilder_styles .accordion-section-content {
+    color: #656e73;
+    background-color: #fff;
+    padding: 0;
+}
+
+.customize-control {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #70767e;
+    font-weight: 200;
+
+    h5 {
+        margin: 0;
+        padding: 7px 5px;
+        background-color: #fbfbfc;
+        color: #495b69;
+
+        font-size: .95em;
+        letter-spacing: .1em;
+        cursor: default;
+        font-weight: 600;
+        border-left: 10px solid #a1b2c1;
+        border-bottom: 1px solid #a1b2c1;
     }
 }
 
@@ -15,5 +29,103 @@
         position: relative;
         height: 400px;
         width: 100%;
+    }
+}
+
+.config-box {
+    .wrapper {
+        position: relative;
+        height: 225px;
+    }
+
+    .title {
+        font-size: 12px;
+    }
+
+    .margin,
+    .padding {
+        position: absolute;
+        background-color: #f6f6f6;
+
+        li {
+            position: absolute;
+        }
+
+        input {
+            width: 40px;
+            font-size: 10px;
+            padding: 0 0 0 4px;
+            line-height: 1.5em;
+            border: 1px solid #d0d5dd;
+            border-radius: 3px;
+            box-shadow: none;
+            outline: none;
+        }
+    }
+
+    .margin {
+        border: 1px dashed #d0d5dd;
+        top: 10px;
+        left: 10px;
+        width: 275px;
+        height: 205px;
+
+        li.title {
+            top: 15px;
+            left: 10px;
+        }
+
+        li.top {
+            top: 5px;
+            left: 110px;
+        }
+
+        li.left {
+            top: 85px;
+            left: 5px;
+        }
+
+        li.right {
+            top: 85px;
+            right: 5px;
+        }
+
+        li.bottom {
+            bottom: 5px;
+            left: 110px;
+        }
+    }
+
+    .padding {
+        border: 1px solid #d0d5dd;
+        top: 50px;
+        left: 65px;
+        width: 160px;
+        height: 120px;
+
+        li.title {
+            top: 48px;
+            left: 55px;
+        }
+
+        li.top {
+            top: 5px;
+            left: 55px;
+        }
+
+        li.left {
+            top: 45px;
+            left: 5px;
+        }
+
+        li.right {
+            top: 45px;
+            right: 5px;
+        }
+
+        li.bottom {
+            bottom: 5px;
+            left: 55px;
+        }
     }
 }
