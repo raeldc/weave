@@ -96,7 +96,9 @@ export default class RowLayout extends NodeLayout {
                         <ColumnSelect node={this.props.id} />
                     </h4>
                 </div>
-                {Childable.createChildrenElements(this, {columns: this.state.columns})}
+                <div className="columns">
+                    {Childable.createChildrenElements(this, {columns: this.state.columns})}
+                </div>
             </div>
         )
 
