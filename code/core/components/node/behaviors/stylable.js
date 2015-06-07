@@ -8,20 +8,16 @@ function afterMount(component) {
     })
 }
 
-function afterUpdate(component) {
-    component.stopListeningToCssChanges()
-    component.stopListeningToCssChanges = Nodes.getStore(component.props.id).getStore('css').listen(() => {
-        LayoutActions.nodeTouched(component.props.id)
-        component.setState(Nodes.get(component.props.id))
-    })
-}
-
 function beforeRender(component) {
     let all    = component.state.css.all,
         device = component.state.css[component.props.device],
         style  = _.deepExtend(_.deepClone(all), device)
 
     component.setProperty('style', style)
+}
+
+function beforeUnmount(component) {
+    component.stopListeningToCssChanges()
 }
 
 function afterRender(component) {
@@ -34,4 +30,4 @@ function newProps(component, nextProps) {
     }
 }
 
-export default {afterMount, afterUpdate, beforeRender, afterRender, newProps}
+export default {afterMount, beforeRender, afterRender, beforeUnmount, newProps}
