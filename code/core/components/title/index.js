@@ -4,11 +4,11 @@ import Layout   from 'core/components/node/layout.js'
 import PaneView from 'core/components/node/paneview.js'
 
 // Config UI
-import Formatting from 'core/components/node/configuration/formatting.js'
-import Alignment  from 'core/components/node/configuration/alignment.js'
-import Dimensions from 'core/components/node/configuration/dimensions.js'
-import Box        from 'core/components/node/configuration/box.js'
-import Styling    from 'core/components/node/configuration/styling.js'
+import Typography  from 'core/components/node/configuration/typography'
+import Positioning from 'core/components/node/configuration/positioning.js'
+import Dimensions  from 'core/components/node/configuration/dimensions.js'
+import Box         from 'core/components/node/configuration/box.js'
+import Styling     from 'core/components/node/configuration/styling.js'
 
 module.exports = {
     name       : 'title',
@@ -20,10 +20,10 @@ module.exports = {
     layout     : Layout,
     paneview   : PaneView,
     configurations: [
-        Formatting,
-        Alignment,
-        Dimensions,
+        Typography,
         Box,
+        Positioning,
+        Dimensions,
         Styling,
     ],
     configurables:  {
