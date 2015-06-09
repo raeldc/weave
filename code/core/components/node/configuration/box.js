@@ -9,6 +9,12 @@ export default class Box extends CSSConfig {
             <div className="form-inline config config-box">
                 <h5>Box</h5>
                 <div className="wrapper">
+                    <ul className="dimensions clearfix">
+                        <li className="form-field width"><span className="label">Width <i className="fa fa-arrows-h" /></span><input onChange={this.setInputValue} value={this.state.width} type="text" name="width" defaultValue="auto" /></li>
+                        <li className="form-field height"><span className="label">Height <i className="fa fa-arrows-v" /></span><input onChange={this.setInputValue} value={this.state.height} type="text" name="height" defaultValue="auto" /></li>
+                    </ul>
+                </div>
+                <div className="wrapper margin-padding">
                     <ul className="margin">
                         <li className="title">Margin</li>
                         <li className="top">
