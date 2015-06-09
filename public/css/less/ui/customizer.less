@@ -25,6 +25,10 @@
 
     ul {
         margin: 15px 5px 5px 5px;
+
+        li.title {
+            margin-bottom: 5px;
+        }
     }
 
     a.btn {
@@ -123,18 +127,56 @@
     }
 
     .dimensions {
-        margin: 0 5px;
-
-        .width {
-            float: left;
-        }
-
-        .height {
-            float: right;
+        li {
+            margin: 0 5px;
         }
 
         input {
             width: 45px;
+        }
+    }
+
+    .alignment,
+    .dimensions {
+        text-align: center;
+
+        li {
+            display: inline-block;
+        }
+
+        .title {
+            width: 100%;
+        }
+    }
+
+    .alignment {
+        .float-left .btn,
+        .center-block .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .normal .btn {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .float-left .fa,
+        .float-right .fa {
+            padding-right: 2px;
+        }
+
+        .float-right .btn {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
     }
 
@@ -220,47 +262,6 @@
         li.bottom {
             bottom: 5px;
             left: 55px;
-        }
-    }
-
-    .alignment {
-        text-align: center;
-
-        li {
-            display: inline-block;
-        }
-
-        .title {
-            width: 100%;
-        }
-        
-        .float-left .btn,
-        .center-block .btn {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
-        }
-
-        .normal .btn {
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
-        }
-
-        .float-left .fa,
-        .float-right .fa {
-            padding-right: 2px;
-        }
-
-        .float-right .btn {
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
         }
     }
 }

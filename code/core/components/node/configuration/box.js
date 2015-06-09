@@ -10,10 +10,30 @@ export default class Box extends CSSConfig {
                 <h5>Box</h5>
                 <div className="wrapper">
                     <ul className="dimensions clearfix">
+                        <li className="title">Dimensions</li>
                         <li className="form-field width"><span className="label">Width <i className="fa fa-arrows-h" /></span><input onChange={this.setInputValue} value={this.state.width} type="text" name="width" defaultValue="auto" /></li>
                         <li className="form-field height"><span className="label">Height <i className="fa fa-arrows-v" /></span><input onChange={this.setInputValue} value={this.state.height} type="text" name="height" defaultValue="auto" /></li>
                     </ul>
                 </div>
+
+                <div className="wrapper">
+                    <ul className="alignment">
+                        <li className="title">Alignment</li>
+                        <li className="normal">
+                            <a className="btn active"><i className="fa fa-th" /> Normal</a>
+                        </li>
+                        <li className="float-left">
+                            <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square-o" /></a>
+                        </li>
+                        <li className="center-block">
+                            <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square" /> <i className="fa fa-long-arrow-right" /></a>
+                        </li>
+                        <li className="float-right">
+                            <a className="btn"><i className="fa fa-square-o" /> <i className="fa fa-long-arrow-right" /></a>
+                        </li>
+                    </ul>
+                </div>
+
                 <div className="wrapper margin-padding">
                     <ul className="margin">
                         <li className="title">Margin</li>
@@ -43,23 +63,6 @@ export default class Box extends CSSConfig {
                         </li>
                         <li className="left">
                             <input onChange={this.setInputValue} value={this.state.paddingLeft} type="number" min="0" max="999" name="paddingLeft" defaultValue="0" />
-                        </li>
-                    </ul>
-                </div>
-                <div className="wrapper">
-                    <ul className="alignment">
-                        <li className="title">Alignment</li>
-                        <li className="normal">
-                            <a className="btn active"><i className="fa fa-th" /> Normal</a>
-                        </li>
-                        <li className="float-left">
-                            <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square-o" /></a>
-                        </li>
-                        <li className="center-block">
-                            <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square" /> <i className="fa fa-long-arrow-right" /></a>
-                        </li>
-                        <li className="float-right">
-                            <a className="btn"><i className="fa fa-square-o" /> <i className="fa fa-long-arrow-right" /></a>
                         </li>
                     </ul>
                 </div>
