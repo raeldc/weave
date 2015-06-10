@@ -38,31 +38,61 @@ export default class Box extends CSSConfig {
                     <ul className="margin">
                         <li className="title">Margin</li>
                         <li className="top">
-                            <input onChange={this.setInputValue} value={this.state.marginTop} type="number" min="0" max="999" name="marginTop" defaultValue="0" />
+                            <a className="clickField">{this.state.marginTop || 0}</a>
                         </li>
                         <li className="right">
-                            <input onChange={this.setInputValue} value={this.state.marginRight} type="number" min="0" max="999" name="marginRight" defaultValue="0" />
+                            <a className="clickField">{this.state.marginRight || 0}</a>
                         </li>
                         <li className="bottom">
-                            <input onChange={this.setInputValue} value={this.state.marginBottom} type="number" min="0" max="999" name="marginBottom" defaultValue="0" />
+                            <a className="clickField">{this.state.marginBottom || 0}</a>
                         </li>
                         <li className="left">
-                            <input onChange={this.setInputValue} value={this.state.marginLeft} type="number" min="0" max="999" name="marginLeft" defaultValue="0" />
+                            <a className="clickField">{this.state.marginLeft || 0}</a>
                         </li>
                     </ul>
                     <ul className="padding">
                         <li className="title">Padding</li>
                         <li className="top">
-                            <input onChange={this.setInputValue} value={this.state.paddingTop} type="number" min="0" max="999" name="paddingTop" defaultValue="0" />
+                            <a className="clickField">{this.state.paddingTop || 0}</a>
                         </li>
                         <li className="right">
-                            <input onChange={this.setInputValue} value={this.state.paddingRight} type="number" min="0" max="999" name="paddingRight" defaultValue="0" />
+                            <a className="clickField">{this.state.paddingRight || 0}</a>
                         </li>
                         <li className="bottom">
-                            <input onChange={this.setInputValue} value={this.state.paddingBottom} type="number" min="0" max="999" name="paddingBottom" defaultValue="0" />
+                            <a className="clickField">{this.state.paddingBottom || 0}</a>
                         </li>
                         <li className="left">
-                            <input onChange={this.setInputValue} value={this.state.paddingLeft} type="number" min="0" max="999" name="paddingLeft" defaultValue="0" />
+                            <a className="clickField">{this.state.paddingLeft || 0}</a>
+                        </li>
+                    </ul>
+                    <ul className="border">
+                        <li className="title">Border</li>
+                        <li className="top">
+                            <a className="clickField">{this.state.borderTop || 0}</a>
+                        </li>
+                        <li className="right">
+                            <a className="clickField">{this.state.borderRight || 0}</a>
+                        </li>
+                        <li className="bottom">
+                            <a className="clickField">{this.state.borderBottom || 0}</a>
+                        </li>
+                        <li className="left">
+                            <a className="clickField">{this.state.borderLeft || 0}</a>
+                        </li>
+                    </ul>
+                    <ul className="radius">
+                        <li className="title">Radius</li>
+                        <li className="top-left">
+                            <a className="clickField">{this.state.radiusTopLeft || 0}</a>
+                        </li>
+                        <li className="top-right">
+                            <a className="clickField">{this.state.radiusTopRight || 0}</a>
+                        </li>
+                        <li className="bottom-right">
+                            <a className="clickField">{this.state.radiusBottomRight || 0}</a>
+                        </li>
+                        <li className="bottom-left">
+                            <a className="clickField">{this.state.radiusBottomLeft || 0}</a>
                         </li>
                     </ul>
                 </div>
