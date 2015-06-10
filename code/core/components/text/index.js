@@ -8,7 +8,7 @@ import Typography  from 'core/components/node/configuration/typography'
 import Positioning from 'core/components/node/configuration/positioning.js'
 import Dimensions  from 'core/components/node/configuration/dimensions.js'
 import Box         from 'core/components/node/configuration/box.js'
-import Styling     from 'core/components/node/configuration/styling.js'
+import Background  from 'core/components/node/configuration/background.js'
 
 module.exports = {
     name       : 'text',
@@ -22,9 +22,7 @@ module.exports = {
     configurations: [
         Typography,
         Box,
-        Positioning,
-        Dimensions,
-        Styling,
+        Background,
     ],
     configurables:  {
 
