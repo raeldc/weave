@@ -23,13 +23,13 @@ export default class Box extends CSSConfig {
                             <a className="btn active"><i className="fa fa-th" /> Normal</a>
                         </li>
                         <li className="float-left">
-                            <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square-o" /></a>
+                            <a className="btn"><i className="fa fa-square-o" /> <i className="fa fa-long-arrow-left" /></a>
                         </li>
                         <li className="center-block">
                             <a className="btn"><i className="fa fa-long-arrow-left" /> <i className="fa fa-square" /> <i className="fa fa-long-arrow-right" /></a>
                         </li>
                         <li className="float-right">
-                            <a className="btn"><i className="fa fa-square-o" /> <i className="fa fa-long-arrow-right" /></a>
+                            <a className="btn"><i className="fa fa-long-arrow-right" /> <i className="fa fa-square-o" /></a>
                         </li>
                     </ul>
                 </div>
