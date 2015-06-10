@@ -44,8 +44,7 @@ export default class Background extends CSSConfig {
 
                     <li className="form-field background-image empty">
                         Drag and Drop an Image or Video Here
-
-                        <a className="btn"><i className="fa fa-image" /> Choose from Media Gallery</a>
+                        <a className="btn"><i className="fa fa-image" /> or Choose from Media Gallery</a>
                     </li>
 
                     <li className="form-field background-image">

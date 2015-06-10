@@ -193,9 +193,13 @@
             position: absolute;
         }
 
-        input {
-            width: 40px;
-            padding: 0 0 0 4px;
+        .clickField {
+            padding: 3px 5px;
+            border: 1px solid #d0d5dd;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 10px;
         }
     }
 
@@ -233,15 +237,19 @@
     }
 
     .padding {
-        border: 1px solid #d0d5dd;
         top: 50px;
         left: 65px;
         width: 160px;
         height: 120px;
 
         li.title {
-            top: 48px;
-            left: 55px;
+            text-align: center;
+            top: 30px;
+            left: 25px;
+            border: 1px dashed #d0d5dd;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
         }
 
         li.top {
@@ -262,6 +270,152 @@
         li.bottom {
             bottom: 5px;
             left: 55px;
+        }
+    }
+
+    .border {
+        position: relative;
+
+        li {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .clickField {
+            visibility: hidden;
+        }
+
+        .title {
+            visibility: hidden;
+        }
+
+        .top {
+            top: 55px;
+            left: 55px;
+            border-top: 5px dotted #d0d5dd;
+            width: 180px;
+            cursor: pointer;
+
+            &:hover {
+                border-top: 5px dotted #b1b6c0;
+            }
+        }
+
+        .right {
+            top: 55px;
+            left: 225px;
+            border-right: 5px dotted #d0d5dd;
+            height: 130px;
+            cursor: pointer;
+
+            &:hover {
+                border-right: 5px dotted #b1b6c0;
+            }
+        }
+
+        .bottom {
+            top: 165px;
+            left: 55px;
+            border-bottom: 5px dotted #d0d5dd;
+            width: 180px;
+            cursor: pointer;
+
+            &:hover {
+                border-bottom: 5px dotted #b1b6c0;
+            }
+        }
+
+        .left {
+            top: 55px;
+            left: 55px;
+            border-left: 5px dotted #d0d5dd;
+            height: 130px;
+            cursor: pointer;
+
+            &:hover {
+                border-left: 5px dotted #b1b6c0;
+            }
+        }
+    }
+
+    .radius {
+        position: relative;
+
+        li {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .clickField {
+            visibility: hidden;
+        }
+
+        .title {
+            visibility: hidden;
+        }
+
+        .top-left {
+            top: 55px;
+            left: 55px;
+            border-top: 5px solid #b1b6c0;
+            border-left: 5px solid #b1b6c0;
+            width:  20px;
+            height: 20px;
+            cursor: pointer;
+            background-color: #f6f6f6;
+
+            &:hover {
+                border-top: 5px solid #7b7f86;
+                border-left: 5px solid #7b7f86;
+            }
+        }
+
+        .top-right {
+            top: 55px;
+            left: 216px;
+            border-top: 5px solid #b1b6c0;
+            border-right: 5px solid #b1b6c0;
+            width:  20px;
+            height: 20px;
+            cursor: pointer;
+            background-color: #f6f6f6;
+
+            &:hover {
+                border-top: 5px solid #7b7f86;
+                border-right: 5px solid #7b7f86;
+            }
+        }
+
+        .bottom-left {
+            top: 167px;
+            left: 55px;
+            border-bottom: 5px solid #b1b6c0;
+            border-left: 5px solid #b1b6c0;
+            width:  20px;
+            height: 20px;
+            cursor: pointer;
+            background-color: #f6f6f6;
+
+            &:hover {
+                border-bottom: 5px solid #7b7f86;
+                border-left: 5px solid #7b7f86;
+            }
+        }
+
+        .bottom-right {
+            top: 167px;
+            left: 216px;
+            border-bottom: 5px solid #b1b6c0;
+            border-right: 5px solid #b1b6c0;
+            width:  20px;
+            height: 20px;
+            cursor: pointer;
+            background-color: #f6f6f6;
+
+            &:hover {
+                border-bottom: 5px solid #7b7f86;
+                border-right: 5px solid #7b7f86;
+            }
         }
     }
 }
@@ -385,6 +539,10 @@
                 border-radius: 5px;
                 height: 35px;
                 width: 160px;
+
+                cursor: -webkit-grab;
+                cursor: -moz-grab;
+                cursor: grab;
             }
 
             .configure {
