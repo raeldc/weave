@@ -34,20 +34,20 @@ export default class Box extends CSSConfig {
                     </ul>
                 </div>
 
-                <div className="wrapper margin-padding">
+                <div className="wrapper box-model">
                     <ul className="margin">
                         <li className="title">Margin</li>
                         <li className="top">
-                            <a className="clickField">{this.state.marginTop || 0}</a>
+                            <a className="clickField">0 px</a>
                         </li>
                         <li className="right">
-                            <a className="clickField">{this.state.marginRight || 0}</a>
+                            <a className="clickField">auto</a>
                         </li>
                         <li className="bottom">
-                            <a className="clickField">{this.state.marginBottom || 0}</a>
+                            <a className="clickField">0 px</a>
                         </li>
                         <li className="left">
-                            <a className="clickField">{this.state.marginLeft || 0}</a>
+                            <a className="clickField">auto</a>
                         </li>
                     </ul>
                     <ul className="padding">
