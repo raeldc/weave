@@ -32,18 +32,18 @@ export default class ScreenLayout extends Component {
 
         switch(this.state.screenLayout) {
             case 'split':
-            case 'full':
+            case 'minimized':
                 buttons.push(
-                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'minimized')} key="minimized"><i className="fa fa-minus minimize"></i></button>
+                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'full')} key="full"><i className="fa fa-expand full"></i></button>
                 )
             break
         }
 
         switch(this.state.screenLayout) {
             case 'split':
-            case 'minimized':
+            case 'full':
                 buttons.push(
-                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'full')} key="full"><i className="fa fa-expand full"></i></button>
+                    <button className="btn btn-default btn-xs" onClick={this.setScreenLayout.bind(this, 'minimized')} key="minimized"><i className="fa fa-minus minimize"></i></button>
                 )
             break
         }

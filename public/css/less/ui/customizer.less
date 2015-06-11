@@ -127,6 +127,10 @@
 
     .wrapper {
         position: relative;
+
+        .title {
+            text-align: center;
+        }
     }
 
     .dimensions {
@@ -576,6 +580,81 @@
             .configure {
                 border-left: 0;
                 letter-spacing: 3px;
+            }
+        }
+    }
+}
+
+.config-css {
+    padding-bottom: 20px;
+
+    > .css {
+        border: 1px solid #bdc4c8;
+        border-radius: 5px;
+        width: 80%;
+        margin-left:  auto;
+        margin-right: auto;
+
+        li {
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #d0d5dd;
+            background-color: #fcfcfc;
+            .clearfix();
+
+            .btn, .label {
+                margin: 0;
+                border: 0px;
+                border-radius: 0;
+                background-color: transparent;
+                height: 100%;
+                padding: 10px 15px;
+
+                &:active {
+                    box-shadow: none;
+                }
+            }
+
+            .active {
+                color: #29d74a;
+                box-shadow: none;
+            }
+
+            .select {
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
+                width: 40px;
+            }
+
+            .select, .label {
+                float: left;
+            }
+
+            .visibility, .delete {
+                float: right;
+                padding-left: 0px;
+            }
+
+            .label {
+                color: #545f66;
+                min-width: 140px;
+                max-width: 140px;
+                border-left: 1px solid #d0d5dd;
+                border-right: 1px solid #d0d5dd;
+                background-color: #fff;
+                text-align: left;
+            }
+
+            &:first-child {
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
             }
         }
     }
