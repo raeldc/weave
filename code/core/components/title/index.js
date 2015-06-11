@@ -7,6 +7,7 @@ import PaneView from 'core/components/node/paneview.js'
 import Typography  from 'core/components/node/configuration/typography'
 import Box         from 'core/components/node/configuration/box.js'
 import Background  from 'core/components/node/configuration/background.js'
+import Css         from 'core/components/node/configuration/css.js'
 
 module.exports = {
     name       : 'title',
@@ -20,7 +21,8 @@ module.exports = {
     configurations: [
         Typography,
         Background,
-        Box
+        Box,
+        Css
     ],
     configurables:  {
 

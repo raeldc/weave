@@ -33,7 +33,11 @@ export default class Box extends CSSConfig {
                         </li>
                     </ul>
                 </div>
-
+                <div className="wrapper">
+                    <ul>
+                        <li className="title">Border and Spacing</li>
+                    </ul>
+                </div>
                 <div className="wrapper box-model">
                     <ul className="margin">
                         <li className="title">Margin</li>
