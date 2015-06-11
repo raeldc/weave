@@ -36,7 +36,7 @@ export default class Typography extends Component {
                                 <a className="btn fa fa-align-right" />
                             </span>
                             <span className="transform">
-                                <a className="btn"><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
+                                <a className="btn active"><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
                                 <a className="btn fa fa-italic" />
                                 <a className="btn fa fa-underline" />
                                 <a className="btn advanced"><i className="fa fa-cog " /> <i className="fa fa-caret-down" /></a>
