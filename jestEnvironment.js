@@ -1,0 +1,5 @@
+jest.autoMockOff()
+require.requireActual('react-tools')
+require.requireActual('./node_modules/babelify/polyfill')
+_ = require.requireActual('underscore')
+require.requireActual('./node_modules/core/lib/utils.js')
