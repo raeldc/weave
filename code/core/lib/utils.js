@@ -72,8 +72,16 @@ function toDash(string) {
     return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
 }
 
+function isNode(o){
+  return (
+    typeof Node === "object" ? o instanceof Node : 
+    o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
+  );
+}
+
 _.mixin({ 'deepClone' : deepClone }); 
 _.mixin({ 'deepExtend': deepExtend });
 _.mixin({ 'toDash'    : toDash });
+_.mixin({ 'isNode'    : isNode });
 
 module.exports = _;
