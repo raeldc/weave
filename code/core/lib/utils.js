@@ -68,7 +68,12 @@ function deepClone(object) {
     return clone;
 }
 
-_.mixin({ 'deepClone': deepClone }); 
+function toDash(string) {
+    return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+}
+
+_.mixin({ 'deepClone' : deepClone }); 
 _.mixin({ 'deepExtend': deepExtend });
+_.mixin({ 'toDash'    : toDash });
 
 module.exports = _;
