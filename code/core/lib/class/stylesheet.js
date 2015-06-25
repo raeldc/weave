@@ -4,15 +4,13 @@ import Style from 'core/lib/class/style.js'
 
 var key = {
     stylesheet: Symbol('stylesheet'),
-    media     : Symbol('media'),
     query     : Symbol('query')
 }
 
-export default class CSS {
-    constructor(media = 'all', query = 'all') {
+export default class Stylesheet {
+    constructor(query = 'all') {
         this[key.stylesheet] = new Map()
-        this[key.media]       = media
-        this[key.query]       = query
+        this[key.query]      = query
     }
 
     addStyle(selector, style) {
@@ -32,12 +30,12 @@ export default class CSS {
         return this[key.stylesheet].get(selector)
     }
 
-    getAlias() {
-        return this[key.media]
-    }
-
     getQuery() {
         return this[key.query]
+    }
+
+    inlineCSS() {
+        return this.toString(true)
     }
 
     toString(inline = false) {

@@ -1,4 +1,4 @@
 'use strict'
 
-import CSS from 'core/lib/class/css.js'
+import Stylesheet from 'core/lib/class/stylesheet.js'
 
