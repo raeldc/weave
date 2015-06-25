@@ -57,7 +57,7 @@ export default class Style {
         let css = `${this[key.selector]} {\n`
 
         for(let [property, value] of this[key.style]) {
-            css += `\t${property}: "${value}";\n`
+            css += `\t${property}: ${value};\n`
         }
 
         css += '}'
