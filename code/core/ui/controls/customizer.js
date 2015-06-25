@@ -5,7 +5,7 @@ import Nodes           from 'core/stores/nodes.js'
 import UIConfig        from 'core/stores/uiconfig.js'
 import Components from 'core/stores/components.js'
 
-export default class NodeConfig extends Component {
+export default class Customizer extends Component {
     initialState() {
         return UIConfig.Preview.toObject()
     }
@@ -26,7 +26,7 @@ export default class NodeConfig extends Component {
             }.bind(this))
 
             return ( 
-                <div className="ui-nodeconfig">
+                <div className="ui-customizer">
                     {Configurations}
                 </div>
             )

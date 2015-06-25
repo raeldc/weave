@@ -9,16 +9,7 @@ function shouldUpdate(component, nextProps, nextState) {
 
 function afterMount(component) {
     component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
-        LayoutActions.nodeTouched(component.props.id)
-        component.setState(Nodes.get(component.props.id))
-    })
-}
-
-function afterUpdate(component) {
-    component.stopListeningToNodeChanges()
-    component.stopListeningToNodeChanges = Nodes.getStore(component.props.id).listen(() => {
-        LayoutActions.nodeTouched(component.props.id)
-        component.setState(Nodes.get(component.props.id))
+        onNodeChange(component)
     })
 }
 
@@ -26,4 +17,9 @@ function beforeUnmount(component) {
     component.stopListeningToNodeChanges()
 }
 
-export default {shouldUpdate, afterMount, afterUpdate, beforeUnmount}
+function onNodeChange(component) {
+    LayoutActions.nodeTouched(component.props.id)
+    component.setState(Nodes.get(component.props.id))
+}
+
+export default {shouldUpdate, afterMount, beforeUnmount}

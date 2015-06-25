@@ -5,11 +5,10 @@ import LayoutActions from 'core/actions/layout.js'
 import LayoutStore   from 'core/stores/layout.js'
 import Eventable     from 'core/components/node/behaviors/eventable.js'
 
-function beforeMount(component) {
-    registerEvents(component)
-}
+// Get Utility functions for getting info about the component
+import {getNodeInfo, resetNodeInfo, getCursorPosition} from 'core/components/node/utilities/nodeinfo.js'
 
-function beforeUpdate(component) {
+function beforeMount(component) {
     registerEvents(component)
 }
 
@@ -54,38 +53,40 @@ function executeDraggingRules(component, event) {
     var subject = LayoutStore.get('drag_subject') || false
 
     if(subject) {
+        let position = getCursorPosition(component, event)
+
         if(
             component.cursorPosition !== 'top' &&
             typeof component.draggingOnTop === 'function' && 
-            isDraggingOnArea(component, event, 'top') && 
+            position.top && 
             component.draggingOnTop(subject, component.props.id)
         ) 
             component.cursorPosition = 'top'
         else if(
             component.cursorPosition !== 'right' &&
             typeof component.draggingOnRight === 'function' && 
-            isDraggingOnArea(component, event, 'right') && 
+            position.right && 
             component.draggingOnRight(subject, component.props.id)
         )
             component.cursorPosition = 'right'
         else if(
             component.cursorPosition !== 'bottom' && 
             typeof component.draggingOnBottom === 'function' && 
-            isDraggingOnArea(component, event, 'bottom') && 
+            position.bottom && 
             component.draggingOnBottom(subject, component.props.id)
         )
             component.cursorPosition = 'bottom'
         else if(
             component.cursorPosition !== 'left' &&
             typeof component.draggingOnLeft === 'function' &&
-            isDraggingOnArea(component, event, 'left') &&
+            position.left &&
             component.draggingOnLeft(subject, component.props.id)
         )
             component.cursorPosition = 'left'
         else if(
             component.cursorPosition !== 'inside' &&
             typeof component.draggingInside === 'function' &&
-            isDraggingOnArea(component, event, 'inside') &&
+            position.inside &&
             component.draggingInside(subject, component.props.id)
         )
             component.cursorPosition = 'inside'
@@ -99,51 +100,4 @@ function executeDraggingRules(component, event) {
     event.stopPropagation()
 }
 
-function isDraggingOnArea(component, event, area) {
-    if(component.nodeInfo) {
-        switch(area) {
-            case 'top':
-                return event.clientY < (component.nodeInfo.top + (component.nodeInfo.height * .5))
-            break
-            case 'right':
-                return event.clientX > component.nodeInfo.left + (component.nodeInfo.width - (component.nodeInfo.width * .5))
-            break
-            case 'bottom':
-                return event.clientY > (component.nodeInfo.top + (component.nodeInfo.height - (component.nodeInfo.height * .5)))
-            break
-            case 'left':
-                return  event.clientX < component.nodeInfo.left + (component.nodeInfo.width * .5)
-            break
-            case 'inside':
-                return (event.clientX <= component.nodeInfo.left + component.nodeInfo.width) && (event.clientY <= component.nodeInfo.top + component.nodeInfo.height)
-            break
-        }
-    }
-
-    return false
-}
-
-export function resetNodeInfo(component) {
-    component.nodeInfo       = undefined
-    component.cursorPosition = undefined
-}
-
-export function getNodeInfo(component) {
-    var $target, nodeOffset
-
-    if(LayoutStore.get('drag_subject')) {
-        $target    = jQuery(React.findDOMNode(component)),
-        nodeOffset = $target.offset()
-
-        component.nodeInfo = {
-            width : $target.outerWidth(),
-            height: $target.outerHeight(),
-            top   : nodeOffset.top - jQuery(window).scrollTop(),
-            left  : nodeOffset.left
-        }
-
-        return component.nodeInfo
-    }
-}
-
-export default {beforeMount, beforeUpdate}
+export default {beforeMount}

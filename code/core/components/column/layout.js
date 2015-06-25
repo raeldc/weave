@@ -12,7 +12,7 @@ import LayoutActions from 'core/actions/layout.js'
 import NodeActions   from 'core/actions/node.js'
 
 // UI
-import DeviceIcon from 'core/ui/controls/topbar/deviceicon.js'
+import DeviceIcon from 'core/ui/elements/deviceicon.js'
 
 // Behaviors
 import Childable   from 'core/components/node/behaviors/childable.js'
@@ -106,12 +106,13 @@ export default class ColumnLayout extends NodeLayout {
         return (
             <div className="inner">
                 <div className="controls">
-                    <h4 className="title">Column
+                    <h4 className="title">
                         <div className="btn-group pull-right">
                             <button className="btn btn-xs" onClick={() => {this.deleteNode(this.props.id)}}>
                                 <i className="fa fa-trash"></i>
                             </button>
                         </div>
+                        {this.props.id}
                         <ColspanSelect node={this.props.id} />
                     </h4>
                 </div>

@@ -20,7 +20,7 @@ export default class ComponentSelection extends React.Component {
 
                     if(component.paneview !== undefined) {
                         components.push(
-                            <component.paneview key={component.name} component={component.name} title={component.title} iconClass={component.iconClass} /> 
+                            <component.paneview key={component.name} component={component.name} {...component} /> 
                         )
                     }
                 })
@@ -36,6 +36,6 @@ export default class ComponentSelection extends React.Component {
             }
         }
 
-        return <div id="corebuilder-components">{groups}</div>
+        return <div className="ui-controls-components">{groups}</div>
     }
 }

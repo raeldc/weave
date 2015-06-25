@@ -6,7 +6,14 @@ import Store              from 'core/stores'
 import Nodes              from 'core/stores/nodes.js'
 import * as Components    from 'core/stores/components.js'
 
-let Layout = (new Store({device: 'desktop'})).setActions(LayoutActions, {
+let Layout = (new Store({device: 'desktop', screenLayout: 'split'})).setActions(LayoutActions, {
+    onSetScreenLayout: function(layout) {
+        if(this.get('screenLayout') !== layout) {
+            this.set('screenLayout', layout)
+            this.trigger('setScreenLayout',layout)
+        }
+    },
+
     onSetDevice: function(device) {
         if(this.get('device') !== device) {
             this.set('device', device)

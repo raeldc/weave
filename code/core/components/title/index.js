@@ -4,27 +4,25 @@ import Layout   from 'core/components/node/layout.js'
 import PaneView from 'core/components/node/paneview.js'
 
 // Config UI
-import Formatting from 'core/components/node/configuration/formatting.js'
-import Alignment  from 'core/components/node/configuration/alignment.js'
-import Dimensions from 'core/components/node/configuration/dimensions.js'
-import Box        from 'core/components/node/configuration/box.js'
-import Styling    from 'core/components/node/configuration/styling.js'
+import Typography  from 'core/components/node/configuration/typography'
+import Box         from 'core/components/node/configuration/box.js'
+import Background  from 'core/components/node/configuration/background.js'
+import Css         from 'core/components/node/configuration/css.js'
 
 module.exports = {
     name       : 'title',
     group      : 'content',
     title      : 'Header',
     description: 'A Title or Header',
-    iconClass  : 'glyphicon glyphicon-header',
+    icon       : 'fa fa-header',
     node       : Node,
     layout     : Layout,
     paneview   : PaneView,
     configurations: [
-        Formatting,
-        Alignment,
-        Dimensions,
+        Typography,
+        Background,
         Box,
-        Styling,
+        Css
     ],
     configurables:  {
 

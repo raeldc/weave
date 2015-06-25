@@ -7,7 +7,16 @@ import LayoutActions from 'core/actions/layout.js'
 
 export default class PaneView extends Component {
     render() {
-        return <a draggable type="button" className="btn btn-primary" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}><i className={this.props.iconClass}></i> {this.props.title}</a> 
+        return (
+            <a  draggable 
+                type="button" 
+                className="btn" 
+                onDragStart={this.onDragStart} 
+                onDragEnd={this.onDragEnd}>
+                    <i className={this.props.icon}></i><br />
+                    {this.props.title}
+            </a> 
+        )
     }
 
     onDragStart(event) {
@@ -16,18 +25,18 @@ export default class PaneView extends Component {
             node      = Nodes.addNode(defaults)
             this.node = node
 
-        LayoutActions.startDrag(node);
-        event.stopPropagation();
+        LayoutActions.startDrag(node)
+        event.stopPropagation()
     }
 
     onDragEnd(event) {
-        let node = Nodes.get(this.node) || {};
+        let node = Nodes.get(this.node) || {}
 
         if(node.unmounted) {
-            Nodes.deleteNode(this.node);
+            Nodes.deleteNode(this.node)
         }
 
-        LayoutActions.stopDrag();
-        event.stopPropagation();
+        LayoutActions.stopDrag()
+        event.stopPropagation()
     }
 }

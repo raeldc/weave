@@ -27,12 +27,12 @@ module.exports = function(grunt) {
 
     var wp_themebuilder_watch = [
         'watchify:themebuilder',
-        'watch:wp_themebuilder'
+        'watch',
     ];
 
     var wp_pagebuilder_dist = [
         'less', 
-        'watchify', 
+        'watchify:pagebuilder', 
         'uglify:pagebuilder',
         'copy:wp_pagebuilder_dist',
         // Copy files to the Standalone App also
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 
     var wp_themebuilder_dist = [
         'less:themebuilder', 
-        'watchify', 
+        'watchify:themebuilder', 
         'uglify:themebuilder',
         'copy:wp_themebuilder_dist',
         // Copy files to the Standalone App also

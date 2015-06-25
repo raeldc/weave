@@ -8,7 +8,7 @@
     </head>
     <body <?php body_class(); ?>>
         <?php if(did_action('customize_preview_init')): ?>
-            <div id="corebuilder-container"></div>
+            <div id="corebuilder-preview"></div>
             <div id="corebuilder-overlay"></div>
         <?php else: ?>
             <?php corebuilder_factory_render_html('root') ?>

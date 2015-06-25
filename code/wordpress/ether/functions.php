@@ -69,7 +69,7 @@ jQuery(document).ready(function(){
 
 add_action('customize_controls_enqueue_scripts', function() {
     wp_enqueue_script(
-        'mt-themebuilder-customizer',
+        'themebuilder-customizer',
         get_template_directory_uri() . '/js/themebuilder.js',
         array('jquery', 'underscore'),
         '1.0.0',
@@ -84,7 +84,7 @@ add_action('customize_controls_print_styles', function() {
 
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style(
-        'mt-themebuilder-css-base',
+        'themebuilder-css-base',
         get_template_directory_uri() . '/css/base.css',
         array(),
         '1.0.0'
@@ -93,7 +93,7 @@ add_action('wp_enqueue_scripts', function() {
 
 add_action('customize_preview_init', function() {
     wp_enqueue_style(
-        'mt-themebuilder-css-overlay',
+        'themebuilder-css-overlay',
         get_template_directory_uri() . '/css/overlay.css',
         array(),
         '1.0.0'
@@ -101,7 +101,7 @@ add_action('customize_preview_init', function() {
 });
 
 add_action('customize_controls_print_footer_scripts', function() {
-    echo '<div id="corebuilder-controls"></div>';
+    echo '<div id="corebuilder-layout"></div>';
 });
 
 add_action('customize_save', function() {
@@ -109,5 +109,12 @@ add_action('customize_save', function() {
         update_option(get_stylesheet().'_nodes', $_POST['nodes']);
     }
 });
+
+/**
+ * Temporarily Remove that annoying emoji error on 4.2.2
+ * We don't need emoji here so we disable this for now.
+ */
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 require __DIR__.'/components/factory.php';

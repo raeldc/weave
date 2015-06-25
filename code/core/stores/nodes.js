@@ -25,7 +25,7 @@ export default new Store({}, UINodeActions, {
 
     addNode: function(properties) {
         var parent,
-            node = _.isObject(properties) ? _.clone(properties) : {}
+            node = _.isObject(properties) ? _.deepClone(properties) : {}
 
         if(node.id === undefined) {
             node.id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + '-' + node.component
@@ -105,9 +105,10 @@ export default new Store({}, UINodeActions, {
 
     insertNodeBesideSibling: function(node, sibling, position) {
         var children = []
-            sibling  = this.get(sibling),
-            parent   = this.get(sibling.parent),
-            node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node))
+
+        sibling  = this.get(sibling),
+        parent   = this.get(sibling.parent),
+        node     = _.isString(node) ? this.get(node) : this.get(this.addNode(node))
 
         if(sibling === undefined) {
             throw new Error('Sibling does not exist')
@@ -161,8 +162,6 @@ export default new Store({}, UINodeActions, {
 
             node.parent = parent
 
-            this.remove(node.id)
-
             this.addChildNode(node, 'after')
             this.getStore(parent).trigger()
 
@@ -175,10 +174,7 @@ export default new Store({}, UINodeActions, {
         var node, parent
 
         if(this.hasProperty(id) && this.hasProperty(sibling) && id !== sibling) {
-            node = _.clone(this.get(id))
-
-            // Non-recursive removal of node            
-            this.remove(id)
+            node = this.get(id)
 
             if(node.parent) {
                 parent = this.getStore(node.parent)

@@ -6,6 +6,7 @@
   "dependencies": {
     "react": "0.13.x",
     "react-bootstrap": "0.17.x",
+    "react-colorpicker": "*",
     "underscore": "1.8.x",
     "jquery": "2.1.x",
     "reflux": "0.2.x",

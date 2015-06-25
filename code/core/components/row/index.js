@@ -1,6 +1,13 @@
 import Node   from 'core/components/row/node.js'
 import Layout from 'core/components/row/layout.js'
 
+// Config UI
+import Typography  from 'core/components/node/configuration/typography'
+import Positioning from 'core/components/node/configuration/positioning.js'
+import Dimensions  from 'core/components/node/configuration/dimensions.js'
+import Box         from 'core/components/node/configuration/box.js'
+import Background  from 'core/components/node/configuration/background.js'
+
 export default {
     name       : 'row',
     title      : 'Row',
@@ -13,6 +20,10 @@ export default {
         columns: 4,
         classes: ['row']
     },
+    configurations: [
+        Background,
+        Box
+    ],
     rules: {
         parents: ['root', 'column']
     }

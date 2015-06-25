@@ -41,12 +41,12 @@ var StoreDefinition = {
 
     set: function(index, data) {
         if(_.isObject(data) && !_.isArray(data)) {
-            var object = this.getStore(index)
-            if(object instanceof Store) {
+            let object = this.getStore(index)
+            if(object !== undefined && _.isObject(object.data)) {
                 // Since the current object is already a Store, we just want to update the contents of the object
                 // without removing the listeners attached to it
-                var newkeys = _.keys(data)
-                var oldkeys = _.keys(object.toObject())
+                let newkeys = _.keys(data)
+                let oldkeys = _.keys(object.toObject())
                 newkeys     = _.difference(oldkeys, newkeys)
 
                 this.removeObjects(newkeys)
@@ -72,9 +72,7 @@ var StoreDefinition = {
     },
 
     removeObjects: function(keys) {
-        _.each(keys, function(key) {
-            this.remove(key)
-        }.bind(this))
+        _.each(keys, this.remove.bind(this))
     },
 
     setData: function(data) {

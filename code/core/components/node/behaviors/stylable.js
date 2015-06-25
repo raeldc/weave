@@ -1,5 +1,12 @@
 import Nodes       from 'core/stores/nodes.js'
-import LayoutStore from 'core/stores/layout.js'
+import LayoutActions from 'core/actions/layout.js'
+
+function afterMount(component) {
+    component.stopListeningToCssChanges = Nodes.getStore(component.props.id).getStore('css').listen(() => {
+        LayoutActions.nodeTouched(component.props.id)
+        component.setState(Nodes.get(component.props.id))
+    })
+}
 
 function beforeRender(component) {
     let all    = component.state.css.all,
@@ -7,6 +14,10 @@ function beforeRender(component) {
         style  = _.deepExtend(_.deepClone(all), device)
 
     component.setProperty('style', style)
+}
+
+function beforeUnmount(component) {
+    component.stopListeningToCssChanges()
 }
 
 function afterRender(component) {
@@ -19,4 +30,4 @@ function newProps(component, nextProps) {
     }
 }
 
-export default {beforeRender, afterRender, newProps}
+export default {afterMount, beforeRender, afterRender, beforeUnmount, newProps}

@@ -13,7 +13,7 @@ export default class Preview extends Component {
 
     render() {
         return (
-            <div id="corebuilder-preview-frame" className={this.state.device}>
+            <div className={"ui-preview " + this.state.device}>
                 <iframe ref="iframe" src={this.state.page} onLoad={this.renderPreviewContent} />
             </div>
         )
