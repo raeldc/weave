@@ -9,7 +9,7 @@ var key = {
 
 export default class Stylesheets {
     constructor(document) {
-        if(document === undefined) {
+        if(!_.isNode(document)) {
             throw new Error('Cannot create new Stylesheets Object without a document object. Try window.document.')
         }
 
@@ -17,7 +17,7 @@ export default class Stylesheets {
         this[key.stylesheets] = new Map()
     }
 
-    createStylesheet(alias = 'all', query = 'all') {
+    create(alias = 'all', query = 'all') {
         if(!this[key.stylesheets].has(alias)){
             let domElement = this[key.document].createElement('style');
 
@@ -31,10 +31,10 @@ export default class Stylesheets {
             this[key.stylesheets].set(alias, new Stylesheet(query, domElement.sheet))
         }
 
-        return this.getStylesheet(alias)
+        return this.get(alias)
     }
 
-    getStylesheet(alias = 'all') {
+    get(alias = 'all') {
         return this[key.stylesheets].get(alias)
     }
 }
