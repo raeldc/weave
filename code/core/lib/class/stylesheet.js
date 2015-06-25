@@ -86,6 +86,7 @@ export default class Stylesheet {
                 let index = 0
 
                 for(let [selector, style] of this[key.stylesheet]) {
+                    this.getSheet().deleteRule(index)
                     this.getSheet().insertRule(style.toString(), index)
                     this.getIndex().set(selector, index)
                     index++
