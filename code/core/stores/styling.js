@@ -1,6 +1,7 @@
 'use strict'
 
 import Stylesheets from 'core/ui/controls/stylesheets.js'
+import Reflux      from 'reflux'
 
 var key = {
     store      : Symbol('store'),
@@ -8,6 +9,10 @@ var key = {
 }
 
 export class Styling {
+    constructor() {
+        this[key.store] = Reflux.createStore()
+    }
+
     setDocument(document) {
         if(!(this[key.stylesheets] instanceof Stylesheets)) {
             this[key.stylesheets] = new Stylesheets(document)
@@ -19,6 +24,14 @@ export class Styling {
 
     getStylesheets() {
         return this[key.stylesheets]
+    }
+
+    listen(func) {
+        return this[key.store].listen(func)
+    }
+
+    trigger() {
+        return this[key.store].trigger()
     }
 }
 

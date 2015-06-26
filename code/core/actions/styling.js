@@ -8,10 +8,20 @@ function getClass(id) {
 
 export function changeStyle(node, style, device = 'all') {
     Styling.getStylesheets().get(device).replaceStyle(getClass(node), style)
+    Styling.trigger()
 }
 
 export function defaultStyle(node, style, device = 'all') {
     Styling.getStylesheets().get(device).defaultStyle(getClass(node), style)
+    Styling.trigger()
 }
 
-export default {changeStyle, defaultStyle}
+export function getStyle(node, device = 'all') {
+    return Styling.getStylesheets().get(device).getStyle(getClass(node))
+}
+
+export function onChangeStyle(func) {
+    return Styling.listen(func)
+}
+
+export default {changeStyle, defaultStyle, getStyle, onChangeStyle}
