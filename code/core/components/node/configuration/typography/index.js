@@ -1,14 +1,14 @@
 'use strict'
 
-import Component from 'core/component.js'
-import Nodes     from 'core/stores/nodes.js'
+import CSSConfig from 'core/components/node/configuration/cssconfig.js'
 
-export default class Typography extends Component {
-    initialState() {
-        return Nodes.get(this.props.node)
-    }
+// Actions
+import {changeStyle, getStyle} from 'core/actions/styling.js'
 
+export default class Typography extends CSSConfig {
     render() {
+        let Style = getStyle(this.props.node, this.props.device)
+        console.log('render Typography')
         return (
             <div className="form-inline config config-typography">
                 <h5>Typography</h5>
@@ -30,10 +30,26 @@ export default class Typography extends Component {
                         </li>
                         <li className="formatting clearfix">
                             <span className="alignment">
-                                <a className="btn fa fa-align-left active" />
-                                <a className="btn fa fa-align-center" />
-                                <a className="btn fa fa-align-justify" />
-                                <a className="btn fa fa-align-right" />
+                                <a className={"btn fa fa-align-left" + Style.compareProperty('textAlign', 'left', ' active', '')} onClick={() => {
+                                    changeStyle(this.props.node, {
+                                        textAlign: 'left'
+                                    }, this.props.device)
+                                }} />
+                                <a className={"btn fa fa-align-center" + Style.compareProperty('textAlign', 'center', ' active', '')} onClick={() => {
+                                    changeStyle(this.props.node, {
+                                        textAlign: 'center'
+                                    }, this.props.device)
+                                }} />
+                                <a className={"btn fa fa-align-justify" + Style.compareProperty('textAlign', 'justify', ' active', '')} onClick={() => {
+                                    changeStyle(this.props.node, {
+                                        textAlign: 'justify'
+                                    }, this.props.device)
+                                }} />
+                                <a className={"btn fa fa-align-right" + Style.compareProperty('textAlign', 'right', ' active', '')} onClick={() => {
+                                    changeStyle(this.props.node, {
+                                        textAlign: 'right'
+                                    }, this.props.device)
+                                }} />
                             </span>
                             <span className="transform">
                                 <a className="btn active"><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
@@ -46,9 +62,5 @@ export default class Typography extends Component {
                 </div>
             </div>
         )
-    }
-
-    setInputValue() {
-
     }
 }
