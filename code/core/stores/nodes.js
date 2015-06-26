@@ -310,15 +310,6 @@ export default new Store({}, UINodeActions, {
         this.trigger('onDeleteNode', id)
     },
 
-    onUpdateNodeCSS: function(id, device, property, value) {
-        let css = this.getStore(id).getStore('css')
-            css.getStore(device).set(property, value)
-            css.trigger(property, device, value)
-
-        // Trigger Change on main Node Store
-        this.trigger('onUpdateNodeCSS', id, device, property, value)
-    },
-
     onUpdateText: function(id, text) {
         this.getStore(id).set('text', text).trigger(id, text)
 

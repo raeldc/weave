@@ -10,7 +10,6 @@ export default Reflux.createActions([
     'updateColumns',
     'updateColspan',
     'updateText',
-    'updateNodeCSS',
     'addChildNode',
     'moveNodeToParent',
     'moveNodeBesideSibling',
