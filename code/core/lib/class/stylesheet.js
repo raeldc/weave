@@ -24,6 +24,17 @@ export default class Stylesheet {
         return this.replaceStyle(selector, style)
     }
 
+    defaultStyle(selector, style) {
+        if(!this[key.stylesheet].has(selector)) {
+            this[key.stylesheet].set(selector, new Style(selector, style))
+        }
+        else this[key.stylesheet].get(selector).append(style)
+
+        this.flush(selector)
+
+        return this
+    }
+
     replaceStyle(selector, style) {
         if(!this[key.stylesheet].has(selector)) {
             this[key.stylesheet].set(selector, new Style(selector, style))

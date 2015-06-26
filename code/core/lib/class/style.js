@@ -34,10 +34,26 @@ export default class Style {
         return this[key.style].get(_.toDash(property)) || defaultValue
     }
 
+    has(property) {
+        return this[key.style].has(_.toDash(property))
+    }
+
     merge(style) {
         if(_.isObject(style)) {
             _.each(style, (value, property) => {
                 this.set(property, value)
+            })
+        }
+
+        return this
+    }
+
+    append(style) {
+        if(_.isObject(style)) {
+            _.each(style, (value, property) => {
+                if(!this.has(property)) {
+                    this.set(property, value)
+                }
             })
         }
 

@@ -56,6 +56,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      */
     Styling.setDocument(window.preview.document)
             .getStylesheets()
+            .create('all',     'all')
             .create('desktop', 'screen')
             .create('laptop',  'only screen and (min-width: 992px) and (max-width: 1199px)')
             .create('tablet',  'only screen and (min-width: 768px) and (max-width: 991px)')
