@@ -96,8 +96,9 @@ export default class Stylesheet {
                 {
                     let size = this.getSheet().cssRules.length
 
-                    while(index <= size) {
+                    while(index < size) {
                         this.getSheet().deleteRule(index)
+                        index++
                     }
                 }
             }else {

@@ -19,19 +19,19 @@ export default class Stylesheets {
 
     create(alias = 'all', query = 'all') {
         if(!this[key.stylesheets].has(alias)){
-            let domElement = this[key.document].createElement('style');
+            let domElement = this[key.document].createElement('style')
 
             domElement.setAttribute('media', query)
 
             // WebKit hack :(
-            domElement.appendChild(this[key.document].createTextNode(`/* ${alias} */`));
+            domElement.appendChild(this[key.document].createTextNode(`/* ${alias} */`))
 
             // Add the <style> element to the page
-            this[key.document].head.appendChild(domElement);
+            this[key.document].head.appendChild(domElement)
             this[key.stylesheets].set(alias, new Stylesheet(query, domElement.sheet))
         }
 
-        return this.get(alias)
+        return this
     }
 
     get(alias = 'all') {
