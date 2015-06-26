@@ -2,8 +2,9 @@
 
 require('babelify/polyfill');
 
-import CoreBuilder  from 'core'
-import Utils        from 'core/lib/utils.js'
+import CoreBuilder from 'core'
+import Utils       from 'core/lib/utils.js'
+import Styling     from 'core/stores/styling.js'
 
 // UI Components
 import Customizer         from 'core/ui/controls/customizer.js'
@@ -47,6 +48,18 @@ CoreBuilder.ThemeBuilder = function(config) {
             });
         };
     }
+
+
+    /**
+     * Create Stylesheets for Device Queries
+     * @see https://css-tricks.com/snippets/css/media-queries-for-standard-devices/
+     */
+    Styling.setDocument(window.preview.document)
+            .getStylesheets()
+            .create('desktop', 'screen')
+            .create('laptop',  'only screen and (min-width: 992px) and (max-width: 1199px)')
+            .create('tablet',  'only screen and (min-width: 768px) and (max-width: 991px)')
+            .create('phone',   'only screen and (min-width: 320px) and (max-width: 767px)')
 
     /**
      * Open the Styling options on the sidebar
