@@ -8,7 +8,7 @@ import {changeStyle, getStyle} from 'core/actions/styling.js'
 export default class Typography extends CSSConfig {
     render() {
         let Style = getStyle(this.props.node, this.props.device)
-        console.log('render Typography')
+
         return (
             <div className="form-inline config config-typography">
                 <h5>Typography</h5>
