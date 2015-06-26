@@ -69,6 +69,14 @@ export default class Style {
         return this
     }
 
+    compareProperty(property, value, equal = true, notEqual = false) {
+        if(this.get(property) === value) {
+            return equal
+        }
+
+        return notEqual
+    }
+
     toString() {
         let css = `${this[key.selector]} {\n`
 
