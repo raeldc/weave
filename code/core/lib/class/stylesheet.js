@@ -20,30 +20,41 @@ export default class Stylesheet {
         }
     }
 
-    addStyle(selector, style) {
-        return this.replaceStyle(selector, style)
+    addStyle(selector, properties) {
+        return this.replaceStyle(selector, properties)
     }
 
-    defaultStyle(selector, style) {
+    defaultStyle(selector, properties) {
         if(!this[key.stylesheet].has(selector)) {
-            this[key.stylesheet].set(selector, new Style(selector, style))
+            this[key.stylesheet].set(selector, new Style(selector, properties))
         }
-        else this[key.stylesheet].get(selector).append(style)
+        else this[key.stylesheet].get(selector).append(properties)
 
         this.flush(selector)
 
         return this
     }
 
-    replaceStyle(selector, style) {
+    replaceStyle(selector, properties) {
         if(!this[key.stylesheet].has(selector)) {
-            this[key.stylesheet].set(selector, new Style(selector, style))
+            this[key.stylesheet].set(selector, new Style(selector, properties))
         }
-        else this[key.stylesheet].get(selector).replace(style)
+        else this[key.stylesheet].get(selector).replace(properties)
 
         this.flush(selector)
 
         return this
+    }
+
+    removeProperties(selector, properties) {
+        if(this[key.stylesheet].has(selector)) {
+            this[key.stylesheet].get(selector).delete(...Object.keys(properties))
+            this.flush(selector)
+
+            return this
+        }
+
+        throw new Error(`Unknown Selector ${selector}`)
     }
 
     deleteStyle(selector) {
@@ -53,10 +64,11 @@ export default class Stylesheet {
         return this
     }
 
-    editStyle(selector, style) {
+    mergeStyle(selector, properties) {
         if(this[key.stylesheet].has(selector)) {
-            this[key.stylesheet].get(selector).merge(style)
+            this[key.stylesheet].get(selector).merge(properties)
             this.flush(selector)
+
             return this
         }
 

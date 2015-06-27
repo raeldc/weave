@@ -1,17 +1,17 @@
 'use strict'
 
 var key = {
-    selector: Symbol('selector'),
-    style   : Symbol('style')
+    selector   : Symbol('selector'),
+    properties : Symbol('properties')
 }
 
 export default class Style {
-    constructor(selector, style = {}) {
-        this[key.selector] = selector
-        this[key.style]    = new Map()
+    constructor(selector, properties = {}) {
+        this[key.selector]   = selector
+        this[key.properties] = new Map()
 
-        if(_.isObject(style)) {
-            _.each(style, (value, property) => {
+        if(_.isObject(properties)) {
+            _.each(properties, (value, property) => {
                 this.set(property, value)
             })
         }
@@ -21,26 +21,34 @@ export default class Style {
         return this[key.selector]
     }
 
-    getStyle() {
-        return this[key.style]
+    getProperties() {
+        return this[key.properties]
     }
 
     set(property, value) {
-        this[key.style].set(_.toDash(property), value)
+        this[key.properties].set(property, value)
         return this
     }
 
     get(property, defaultValue) {
-        return this[key.style].get(_.toDash(property)) || defaultValue
+        return this[key.properties].get(property) || defaultValue
     }
 
     has(property) {
-        return this[key.style].has(_.toDash(property))
+        return this[key.properties].has(property)
     }
 
-    merge(style) {
-        if(_.isObject(style)) {
-            _.each(style, (value, property) => {
+    delete(...properties) {
+        for(let property of properties) {
+            this[key.properties].delete(property)
+        }
+
+        return this
+    }
+
+    merge(properties) {
+        if(_.isObject(properties)) {
+            _.each(properties, (value, property) => {
                 this.set(property, value)
             })
         }
@@ -48,9 +56,9 @@ export default class Style {
         return this
     }
 
-    append(style) {
-        if(_.isObject(style)) {
-            _.each(style, (value, property) => {
+    append(properties) {
+        if(_.isObject(properties)) {
+            _.each(properties, (value, property) => {
                 if(!this.has(property)) {
                     this.set(property, value)
                 }
@@ -60,10 +68,10 @@ export default class Style {
         return this
     }
 
-    replace(style) {
-        if(_.isObject(style)) {
-            this[key.style].clear()
-            this.merge(style)
+    replace(properties) {
+        if(_.isObject(properties)) {
+            this[key.properties].clear()
+            this.merge(properties)
         }
 
         return this
@@ -77,11 +85,25 @@ export default class Style {
         return notEqual
     }
 
+    compareProperties(properties, equal = true, notEqual = false) {
+        let result = false
+
+        for(let property of Object.keys(properties)) {
+            result = true
+
+            if(this.get(property) !== properties[property]) {
+                return notEqual
+            }
+        }
+
+        return result ? equal : notEqual
+    }
+
     toString() {
         let css = `${this[key.selector]} {\n`
 
-        for(let [property, value] of this[key.style]) {
-            css += `\t${property}: ${value};\n`
+        for(let [property, value] of this[key.properties]) {
+            css += `\t${_.toDash(property)}: ${value};\n`
         }
 
         css += '}'

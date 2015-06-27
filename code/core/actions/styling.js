@@ -6,13 +6,38 @@ function getClass(id) {
     return '.' + id
 }
 
-export function changeStyle(node, style, device = 'all') {
-    Styling.getStylesheets().get(device).replaceStyle(getClass(node), style)
+export function mergeStyle(node, properties, device = 'all') {
+    Styling.getStylesheets().get(device).mergeStyle(getClass(node), properties)
     Styling.trigger()
 }
 
-export function defaultStyle(node, style, device = 'all') {
-    Styling.getStylesheets().get(device).defaultStyle(getClass(node), style)
+export function replaceStyle(node, properties, device = 'all') {
+    Styling.getStylesheets().get(device).replaceStyle(getClass(node), properties)
+    Styling.trigger()
+}
+
+export function deleteStyle(node, device = 'all') {
+    Styling.getStylesheets().get(device).deleteStyle(getClass(node))
+    Styling.trigger()
+}
+
+export function removeProperties(node, properties, device = 'all') {
+    Styling.getStylesheets().get(device).removeProperties(getClass(node), properties)
+    Styling.trigger()
+}
+
+export function toggleStyle(node, properties, device = 'all') {
+    let style = getStyle(node, device)
+
+    if(style.compareProperties(properties)) {
+        removeProperties(node, properties, device)
+        Styling.trigger()
+    }
+    else mergeStyle(node, properties, device)
+}
+
+export function defaultStyle(node, properties, device = 'all') {
+    Styling.getStylesheets().get(device).defaultStyle(getClass(node), properties)
     Styling.trigger()
 }
 
@@ -24,4 +49,4 @@ export function onChangeStyle(func) {
     return Styling.listen(func)
 }
 
-export default {changeStyle, defaultStyle, getStyle, onChangeStyle}
+export default {replaceStyle, defaultStyle, toggleStyle, getStyle, onChangeStyle}

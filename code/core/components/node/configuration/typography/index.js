@@ -3,7 +3,7 @@
 import CSSConfig from 'core/components/node/configuration/cssconfig.js'
 
 // Actions
-import {changeStyle, getStyle} from 'core/actions/styling.js'
+import {replaceStyle, toggleStyle, getStyle} from 'core/actions/styling.js'
 
 export default class Typography extends CSSConfig {
     render() {
@@ -31,22 +31,22 @@ export default class Typography extends CSSConfig {
                         <li className="formatting clearfix">
                             <span className="alignment">
                                 <a className={"btn fa fa-align-left" + Style.compareProperty('textAlign', 'left', ' active', '')} onClick={() => {
-                                    changeStyle(this.props.node, {
+                                    toggleStyle(this.props.node, {
                                         textAlign: 'left'
                                     }, this.props.device)
                                 }} />
                                 <a className={"btn fa fa-align-center" + Style.compareProperty('textAlign', 'center', ' active', '')} onClick={() => {
-                                    changeStyle(this.props.node, {
+                                    toggleStyle(this.props.node, {
                                         textAlign: 'center'
                                     }, this.props.device)
                                 }} />
                                 <a className={"btn fa fa-align-justify" + Style.compareProperty('textAlign', 'justify', ' active', '')} onClick={() => {
-                                    changeStyle(this.props.node, {
+                                    toggleStyle(this.props.node, {
                                         textAlign: 'justify'
                                     }, this.props.device)
                                 }} />
                                 <a className={"btn fa fa-align-right" + Style.compareProperty('textAlign', 'right', ' active', '')} onClick={() => {
-                                    changeStyle(this.props.node, {
+                                    toggleStyle(this.props.node, {
                                         textAlign: 'right'
                                     }, this.props.device)
                                 }} />
