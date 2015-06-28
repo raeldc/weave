@@ -34,7 +34,7 @@ export default class Style {
         return this[key.properties].get(property) || defaultValue
     }
 
-    has(property) {
+    hasProperty(property) {
         return this[key.properties].has(property)
     }
 
