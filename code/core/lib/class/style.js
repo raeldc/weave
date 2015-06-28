@@ -77,26 +77,26 @@ export default class Style {
         return this
     }
 
-    compareProperty(property, value, equal = true, notEqual = false) {
+    compareProperty(property, value) {
         if(this.get(property) === value) {
-            return equal
+            return true
         }
 
-        return notEqual
+        return false
     }
 
-    compareProperties(properties, equal = true, notEqual = false) {
+    compareProperties(properties) {
         let result = false
 
         for(let property of Object.keys(properties)) {
             result = true
 
             if(this.get(property) !== properties[property]) {
-                return notEqual
+                return false
             }
         }
 
-        return result ? equal : notEqual
+        return result
     }
 
     toString() {

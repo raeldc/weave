@@ -45,6 +45,10 @@ export function getStyle(node, device = 'all') {
     return Styling.getStylesheets().get(device).getStyle(getClass(node))
 }
 
+export function getCascade(node, device) {
+    return Styling.getStylesheets().get(device).getStyle(getClass(node))
+}
+
 export function onChangeStyle(func) {
     return Styling.listen(func)
 }
