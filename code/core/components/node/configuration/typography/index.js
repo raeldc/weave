@@ -1,14 +1,11 @@
 'use strict'
 
 import CSSConfig from 'core/components/node/configuration/cssconfig.js'
-
-// Actions
-import {replaceStyle, toggleStyle, getStyle} from 'core/actions/styling.js'
+import Alignment from 'core/components/node/configuration/typography/alignment.js'
+import Transform from 'core/components/node/configuration/typography/transform.js'
 
 export default class Typography extends CSSConfig {
     render() {
-        let Style = getStyle(this.props.node, this.props.device)
-
         return (
             <div className="form-inline config config-typography">
                 <h5>Typography</h5>
@@ -29,34 +26,8 @@ export default class Typography extends CSSConfig {
                             </span>
                         </li>
                         <li className="formatting clearfix">
-                            <span className="alignment">
-                                <a className={"btn fa fa-align-left" + Style.compareProperty('textAlign', 'left', ' active', '')} onClick={() => {
-                                    toggleStyle(this.props.node, {
-                                        textAlign: 'left'
-                                    }, this.props.device)
-                                }} />
-                                <a className={"btn fa fa-align-center" + Style.compareProperty('textAlign', 'center', ' active', '')} onClick={() => {
-                                    toggleStyle(this.props.node, {
-                                        textAlign: 'center'
-                                    }, this.props.device)
-                                }} />
-                                <a className={"btn fa fa-align-justify" + Style.compareProperty('textAlign', 'justify', ' active', '')} onClick={() => {
-                                    toggleStyle(this.props.node, {
-                                        textAlign: 'justify'
-                                    }, this.props.device)
-                                }} />
-                                <a className={"btn fa fa-align-right" + Style.compareProperty('textAlign', 'right', ' active', '')} onClick={() => {
-                                    toggleStyle(this.props.node, {
-                                        textAlign: 'right'
-                                    }, this.props.device)
-                                }} />
-                            </span>
-                            <span className="transform">
-                                <a className="btn active"><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
-                                <a className="btn fa fa-italic" />
-                                <a className="btn fa fa-underline" />
-                                <a className="btn advanced"><i className="fa fa-cog " /> <i className="fa fa-caret-down" /></a>
-                            </span>
+                            <Alignment {...this.props} className="alignment" />
+                            <Transform {...this.props} className="transform" />
                         </li>
                     </ul>
                 </div>
