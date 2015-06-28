@@ -17,24 +17,24 @@ export default class Stylesheets {
         this[key.stylesheets] = new Map()
     }
 
-    create(alias = 'all', query = 'all') {
-        if(!this[key.stylesheets].has(alias)){
+    create(device = 'all', query = 'all') {
+        if(!this[key.stylesheets].has(device)){
             let domElement = this[key.document].createElement('style')
 
             domElement.setAttribute('media', query)
 
             // WebKit hack :(
-            domElement.appendChild(this[key.document].createTextNode(`/* ${alias} */`))
+            domElement.appendChild(this[key.document].createTextNode(`/* ${device} */`))
 
             // Add the <style> element to the page
             this[key.document].head.appendChild(domElement)
-            this[key.stylesheets].set(alias, new Stylesheet(query, domElement.sheet))
+            this[key.stylesheets].set(device, new Stylesheet(query, domElement.sheet))
         }
 
         return this
     }
 
-    get(alias = 'all') {
-        return this[key.stylesheets].get(alias)
+    get(device = 'all') {
+        return this[key.stylesheets].get(device)
     }
 }
