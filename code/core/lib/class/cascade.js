@@ -1,22 +1,24 @@
 'use strict'
 
-import Style from 'core/lib/class/style.js'
-
 var key = {
+    selector   : Symbol('selector'),
     devicemap  : Symbol('devicemap'),
     stylesheets: Symbol('stylesheets')
 }
 
-export default class Cascade extends Style {
+export default class Cascade {
     constructor(selector, stylesheets) {
         if(!(stylesheets instanceof Map)) {
             throw new Error('Stylesheets must be an instance of Map')
         }
 
-        super(selector, {})
-
+        this[key.selector]   = selector
         this[key.devicemap]   = new Map()
         this[key.stylesheets] = stylesheets
+    }
+
+    getSelector() {
+        return this[key.selector]
     }
 
     hasProperty(property) {
