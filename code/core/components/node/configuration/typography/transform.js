@@ -6,25 +6,40 @@ import Component from 'core/component.js'
 import {
     replaceStyle,
     toggleStyle,
-    getStyle
+    getStyle,
+    getCascade
 } from 'core/actions/styling.js'
 
-export default class Typography extends Component {
+export default class Transform extends Component {
     render() {
-        let Style = getStyle(this.props.node, this.props.device)
+        let style   = getStyle(this.props.node, this.props.device),
+            cascade = getCascade(this.props.node, this.props.device)
+
         return (
             <span {...this.props}>
-                <a className={"btn" + Style.compareProperty('fontWeight', 'bold', ' active', '')} onClick={() => {
+                <a className={"btn"
+                    + String(style.compareProperty('fontWeight', 'bold') ? ' active' : '')
+                    + String(cascade.hasProperty('fontWeight') ? ' cascades' : '')
+                }
+                onClick={() => {
                     toggleStyle(this.props.node, {
                         fontWeight: 'bold'
                     }, this.props.device)
                 }}><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
-                <a className={"btn fa fa-italic" + Style.compareProperty('fontStyle', 'italic', ' active', '')} onClick={() => {
+                <a className={"btn fa fa-italic"
+                    + String(style.compareProperty('fontStyle', 'italic') ? ' active' : '')
+                    + String(cascade.hasProperty('fontStyle') ? ' cascades' : '')
+                }
+                onClick={() => {
                     toggleStyle(this.props.node, {
                         fontStyle: 'italic'
                     }, this.props.device)
                 }} />
-                <a className={"btn fa fa-underline"  + Style.compareProperty('textDecoration', 'underline', ' active', '')} onClick={() => {
+                <a className={"btn fa fa-underline"
+                    + String(style.compareProperty('textDecoration', 'underline') ? ' active' : '')
+                    + String(cascade.hasProperty('textDecoration') ? ' cascades' : '')
+                }
+                onClick={() => {
                     toggleStyle(this.props.node, {
                         textDecoration: 'underline'
                     }, this.props.device)

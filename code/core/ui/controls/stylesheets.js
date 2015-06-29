@@ -1,9 +1,11 @@
 'use strict'
 
 import Stylesheet from 'core/lib/class/stylesheet.js'
+import Cascade    from 'core/lib/class/cascade.js'
 
 var key = {
     document   : Symbol('document'),
+    cascades   : Symbol('cascades'),
     stylesheets: Symbol('stylesheets')
 }
 
@@ -15,6 +17,7 @@ export default class Stylesheets {
 
         this[key.document]    = document
         this[key.stylesheets] = new Map()
+        this[key.cascades]    = new Map()
     }
 
     create(device = 'all', query = 'all') {
@@ -36,5 +39,13 @@ export default class Stylesheets {
 
     get(device = 'all') {
         return this[key.stylesheets].get(device)
+    }
+
+    getCascade(selector) {
+        if(!this[key.cascades].has(selector)) {
+            this[key.cascades].set(selector, new Cascade(selector, this[key.stylesheets]))
+        }
+
+        return this[key.cascades].get(selector)
     }
 }
