@@ -20,7 +20,7 @@ export default class Typography extends Component {
                 <a  className={
                         "btn fa fa-align-left"
                         + String(style.compareProperty('textAlign', 'left') ? ' active' : '')
-                        + String(cascade.inheritsProperty('textAlign', 'left', 'desktop') ? ' cascades' : '')
+                        + String(cascade.inheritsProperty('textAlign', 'left', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                     }
                     onClick={() => {
                         toggleStyle(this.props.node, {
@@ -31,7 +31,7 @@ export default class Typography extends Component {
                 <a className={
                         "btn fa fa-align-center"
                         + String(style.compareProperty('textAlign', 'center') ? ' active' : '')
-                        + String(cascade.inheritsProperty('textAlign', 'center', 'desktop') ? ' cascades' : '')
+                        + String(cascade.inheritsProperty('textAlign', 'center', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                     }
                     onClick={() => {
                         toggleStyle(this.props.node, {
@@ -42,7 +42,7 @@ export default class Typography extends Component {
                 <a className={
                         "btn fa fa-align-justify"
                         + String(style.compareProperty('textAlign', 'justify') ? ' active' : '')
-                        + String(cascade.inheritsProperty('textAlign', 'justify', 'desktop') ? ' cascades' : '')
+                        + String(cascade.inheritsProperty('textAlign', 'justify', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                     }
                     onClick={() => {
                         toggleStyle(this.props.node, {
@@ -53,7 +53,7 @@ export default class Typography extends Component {
                 <a className={
                         "btn fa fa-align-right"
                             + String(style.compareProperty('textAlign', 'right') ? ' active' : '')
-                            + String(cascade.inheritsProperty('textAlign', 'right', 'desktop') ? ' cascades' : '')
+                            + String(cascade.inheritsProperty('textAlign', 'right', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                     }
                     onClick={() => {
                         toggleStyle(this.props.node, {
