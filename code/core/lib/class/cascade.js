@@ -49,13 +49,11 @@ export default class Cascade {
         devices.unshift('all')
 
         for(let device of devices) {
-            console.log('has property', property, value, device)
             if(this.hasProperty(property, value, device)) {
-                console.log(true)
                 return true
             }
         }
-        console.log(false)
+
         return false
     }
 
