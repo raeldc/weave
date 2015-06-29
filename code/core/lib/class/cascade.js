@@ -21,11 +21,17 @@ export default class Cascade {
         return this[key.selector]
     }
 
-    hasProperty(property) {
+    hasProperty(property, value) {
         for(let [device, stylesheet] of this[key.stylesheets]) {
             if(stylesheet.hasStyle(this.getSelector())) {
-                if(stylesheet.getStyle(this.getSelector()).hasProperty(property)) {
-                    return true
+                let style = stylesheet.getStyle(this.getSelector())
+                if(style.hasProperty(property)) {
+                    if(value !== undefined) {
+                        if(style.get(property) === value) {
+                            return true
+                        }
+                    }
+                    else return true
                 }
             }
         }
@@ -52,20 +58,5 @@ export default class Cascade {
         }
 
         return stylesheets.values()
-    }
-
-    compareProperty(property, value) {
-        for(let [device, stylesheet] of this[key.stylesheets]) {
-            if(stylesheet.hasStyle(this.getSelector())) {
-                let style = stylesheet.getStyle(this.getSelector())
-                if(style.hasProperty(property)) {
-                    if(style.get(property) === value) {
-                        return true
-                    }
-                }
-            }
-        }
-
-        return false
     }
 }
