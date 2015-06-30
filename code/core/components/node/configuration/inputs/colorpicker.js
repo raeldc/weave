@@ -26,7 +26,7 @@ export default class ColorPicker extends Component {
         return (
             <span className={this.props.className || 'color'}>
                 <input value={this.props.value} type="text" name="color" placeholder="#000" ref="colorInput" onChange={event => {this.changeColor(event.target.value)}} onFocus={this.open} onBlur={this.close} />
-                <a className={"btn color-picker" + open} style={{backgroundColor: this.props.value}} onClick={this.focusOnColorInput} onMouseDown={event => {event.preventDefault()}}>
+                <a className={"btn"} style={{backgroundColor: this.props.value, position: 'relative'}} onClick={this.focusOnColorInput} onMouseDown={event => {event.preventDefault()}}>
                     <i className="fa fa-eyedropper" style={{color: pickerColor}} />
                     {DropDownBox}
                 </a>
@@ -36,17 +36,17 @@ export default class ColorPicker extends Component {
 
     getDropDownBox() {
         return(
-            <ul className="dropdown-menu">
-                <li>
+            <div className="color-picker">
+                <div className="color-picker-panel">
                     <ReactColorPicker
                         defaultValue={this.props.value}
-                        saturationWidth={220}
-                        saturationHeight={220}
+                        saturationWidth={200}
+                        saturationHeight={200}
                         onChange={this.changeColor}
                         onDrag={this.changeColor}
                     />
-                </li>
-            </ul>
+                </div>
+            </div>
         )
     }
 

@@ -76,15 +76,28 @@
         box-shadow: none;
     }
 
+    .color-picker {
+        position: absolute;
+        padding-top: 10px;
+        z-index: 1000;
+
+        .color-picker-panel {
+            position: fixed;
+            left : 10px;
+            width: 280px;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid @dropdown-fallback-border; // IE8 fallback
+            border: 1px solid @dropdown-border;
+            border-radius: @border-radius-base;
+            .box-shadow(1px 6px 12px rgba(0,0,0,.5));
+            background-clip: padding-box;
+        }
+    }
+
     .config {
         font-size: 12px;
         background-color: #f6f6f6;
-
-        .colorpicker-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-        }
 
         .wrapper {
             margin-top: 10px;
@@ -100,7 +113,7 @@
             background-color: #fcfcfc;
 
             .fa {
-                min-width: 15px;
+                padding: 0 3px;
                 text-align: center;
             }
         }
@@ -117,12 +130,25 @@
             span.label:first-child {
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
+                border-right: none;
+            }
+
+            span input:first-child {
+                border-right: none;
+                border-left: 1px solid #d0d5dd;
+            }
+
+            span input:last-child {
+                border-left: none;
+            }
+
+            input:first-child {
+                border-right: none;
             }
 
             input:last-child {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
-                border-left: none;
             }
         }
     }
@@ -517,23 +543,8 @@
                 }
             }
 
-            .style {
-                position: relative;
-                .color-picker > .dropdown-menu {
-                    top  : 15px;
-                    left : 0;
-                    width: 280px;
-                    padding-left: 10px
-                }
-            }
-
             .color {
                 float: right;
-
-                .color-picker {
-                    color: #3e4652;
-                    border-left: none;
-                }
 
                 input {
                     width: 102px;
@@ -570,7 +581,7 @@
                     margin-top: 0;
                 }
 
-                input {
+                input, {
                     width: 70px;
                     border-radius: 0;
                     border-left: 0;
