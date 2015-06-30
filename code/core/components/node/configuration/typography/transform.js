@@ -19,7 +19,7 @@ export default class Transform extends Component {
             <span {...this.props}>
                 <a className={"btn"
                     + String(style.compareProperty('fontWeight', 'bold') ? ' active' : '')
-                    + String(cascade.inheritsProperty('fontWeight', 'bold', 'desktop') ? ' cascades' : '')
+                    + String(cascade.inheritsProperty('fontWeight', 'bold', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                 }
                 onClick={() => {
                     toggleStyle(this.props.node, {
@@ -28,7 +28,7 @@ export default class Transform extends Component {
                 }}><i className="fa fa-bold" /> <i className="fa fa-caret-down" /></a>
                 <a className={"btn fa fa-italic"
                     + String(style.compareProperty('fontStyle', 'italic') ? ' active' : '')
-                    + String(cascade.inheritsProperty('fontStyle', 'italic', 'desktop') ? ' cascades' : '')
+                    + String(cascade.inheritsProperty('fontStyle', 'italic', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                 }
                 onClick={() => {
                     toggleStyle(this.props.node, {
@@ -37,7 +37,7 @@ export default class Transform extends Component {
                 }} />
                 <a className={"btn fa fa-underline"
                     + String(style.compareProperty('textDecoration', 'underline') ? ' active' : '')
-                    + String(cascade.inheritsProperty('textDecoration', 'underline', 'desktop') ? ' cascades' : '')
+                    + String(cascade.inheritsProperty('textDecoration', 'underline', 'desktop') && !style.hasProperty('textAlign') ? ' cascades' : '')
                 }
                 onClick={() => {
                     toggleStyle(this.props.node, {

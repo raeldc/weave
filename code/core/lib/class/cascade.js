@@ -12,7 +12,7 @@ export default class Cascade {
             throw new Error('Stylesheets must be an instance of Map')
         }
 
-        this[key.selector]   = selector
+        this[key.selector]    = selector
         this[key.devicemap]   = new Map()
         this[key.stylesheets] = stylesheets
     }
