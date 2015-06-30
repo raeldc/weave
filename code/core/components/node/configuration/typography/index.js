@@ -23,14 +23,14 @@ export default class Typography extends CSSConfig {
                 <h5>Typography</h5>
                 <div className="wrapper">
                     <ul className="typography">
-                        <li className="font clearfix">
+                        <li className="font clearfix form-field">
                             <span className="family">Font <i className="fa fa-chevron-down pull-right" /></span>
                             <span className="style">
                                 <span className="font-size">
                                     <a className="btn preset-size clearfix">Normal <i className="fa fa-caret-down pull-right" /></a>
                                     <input onChange={this.setInputValue} value={this.state.size} type="number" min="0" max="999" name="fontSize" defaultValue="12" />
                                 </span>
-                                <ColorPicker {...this.props} property="color" value={style.get('color', '#000')} />
+                                <ColorPicker {...this.props} className="color" property="color" value={style.get('color')} />
                             </span>
                         </li>
                         <li className="formatting clearfix">
