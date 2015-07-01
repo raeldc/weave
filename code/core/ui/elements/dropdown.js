@@ -26,15 +26,20 @@ export default class DropDown extends Component {
     }
 
     followSubject() {
-        let self          = this.getElementPosition(this),
-            subject       = this.getElementPosition(this.props.subject),
-            subjectCenter = subject.left + (subject.width / 2),
-            viewport      = this.props.viewportWidth
+        let self           = this.getElementPosition(this),
+            subject        = this.getElementPosition(this.props.subject),
+            subjectCenter  = subject.left + (subject.width / 2),
+            viewportStartX = this.props.viewportStartX,
+            viewportStartY = this.props.viewportStartY,
+            viewportWidth  = this.props.viewportWidth || jQuery(window).outerWidth(),
+            viewportHeight = this.props.viewportHeight || jQuery(window).outerHeight(),
+            top            = viewportStartY + subject.top + subject.height
 
         this.setState({
-            top : subject.top + subject.height,
+            // Don't let it overlap at the bottom
+            top : top + self.height >= viewportHeight ? (viewportHeight - self.height) - (viewportHeight - subject.top) : top,
             // Make it center
-            left: Math.max(this.props.viewportStart, Math.min(viewport - self.width, subjectCenter - (self.width / 2)))
+            left: Math.max(viewportStartX, Math.min(viewportWidth - self.width, subjectCenter - (self.width / 2)))
         })
     }
 
@@ -53,11 +58,15 @@ export default class DropDown extends Component {
 }
 
 DropDown.propTypes = {
-    viewportStart: React.PropTypes.number,
-    viewportWidth: React.PropTypes.number
+    viewportStartX: React.PropTypes.number,
+    viewportStartY: React.PropTypes.number,
+    viewportWidth : React.PropTypes.number,
+    viewportHeight: React.PropTypes.number
 }
 
 DropDown.defaultProps = {
-    viewportStart: 0,
-    viewportWidth: jQuery(window).outerWidth()
+    viewportStartX: 0,
+    viewportStartY: 0,
+    viewportWidth : undefined,
+    viewportHeight: undefined
 }
