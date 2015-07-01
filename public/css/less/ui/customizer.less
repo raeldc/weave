@@ -76,22 +76,21 @@
         box-shadow: none;
     }
 
-    .color-picker {
-        position: absolute;
-        padding-top: 10px;
-        z-index: 1000;
+    .dropdown-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        padding: 10px;
 
-        .color-picker-panel {
-            position: fixed;
-            left : 10px;
-            width: 280px;
-            padding: 12px;
+        > .dropdown-container {
             background: #fff;
             border: 1px solid @dropdown-fallback-border; // IE8 fallback
             border: 1px solid @dropdown-border;
             border-radius: @border-radius-base;
             .box-shadow(1px 6px 12px rgba(0,0,0,.5));
             background-clip: padding-box;
+            padding: 10px;
         }
     }
 

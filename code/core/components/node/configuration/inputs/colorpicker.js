@@ -3,6 +3,7 @@
 import Component        from 'core/component.js'
 import TinyColor        from 'tinycolor2'
 import ReactColorPicker from 'react-color-picker'
+import DropDown         from 'core/ui/elements/dropdown.js'
 
 // Actions
 import {
@@ -18,7 +19,7 @@ export default class ColorPicker extends Component {
     }
 
     render() {
-        let DropDownBox = this.state.open ? this.getDropDownBox() : null,
+        let DropDownBox = this.state.open ? this.getDropDown(): null,
             open        = this.state.open ? ' open' : '',
             color       = TinyColor(this.props.value),
             pickerColor = color.isDark() ? color.lighten(50) : color.darken(50)
@@ -34,20 +35,25 @@ export default class ColorPicker extends Component {
         )
     }
 
-    getDropDownBox() {
-        return(
-            <div className="color-picker">
-                <div className="color-picker-panel">
-                    <ReactColorPicker
+    getDropDown() {
+        return (
+            <DropDown subject={this.refs.colorInput} viewportWidth={300}>
+                <ReactColorPicker
                         defaultValue={this.props.value}
-                        saturationWidth={200}
+                        saturationWidth={220}
                         saturationHeight={200}
                         onChange={this.changeColor}
                         onDrag={this.changeColor}
-                    />
-                </div>
-            </div>
+                />
+            </DropDown>
         )
+    }
+
+    changeColor(color) {
+        let style = {}
+            style[this.props.property] = color
+
+        mergeStyle(this.props.node, style, this.props.device)
     }
 
     focusOnColorInput() {
@@ -64,12 +70,5 @@ export default class ColorPicker extends Component {
         this.setState({
             open: false
         })
-    }
-
-    changeColor(color) {
-        let style = {}
-            style[this.props.property] = color
-
-        mergeStyle(this.props.node, style, this.props.device)
     }
 }

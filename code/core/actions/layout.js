@@ -4,6 +4,9 @@ import Reflux from 'reflux'
 
 let LayoutActions = Reflux.createActions({
     setScreenLayout : {},
+    // Fired when the window has scrolled and if the window is resized
+    windowChanged: {
+    },
     // Fired when the frame has scrolled and if the frame is resized
     frameChanged: {
     },

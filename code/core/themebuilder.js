@@ -81,6 +81,23 @@ CoreBuilder.ThemeBuilder = function(config) {
     }
 
     /**
+     * Trigger windowchange on various events
+     */
+    {
+        let $window     = jQuery(window),
+            $customizer = jQuery('.wp-full-overlay-sidebar-content')
+
+        function onWindowEvent(event) {
+            LayoutActions.windowChanged(null, event)
+            event.stopPropagation()
+        }
+
+        $window.scroll(onWindowEvent)
+        $window.resize(onWindowEvent)
+        $customizer.scroll(onWindowEvent)
+    }
+
+    /**
      * Trigger framechange on various events
      */
     {
