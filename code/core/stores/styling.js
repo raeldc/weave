@@ -1,7 +1,8 @@
 'use strict'
 
-import Stylesheets from 'core/ui/controls/stylesheets.js'
-import Reflux      from 'reflux'
+import Stylesheets   from 'core/ui/controls/stylesheets.js'
+import Reflux        from 'reflux'
+import LayoutActions from 'core/actions/layout.js'
 
 var key = {
     store      : Symbol('store'),
@@ -31,6 +32,7 @@ export class Styling {
     }
 
     trigger() {
+        LayoutActions.nodeTouched()
         return this[key.store].trigger()
     }
 }
