@@ -9,6 +9,10 @@ export default class DropDown extends Component {
         this.stopListeningToFrameChanged = LayoutActions.windowChanged.listen(this.followSubject)
     }
 
+    newProps(component, props) {
+        this.followSubject(props.subject)
+    }
+
     beforeUnmount() {
         this.stopListeningToFrameChanged()
     }
@@ -25,19 +29,19 @@ export default class DropDown extends Component {
         )
     }
 
-    followSubject() {
-        let self           = this.getElementPosition(this),
-            subject        = this.getElementPosition(this.props.subject),
-            subjectCenter  = subject.left + (subject.width / 2),
-            viewportStartX = this.props.viewportStartX,
-            viewportStartY = this.props.viewportStartY,
-            viewportWidth  = this.props.viewportWidth || jQuery(window).outerWidth(),
-            viewportHeight = this.props.viewportHeight || jQuery(window).outerHeight(),
-            top            = viewportStartY + subject.top + subject.height
+    followSubject(subject) {
+        let self            = this.getElementPosition(this),
+            subjectPosition = subject ? this.getElementPosition(subject) : this.getElementPosition(this.props.subject),
+            subjectCenter   = subjectPosition.left + (subjectPosition.width / 2),
+            viewportStartX  = this.props.viewportStartX,
+            viewportStartY  = this.props.viewportStartY,
+            viewportWidth   = this.props.viewportWidth || jQuery(window).outerWidth(),
+            viewportHeight  = this.props.viewportHeight || jQuery(window).outerHeight(),
+            top             = viewportStartY + subjectPosition.top + subjectPosition.height
 
         this.setState({
             // Don't let it overlap at the bottom
-            top : top + self.height >= viewportHeight ? (viewportHeight - self.height) - (viewportHeight - subject.top) : top,
+            top : top + self.height >= viewportHeight ? (viewportHeight - self.height) - (viewportHeight - subjectPosition.top) : top,
             // Make it center
             left: Math.max(viewportStartX, Math.min(viewportWidth - self.width, subjectCenter - (self.width / 2)))
         })

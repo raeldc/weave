@@ -1,10 +1,36 @@
 'use strict'
 
-import CSSConfig     from 'core/components/node/configuration/cssconfig.js'
-import UINodeActions from 'core/actions/node.js'
+import CSSConfig from 'core/components/node/configuration/cssconfig.js'
+import DropDown  from 'core/ui/elements/dropdown.js'
+
+// Actions
+import {
+    mergeStyle,
+    toggleStyle,
+    getStyle,
+    getCascade
+} from 'core/actions/styling.js'
 
 export default class Box extends CSSConfig {
+    initialState() {
+        return {open: false}
+    }
+
+    afterUpdate() {
+        if(this.refs.subjectInput) {
+            let input = React.findDOMNode(this.refs.subjectInput)
+
+            if(document.activeElement !== input) {
+                input.select()
+            }
+        }
+    }
+
     render() {
+        let style       = getStyle(this.props.node, this.props.device),
+            cascade     = getCascade(this.props.node, this.props.device),
+            DropDownBox = this.state.open ? this.getDropDown(style) : null
+
         return (
             <div className="form-inline config config-box">
                 <h5>Box</h5>
@@ -42,16 +68,16 @@ export default class Box extends CSSConfig {
                     <ul className="margin">
                         <li className="title">Margin</li>
                         <li className="top">
-                            <a className="clickField">0 px</a>
+                            <a className="clickField" ref="marginTop" onClick={() => {this.openDropdown('marginTop')}}>{style.get('marginTop', '0px')}</a>
                         </li>
                         <li className="right">
-                            <a className="clickField">auto</a>
+                            <a className="clickField" ref="marginRight" onClick={() => {this.openDropdown('marginRight')}}>{style.get('marginRight', '0px')}</a>
                         </li>
                         <li className="bottom">
-                            <a className="clickField">0 px</a>
+                            <a className="clickField" ref="marginBottom" onClick={() => {this.openDropdown('marginBottom')}}>{style.get('marginBottom', '0px')}</a>
                         </li>
                         <li className="left">
-                            <a className="clickField">auto</a>
+                            <a className="clickField" ref="marginLeft" onClick={() => {this.openDropdown('marginLeft')}}>{style.get('marginLeft', '0px')}</a>
                         </li>
                     </ul>
                     <ul className="padding">
@@ -100,11 +126,43 @@ export default class Box extends CSSConfig {
                         </li>
                     </ul>
                 </div>
+                {DropDownBox}
             </div>
         )
     }
 
-    setInputValue(event) {
-        UINodeActions.updateNodeCSS(this.props.node, this.props.device, event.target.name, event.target.value)
+    openDropdown(subject) {
+        this.setState({
+            open   : true,
+            subject: subject
+        })
+    }
+
+    closeDropdown() {
+        this.setState({
+            open   : false,
+            subject: undefined
+        })
+    }
+
+    getDropDown(style) {
+        return (
+            <DropDown subject={this.refs[this.state.subject]} viewportWidth={300}>
+                <input
+                    type="text"
+                    name={this.state.subject}
+                    defaultValue={style.get(this.state.subject, '0px')}
+                    ref="subjectInput"
+                    onBlur={this.closeDropdown}
+                    onChange={(event) => {this.setStyle(this.state.subject, event.target.value)}}/>
+            </DropDown>
+        )
+    }
+
+    setStyle(property, value) {
+        let style        = {}
+            style[property] = value
+
+        mergeStyle(this.props.node, style, this.props.device)
     }
 }
