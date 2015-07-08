@@ -1,5 +1,5 @@
 /*  Copyright (C) 2012-2014  Kurt Milam - http://xioup.com | Source: https://gist.github.com/1868955
- *   
+ *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
  *  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  *
@@ -7,12 +7,12 @@
  *
  * @see https://gist.github.com/kurtmilam/1868955
 **/
- 
+
 // Based conceptually on the _.extend() function in underscore.js ( see http://documentcloud.github.com/underscore/#extend for more details )
 function deepExtend(obj) {
   var parentRE = /#{\s*?_\s*?}/,
   slice = Array.prototype.slice;
- 
+
   _.each(slice.call(arguments, 1), function(source) {
     for (var prop in source) {
       if (_.isUndefined(obj[prop]) || _.isFunction(obj[prop]) || _.isNull(source[prop]) || _.isDate(source[prop])) {
@@ -69,19 +69,26 @@ function deepClone(object) {
 }
 
 function toDash(string) {
-    return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    return string.replace(/([A-Z])/g, $1 => {return '-'+$1.toLowerCase()})
+}
+
+function toWords(string) {
+    let result = string.replace(/([A-Z])/g, $1 => {return ' '+ $1})
+
+    return result.replace(/^([a-z])/g, $1 => {return $1.toUpperCase()})
 }
 
 function isNode(o){
   return (
-    typeof Node === "object" ? o instanceof Node : 
+    typeof Node === "object" ? o instanceof Node :
     o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
   );
 }
 
-_.mixin({ 'deepClone' : deepClone }); 
+_.mixin({ 'deepClone' : deepClone });
 _.mixin({ 'deepExtend': deepExtend });
 _.mixin({ 'toDash'    : toDash });
+_.mixin({ 'toWords'   : toWords });
 _.mixin({ 'isNode'    : isNode });
 
 module.exports = _;

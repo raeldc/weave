@@ -8,12 +8,12 @@ import {
     mergeStyle,
     toggleStyle,
     getStyle,
-    getCascade
+    getCascade,
 } from 'core/actions/styling.js'
 
 export default class Box extends CSSConfig {
     initialState() {
-        return {open: false}
+        return {open: false, allSides: false}
     }
 
     afterUpdate() {
@@ -146,23 +146,54 @@ export default class Box extends CSSConfig {
     }
 
     getDropDown(style) {
+        const allSides = this.state.allSides ? ' active' : ''
+        const oneSide  = !this.state.allSides ? ' active' : ''
+
         return (
-            <DropDown subject={this.refs[this.state.subject]} viewportWidth={300}>
+            <DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
                 <input
                     type="text"
                     name={this.state.subject}
                     defaultValue={style.get(this.state.subject, '0px')}
                     ref="subjectInput"
+                    className="input input-xs"
                     onBlur={this.closeDropdown}
                     onChange={(event) => {this.setStyle(this.state.subject, event.target.value)}}
+                    onMouseDown={event => { event.stopPropagation() }}
                 />
+                <div className="btn-group select-sides" role="group">
+                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
+                    <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
+                </div>
             </DropDown>
         )
     }
 
     setStyle(property, value) {
-        let style        = {}
-            style[property] = value
+        let style = {}
+
+        if(value === undefined) {
+            value = React.findDOMNode(this.refs.subjectInput).value
+            this.state.allSides = false
+        }
+
+        if(property === 'allSides' || this.state.allSides) {
+            this.state.allSides = true
+
+            switch(this.state.subject) {
+                case 'marginTop':
+                case 'marginRight':
+                case 'marginBottom':
+                case 'marginLeft':
+                    style = {
+                        marginTop   : value,
+                        marginRight : value,
+                        marginBottom: value,
+                        marginLeft  : value,
+                    }
+                break
+            }
+        }else style[property] = value
 
         mergeStyle(this.props.node, style, this.props.device)
     }
