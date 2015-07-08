@@ -83,16 +83,16 @@ export default class Box extends CSSConfig {
                     <ul className="padding">
                         <li className="title">Padding</li>
                         <li className="top">
-                            <a className="clickField">{this.state.paddingTop || 0}</a>
+                            <a className="clickField" ref="paddingTop" onClick={() => {this.openDropdown('paddingTop')}}>{style.get('paddingTop', '0px')}</a>
                         </li>
                         <li className="right">
-                            <a className="clickField">{this.state.paddingRight || 0}</a>
+                            <a className="clickField" ref="paddingRight" onClick={() => {this.openDropdown('paddingRight')}}>{style.get('paddingRight', '0px')}</a>
                         </li>
                         <li className="bottom">
-                            <a className="clickField">{this.state.paddingBottom || 0}</a>
+                            <a className="clickField" ref="paddingBottom" onClick={() => {this.openDropdown('paddingBottom')}}>{style.get('paddingBottom', '0px')}</a>
                         </li>
                         <li className="left">
-                            <a className="clickField">{this.state.paddingLeft || 0}</a>
+                            <a className="clickField" ref="paddingLeft" onClick={() => {this.openDropdown('paddingLeft')}}>{style.get('paddingLeft', '0px')}</a>
                         </li>
                     </ul>
                     <ul className="border">
@@ -190,6 +190,18 @@ export default class Box extends CSSConfig {
                         marginRight : value,
                         marginBottom: value,
                         marginLeft  : value,
+                    }
+                break
+
+                case 'paddingTop':
+                case 'paddingRight':
+                case 'paddingBottom':
+                case 'paddingLeft':
+                    style = {
+                        paddingTop   : value,
+                        paddingRight : value,
+                        paddingBottom: value,
+                        paddingLeft  : value,
                     }
                 break
             }
