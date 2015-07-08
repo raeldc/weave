@@ -1,6 +1,6 @@
 'use strict'
 
-var key = {
+const key = {
     selector   : Symbol('selector'),
     properties : Symbol('properties')
 }

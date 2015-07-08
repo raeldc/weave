@@ -1,6 +1,6 @@
 'use strict'
 
-var keys = {
+const keys = {
     behaviors : Symbol('behaviors'),
     properties: Symbol('properties'),
     children  : Symbol('children')

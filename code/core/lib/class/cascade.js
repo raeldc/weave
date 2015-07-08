@@ -1,6 +1,6 @@
 'use strict'
 
-var key = {
+const key = {
     selector   : Symbol('selector'),
     devicemap  : Symbol('devicemap'),
     stylesheets: Symbol('stylesheets')

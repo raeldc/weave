@@ -12,8 +12,8 @@ import {
 
 export default class Transform extends Component {
     render() {
-        let style   = getStyle(this.props.node, this.props.device),
-            cascade = getCascade(this.props.node, this.props.device)
+        const style   = getStyle(this.props.node, this.props.device)
+        const cascade = getCascade(this.props.node, this.props.device)
 
         return (
             <span {...this.props}>

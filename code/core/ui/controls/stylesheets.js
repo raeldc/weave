@@ -3,7 +3,7 @@
 import Stylesheet from 'core/lib/class/stylesheet.js'
 import Cascade    from 'core/lib/class/cascade.js'
 
-var key = {
+const key = {
     document   : Symbol('document'),
     cascades   : Symbol('cascades'),
     stylesheets: Symbol('stylesheets')

@@ -2,7 +2,7 @@
 
 import Style from 'core/lib/class/style.js'
 
-var key = {
+const key = {
     stylesheet: Symbol('stylesheet'),
     sheet     : Symbol('sheet'),
     index     : Symbol('index'),

@@ -18,7 +18,7 @@ export default class DropDown extends Component {
     }
 
     render() {
-        let children = this.props.children || null
+        const children = this.props.children || null
 
         return(
             <div className={this.props.className || 'dropdown-box'} style={this.state || {}}>

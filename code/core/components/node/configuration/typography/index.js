@@ -15,8 +15,8 @@ import {
 
 export default class Typography extends CSSConfig {
     render() {
-        let style   = getStyle(this.props.node, this.props.device),
-            cascade = getCascade(this.props.node, this.props.device)
+        const style   = getStyle(this.props.node, this.props.device)
+        const cascade = getCascade(this.props.node, this.props.device)
 
         return (
             <div className="form-inline config config-typography">

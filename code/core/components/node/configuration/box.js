@@ -27,9 +27,9 @@ export default class Box extends CSSConfig {
     }
 
     render() {
-        let style       = getStyle(this.props.node, this.props.device),
-            cascade     = getCascade(this.props.node, this.props.device),
-            DropDownBox = this.state.open ? this.getDropDown(style) : null
+        const style       = getStyle(this.props.node, this.props.device)
+        const cascade     = getCascade(this.props.node, this.props.device)
+        const DropDownBox = this.state.open ? this.getDropDown(style) : null
 
         return (
             <div className="form-inline config config-box">
@@ -154,7 +154,8 @@ export default class Box extends CSSConfig {
                     defaultValue={style.get(this.state.subject, '0px')}
                     ref="subjectInput"
                     onBlur={this.closeDropdown}
-                    onChange={(event) => {this.setStyle(this.state.subject, event.target.value)}}/>
+                    onChange={(event) => {this.setStyle(this.state.subject, event.target.value)}}
+                />
             </DropDown>
         )
     }

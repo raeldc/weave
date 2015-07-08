@@ -19,10 +19,10 @@ export default class ColorPicker extends Component {
     }
 
     render() {
-        let DropDownBox = this.state.open ? this.getDropDown(): null,
-            open        = this.state.open ? ' open' : '',
-            color       = TinyColor(this.props.value),
-            pickerColor = color.isDark() ? color.lighten(50) : color.darken(50)
+        const DropDownBox = this.state.open ? this.getDropDown(): null
+        const open        = this.state.open ? ' open' : ''
+        const color       = TinyColor(this.props.value)
+        const pickerColor = color.isDark() ? color.lighten(50) : color.darken(50)
 
         return (
             <span className={this.props.className || 'color'}>
@@ -50,8 +50,9 @@ export default class ColorPicker extends Component {
     }
 
     changeColor(color) {
-        let style = {}
-            style[this.props.property] = color
+        const style = {}
+
+        style[this.props.property] = color
 
         mergeStyle(this.props.node, style, this.props.device)
     }
