@@ -98,6 +98,10 @@
         width: 50px;
     }
 
+    .input-md {
+        width: 80px;
+    }
+
     .config {
         font-size: 12px;
         background-color: #f6f6f6;
@@ -171,6 +175,11 @@
                 .clearfix();
                 display: block;
                 margin-top: 15px;
+                text-align: center;
+
+                .btn {
+                    float: none;
+                }
             }
         }
 
@@ -502,6 +511,53 @@
 
         .dropdown-container {
             text-align: center;
+        }
+
+        .border-style {
+            .label {
+                display: block;
+                border: none;
+            }
+
+            a.btn {
+                padding: 12px 6px 10px 6px;
+
+                i {
+                    display: block;
+                    width: 15px;
+                    height: 3px;
+                }
+            }
+
+            a.border-style-solid {
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+
+            a.border-style-solid i {
+                border-top: 3px solid #d0d5dd;
+            }
+
+            a.border-style-dotted i {
+                border-top: 3px dotted #d0d5dd;
+            }
+
+            a.border-style-dashed i {
+                border-top: 3px dashed #d0d5dd;
+            }
+
+            a.border-style-none {
+                padding: 8px 7px 7px 7px;
+
+                i {
+                    color: #d0d5dd;
+                    height: auto;
+                }
+            }
+        }
+
+        .border-color {
+            margin: 10px auto;
         }
     }
 
