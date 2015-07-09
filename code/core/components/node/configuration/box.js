@@ -146,7 +146,7 @@ export default class Box extends CSSConfig {
         })
     }
 
-    closeDropdown() {
+    closeDropDown() {
         this.setState({
             open   : false,
             subject: undefined
@@ -156,7 +156,7 @@ export default class Box extends CSSConfig {
     closeBorderDropDown(event) {
         let delayer = setInterval(() => {
             if(document.activeElement !== React.findDOMNode(this.refs.subjectInput) && document.activeElement !== React.findDOMNode(this.refs.borderColor)) {
-                this.closeDropdown()
+                this.closeDropDown()
                 clearInterval(delayer)
             }
         }, 0)
@@ -188,7 +188,7 @@ export default class Box extends CSSConfig {
                     defaultValue={style.get(this.state.subject, '0px')}
                     ref="subjectInput"
                     className="input input-xs"
-                    onBlur={this.closeDropdown}
+                    onBlur={this.closeDropDown}
                     onChange={event => {this.setStyle(this.state.subject, event.target.value)}}
                     onMouseDown={event => { event.stopPropagation() }}
                 />
@@ -263,7 +263,7 @@ export default class Box extends CSSConfig {
                         onDrag={color => {this.setStyle(this.state.subject+'Color', color)}}
                 />
                 <div className="btn-group select-sides">
-                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
+                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Corners</a>
                     <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
                 </div>
             </DropDown>
@@ -271,9 +271,21 @@ export default class Box extends CSSConfig {
     }
 
     getBorderRadiusDropDown(style) {
+        const allSides = this.state.allSides ? ' active' : ''
+        const oneSide  = !this.state.allSides ? ' active' : ''
+
         return (
             <DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
-                Border Radius
+                <div className="form-field border-radius">
+                    <span className="label">Radius</span>
+                    <input onChange={event => {
+                        this.setStyle(this.state.subject, String(event.target.value).replace(/[^0-9]/g, 'x')+'px')
+                    }} className="input-xs" ref="subjectInput" value={String(style.get(this.state.subject, '0')).replace(/[^0-9]/g, '')} type="text" name={this.state.subject} onMouseDown={event => {event.stopPropagation()}} onBlur={this.closeDropDown} />
+                </div>
+                <div className="btn-group select-sides">
+                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
+                    <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
+                </div>
             </DropDown>
         )
     }
@@ -284,6 +296,10 @@ export default class Box extends CSSConfig {
         if(value === undefined) {
             value = React.findDOMNode(this.refs.subjectInput).value
             this.state.allSides = false
+        }
+
+        if(this.state.subject.match(/^border(.*)Radius/g)) {
+            value = value.replace(/[^0-9]/g, '') + 'px'
         }
 
         if(property === 'allSides' || this.state.allSides) {
@@ -302,6 +318,13 @@ export default class Box extends CSSConfig {
                     paddingRight : value,
                     paddingBottom: value,
                     paddingLeft  : value,
+                }
+            }else if(this.state.subject.match(/^border(.*)Radius/g)) {
+                style = {
+                    borderTopRightRadius    : value,
+                    borderTopLeftRadius     : value,
+                    borderBottomRightRadius : value,
+                    borderBottomLeftRadius  : value,
                 }
             }else if(this.state.subject.match(/^border/g)) {
                 const Style = getStyle(this.props.node, this.props.device)
