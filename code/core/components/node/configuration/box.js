@@ -45,8 +45,24 @@ export default class Box extends CSSConfig {
                 <div className="wrapper">
                     <ul className="dimensions clearfix">
                         <li className="title">Dimensions</li>
-                        <li className="form-field width"><span className="label">Width <i className="fa fa-arrows-h" /></span><input onChange={this.setInputValue} value={this.state.width} type="text" name="width" defaultValue="auto" /></li>
-                        <li className="form-field height"><span className="label">Height <i className="fa fa-arrows-v" /></span><input onChange={this.setInputValue} value={this.state.height} type="text" name="height" defaultValue="auto" /></li>
+                        <li className="form-field width">
+                            <span className="label">Width <i className="fa fa-arrows-h" /></span>
+                            <input
+                                onChange={event => {this.setStyle('width', event.target.value)}}
+                                value={style.get('width', null)}
+                                type="text"
+                                name="width"
+                            />
+                        </li>
+                        <li className="form-field height">
+                            <span className="label">Height <i className="fa fa-arrows-v" /></span>
+                            <input
+                                onChange={event => {this.setStyle('height', event.target.value)}}
+                                value={style.get('height', null)}
+                                type="text"
+                                name="height"
+                            />
+                        </li>
                     </ul>
                 </div>
 
@@ -291,42 +307,45 @@ export default class Box extends CSSConfig {
     }
 
     setStyle(property, value) {
-        let style = {}
+        const
+            subject = this.state.subject || ''
+        let
+            style = {}
 
         if(value === undefined) {
             value = React.findDOMNode(this.refs.subjectInput).value
             this.state.allSides = false
         }
 
-        if(this.state.subject.match(/^border(.*)Radius/g)) {
+        if(subject.match(/^border(.*)Radius/g)) {
             value = value.replace(/[^0-9]/g, '') + 'px'
         }
 
         if(property === 'allSides' || this.state.allSides) {
             this.state.allSides = true
 
-            if(this.state.subject.match(/^margin/g)) {
+            if(subject.match(/^margin/g)) {
                 style = {
                     marginTop   : value,
                     marginRight : value,
                     marginBottom: value,
                     marginLeft  : value,
                 }
-            }else if(this.state.subject.match(/^padding/g)) {
+            }else if(subject.match(/^padding/g)) {
                 style = {
                     paddingTop   : value,
                     paddingRight : value,
                     paddingBottom: value,
                     paddingLeft  : value,
                 }
-            }else if(this.state.subject.match(/^border(.*)Radius/g)) {
+            }else if(subject.match(/^border(.*)Radius/g)) {
                 style = {
                     borderTopRightRadius    : value,
                     borderTopLeftRadius     : value,
                     borderBottomRightRadius : value,
                     borderBottomLeftRadius  : value,
                 }
-            }else if(this.state.subject.match(/^border/g)) {
+            }else if(subject.match(/^border/g)) {
                 const Style = getStyle(this.props.node, this.props.device)
                 const borderWidth = property === this.state.subject+'Width' ? value : Style.get(this.state.subject+'Width', 0)
                 const borderStyle = property === this.state.subject+'Style' ? value : Style.get(this.state.subject+'Style', 'none')
