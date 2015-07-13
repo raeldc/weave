@@ -4,6 +4,10 @@ import CSSConfig        from 'core/components/node/configuration/cssconfig.js'
 import DropDown         from 'core/ui/elements/dropdown.js'
 import ReactColorPicker from 'react-color-picker'
 
+// Components
+import Margin from 'core/components/node/configuration/box/margin.js'
+import Padding from 'core/components/node/configuration/box/padding.js'
+
 // Actions
 import {
     mergeStyle,
@@ -89,36 +93,8 @@ export default class Box extends CSSConfig {
                     </ul>
                 </div>
                 <div className="wrapper box-model">
-                    <ul className="margin">
-                        <li className="title">Margin</li>
-                        <li className="top">
-                            <a className="clickField" ref="marginTop" onClick={() => {this.openDropdown('marginTop')}}>{style.get('marginTop', '0px')}</a>
-                        </li>
-                        <li className="right">
-                            <a className="clickField" ref="marginRight" onClick={() => {this.openDropdown('marginRight')}}>{style.get('marginRight', '0px')}</a>
-                        </li>
-                        <li className="bottom">
-                            <a className="clickField" ref="marginBottom" onClick={() => {this.openDropdown('marginBottom')}}>{style.get('marginBottom', '0px')}</a>
-                        </li>
-                        <li className="left">
-                            <a className="clickField" ref="marginLeft" onClick={() => {this.openDropdown('marginLeft')}}>{style.get('marginLeft', '0px')}</a>
-                        </li>
-                    </ul>
-                    <ul className="padding">
-                        <li className="title">Padding</li>
-                        <li className="top">
-                            <a className="clickField" ref="paddingTop" onClick={() => {this.openDropdown('paddingTop')}}>{style.get('paddingTop', '0px')}</a>
-                        </li>
-                        <li className="right">
-                            <a className="clickField" ref="paddingRight" onClick={() => {this.openDropdown('paddingRight')}}>{style.get('paddingRight', '0px')}</a>
-                        </li>
-                        <li className="bottom">
-                            <a className="clickField" ref="paddingBottom" onClick={() => {this.openDropdown('paddingBottom')}}>{style.get('paddingBottom', '0px')}</a>
-                        </li>
-                        <li className="left">
-                            <a className="clickField" ref="paddingLeft" onClick={() => {this.openDropdown('paddingLeft')}}>{style.get('paddingLeft', '0px')}</a>
-                        </li>
-                    </ul>
+                    <Margin {...this.props} />
+                    <Padding {...this.props} />
                     <ul className="border">
                         <li className="title">Border</li>
                         <li className="top" ref="borderTop" onClick={() => {this.openDropdown('borderTop')}}>
@@ -180,9 +156,7 @@ export default class Box extends CSSConfig {
 
     getDropDown(style) {
         if(this.state.open) {
-            if(this.state.subject.match(/^margin|^padding/g)) {
-                return this.getSpacingDropDown(style)
-            }else if(this.state.subject.match(/^border(.*)Radius/g)) {
+            if(this.state.subject.match(/^border(.*)Radius/g)) {
                 return this.getBorderRadiusDropDown(style)
             }else if(this.state.subject.match(/^border/g)) {
                 return this.getBorderDropDown(style)
@@ -190,30 +164,6 @@ export default class Box extends CSSConfig {
         }
 
         return null
-    }
-
-    getSpacingDropDown(style) {
-        const allSides = this.state.allSides ? ' active' : ''
-        const oneSide  = !this.state.allSides ? ' active' : ''
-
-        return (
-            <DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
-                <input
-                    type="text"
-                    name={this.state.subject}
-                    defaultValue={style.get(this.state.subject, '0px')}
-                    ref="subjectInput"
-                    className="input input-xs"
-                    onBlur={this.closeDropDown}
-                    onChange={event => {this.setStyle(this.state.subject, event.target.value)}}
-                    onMouseDown={event => { event.stopPropagation() }}
-                />
-                <div className="btn-group select-sides">
-                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
-                    <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
-                </div>
-            </DropDown>
-        )
     }
 
     getBorderDropDown(style) {
@@ -324,21 +274,7 @@ export default class Box extends CSSConfig {
         if(property === 'allSides' || this.state.allSides) {
             this.state.allSides = true
 
-            if(subject.match(/^margin/g)) {
-                style = {
-                    marginTop   : value,
-                    marginRight : value,
-                    marginBottom: value,
-                    marginLeft  : value,
-                }
-            }else if(subject.match(/^padding/g)) {
-                style = {
-                    paddingTop   : value,
-                    paddingRight : value,
-                    paddingBottom: value,
-                    paddingLeft  : value,
-                }
-            }else if(subject.match(/^border(.*)Radius/g)) {
+            if(subject.match(/^border(.*)Radius/g)) {
                 style = {
                     borderTopRightRadius    : value,
                     borderTopLeftRadius     : value,
