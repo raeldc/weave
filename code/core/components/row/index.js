@@ -17,8 +17,7 @@ export default {
     layout     : Layout,
     defaults   : {
         element: 'div',
-        columns: 4,
-        classes: ['row']
+        columns: 4
     },
     configurations: [
         Background,

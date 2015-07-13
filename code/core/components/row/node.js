@@ -1,7 +1,8 @@
 'use strict'
 
-import Node      from 'core/components/node/node.js'
-import Childable from 'core/components/node/behaviors/childable.js'
+import Node       from 'core/components/node/node.js'
+import Childable  from 'core/components/node/behaviors/childable.js'
+import {addClass} from 'core/components/node/behaviors/classable.js'
 
 export default class RowNode extends Node {
     constructor(props, context) {
@@ -10,7 +11,17 @@ export default class RowNode extends Node {
         this.addBehavior(Childable)
     }
 
+    beforeRender() {
+        addClass(this, 'container-fluid')
+    }
+
     render() {
-        return <div className="container-fluid">{super.render()}</div>
+        return (
+            <div {...this.getProperties()}>
+                <div className="row">
+                    {this.getChildren()}
+                </div>
+            </div>
+        )
     }
 }
