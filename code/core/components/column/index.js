@@ -4,7 +4,7 @@ import Node   from 'core/components/column/node.js'
 import Layout from 'core/components/column/layout.js'
 
 // Config UI
-import Box         from 'core/components/node/configuration/box.js'
+import Box         from 'core/components/node/configuration/box'
 import Background  from 'core/components/node/configuration/background.js'
 
 export default {

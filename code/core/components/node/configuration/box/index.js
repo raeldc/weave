@@ -279,7 +279,7 @@ export default class Box extends CSSConfig {
                         onDrag={color => {this.setStyle(this.state.subject+'Color', color)}}
                 />
                 <div className="btn-group select-sides">
-                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Corners</a>
+                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
                     <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
                 </div>
             </DropDown>
@@ -299,7 +299,7 @@ export default class Box extends CSSConfig {
                     }} className="input-xs" ref="subjectInput" value={String(style.get(this.state.subject, '0')).replace(/[^0-9]/g, '')} type="text" name={this.state.subject} onMouseDown={event => {event.stopPropagation()}} onBlur={this.closeDropDown} />
                 </div>
                 <div className="btn-group select-sides">
-                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
+                    <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Corners</a>
                     <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
                 </div>
             </DropDown>
