@@ -13,10 +13,10 @@ export default class Dimensions extends BoxConfig {
         const style = getStyle(this.props.node, this.props.device)
 
         return (
-            <span>
-                <ul className="dimensions clearfix">
+            <span className="dimensions">
+                <ul>
                     <li className="title">Dimensions</li>
-                    <li className="form-field width">
+                    <li className="form-field-group width">
                         <span className="label">Width <i className="fa fa-arrows-v" /></span>
                         <a
                             className="clickField"
@@ -24,7 +24,7 @@ export default class Dimensions extends BoxConfig {
                             onClick={event => this.openDropdown('width')}> {style.get('width', 'auto')}
                         </a>
                     </li>
-                    <li className="form-field height">
+                    <li className="form-field-group height">
                         <span className="label">Height <i className="fa fa-arrows-v" /></span>
                         <a
                             className="clickField"
