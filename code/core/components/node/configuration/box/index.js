@@ -8,6 +8,7 @@ import ReactColorPicker from 'react-color-picker'
 import Margin       from 'core/components/node/configuration/box/margin.js'
 import Padding      from 'core/components/node/configuration/box/padding.js'
 import Border       from 'core/components/node/configuration/box/border.js'
+import Dimensions   from 'core/components/node/configuration/box/dimensions.js'
 import BorderRadius from 'core/components/node/configuration/box/radius.js'
 
 // Actions
@@ -27,29 +28,8 @@ export default class Box extends CSSConfig {
             <div className="form-inline config config-box">
                 <h5>Box</h5>
                 <div className="wrapper">
-                    <ul className="dimensions clearfix">
-                        <li className="title">Dimensions</li>
-                        <li className="form-field width">
-                            <span className="label">Width <i className="fa fa-arrows-h" /></span>
-                            <input
-                                onChange={event => {this.setStyle('width', event.target.value)}}
-                                value={style.get('width', null)}
-                                type="text"
-                                name="width"
-                            />
-                        </li>
-                        <li className="form-field height">
-                            <span className="label">Height <i className="fa fa-arrows-v" /></span>
-                            <input
-                                onChange={event => {this.setStyle('height', event.target.value)}}
-                                value={style.get('height', null)}
-                                type="text"
-                                name="height"
-                            />
-                        </li>
-                    </ul>
+                    <Dimensions {...this.props} />
                 </div>
-
                 <div className="wrapper">
                     <ul className="alignment">
                         <li className="title">Alignment</li>

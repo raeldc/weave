@@ -45,9 +45,18 @@ export default class Border extends BoxConfig {
                 <BoxConfig.DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
                     <div className="form-field border-width">
                         <span className="label">Thickness</span>
-                        <input onChange={event => {
-                            this.setStyle(this.state.subject+'Width', String(event.target.value).replace(/[^0-9]/g, 'x')+'px')
-                        }} className="input-xs" ref="subjectInput" value={String(style.get(this.state.subject+'Width', '0')).replace(/[^0-9]/g, '')} type="text" name={this.state.subject+'Width'} onMouseDown={event => {event.stopPropagation()}} onBlur={this.closeDropDown} />
+                        <input
+                            onChange={event => {
+                                this.setStyle(this.state.subject+'Width', String(event.target.value).replace(/[^0-9]/g, 'x')+'px')
+                            }}
+                            className="input-xs"
+                            ref="subjectInput"
+                            value={String(style.get(this.state.subject+'Width', '0')).replace(/[^0-9]/g, '')}
+                            type="text" name={this.state.subject+'Width'}
+                            onMouseDown={event => event.stopPropagation()}
+                            onBlur={event => this.closeDropDown()}
+                        />
+
                     </div>
                     <div className="form-field border-style">
                         <span className="label">Border Style</span>
@@ -89,7 +98,7 @@ export default class Border extends BoxConfig {
                             type="text" ref="borderColor"
                             name={this.state.subject+'Color'}
                             onMouseDown={event => {event.target.select()}}
-                            onBlur={this.closeDropDown}
+                            onBlur={event => this.closeDropDown()}
                         />
                     </div>
                     <BoxConfig.ReactColorPicker
@@ -108,15 +117,6 @@ export default class Border extends BoxConfig {
         }
 
         return null
-    }
-
-    closeDropDown(event) {
-        let delayer = setInterval(() => {
-            if(document.activeElement !== React.findDOMNode(this.refs.subjectInput) && document.activeElement !== React.findDOMNode(this.refs.borderColor)) {
-                super.closeDropDown()
-                clearInterval(delayer)
-            }
-        }, 0)
     }
 
     setStyle(property, value) {

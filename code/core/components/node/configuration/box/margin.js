@@ -42,7 +42,7 @@ export default class Margin extends BoxConfig {
 
         if(this.state.open) {
             return (
-                <BoxConfig.DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
+                <BoxConfig.DropDown subject={this.refs[this.state.subject]} onMouseDown={event => {event.preventDefault()}}>
                     <input
                         type="text"
                         name={this.state.subject}
