@@ -100,8 +100,8 @@ export default class Border extends BoxConfig {
                             onDrag={color => {this.setStyle(this.state.subject+'Color', color)}}
                     />
                     <div className="btn-group select-sides">
-                        <a className={"btn btn-default btn-xs" + allSides} onClick={event => {this.setStyle('allSides')}}>All Sides</a>
-                        <a className={"btn btn-default btn-xs" + oneSide} onClick={event => {this.setStyle(this.state.subject)}}>{_.toWords(this.state.subject)}</a>
+                        <a className={"btn btn-default btn-xs" + allSides} onClick={event => this.setStyle('allSides')}>All Sides</a>
+                        <a className={"btn btn-default btn-xs" + oneSide} onClick={event => this.setStyle(this.state.subject)}>{_.toWords(this.state.subject)}</a>
                     </div>
                 </BoxConfig.DropDown>
             )
@@ -120,10 +120,7 @@ export default class Border extends BoxConfig {
     }
 
     setStyle(property, value) {
-        const
-            subject = this.state.subject || ''
-        let
-            style = {}
+        let style = {}
 
         if(value === undefined) {
             value = React.findDOMNode(this.refs.subjectInput).value
@@ -151,6 +148,12 @@ export default class Border extends BoxConfig {
                     borderLeftStyle  : borderStyle,
                     borderLeftColor  : borderColor,
                 }
+
+                /**
+                 * Yes we set the state directly but we are also sure that
+                 *  `mergeStyle` will re-render this component.
+                 */
+                this.state.allSides = true
         }
         else style[property] = value
 

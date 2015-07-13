@@ -35,10 +35,7 @@ export default class Padding extends Margin {
     }
 
     setStyle(property, value) {
-        const
-            subject = this.state.subject || ''
-        let
-            style = {}
+        let style = {}
 
         if(value === undefined) {
             value = React.findDOMNode(this.refs.subjectInput).value
@@ -46,18 +43,20 @@ export default class Padding extends Margin {
         }
 
         if(property === 'allSides' || this.state.allSides) {
-            /**
-             * Yes we set the state directly but we are also sure that
-             *  `mergeStyle` will re-render this component.
-             */
-            this.state.allSides = true
             style = {
                 paddingTop   : value,
                 paddingRight : value,
                 paddingBottom: value,
                 paddingLeft  : value,
             }
-        }else style[property] = value
+
+            /**
+             * Yes we set the state directly but we are also sure that
+             *  `mergeStyle` will re-render this component.
+             */
+            this.state.allSides = true
+        }
+        else style[property] = value
 
         mergeStyle(this.props.node, style, this.props.device)
     }
