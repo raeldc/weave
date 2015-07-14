@@ -38,8 +38,23 @@ export default class BoxConfig extends Component {
 
         if(focus && focus.tagName === 'INPUT') {
             const delayer = setInterval(() => {
+                let active = false
+
+                // Check if one of the refs are on focus
+                _.every(this.refs, input => {
+                    if(document.activeElement === React.findDOMNode(input)) {
+                        active = true
+                        return false
+                    }
+
+                    return true
+                })
+
+                if(!active) {
+                    focus.select()
+                }
+
                 clearInterval(delayer)
-                focus.select()
             }, 0)
         }
     }
