@@ -18,23 +18,34 @@ export default class Dimensions extends BoxConfig {
                     <li className="title">Dimensions</li>
                     <li className="form-field-group width">
                         <span className="label">Width <i className="fa fa-arrows-v" /></span>
-                        <a
-                            className="clickField"
-                            ref="width"
-                            onClick={event => this.openDropdown('width')}> {style.get('width', 'auto')}
-                        </a>
+                        {this.renderClickField('width')}
                     </li>
                     <li className="form-field-group height">
                         <span className="label">Height <i className="fa fa-arrows-v" /></span>
-                        <a
-                            className="clickField"
-                            ref="height"
-                            onClick={event => this.openDropdown('height')}> {style.get('height', 'auto')}
-                        </a>
+                        {this.renderClickField('height')}
                     </li>
                 </ul>
                 {this.renderDropDown()}
             </span>
+        )
+    }
+
+    renderClickField(subject = 'width') {
+        const style = getStyle(this.props.node, this.props.device)
+
+        return (
+            <input
+                type="text"
+                name={subject}
+                value={style.get(subject)}
+                placeholder="auto"
+                ref={subject}
+                className="input input-xs"
+                onFocus={event => this.openDropdown(subject)}
+                onBlur={event => this.closeDropDown()}
+                onChange={event => this.setStyle(subject, event.target.value)}
+                onMouseDown={event => event.stopPropagation()}
+            />
         )
     }
 
@@ -44,19 +55,6 @@ export default class Dimensions extends BoxConfig {
         if(this.state.open) {
             return (
                 <BoxConfig.DropDown subject={this.refs[this.state.subject]} onMouseDown={event => {event.preventDefault()}}>
-                    <div className={"form-field " + this.state.subject}>
-                        <span className="label">{_.toWords(this.state.subject)}</span>
-                        <input
-                            type="text"
-                            name={this.state.subject}
-                            defaultValue={style.get(this.state.subject, '')}
-                            ref="subjectInput"
-                            className="input input-xs"
-                            onBlur={event => this.closeDropDown()}
-                            onChange={event => this.setStyle(this.state.subject, event.target.value)}
-                            onMouseDown={event => event.stopPropagation()}
-                        />
-                    </div>
                     <div className={"form-field min-" + this.state.subject}>
                         <span className="label">Minimum {_.toWords(this.state.subject)}</span>
                         <input
