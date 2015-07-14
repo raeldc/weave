@@ -13,7 +13,7 @@ export default class BoxConfig extends Component {
     }
 
     afterUpdate() {
-        this.focusSubject()
+        this.focusOnInput()
     }
 
     render() {
@@ -25,51 +25,45 @@ export default class BoxConfig extends Component {
         return null
     }
 
-    openDropdown(subject) {
+    openDropdown(subject, focus = 'subjectInput') {
         this.setState({
             open   : true,
-            subject: subject
+            subject: subject,
+            focus  : focus,
         })
     }
 
-    focusSubject() {
-        if(this.refs.subjectInput) {
-            let delayer = setInterval(() => {
-                let active = false
+    focusOnInput() {
+        const focus = React.findDOMNode(this.refs[this.state.focus])
 
-                // Check if one of the refs are on focus
-                _.each(this.refs, input => {
-                    if(document.activeElement === React.findDOMNode(input)) {
-                        active = true
-                    }
-                })
-
-                // If not on focus, focus on it
-                if(!active) {
-                    React.findDOMNode(this.refs.subjectInput).select()
-                }
-
+        if(focus && focus.tagName === 'INPUT') {
+            const delayer = setInterval(() => {
                 clearInterval(delayer)
+                focus.select()
             }, 0)
         }
     }
 
     closeDropDown(event) {
-        let delayer = setInterval(() => {
+        const delayer = setInterval(() => {
             let active = false
 
             // Check if one of the refs are on focus
-            _.each(this.refs, input => {
+            _.every(this.refs, input => {
                 if(document.activeElement === React.findDOMNode(input)) {
                     active = true
+                    return false
                 }
+
+                return true
             })
 
-            // If not on focus, focus on it
+            // If not on focus, close the DropDown
             if(!active) {
                 this.setState({
                     open   : false,
-                    subject: undefined
+                    subject: undefined,
+                    focus  : undefined,
                 })
             }
 
