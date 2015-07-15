@@ -2,13 +2,17 @@
 
 const key = {
     selector   : Symbol('selector'),
-    properties : Symbol('properties')
+    properties : Symbol('properties'),
+    backgrounds: Symbol('backgrounds'),
+    shadows    : Symbol('shadows'),
 }
 
 export default class Style {
     constructor(selector, properties = {}) {
-        this[key.selector]   = selector
-        this[key.properties] = new Map()
+        this[key.selector]    = selector
+        this[key.properties]  = new Map()
+        this[key.backgrounds] = new Map()
+        this[key.shadows]     = new Map()
 
         if(_.isObject(properties)) {
             _.each(properties, (value, property) => {
@@ -26,7 +30,12 @@ export default class Style {
     }
 
     set(property, value) {
-        this[key.properties].set(property, value)
+        if(property === 'background') {
+            const properties = _.isObject(value) ? value : {}
+            this.setBackground(properties.id, properties)
+        }
+        else this[key.properties].set(property, value)
+
         return this
     }
 
@@ -102,12 +111,41 @@ export default class Style {
     toString() {
         let css = `${this[key.selector]} {\n`
 
+        // Generate Normal Properties
         for(let [property, value] of this[key.properties]) {
             css += `\t${_.toDash(property)}: ${value};\n`
         }
+
+        // Generate Backgrounds
 
         css += '}'
 
         return css
     }
+
+    /**
+     * Return an array of ordered background objects
+     */
+     getBackgrounds() {
+         return _.sortBy(Array.from(this[key.backgrounds].values()), 'ordering')
+     }
+
+     setBackground(id, properties = {}) {
+         if(id === undefined) {
+             properties.id       = id = _.uniqueId()
+             properties.ordering = this[key.backgrounds].size
+         }
+
+         properties = _.extend(this[key.backgrounds].get(id) || {}, properties)
+
+         this[key.backgrounds].set(id, properties)
+
+         return this
+     }
+
+     removeBackground(...ids) {
+         ids.forEach(id => this[key.backgrounds].delete(id))
+
+         return this
+     }
 }

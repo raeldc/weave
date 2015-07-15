@@ -68,6 +68,8 @@ jQuery(document).ready(function(){
 });
 
 add_action('customize_controls_enqueue_scripts', function() {
+    wp_enqueue_media();
+
     wp_enqueue_script(
         'themebuilder-customizer',
         get_template_directory_uri() . '/js/themebuilder.js',

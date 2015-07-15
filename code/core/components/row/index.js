@@ -6,7 +6,7 @@ import Typography  from 'core/components/node/configuration/typography'
 import Positioning from 'core/components/node/configuration/positioning.js'
 import Dimensions  from 'core/components/node/configuration/dimensions.js'
 import Box         from 'core/components/node/configuration/box'
-import Background  from 'core/components/node/configuration/background.js'
+import Background  from 'core/components/node/configuration/background/index.js'
 
 export default {
     name       : 'row',

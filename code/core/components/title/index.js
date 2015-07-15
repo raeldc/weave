@@ -6,7 +6,7 @@ import PaneView from 'core/components/node/paneview.js'
 // Config UI
 import Typography  from 'core/components/node/configuration/typography'
 import Box         from 'core/components/node/configuration/box'
-import Background  from 'core/components/node/configuration/background.js'
+import Background  from 'core/components/node/configuration/background/index.js'
 import Css         from 'core/components/node/configuration/css.js'
 
 module.exports = {

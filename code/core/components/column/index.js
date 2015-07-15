@@ -5,7 +5,7 @@ import Layout from 'core/components/column/layout.js'
 
 // Config UI
 import Box         from 'core/components/node/configuration/box'
-import Background  from 'core/components/node/configuration/background.js'
+import Background  from 'core/components/node/configuration/background/index.js'
 
 export default {
     name       : 'column',

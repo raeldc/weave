@@ -26,6 +26,15 @@ export function removeProperties(node, properties, device = 'all') {
     Styling.trigger()
 }
 
+export function removeBackground(node, id, device = 'all') {
+    Styling.getStylesheets()
+        .get(device)
+        .getStyle(getClass(node))
+        .removeBackground(id)
+
+    Styling.trigger()
+}
+
 export function toggleStyle(node, properties, device = 'all') {
     let style = getStyle(node, device)
 
