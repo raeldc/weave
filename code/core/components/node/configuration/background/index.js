@@ -70,6 +70,7 @@ export default class Background extends CSSConfig {
         mergeStyle(this.props.node, {background: {
             type               : 'image',
             backgroundImage    : data.get('url'),
+            backgroundSize     : 'auto',
             backgroundPositionX: 'left',
             backgroundPositionY: 'top',
         }}, this.props.device)

@@ -60,8 +60,8 @@ export default class Background extends BoxConfig {
                                 Vertical
                         </a>
                     </div>
+                    <h6><i className="fa fa-arrows" /> Position</h6>
                     <div className="form-field background-position-buttons">
-                        <span className="label"><i className="fa fa-arrows" />Position</span>
                         <div className="background-position-top">
                             <a className={"btn" + String(this.props.backgroundPositionX === 'left' && this.props.backgroundPositionY === 'top'? ' active' : '')}
                                 onClick={event => this.setBackground({
@@ -151,7 +151,7 @@ export default class Background extends BoxConfig {
                         </div>
                     </div>
                     <div className="form-field background-position">
-                        <span className="background-position-x">
+                        <div className="form-field-group background-position-x">
                             <span className="label">X</span>
                             <input
                                 type="text"
@@ -168,8 +168,8 @@ export default class Background extends BoxConfig {
                                 })}
                                 onMouseDown={event => event.stopPropagation()}
                             />
-                        </span>
-                        <span className="background-position-y">
+                        </div>
+                        <div className="form-field-group background-position-y">
                             <span className="label">Y</span>
                             <input
                                 type="text"
@@ -186,7 +186,70 @@ export default class Background extends BoxConfig {
                                 })}
                                 onMouseDown={event => event.stopPropagation()}
                             />
-                        </span>
+                        </div>
+                    </div>
+                    <h6><i className="fa fa-expand" /> Size</h6>
+                    <div className="form-field background-size">
+                        <a className={"btn" + String(this.props.backgroundSize === 'auto' ? ' active' : '')}
+                            onClick={event => this.setBackground({
+                                backgroundSize   : 'auto',
+                                backgroundWidth  : null,
+                                backgroundHeight : null,
+                            })}>
+                                Auto
+                        </a>
+                        <a className={"btn" + String(this.props.backgroundSize === 'contain' ? ' active' : '')}
+                            onClick={event => this.setBackground({
+                                backgroundSize   : 'contain',
+                                backgroundWidth  : null,
+                                backgroundHeight : null,
+                            })}>
+                                Contain
+                        </a>
+                        <a className={"btn" + String(this.props.backgroundSize === 'cover' ? ' active' : '')}
+                            onClick={event => this.setBackground({
+                                backgroundSize   : 'cover',
+                                backgroundWidth  : null,
+                                backgroundHeight : null,
+                            })}>
+                                Cover
+                        </a>
+                    </div>
+                    <div className="form-field">
+                        <div className="form-field-group background-width">
+                            <span className="label">Width</span>
+                            <input
+                                type="text"
+                                name="backgroundWidth"
+                                value={this.props.backgroundWidth}
+                                placeholder={this.props.backgroundSize !== 'auto' && !this.props.backgroundHeight ? 'n/a' : 'auto'}
+                                ref="backgroundWidth"
+                                className="input input-xs"
+                                onBlur={event => this.closeDropDown()}
+                                onChange={event => this.setBackground({
+                                    backgroundSize  : null,
+                                    backgroundWidth : event.target.value,
+                                })}
+                                onMouseDown={event => event.stopPropagation()}
+                            />
+                        </div>
+                        <div className="form-field-group background-height">
+                            <span className="label">Height</span>
+                            <input
+                                type="text"
+                                name="backgroundHeight"
+                                value={this.props.backgroundHeight}
+                                placeholder={this.props.backgroundSize !== 'auto' && !this.props.backgroundWidth ? 'n/a' : 'auto'}
+                                ref="backgroundHeight"
+                                className="input input-xs"
+                                onBlur={event => this.closeDropDown()}
+                                onChange={event => this.setBackground({
+                                    backgroundSize   : null,
+                                    backgroundHeight : event.target.value,
+                                })}
+                                onMouseDown={event => event.stopPropagation()}
+                            />
+                        </div>
                     </div>
                 </BoxConfig.DropDown>
             )
