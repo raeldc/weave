@@ -48,32 +48,30 @@ export default class Background extends CSSConfig {
     openMediaManager() {
         let manager;
 
-        if(wp.media.frames.backgroundImageManager === undefined) {
-            manager = wp.media.frames.backgroundImageManager = wp.media({
-                title: 'Select a Background Image',
-                library: {
-                    type: 'image'
-                },
-                button: {
-                    //Button text
-                    text: 'Select Image'
-                },
-                multiple: false,
-            })
-            .on('select', data => {
-                // @see http://wordpress.stackexchange.com/questions/106030/wp-3-5-media-uploader-api-set-selected-item
-                this.selectImage(manager.state().get('selection').first())
-            })
-        }
-        else manager = wp.media.frames.backgroundImageManager
+        manager = wp.media.frames.backgroundImageManager = wp.media({
+            title: 'Select a Background Image',
+            library: {
+                type: 'image'
+            },
+            button: {
+                //Button text
+                text: 'Select Image'
+            },
+            multiple: false,
+        })
 
-        manager.open();
+        manager.on('select', data => {
+            // @see http://wordpress.stackexchange.com/questions/106030/wp-3-5-media-uploader-api-set-selected-item
+            this.selectImage(manager.state().get('selection').first())
+        }).open()
     }
 
     selectImage(data) {
         mergeStyle(this.props.node, {background: {
-            type            : 'image',
-            backgroundImage : data.get('url')
+            type               : 'image',
+            backgroundImage    : data.get('url'),
+            backgroundPositionX: 'left',
+            backgroundPositionY: 'top',
         }}, this.props.device)
     }
 }
