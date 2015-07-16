@@ -33,10 +33,12 @@ class Background extends BoxConfig {
     render() {
         const {isDragging, connectDragSource, connectDropTarget} = this.props
 
-        return connectDragSource(connectDropTarget(
+        return connectDropTarget(
             <span>
                 <a className="btn fa fa-eye advanced" />
-                <img src={this.props.backgroundImage} ref="background" />
+                {connectDragSource(
+                    <span><img src={this.props.backgroundImage} ref="background" /></span>
+                )}
                 <a className="btn configure advanced" onClick={event => this.openDropdown('background', 'backgroundImage')}>
                     <i className="fa fa-cog" />
                     <i className="fa fa-caret-down" />
@@ -44,13 +46,13 @@ class Background extends BoxConfig {
                 {this.renderDropDown()}
                 <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
             </span>
-        ))
+        )
     }
 
     renderDropDown() {
         if(this.state.open) {
             return (
-                <BoxConfig.DropDown subject={this.refs.background} onMouseDown={event => {event.preventDefault()}}>
+                <BoxConfig.DropDown subject={this.refs.background}>
                     <div className="form-field">
                         <span className="label">URL</span>
                         <input

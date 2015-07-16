@@ -184,8 +184,6 @@ export default class Style {
 
              subject.ordering = targetOrdering
          }
-
-         console.log(this.getBackgrounds())
      }
 
      setBackground(id, properties = {}) {
