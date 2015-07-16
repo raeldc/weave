@@ -21,7 +21,7 @@ export default class DropDown extends Component {
         const children = this.props.children || null
 
         return(
-            <div className="dropdown-box" {...this.props} style={this.state || {}}>
+            <div className="dropdown-box" onMouseDown={event => {event.preventDefault(); event.stopPropagation()}} {...this.props} style={this.state || {}}>
                 <div className="dropdown-container">
                     {this.props.children}
                 </div>
