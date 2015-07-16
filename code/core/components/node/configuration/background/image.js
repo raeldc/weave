@@ -46,16 +46,16 @@ export default class Background extends BoxConfig {
                         <a className={"btn" + String(this.props.backgroundRepeatX ? ' active' : '')}
                             onClick={event => this.setBackground({
                                 backgroundRepeatX  : !this.props.backgroundRepeatX,
-                                backgroundPositionX: undefined,
-                                backgroundPositionY: undefined,
+                                backgroundPositionX: null,
+                                backgroundPositionY: null,
                             })}>
                                 Horizontal
                         </a>
                         <a className={"btn" + String(this.props.backgroundRepeatY ? ' active' : '')}
                             onClick={event => this.setBackground({
                                 backgroundRepeatY  : !this.props.backgroundRepeatY,
-                                backgroundPositionX: undefined,
-                                backgroundPositionY: undefined,
+                                backgroundPositionX: null,
+                                backgroundPositionY: null,
                             })}>
                                 Vertical
                         </a>

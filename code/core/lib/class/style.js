@@ -113,13 +113,36 @@ export default class Style {
 
         // Generate Normal Properties
         for(let [property, value] of this[key.properties]) {
-            css += `\t${_.toDash(property)}: ${value};\n`
+            css += String(value).length ? `\t${_.toDash(property)}: ${value};\n` : ''
         }
 
         // Generate Backgrounds
+        {
+            let
+                backgroundImages    = [],
+                backgroundPositions = [],
+                backgroundSizes     = [],
+                backgroundRepeats   = []
+
+            this.getBackgrounds().forEach(bg => {
+                if(bg.type === 'image') {
+                    backgroundImages.push(`url("${bg.backgroundImage}")`)
+                    backgroundPositions.push(String(bg.backgroundPositionX || '0%') + ' ' + String(bg.backgroundPositionY || '0%'))
+                    backgroundSizes.push(bg.backgroundSize ? bg.backgroundSize : bg.backgroundWidth || 'auto' + ' ' + bg.backgroundHeight || 'auto')
+                    backgroundRepeats.push(!bg.backgroundRepeatX && !bg.backgroundRepeatY ? 'no-repeat' : String(bg.backgroundRepeatX ? 'repeat-x' : '') + ' ' + String(bg.backgroundRepeatY ? 'repeat-y' : ''))
+                }
+            })
+
+            if(backgroundImages.length) {
+                css += `\tbackground-image: ${backgroundImages.join(',')};\n`
+                css += `\tbackground-position: ${backgroundPositions.join(',')};\n`
+                css += `\tbackground-size: ${backgroundSizes.join(',')};\n`
+                css += `\tbackground-repeat: ${backgroundRepeats.join(',')};\n`
+            }
+        }
 
         css += '}'
-
+        console.log(css)
         return css
     }
 
