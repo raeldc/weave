@@ -26,6 +26,17 @@ export function removeProperties(node, properties, device = 'all') {
     Styling.trigger()
 }
 
+export function reorderBackgrounds(node, params = {}, device = 'all') {
+    const
+        stylesheet = Styling.getStylesheets().get(device),
+        style      = stylesheet.getStyle(getClass(node))
+
+    style.reorderBackgrounds(params.subject, params.target)
+
+    stylesheet.flush()
+    Styling.trigger()
+}
+
 export function removeBackground(node, id, device = 'all') {
     const stylesheet = Styling.getStylesheets().get(device)
 

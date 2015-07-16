@@ -5,18 +5,20 @@ import UINodeActions   from 'core/actions/node.js'
 import ColorPicker     from 'core/components/node/configuration/inputs/colorpicker.js'
 import BackgroundImage from 'core/components/node/configuration/background/image.js'
 
+// Drag and Drop
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend        from 'react-dnd/modules/backends/HTML5';
+
 // Actions
 import {
     mergeStyle,
-    toggleStyle,
     getStyle,
-    getCascade
+    reorderBackgrounds,
 } from 'core/actions/styling.js'
 
-export default class Background extends CSSConfig {
+class Background extends CSSConfig {
     render() {
         const style   = getStyle(this.props.node, this.props.device)
-        const cascade = getCascade(this.props.node, this.props.device)
 
         return (
             <div className="config config-background">
@@ -30,7 +32,7 @@ export default class Background extends CSSConfig {
                         if(background.type === 'image') {
                             return (
                                 <li className="form-field background-image" key={'bg-' + background.id}>
-                                    <BackgroundImage {...background} node={this.props.node} device={this.props.device} />
+                                    <BackgroundImage {...background} node={this.props.node} device={this.props.device} reorder={this.reorderBackgrounds} />
                                 </li>
                             )
                         }
@@ -75,4 +77,13 @@ export default class Background extends CSSConfig {
             backgroundPositionY: 'top',
         }}, this.props.device)
     }
+
+    reorderBackgrounds(subject, target) {
+        reorderBackgrounds(this.props.node, {
+            subject: subject,
+            target : target
+        }, this.props.device)
+    }
 }
+
+export default DragDropContext(HTML5Backend)(Background)

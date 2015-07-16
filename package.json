@@ -21,7 +21,8 @@
     "keymirror": "~0.1.0",
     "interact.js": "~1.2.x",
     "tinycolor2": "~1.1.x",
-    "react-color-picker": "~2.1.x"
+    "react-color-picker": "~2.1.x",
+    "react-dnd": "~1.x"
   },
   "devDependencies": {
     "babelify": "^6.1.1",

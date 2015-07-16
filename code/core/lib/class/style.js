@@ -153,6 +153,41 @@ export default class Style {
          return _.sortBy(Array.from(this[key.backgrounds].values()), 'ordering')
      }
 
+     getBackground(id) {
+         return this[key.backgrounds].get(id)
+     }
+
+     reorderBackgrounds(from, to) {
+         const
+             backgrounds       = this.getBackgrounds(),
+             [subject, target] = [this.getBackground(from), this.getBackground(to)],
+             targetOrdering    = target.ordering,
+             subjectOrdering   = subject.ordering
+
+         // if move higher
+         if(targetOrdering > subjectOrdering) {
+             backgrounds.forEach(bg => {
+                 if(bg.ordering > subjectOrdering && bg.ordering <= targetOrdering) {
+                     bg.ordering--
+                 }
+             })
+
+             subject.ordering = targetOrdering
+         }
+         // if move lower
+         else if(targetOrdering < subjectOrdering) {
+             backgrounds.forEach(bg => {
+                 if(bg.ordering >= targetOrdering && bg.ordering < subjectOrdering) {
+                     bg.ordering++
+                 }
+             })
+
+             subject.ordering = targetOrdering
+         }
+
+         console.log(this.getBackgrounds())
+     }
+
      setBackground(id, properties = {}) {
          if(id === undefined) {
              properties.id       = id = _.uniqueId()
@@ -167,7 +202,14 @@ export default class Style {
      }
 
      removeBackground(...ids) {
+         let ordering = 0
+
          ids.forEach(id => this[key.backgrounds].delete(id))
+
+         this.getBackgrounds().forEach(bg => {
+             bg.ordering = ordering
+             ordering++
+         })
 
          return this
      }

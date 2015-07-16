@@ -2,15 +2,38 @@
 
 import BoxConfig from 'core/components/node/configuration/box/config.js'
 
+// Drag and Drop
+import { DragSource, DropTarget } from 'react-dnd';
+
 // Actions
 import {
     mergeStyle,
     removeBackground,
 } from 'core/actions/styling.js'
 
-export default class Background extends BoxConfig {
+const backgroundSource = {
+    beginDrag(props) {
+        return {
+            id: props.id
+        }
+    }
+}
+
+const backgroundTarget = {
+    hover(props, monitor) {
+        const subject = monitor.getItem().id;
+
+        if (subject !== props.id) {
+            props.reorder(subject, props.id);
+        }
+    }
+}
+
+class Background extends BoxConfig {
     render() {
-        return (
+        const {isDragging, connectDragSource, connectDropTarget} = this.props
+
+        return connectDragSource(connectDropTarget(
             <span>
                 <a className="btn fa fa-eye advanced" />
                 <img src={this.props.backgroundImage} ref="background" />
@@ -21,7 +44,7 @@ export default class Background extends BoxConfig {
                 {this.renderDropDown()}
                 <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
             </span>
-        )
+        ))
     }
 
     renderDropDown() {
@@ -275,3 +298,12 @@ export default class Background extends BoxConfig {
         removeBackground(this.props.node, this.props.id, this.props.device)
     }
 }
+
+export default DropTarget('background', backgroundTarget, connect => ({
+    connectDropTarget: connect.dropTarget(),
+}))(
+    DragSource('background', backgroundSource, (connect, monitor) => ({
+        connectDragSource: connect.dragSource(),
+        isDragging       : monitor.isDragging()
+    }))(Background)
+)
