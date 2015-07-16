@@ -54,7 +54,7 @@ export default class Dimensions extends BoxConfig {
 
         if(this.state.open) {
             return (
-                <BoxConfig.DropDown subject={this.refs[this.state.subject]} onMouseDown={event => {event.preventDefault()}}>
+                <BoxConfig.DropDown subject={this.refs[this.state.subject]}>
                     <div className={"form-field min-" + this.state.subject}>
                         <span className="label">Minimum {_.toWords(this.state.subject)}</span>
                         <input

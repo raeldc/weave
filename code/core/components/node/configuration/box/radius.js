@@ -42,7 +42,7 @@ export default class BorderRadius extends BoxConfig {
 
         if(this.state.open) {
             return (
-                <BoxConfig.DropDown subject={this.refs[this.state.subject]} viewportWidth={300} onMouseDown={event => {event.preventDefault()}}>
+                <BoxConfig.DropDown subject={this.refs[this.state.subject]} viewportWidth={300}>
                     <div className="form-field border-radius">
                         <span className="label">Radius</span>
                         <input onChange={event => {
