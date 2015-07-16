@@ -32,19 +32,24 @@ const backgroundTarget = {
 class Background extends BoxConfig {
     render() {
         const {isDragging, connectDragSource, connectDropTarget} = this.props
+        const style = {
+            opacity: isDragging ? 0 : 1
+        }
 
         return connectDropTarget(
             <span>
-                <a className="btn fa fa-eye advanced" />
                 {connectDragSource(
-                    <span><img src={this.props.backgroundImage} ref="background" /></span>
+                <span style={style}>
+                    <a className="btn fa fa-eye advanced" />
+                        <img src={this.props.backgroundImage} ref="background" />
+                    <a className="btn configure advanced" onClick={event => this.openDropdown('background', 'backgroundImage')}>
+                        <i className="fa fa-cog" />
+                        <i className="fa fa-caret-down" />
+                    </a>
+                    <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
+                </span>
                 )}
-                <a className="btn configure advanced" onClick={event => this.openDropdown('background', 'backgroundImage')}>
-                    <i className="fa fa-cog" />
-                    <i className="fa fa-caret-down" />
-                </a>
                 {this.renderDropDown()}
-                <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
             </span>
         )
     }
