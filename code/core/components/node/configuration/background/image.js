@@ -31,23 +31,23 @@ const backgroundTarget = {
 
 class Background extends BoxConfig {
     render() {
-        const {isDragging, connectDragSource, connectDropTarget} = this.props
+        const {isDragging, connectDragSource, connectDragPreview, connectDropTarget} = this.props
         const style = {
             opacity: isDragging ? 0 : 1
         }
 
         return connectDropTarget(
             <span>
-                {connectDragSource(
-                <span style={style}>
-                    <a className="btn fa fa-eye advanced" />
-                        <img src={this.props.backgroundImage} ref="background" />
-                    <a className="btn configure advanced" onClick={event => this.openDropdown('background', 'backgroundImage')}>
-                        <i className="fa fa-cog" />
-                        <i className="fa fa-caret-down" />
-                    </a>
-                    <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
-                </span>
+                {connectDragPreview(
+                    <span style={style}>
+                        <a className="btn fa fa-eye advanced" />
+                            {connectDragSource(<span><img src={this.props.backgroundImage} ref="background" /></span>)}
+                        <a className="btn configure advanced" onClick={event => this.openDropdown('background', 'backgroundImage')}>
+                            <i className="fa fa-cog" />
+                            <i className="fa fa-caret-down" />
+                        </a>
+                        <a className="btn fa fa-trash advanced" onClick={event => this.deleteBackground(this.props.id)} />
+                    </span>
                 )}
                 {this.renderDropDown()}
             </span>
@@ -284,7 +284,8 @@ export default DropTarget('background', backgroundTarget, connect => ({
     connectDropTarget: connect.dropTarget(),
 }))(
     DragSource('background', backgroundSource, (connect, monitor) => ({
-        connectDragSource: connect.dragSource(),
-        isDragging       : monitor.isDragging()
+        connectDragPreview: connect.dragPreview(),
+        connectDragSource : connect.dragSource(),
+        isDragging        : monitor.isDragging()
     }))(Background)
 )
