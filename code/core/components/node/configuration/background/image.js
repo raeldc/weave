@@ -68,17 +68,13 @@ class Background extends BoxConfig {
                         <span className="label"><i className="fa fa-th" />Repeat</span>
                         <a className={"btn" + String(this.props.backgroundRepeatX ? ' active' : '')}
                             onClick={event => this.setBackground({
-                                backgroundRepeatX  : !this.props.backgroundRepeatX,
-                                backgroundPositionX: null,
-                                backgroundPositionY: null,
+                                backgroundRepeatX: !this.props.backgroundRepeatX,
                             })}>
                                 Horizontal
                         </a>
                         <a className={"btn" + String(this.props.backgroundRepeatY ? ' active' : '')}
                             onClick={event => this.setBackground({
-                                backgroundRepeatY  : !this.props.backgroundRepeatY,
-                                backgroundPositionX: null,
-                                backgroundPositionY: null,
+                                backgroundRepeatY: !this.props.backgroundRepeatY,
                             })}>
                                 Vertical
                         </a>
@@ -88,8 +84,6 @@ class Background extends BoxConfig {
                         <div className="background-position-top">
                             <a className={"btn" + String(this.props.backgroundPositionX === 'left' && this.props.backgroundPositionY === 'top'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'left',
                                     backgroundPositionY: 'top',
                                 })}>
@@ -97,8 +91,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'center' && this.props.backgroundPositionY === 'top'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'center',
                                     backgroundPositionY: 'top',
                                 })}>
@@ -106,8 +98,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'right' && this.props.backgroundPositionY === 'top'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'right',
                                     backgroundPositionY: 'top',
                                 })}>
@@ -117,8 +107,6 @@ class Background extends BoxConfig {
                         <div className="background-position-center">
                             <a className={"btn" + String(this.props.backgroundPositionX === 'left' && this.props.backgroundPositionY === 'center'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'left',
                                     backgroundPositionY: 'center',
                                 })}>
@@ -126,8 +114,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'center' && this.props.backgroundPositionY === 'center'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'center',
                                     backgroundPositionY: 'center',
                                 })}>
@@ -135,8 +121,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'right' && this.props.backgroundPositionY === 'center'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'right',
                                     backgroundPositionY: 'center',
                                 })}>
@@ -146,8 +130,6 @@ class Background extends BoxConfig {
                         <div className="background-position-bottom">
                             <a className={"btn" + String(this.props.backgroundPositionX === 'left' && this.props.backgroundPositionY === 'bottom'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'left',
                                     backgroundPositionY: 'bottom',
                                 })}>
@@ -155,8 +137,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'center' && this.props.backgroundPositionY === 'bottom'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'center',
                                     backgroundPositionY: 'bottom',
                                 })}>
@@ -164,8 +144,6 @@ class Background extends BoxConfig {
                             </a>
                             <a className={"btn" + String(this.props.backgroundPositionX === 'right' && this.props.backgroundPositionY === 'bottom'? ' active' : '')}
                                 onClick={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: 'right',
                                     backgroundPositionY: 'bottom',
                                 })}>
@@ -185,8 +163,6 @@ class Background extends BoxConfig {
                                 className="input input-xs"
                                 onBlur={event => this.closeDropDown()}
                                 onChange={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionX: event.target.value,
                                 })}
                                 onMouseDown={event => event.stopPropagation()}
@@ -203,8 +179,6 @@ class Background extends BoxConfig {
                                 className="input input-xs"
                                 onBlur={event => this.closeDropDown()}
                                 onChange={event => this.setBackground({
-                                    backgroundRepeatX  : false,
-                                    backgroundRepeatY  : false,
                                     backgroundPositionY: event.target.value,
                                 })}
                                 onMouseDown={event => event.stopPropagation()}
