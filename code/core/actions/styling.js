@@ -27,10 +27,10 @@ export function removeProperties(node, properties, device = 'all') {
 }
 
 export function removeBackground(node, id, device = 'all') {
-    Styling.getStylesheets()
-        .get(device)
-        .getStyle(getClass(node))
-        .removeBackground(id)
+    const stylesheet = Styling.getStylesheets().get(device)
+
+    stylesheet.getStyle(getClass(node)).removeBackground(id)
+    stylesheet.flush()
 
     Styling.trigger()
 }

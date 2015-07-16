@@ -128,7 +128,7 @@ export default class Style {
                 if(bg.type === 'image') {
                     backgroundImages.push(`url("${bg.backgroundImage}")`)
                     backgroundPositions.push(String(bg.backgroundPositionX || '0%') + ' ' + String(bg.backgroundPositionY || '0%'))
-                    backgroundSizes.push(bg.backgroundSize ? bg.backgroundSize : bg.backgroundWidth || 'auto' + ' ' + bg.backgroundHeight || 'auto')
+                    backgroundSizes.push(bg.backgroundSize ? bg.backgroundSize : String(bg.backgroundWidth || 'auto') + ' ' + String(bg.backgroundHeight || 'auto'))
                     backgroundRepeats.push(!bg.backgroundRepeatX && !bg.backgroundRepeatY ? 'no-repeat' : String(bg.backgroundRepeatX ? 'repeat-x' : '') + ' ' + String(bg.backgroundRepeatY ? 'repeat-y' : ''))
                 }
             })
@@ -142,7 +142,7 @@ export default class Style {
         }
 
         css += '}'
-        console.log(css)
+
         return css
     }
 
