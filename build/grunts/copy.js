@@ -87,19 +87,19 @@ module.exports = {
         files: [
             {
                 src : 'public/js/themebuilder.js',
-                dest: 'code/wordpress/ether/js/themebuilder.js'
+                dest: 'code/wordpress/weave/js/themebuilder.js'
             },
             {
                 src : 'public/css/themebuilder.css',
-                dest: 'code/wordpress/ether/css/themebuilder.css'
+                dest: 'code/wordpress/weave/css/themebuilder.css'
             },
             {
                 src : 'public/css/base.css',
-                dest: 'code/wordpress/ether/css/base.css'
+                dest: 'code/wordpress/weave/css/base.css'
             },
             {
                 src : 'public/css/overlay.css',
-                dest: 'code/wordpress/ether/css/overlay.css'
+                dest: 'code/wordpress/weave/css/overlay.css'
             }
         ]
     },
@@ -150,30 +150,30 @@ module.exports = {
             {
                 cwd   : 'node_modules/font-awesome/fonts',
                 src   : '**/*',
-                dest  : 'code/wordpress/ether/fonts/',
+                dest  : 'code/wordpress/weave/fonts/',
                 expand: true
             },
             {
                 src : 'public/js/themebuilder.min.js',
-                dest: 'code/wordpress/ether/js/themebuilder.js'
+                dest: 'code/wordpress/weave/js/themebuilder.js'
             },
             {
                 cwd : 'node_modules/font-awesome/css',
                 src : '**/*',
-                dest: 'code/wordpress/ether/css/',
+                dest: 'code/wordpress/weave/css/',
                 expand: true
             },
             {
                 src : 'public/css/themebuilder.css',
-                dest: 'code/wordpress/ether/css/themebuilder.css'
+                dest: 'code/wordpress/weave/css/themebuilder.css'
             },
             {
                 src : 'public/css/base.css',
-                dest: 'code/wordpress/ether/css/base.css'
+                dest: 'code/wordpress/weave/css/base.css'
             },
             {
                 src : 'public/css/overlay.css',
-                dest: 'code/wordpress/ether/css/overlay.css'
+                dest: 'code/wordpress/weave/css/overlay.css'
             }
         ]
     }
