@@ -68,7 +68,7 @@ export default class Margin extends BoxConfig {
         let style = {}
 
         if(value === undefined) {
-            value = React.findDOMNode(this.refs.subjectInput).value
+            value = ReactDOM.findDOMNode(this.refs.subjectInput).value
             this.state.allSides = false
         }
 

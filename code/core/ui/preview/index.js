@@ -24,7 +24,7 @@ export default class Preview extends Component {
     }
 
     afterMount() {
-        window.preview = React.findDOMNode(this.refs.iframe).contentWindow
+        window.preview = ReactDOM.findDOMNode(this.refs.iframe).contentWindow
         
         jQuery(window.preview).scroll(this.onFrameEvent)
         jQuery(window.preview).resize(this.onFrameEvent)
@@ -49,14 +49,14 @@ export default class Preview extends Component {
     }
 
     renderPreviewContent() {
-        var doc = React.findDOMNode(this.refs.iframe).contentDocument
+        var doc = ReactDOM.findDOMNode(this.refs.iframe).contentDocument
 
-        React.render(
+        ReactDOM.render(
             UIPreviewFactory.createNode('root'),
             doc.getElementById('corebuilder-container')
         )
 
-        React.render(
+        ReactDOM.render(
             <UIPreviewOverlay />,
             doc.getElementById('corebuilder-overlay')
         )

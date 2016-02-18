@@ -20,7 +20,7 @@ function beforeUnmount(component) {
 
 function selectNode(component, id) {
     if(id === component.props.id) {
-        LayoutActions.displaySelectOverlay(React.findDOMNode(component))
+        LayoutActions.displaySelectOverlay(ReactDOM.findDOMNode(component))
     }
 }
 

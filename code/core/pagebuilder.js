@@ -20,7 +20,7 @@ CoreBuilder.PageBuilder = function(config) {
 
     CoreBuilder.UIConfig.Preview.set('page', page);
 
-    React.render(
+    ReactDOM.render(
         <div>
             <div id="corebuilder-preview" />
             <Controls />
@@ -34,7 +34,7 @@ CoreBuilder.PageBuilder = function(config) {
 
         CoreBuilder.Nodes.setData(_.extend({root: {id: 'root', component: 'root'}},data));
 
-        React.render(<Layout />, document.getElementById('corebuilder-layout'));
-        //React.render(<Preview />, document.getElementById('corebuilder-preview'));
+        ReactDOM.render(<Layout />, document.getElementById('corebuilder-layout'));
+        //ReactDOM.render(<Preview />, document.getElementById('corebuilder-preview'));
     });
 }

@@ -18,7 +18,7 @@ function beforeUnmount(component) {
 
 function hoverNode(component, id) {
     if(id === component.props.id) {
-        LayoutActions.displayHoverOverlay(React.findDOMNode(component))
+        LayoutActions.displayHoverOverlay(ReactDOM.findDOMNode(component))
     }
 }
 

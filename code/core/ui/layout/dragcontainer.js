@@ -62,7 +62,7 @@ export default class DragContainer extends Component {
         this.previousY = undefined
 
         jQuery(document).unbind('mousemove.dragcontainer')
-        React.unmountComponentAtNode(React.findDOMNode(this.refs.container))
+        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this.refs.container))
 
         // Hide the container
         this.state.hidden = true
@@ -73,11 +73,11 @@ export default class DragContainer extends Component {
         var info, container
 
         if(instance) {
-            container = React.findDOMNode(this.refs.container)
+            container = ReactDOM.findDOMNode(this.refs.container)
             info      = this.getNodeInfo(instance)
 
             // Make a clone of the node inside the container
-            React.render(Factory.createNode(node, {type: 'layout'}), container)
+            ReactDOM.render(Factory.createNode(node, {type: 'layout'}), container)
 
             // Record the current clientX and clientY
             this.previousX = event.clientX
@@ -97,7 +97,7 @@ export default class DragContainer extends Component {
     }
 
     getNodeInfo(instance) {
-        var $target    = jQuery(React.findDOMNode(instance)),
+        var $target    = jQuery(ReactDOM.findDOMNode(instance)),
             nodeOffset = $target.offset()
 
         return {

@@ -58,7 +58,7 @@ export default class ColorPicker extends Component {
     }
 
     focusOnColorInput() {
-        React.findDOMNode(this.refs.colorInput).focus()
+        ReactDOM.findDOMNode(this.refs.colorInput).focus()
     }
 
     open() {

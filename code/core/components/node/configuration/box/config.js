@@ -34,7 +34,7 @@ export default class BoxConfig extends Component {
     }
 
     focusOnInput() {
-        const focus = React.findDOMNode(this.refs[this.state.focus])
+        const focus = ReactDOM.findDOMNode(this.refs[this.state.focus])
 
         if(focus && focus.tagName === 'INPUT') {
             const delayer = setInterval(() => {
@@ -42,7 +42,7 @@ export default class BoxConfig extends Component {
 
                 // Check if one of the refs are on focus
                 _.every(this.refs, input => {
-                    if(document.activeElement === React.findDOMNode(input)) {
+                    if(document.activeElement === ReactDOM.findDOMNode(input)) {
                         active = true
                         return false
                     }
@@ -65,7 +65,7 @@ export default class BoxConfig extends Component {
 
             // Check if one of the refs are on focus
             _.every(this.refs, input => {
-                if(document.activeElement === React.findDOMNode(input)) {
+                if(document.activeElement === ReactDOM.findDOMNode(input)) {
                     active = true
                     return false
                 }

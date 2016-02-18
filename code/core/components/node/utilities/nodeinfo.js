@@ -1,7 +1,7 @@
 'use strict'
 
 export function getNodeInfo(component) {
-    let $target    = jQuery(React.findDOMNode(component)),
+    let $target    = jQuery(ReactDOM.findDOMNode(component)),
         nodeOffset = $target.offset()
 
     component.nodeInfo = {

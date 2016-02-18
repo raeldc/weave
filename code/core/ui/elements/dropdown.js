@@ -48,7 +48,7 @@ export default class DropDown extends Component {
     }
 
     getElementPosition(element) {
-        let $element   = jQuery(React.findDOMNode(element)),
+        let $element   = jQuery(ReactDOM.findDOMNode(element)),
             nodeOffset = $element.offset(),
             info       = {
                 width : $element.outerWidth(),

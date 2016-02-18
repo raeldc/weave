@@ -20,7 +20,7 @@ export default class Property extends React.Component {
     }
 
     componentDidUpdate() {
-        React.findDOMNode(this).innerHTML = this.getCurrentValue()
+        ReactDOM.findDOMNode(this).innerHTML = this.getCurrentValue()
     }
 
     getCurrentValue() {

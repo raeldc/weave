@@ -117,7 +117,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      * Render the Layout
      * @type {String}
      */
-    React.render(
+    ReactDOM.render(
         <ThemeBuilderLayout />,
         document.getElementById('corebuilder-layout')
     );
@@ -125,7 +125,7 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Render the Style Settings on the Sidebar of WP Customizer
      */
-    React.render(
+    ReactDOM.render(
         <Customizer />,
         document.getElementById('corebuilder-customizer')
     );
@@ -134,7 +134,7 @@ CoreBuilder.ThemeBuilder = function(config) {
      * Render the Nodes on the Preview
      */
     {
-        React.render(
+        ReactDOM.render(
             UIPreviewFactory.createNode('root'),
             frame.document.getElementById('corebuilder-preview')
         );
@@ -143,7 +143,7 @@ CoreBuilder.ThemeBuilder = function(config) {
     /**
      * Render the Overlay Boxes
      */
-    React.render(
+    ReactDOM.render(
         <UIPreviewOverlay />,
         frame.document.getElementById('corebuilder-overlay')
     );
