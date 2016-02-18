@@ -50,7 +50,7 @@ add_action('customize_controls_print_footer_scripts', function() {
 <script type="text/javascript">
 jQuery(document).ready(function(){
     wp.customize.previewer.loading.done(function(){
-        var data = <?= json_encode(get_option(get_stylesheet().'_nodes', array()))?>;
+        var data = <?php echo json_encode(get_option(get_stylesheet().'_nodes', array()))?>;
 
         if(_.isEmpty(data)) {
             data = {root: {component: 'root', id: 'root'}};
@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
     });
 });
 </script>
-<?
+<?php
 });
 
 add_action('customize_controls_enqueue_scripts', function() {
