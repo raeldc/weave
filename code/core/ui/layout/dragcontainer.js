@@ -6,13 +6,15 @@ import Nodes         from 'core/stores/nodes.js'
 import LayoutStore   from 'core/stores/layout.js'
 import LayoutActions from 'core/actions/layout.js'
 
+// Private "style" Object
+const style = {
+    width : 0,
+    height: 0,
+    top   : 0,
+    left  : 0
+}
+
 export default class DragContainer extends Component {
-    constructor(props, context) {
-        super(props, context)
-
-        this.properties = {}
-    }
-
     initialState(props) {
         return {
             hidden: true
@@ -36,25 +38,29 @@ export default class DragContainer extends Component {
             classes.push('hidden')
         }
 
-        return React.createElement('div', _.extend(this.properties, {
+        return React.createElement('div', {
             ref      : 'container',
-            className: classes.join(' ')
-        }))
+            className: classes.join(' '),
+            style    : {
+                width : style.width,
+                height: style.height,
+                top   : style.top,
+                left  : style.left
+            }
+        })
     }
 
     followCursor(event) {
-        if(this.properties.style) {
-            var x = this.previousX - this.properties.style.left
-            var y = this.previousY - this.properties.style.top
+        let x = this.previousX - style.left
+        let y = this.previousY - style.top
 
-            this.properties.style.left = event.clientX - x
-            this.properties.style.top  = event.clientY - y
+        style.left = event.clientX - x
+        style.top  = event.clientY - y
 
-            this.previousX = event.clientX
-            this.previousY = event.clientY
+        this.previousX = event.clientX
+        this.previousY = event.clientY
 
-            this.forceUpdate()
-        }
+        this.forceUpdate()
     }
 
     hideContainer() {
@@ -70,11 +76,16 @@ export default class DragContainer extends Component {
     }
 
     grabNode(node, instance, event) {
-        var info, container
+        let info, container
 
         if(instance) {
             container = ReactDOM.findDOMNode(this.refs.container)
             info      = this.getNodeInfo(instance)
+
+            style.width  = info.width
+            style.height = info.height
+            style.top    = info.top
+            style.left   = info.left
 
             // Make a clone of the node inside the container
             ReactDOM.render(Factory.createNode(node, {type: 'layout'}), container)
@@ -86,9 +97,6 @@ export default class DragContainer extends Component {
             // Register the mousemove event on the document
             jQuery(document).on('mousemove.dragcontainer', this.followCursor)
 
-            // Adapt the size and coordinates of the container to the drag_subject
-            this.properties.style = info
-
 
             // Show the container
             this.state.hidden = false
@@ -97,7 +105,7 @@ export default class DragContainer extends Component {
     }
 
     getNodeInfo(instance) {
-        var $target    = jQuery(ReactDOM.findDOMNode(instance)),
+        let $target    = jQuery(ReactDOM.findDOMNode(instance)),
             nodeOffset = $target.offset()
 
         return {
