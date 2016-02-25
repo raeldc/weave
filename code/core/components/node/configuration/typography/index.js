@@ -1,6 +1,7 @@
 'use strict'
 
 import CSSConfig   from 'core/components/node/configuration/cssconfig.js'
+import Size        from 'core/components/node/configuration/typography/size'
 import Alignment   from 'core/components/node/configuration/typography/alignment.js'
 import Transform   from 'core/components/node/configuration/typography/transform.js'
 import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
@@ -26,10 +27,7 @@ export default class Typography extends CSSConfig {
                         <li className="font clearfix form-field">
                             <span className="family">Font <i className="fa fa-chevron-down pull-right" /></span>
                             <span className="style">
-                                <span className="font-size">
-                                    <a className="btn preset-size clearfix">Normal <i className="fa fa-caret-down pull-right" /></a>
-                                    <input onChange={this.setInputValue} value={this.state.size} type="number" min="0" max="999" name="fontSize" defaultValue="12" />
-                                </span>
+                                <Size {...this.props} className="font-size" />
                                 <ColorPicker {...this.props} className="color" property="color" value={style.get('color')} />
                             </span>
                         </li>
