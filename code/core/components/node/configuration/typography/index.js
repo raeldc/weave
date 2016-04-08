@@ -5,6 +5,7 @@ import Size        from 'core/components/node/configuration/typography/size'
 import Alignment   from 'core/components/node/configuration/typography/alignment.js'
 import Transform   from 'core/components/node/configuration/typography/transform.js'
 import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
+import Font from 'core/components/node/configuration/typography/font.js'
 
 // Actions
 import {
@@ -26,6 +27,9 @@ export default class Typography extends CSSConfig {
                     <ul className="typography">
                         <li className="font clearfix form-field">
                             <span className="family">Font <i className="fa fa-chevron-down pull-right" /></span>
+
+                            <span className="family"><Font {...this.props} /></span>
+
                             <span className="style">
                                 <Size {...this.props} className="font-size" />
                                 <ColorPicker {...this.props} className="color" property="color" value={style.get('color')} />
