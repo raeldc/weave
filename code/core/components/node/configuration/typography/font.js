@@ -1,7 +1,6 @@
 'use strict'
 
 import Component from 'core/component.js'
-import Select from 'react-select-plus'
 
 // Actions
 import {
@@ -19,6 +18,7 @@ export default class Font extends Component {
 			focus: false,
 			open: false,
 			option: null,
+			inputValue: ''
 		}
 	}
 
@@ -94,10 +94,12 @@ export default class Font extends Component {
 		// 	/>
 		// );
 
+		options = this.filterOptions(options)
+
 		return (
 			<div ref="selectWrapper" onClick={this.open}>
 				<span className="family">
-					<input ref="selectInput" type="text" placeholder="Font" />
+					<input ref="input" type="text" placeholder="Font" onChange={this.onInputChange} value={this.state.inputValue} />
 					<i className="fa fa-chevron-down pull-right" />
 				</span>
 				{this.renderValue()}
@@ -105,20 +107,56 @@ export default class Font extends Component {
 			</div>
 		);
 
+
 	}
 
-	open() {
+	open(event) {
+		// prevent default event handlers
+		event.stopPropagation();
+		event.preventDefault();
+
+		this.focus();
+
 		this.setState({
 			focus: true,
 			open: true,
 		});
-		console.log('open..');
 	}
 
-	handleOnBlur() {
+	focus() {
+		this.refs.input.focus();
+	}
+
+	blurInput() {
 		this.setState({
-			open: false
+			open: false,
+			inputValue: ''
+		})
+	}
+
+	onInputBlur(event) {
+		this.blurInput();
+	}
+
+	onInputChange(event) {
+		this.setState({
+			inputValue: event.target.value
 		});
+	}
+
+	filterOptions(options) {
+		let newOptions = [];
+		let filterValue = this.state.inputValue.toLowerCase();
+
+		options.forEach((option) => {
+			let optionLabel = option.label.toLowerCase();
+
+			if (optionLabel.indexOf(filterValue) >= 0) {
+				newOptions.push(option);
+			}
+		});
+
+		return newOptions;
 	}
 
 	renderValue() {
@@ -135,7 +173,7 @@ export default class Font extends Component {
 				<ul onMouseOut={this.onOptionBlur}>
 					{options.map((option, i) => {
 						return (
-							<li onMouseOver={event => this.onOptionFocus(option)} onClick={this.onOptionClick(option)}>{option.label}</li>
+							<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onClick={event => this.onOptionClick(option, event)}>{option.label}</li>
 						)
 					})}
 				</ul>
@@ -143,10 +181,15 @@ export default class Font extends Component {
 		}
 	}
 
-	onOptionClick(option) {
+	onOptionClick(option, event) {
+		// prevent default event handlers
+		event.stopPropagation();
+		event.preventDefault();
+
 		this.setState({
 			open: false,
-			option: option
+			option: option,
+			inputValue: ''
 		});
 
 		this.applyFont(option);
@@ -166,7 +209,7 @@ export default class Font extends Component {
 				fontFamily: option.value
 			}, this.props.device)
 		} else {
-			// 	removeProperties(this.props.node, {fontFamily})
+			// removeProperties(this.props.node, {fontFamily})
 		}
 	}
 
