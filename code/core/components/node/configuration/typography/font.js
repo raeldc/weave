@@ -1,6 +1,7 @@
 'use strict'
 
 import Component from 'core/component.js'
+import Input from 'react-input-autosize';
 
 // Actions
 import {
@@ -79,30 +80,15 @@ export default class Font extends Component {
 			{ label: 'Brush Script MT', value: '"Brush Script MT", cursive'},
 		];
 
-		// options = [
-		// 	{label: 'One', value: 'one'},
-		// 	{label: 'Two', value: 'two'},
-		// 	{label: 'Three', value: 'three'},
-		// 	{label: 'Four', value: 'four'},
-		// ];
-
-		// return (
-		// 	<Select
-		// 	    name="fontFamily"
-		// 	    options={options}
-		// 	    onChange={this.onChange}
-		// 	/>
-		// );
-
 		options = this.filterOptions(options)
 
 		return (
 			<div ref="selectWrapper" onClick={this.open}>
-				<span className="family">
-					<input ref="input" type="text" placeholder="Font" onChange={this.onInputChange} value={this.state.inputValue} />
+				<span>
+					{this.renderInput()}
+					{this.renderValue(this.getOptionLabel(options, this.props.value))}
 					<i className="fa fa-chevron-down pull-right" />
 				</span>
-				{this.renderValue()}
 				{this.renderDropDown(options)}
 			</div>
 		);
@@ -115,12 +101,12 @@ export default class Font extends Component {
 		event.stopPropagation();
 		event.preventDefault();
 
-		this.focus();
-
 		this.setState({
 			focus: true,
 			open: true,
 		});
+
+		this.focus();
 	}
 
 	focus() {
@@ -159,25 +145,66 @@ export default class Font extends Component {
 		return newOptions;
 	}
 
-	renderValue() {
-		if (this.state.option) {
-			return (
-				<span>{this.state.option.label}</span>
-			);
+	getOptionLabel(options, fontFamily) {
+		let value = '';
+
+		options.forEach((option) => {
+			if (fontFamily == option.value) {
+				value = option.label;
+			}
+		});
+
+		return value;
+	}
+
+	renderInput() {
+		return (
+			<Input
+				className="font-input"
+				onChange={this.onInputChange}
+				ref="input"
+				value={this.state.inputValue}
+			/>
+		);
+	}
+
+	renderValue(fontFamily) {
+		if (fontFamily) {
+			if (!this.state.inputValue) {
+				return (
+					<span>{fontFamily}</span>
+				);
+			}
+		} else {
+			if (!this.state.inputValue) {
+				return (
+					<span>Font</span>
+				);
+			}
 		}
 	}
 
 	renderDropDown(options) {
 		if (this.state.open) {
 			return (
-				<ul onMouseOut={this.onOptionBlur}>
-					{options.map((option, i) => {
-						return (
-							<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onClick={event => this.onOptionClick(option, event)}>{option.label}</li>
-						)
-					})}
+				<ul onMouseOut={this.onOptionBlur} className="font-family-options">
+					{this.renderOptions(options)}
 				</ul>
 			);
+		}
+	}
+
+	renderOptions(options) {
+		if (options && options.length) {
+			return options.map((option, i) => {
+				return (
+					<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onClick={event => this.onOptionClick(option, event)}>{option.label}</li>
+				)
+			})
+		} else {
+			return (
+				<li>No results found.</li>
+			)
 		}
 	}
 

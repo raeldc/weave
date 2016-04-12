@@ -28,7 +28,7 @@ export default class Typography extends CSSConfig {
                         <li className="font clearfix form-field">
                             <span className="family">Font <i className="fa fa-chevron-down pull-right" /></span>
 
-                            <span className="family"><Font {...this.props} /></span>
+                            <span className="family"><Font {...this.props} value={style.get('fontFamily')} /></span>
 
                             <span className="style">
                                 <Size {...this.props} className="font-size" />
