@@ -16,9 +16,7 @@ export default class Font extends Component {
 
 	initialState() {
 		return {
-			focus: false,
 			open: false,
-			option: null,
 			inputValue: ''
 		}
 	}
@@ -80,13 +78,15 @@ export default class Font extends Component {
 			{ label: 'Brush Script MT', value: '"Brush Script MT", cursive'},
 		];
 
-		options = this.filterOptions(options)
+		this._options = options;
+
+		options = this.filterOptions(options);
 
 		return (
 			<div ref="selectWrapper" onClick={this.open}>
 				<span>
 					{this.renderInput()}
-					{this.renderValue(this.getOptionLabel(options, this.props.value))}
+					{this.renderValue(this.getOptionLabel(this.getCurrentValue()))}
 					<i className="fa fa-chevron-down pull-right" />
 				</span>
 				{this.renderDropDown(options)}
@@ -114,14 +114,14 @@ export default class Font extends Component {
 	}
 
 	blurInput() {
+		this.refs.input.blur();
+	}
+
+	onInputBlur(event) {
 		this.setState({
 			open: false,
 			inputValue: ''
 		})
-	}
-
-	onInputBlur(event) {
-		this.blurInput();
 	}
 
 	onInputChange(event) {
@@ -145,22 +145,61 @@ export default class Font extends Component {
 		return newOptions;
 	}
 
-	getOptionLabel(options, fontFamily) {
-		let value = '';
+	getCurrentValue() {
+		const style = getStyle(this.props.node, this.props.device)
 
-		options.forEach((option) => {
-			if (fontFamily == option.value) {
-				value = option.label;
+		if (!this._value) {
+			if (this._value != null) {
+				if (style.get('fontFamily')) {
+					this._value = style.get('fontFamily');
+				}
+			} else {
+				this._value = null;
+			}
+		}
+
+		if (!this._currentSelect) {
+			this._currentSelect = this.props.node;
+			this._value = style.get('fontFamily');
+		}
+
+		if (this._currentSelect != this.props.node) {
+			this._currentSelect = this.props.node;
+			this._value = style.get('fontFamily');
+		}
+
+		return this._value;
+	}
+
+	getOptionLabel(fontFamily) {
+		let label = '';
+		let option = this.getOption(fontFamily);
+
+		if (option) {
+			label = option.label;
+		}
+
+		return label;
+	}
+
+	getOption(fontFamily) {
+		let options = this._options;
+		let option  = null;
+
+		options.forEach((_option) => {
+			if (_option.value == fontFamily) {
+				option = _option;
 			}
 		});
 
-		return value;
+		return option;
 	}
 
 	renderInput() {
 		return (
 			<Input
 				className="font-input"
+				onBlur={this.onInputBlur}
 				onChange={this.onInputChange}
 				ref="input"
 				value={this.state.inputValue}
@@ -198,7 +237,7 @@ export default class Font extends Component {
 		if (options && options.length) {
 			return options.map((option, i) => {
 				return (
-					<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onClick={event => this.onOptionClick(option, event)}>{option.label}</li>
+					<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onMouseDown={event => this.onMouseDownOption(option, event)}>{option.label}</li>
 				)
 			})
 		} else {
@@ -208,18 +247,13 @@ export default class Font extends Component {
 		}
 	}
 
-	onOptionClick(option, event) {
-		// prevent default event handlers
-		event.stopPropagation();
-		event.preventDefault();
+	onMouseDownOption(option, event) {
 
-		this.setState({
-			open: false,
-			option: option,
-			inputValue: ''
-		});
+		this._value = option.value;
 
 		this.applyFont(option);
+
+		this.blurInput();
 	}
 
 	onOptionFocus(option) {
@@ -227,7 +261,8 @@ export default class Font extends Component {
 	}
 
 	onOptionBlur() {
-		this.applyFont(this.state.option);
+		let option = this.getOption(this._value);
+		this.applyFont(option);
 	}
 
 	applyFont(option) {
@@ -236,11 +271,7 @@ export default class Font extends Component {
 				fontFamily: option.value
 			}, this.props.device)
 		} else {
-			// removeProperties(this.props.node, {fontFamily})
+			removeProperties(this.props.node, {fontFamily:''}, this.props.device);
 		}
-	}
-
-	onChange(val) {
-		console.log('change..');
 	}
 }
