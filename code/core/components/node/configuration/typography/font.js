@@ -84,11 +84,11 @@ export default class Font extends Component {
 
 		return (
 			<div ref="selectWrapper" onClick={this.open}>
-				<span>
+				<div className="select-value">
 					{this.renderInput()}
 					{this.renderValue(this.getOptionLabel(this.getCurrentValue()))}
 					<i className="fa fa-chevron-down pull-right" />
-				</span>
+				</div>
 				{this.renderDropDown(options)}
 			</div>
 		);
@@ -217,7 +217,7 @@ export default class Font extends Component {
 		} else {
 			if (!this.state.inputValue) {
 				return (
-					<span>Font</span>
+					<span className="select-placeholder">Font</span>
 				);
 			}
 		}
@@ -236,13 +236,20 @@ export default class Font extends Component {
 	renderOptions(options) {
 		if (options && options.length) {
 			return options.map((option, i) => {
+				let className = 'select-option';
+				if (this._focusedOption) {
+					if (this._focusedOption.value == option.value) {
+						className += ' is-focused';
+					}
+				}
+
 				return (
-					<li key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onMouseDown={event => this.onMouseDownOption(option, event)}>{option.label}</li>
+					<li className={className} key={`value-${i}-{option.value}`} onMouseOver={event => this.onOptionFocus(option, event)} onMouseDown={event => this.onMouseDownOption(option, event)} style={{fontFamily: option.value}}>{option.label}</li>
 				)
 			})
 		} else {
 			return (
-				<li>No results found.</li>
+				<li>No results found</li>
 			)
 		}
 	}
@@ -257,6 +264,8 @@ export default class Font extends Component {
 	}
 
 	onOptionFocus(option) {
+		this._focusedOption = option;
+
 		this.applyFont(option);
 	}
 
