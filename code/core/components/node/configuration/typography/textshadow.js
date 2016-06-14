@@ -36,10 +36,10 @@ export default class TextShadow extends Component {
         })
         var color = args.match(/#[0-9a-f]{6}/i)[0]
         ret.x = numbers[0]
-        ret.y = numbers[1]
+        ret.y = -numbers[1]
         ret.blur = numbers[2]
         ret.color = color
-        console.log(ret)
+        // console.log(ret)
         return ret
     }
 
@@ -52,82 +52,110 @@ export default class TextShadow extends Component {
         var textShadowParsed = this.parseStyles(textShadowString
             ? textShadowString
             : '0 0 0 #000000')
-        var sets = (
-            <div>
-                <div className='row'>
-                    <div className='label'>
-                        Color: {textShadowParsed.color}
+        var sets = null
+
+        if (textShadowString) {
+            sets = (
+                <div>
+                    <div className='row'>
+                        <div className='label'>
+                            Color
+                        </div>
+                        <div className='comp'>
+                            <input
+                                type='color'
+                                value={textShadowParsed.color}
+                                onChange={e => {
+                                this.changeColor(e, textShadowParsed)
+                            }}/>
+                        </div>
                     </div>
-                    <div className='comp'>
-                        <input
-                            type='color'
-                            value={textShadowParsed.color}
-                            onChange={e => {
-                            this.changeColor(e, textShadowParsed)
-                        }}/>
+                    <div className='row'>
+                        <div className='label'>
+                            X: {textShadowParsed.x}
+                        </div>
+                        <div className='comp'>
+                            <input
+                                type='range'
+                                min='-25'
+                                max='25'
+                                value={textShadowParsed.x}
+                                onInput={e => {
+                                this.changeX(e, textShadowParsed)
+                            }}/>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='label'>
+                            Y: {textShadowParsed.y}
+                        </div>
+                        <div className='comp'>
+                            <input
+                                type='range'
+                                min='-25'
+                                max='25'
+                                value={textShadowParsed.y}
+                                onInput={e => {
+                                this.changeY(e, textShadowParsed)
+                            }}/>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className='label'>
+                            Blur: {textShadowParsed.blur}
+                        </div>
+                        <div className='comp'>
+                            <input
+                                type='range'
+                                min='0'
+                                max='25'
+                                value={textShadowParsed.blur}
+                                onInput={e => {
+                                this.changeBlur(e, textShadowParsed)
+                            }}/>
+                        </div>
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='label'>
-                        X: {textShadowParsed.x}
-                    </div>
-                    <div className='comp'>
-                        <input
-                            type='range'
-                            min='-25'
-                            max='25'
-                            value={textShadowParsed.x}
-                            onInput={e => {
-                            this.changeX(e, textShadowParsed)
-                        }}/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='label'>
-                        Y: {textShadowParsed.y}
-                    </div>
-                    <div className='comp'>
-                        <input
-                            type='range'
-                            min='-25'
-                            max='25'
-                            value={textShadowParsed.y}
-                            onInput={e => {
-                            this.changeY(e, textShadowParsed)
-                        }}/>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='label'>
-                        Blur: {textShadowParsed.blur}
-                    </div>
-                    <div className='comp'>
-                        <input
-                            type='range'
-                            min='0'
-                            max='25'
-                            value={textShadowParsed.blur}
-                            onInput={e => {
-                            this.changeBlur(e, textShadowParsed)
-                        }}/>
-                    </div>
-                </div>
-            </div>
-        )
+            )
+        }
 
         return (
             <div {...props}>
                 <div>
                     <h6>Text Shadow</h6>
+                    <input
+                        type='checkbox'
+                        className='checkbox'
+                        checked={textShadowString
+                        ? true
+                        : false}
+                        onClick={() => {
+                        this.toggleActive(textShadowString
+                            ? true
+                            : false, textShadowParsed)
+                    }}/>
                 </div>
                 {sets}
             </div>
         )
     }
 
+    toggleActive(active, data) {
+        // console.log(active, data)
+        if (active) {
+            mergeStyle(this.props.node, {
+                textShadow: null
+            }, this.props.device)
+        } else {
+            mergeStyle(this.props.node, {
+                textShadow: sprintf('%dpx %dpx %dpx %s', data.x, -data.y, data.blur, data.color)
+            }, this.props.device)
+        }
+    }
+
     changeX(event, orig) {
         var x = parseInt(event.target.value)
-        var str = sprintf('%dpx %dpx %dpx %s', x, orig.y, orig.blur, orig.color)
+        var str = sprintf('%dpx %dpx %dpx %s', x, -orig.y, orig.blur, orig.color)
         mergeStyle(this.props.node, {
             textShadow: str
         }, this.props.device)
@@ -135,7 +163,7 @@ export default class TextShadow extends Component {
 
     changeY(event, orig) {
         var y = parseInt(event.target.value)
-        var str = sprintf('%dpx %dpx %dpx %s', orig.x, y, orig.blur, orig.color)
+        var str = sprintf('%dpx %dpx %dpx %s', orig.x, -y, orig.blur, orig.color)
         mergeStyle(this.props.node, {
             textShadow: str
         }, this.props.device)
@@ -143,7 +171,7 @@ export default class TextShadow extends Component {
 
     changeBlur(event, orig) {
         var blur = parseInt(event.target.value)
-        var str = sprintf('%dpx %dpx %dpx %s', orig.x, orig.y, blur, orig.color)
+        var str = sprintf('%dpx %dpx %dpx %s', orig.x, -orig.y, blur, orig.color)
         mergeStyle(this.props.node, {
             textShadow: str
         }, this.props.device)
@@ -152,7 +180,7 @@ export default class TextShadow extends Component {
     changeColor(event, orig) {
         var color = event.target.value
         console.log(color)
-        var str = sprintf('%dpx %dpx %dpx %s', orig.x, orig.y, orig.blur, color)
+        var str = sprintf('%dpx %dpx %dpx %s', orig.x, -orig.y, orig.blur, color)
         mergeStyle(this.props.node, {
             textShadow: str
         }, this.props.device)
