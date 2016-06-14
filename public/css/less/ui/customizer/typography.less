@@ -11,15 +11,15 @@
 
     .font {
         .family {
-            display: block;
-            font-size: 1.2em;
+            display         : block;
+            font-size       : 1.2em;
             background-color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-            margin-bottom: 10px;
+            cursor          : pointer;
+            border-radius   : 3px;
+            margin-bottom   : 10px;
 
             i.fa {
-                color: #d0d5dd;
+                color     : #d0d5dd;
                 margin-top: 2px;
             }
         }
@@ -27,7 +27,7 @@
         .font-family-options {
             max-height: 300px;
             overflow-y: auto;
-            margin: 0 !important;
+            margin    : 0 !important;
         }
 
         .select-value {
@@ -35,7 +35,7 @@
         }
 
         .select-option {
-            margin: 0!important;
+            margin : 0 !important;
             padding: 7px;
         }
 
@@ -45,8 +45,8 @@
 
         .font-input {
             input {
-                padding: 3px 0;
-                border: none !important;
+                padding  : 3px 0;
+                border   : none !important;
                 font-size: 15px;
             }
         }
@@ -55,16 +55,16 @@
             float: left;
 
             .preset-size {
-                color: #3e4652;
-                min-width: 80px;
+                color     : #3e4652;
+                min-width : 80px;
                 text-align: left;
             }
 
             input {
-                width: 45px;
-                border-top-left-radius: 0;
+                width                    : 45px;
+                border-top-left-radius   : 0;
                 border-bottom-left-radius: 0;
-                border-left: 1px solid #d0d5dd;
+                border-left              : 1px solid #d0d5dd;
             }
         }
 
@@ -72,8 +72,8 @@
             float: right;
 
             input {
-                width: 102px;
-                border-top-right-radius: 0;
+                width                     : 102px;
+                border-top-right-radius   : 0;
                 border-bottom-right-radius: 0;
             }
         }
@@ -88,6 +88,42 @@
 
         .transform {
             float: right;
+        }
+    }
+
+    .text-shadow {
+        position: relative;
+
+        .checkbox {
+            height  : 15px;
+            width   : 15px;
+            position: absolute;
+            top     : 0;
+            right   : 0;
+        }
+
+        .row {
+            width   : 100%;
+            padding : 0;
+            margin  : 0;
+            display : inline;
+            clearfix: both;
+
+            > * {
+                float  : left;
+                display: inline;
+            }
+        }
+
+        .label {
+            width     : 30%;
+            font-size : 12px;
+            color     : #70767e;
+            margin-top: 5px;
+        }
+
+        .comp {
+            width: 70%;
         }
     }
 }

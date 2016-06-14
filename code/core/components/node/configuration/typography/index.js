@@ -38,7 +38,7 @@ export default class Typography extends CSSConfig {
                             <Transform {...this.props} className="transform"/>
                         </li>
                         <li className="clearfix">
-                            <TextShadow {...this.props} className=""/>
+                            <TextShadow {...this.props} className="text-shadow"/>
                         </li>
                     </ul>
                 </div>
