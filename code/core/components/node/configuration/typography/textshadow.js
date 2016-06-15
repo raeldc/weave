@@ -1,7 +1,7 @@
 'use strict'
 
 import Component from 'core/component.js'
-import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
+import RetColorPicker from 'core/components/node/configuration/inputs/retcolorpicker.js'
 import {sprintf} from 'sprintf-js'
 
 import {getPos} from 'core/components/node/utilities/angles.js'
@@ -70,6 +70,11 @@ export default class TextShadow extends Component {
                                 this.toggleActive(true, textShadowParsed)
                             }}/>
                         </li>
+                        <li className='form-field-group'>
+                            <span className='label'>
+                                Shadow Color
+                            </span>
+                        </li>
                         <li className='display-inline'>
                             <div className='form-field-group'>
                                 <span className='label'>
@@ -85,8 +90,8 @@ export default class TextShadow extends Component {
                                 <input
                                     type='range'
                                     className='input'
-                                    min='-25'
-                                    max='25'
+                                    min='-50'
+                                    max='50'
                                     value={textShadowParsed.x}
                                     onInput={e => {
                                     this.changeX(e, textShadowParsed)
@@ -108,8 +113,8 @@ export default class TextShadow extends Component {
                                 <input
                                     type='range'
                                     className='input'
-                                    min='-25'
-                                    max='25'
+                                    min='-50'
+                                    max='50'
                                     value={textShadowParsed.y}
                                     onInput={e => {
                                     this.changeY(e, textShadowParsed)

@@ -105,18 +105,21 @@
                 margin: 0;
             }
 
-            .label {
+            .label,
+            input[type='number'] {
                 width: 25%;
             }
 
             input[type='number'] {
-                width: 15%;
+                border-top-left-radius   : 0;
+                border-bottom-left-radius: 0;
             }
 
             input[type='range'] {
-                display: inline;
-                width  : 60%;
-                border : solid thin #ccc;
+                display       : inline;
+                vertical-align: middle;
+                width         : 50%;
+                border        : solid thin #ccc;
             }
         }
 
