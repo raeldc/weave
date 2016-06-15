@@ -1,7 +1,8 @@
 'use strict'
 
 import Component from 'core/component.js'
-import RetColorPicker from 'core/components/node/configuration/inputs/retcolorpicker.js'
+import TextShadowColorPicker from 'core/components/node/configuration/inputs/textshadowcolorpicker.js'
+
 import {sprintf} from 'sprintf-js'
 
 import {getPos} from 'core/components/node/utilities/angles.js'
@@ -16,6 +17,10 @@ for (var a = 0; a < 8; a++) {
 }
 
 export default class TextShadow extends Component {
+    initialState() {
+        return {colorPickerOpen: false}
+    }
+
     parseStyles(args) {
         var ret = {}
         var numbers = args.match(/-?[0-9]+/g).map((v) => {
@@ -33,7 +38,17 @@ export default class TextShadow extends Component {
     render() {
         let style = getStyle(this.props.node, this.props.device),
             cascade = getCascade(this.props.node);
-        const props = this.props
+        const props = this.props,
+            range = {
+                pos: {
+                    min: -50,
+                    max: 50
+                },
+                blur: {
+                    min: 0,
+                    max: 50
+                }
+            }
 
         var textShadowString = style.get('textShadow')
         var textShadowParsed = this.parseStyles(textShadowString
@@ -70,10 +85,14 @@ export default class TextShadow extends Component {
                                 this.toggleActive(true, textShadowParsed)
                             }}/>
                         </li>
-                        <li className='form-field-group'>
+                        <li className='color-picker'>
                             <span className='label'>
-                                Shadow Color
+                                Color
                             </span>
+                            <TextShadowColorPicker
+                                {...props}
+                                className='color display-inline-block'
+                                value={textShadowParsed.color}/>
                         </li>
                         <li className='display-inline'>
                             <div className='form-field-group'>
@@ -83,6 +102,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='number'
                                     className='input input-xs'
+                                    {...range.pos}
                                     value={textShadowParsed.x}
                                     onInput={e => {
                                     this.changeX(e, textShadowParsed)
@@ -90,8 +110,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='range'
                                     className='input'
-                                    min='-50'
-                                    max='50'
+                                    {...range.pos}
                                     value={textShadowParsed.x}
                                     onInput={e => {
                                     this.changeX(e, textShadowParsed)
@@ -106,6 +125,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='number'
                                     className='input input-xs'
+                                    {...range.pos}
                                     value={textShadowParsed.y}
                                     onInput={e => {
                                     this.changeY(e, textShadowParsed)
@@ -113,8 +133,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='range'
                                     className='input'
-                                    min='-50'
-                                    max='50'
+                                    {...range.pos}
                                     value={textShadowParsed.y}
                                     onInput={e => {
                                     this.changeY(e, textShadowParsed)
@@ -129,6 +148,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='number'
                                     className='input input-xs'
+                                    {...range.blur}
                                     value={textShadowParsed.blur}
                                     onInput={e => {
                                     this.changeBlur(e, textShadowParsed)
@@ -136,8 +156,7 @@ export default class TextShadow extends Component {
                                 <input
                                     type='range'
                                     className='input'
-                                    min='0'
-                                    max='50'
+                                    {...range.blur}
                                     value={textShadowParsed.blur}
                                     onInput={e => {
                                     this.changeBlur(e, textShadowParsed)
