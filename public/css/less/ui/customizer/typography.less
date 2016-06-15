@@ -93,16 +93,31 @@
 
     .text-shadow {
         position: relative;
-        // h1,
-        // h2,
-        // h3,
-        // h4,
-        // h5,
-        // h6 {
-        //     text-align: left;
-        // }
+
         .title {
             text-align: center;
+        }
+
+        .display-inline {
+            margin: 0;
+
+            .form-field-group {
+                margin: 0;
+            }
+
+            .label {
+                width: 25%;
+            }
+
+            input[type='number'] {
+                width: 15%;
+            }
+
+            input[type='range'] {
+                display: inline;
+                width  : 60%;
+                border : solid thin #ccc;
+            }
         }
 
         .checkbox {
@@ -111,27 +126,6 @@
             position: absolute;
             top     : 0;
             right   : 0;
-        }
-
-        .row {
-            width   : 100%;
-            padding : 0;
-            margin  : 0;
-            display : inline;
-            clearfix: both;
-
-            > * {
-                float  : left;
-                display: inline;
-            }
-        }
-
-        .label-wrapper {
-            width: 50%;
-        }
-
-        .comp {
-            width: 50%;
         }
     }
 }
