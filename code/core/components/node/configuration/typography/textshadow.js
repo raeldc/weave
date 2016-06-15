@@ -38,22 +38,22 @@ export default class TextShadow extends Component {
     render() {
         let style = getStyle(this.props.node, this.props.device),
             cascade = getCascade(this.props.node);
-        const props = this.props,
-            range = {
-                pos: {
-                    min: -50,
-                    max: 50
-                },
-                blur: {
-                    min: 0,
-                    max: 50
-                }
+        const props = this.props
+        const range = {
+            pos: {
+                min: -50,
+                max: 50
+            },
+            blur: {
+                min: 0,
+                max: 50
             }
+        }
 
         var textShadowString = style.get('textShadow')
         var textShadowParsed = this.parseStyles(textShadowString
             ? textShadowString
-            : '0 0 0 #000000')
+            : '2px -2px 2px #000000')
         if (!textShadowString) {
             return (
                 <div {...props}>
@@ -64,7 +64,7 @@ export default class TextShadow extends Component {
                                 type='checkbox'
                                 className='checkbox'
                                 checked={false}
-                                onClick={() => {
+                                onChange={() => {
                                 this.toggleActive(false, textShadowParsed)
                             }}/>
                         </li>

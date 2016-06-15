@@ -1,8 +1,9 @@
 'use strict'
 
-// import Component from 'core/component.js' import TinyColor from 'tinycolor2'
-// import ReactColorPicker from 'react-color-picker' import DropDown from
-// 'core/ui/elements/dropdown.js'
+import Component from 'core/component.js'
+import TinyColor from 'tinycolor2'
+import ReactColorPicker from 'react-color-picker'
+import DropDown from 'core/ui/elements/dropdown.js'
 import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
 
 // Actions
