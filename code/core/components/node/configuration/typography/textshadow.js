@@ -54,9 +54,10 @@ export default class TextShadow extends Component {
         var textShadowParsed = this.parseStyles(textShadowString
             ? textShadowString
             : '2px -2px 2px #000000')
+
         if (!textShadowString) {
             return (
-                <div {...props}>
+                <div {...props} className='text-shadow'>
                     <ul>
                         <li className='title'>
                             Text Shadow
@@ -73,7 +74,7 @@ export default class TextShadow extends Component {
             )
         } else {
             return (
-                <div {...props}>
+                <div {...props} className='text-shadow'>
                     <ul>
                         <li className='title'>
                             Text Shadow
@@ -182,12 +183,14 @@ export default class TextShadow extends Component {
     }
 
     changeX(event, orig) {
+        console.log('event x')
         var x = parseInt(event.target.value)
         orig.x = x
         this.reStyle(orig)
     }
 
     changeY(event, orig) {
+        console.log('event y')
         var y = parseInt(event.target.value)
         orig.y = y
         this.reStyle(orig)
