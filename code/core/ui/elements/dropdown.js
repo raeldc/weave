@@ -1,8 +1,8 @@
 'use strict'
 
-import Component     from 'core/component.js'
+import Component from 'core/component.js'
 import LayoutActions from 'core/actions/layout.js'
-
+// comment
 export default class DropDown extends Component {
     afterMount() {
         this.followSubject()
@@ -20,8 +20,15 @@ export default class DropDown extends Component {
     render() {
         const children = this.props.children || null
 
-        return(
-            <div className="dropdown-box" onMouseDown={event => {event.preventDefault(); event.stopPropagation()}} {...this.props} style={this.state || {}}>
+        return (
+            <div
+                className="dropdown-box"
+                onMouseDown={event => {
+                event.preventDefault();
+                event.stopPropagation()
+            }}
+                {...this.props}
+                style={this.state || {}}>
                 <div className="dropdown-container">
                     {this.props.children}
                 </div>
@@ -30,31 +37,35 @@ export default class DropDown extends Component {
     }
 
     followSubject(subject) {
-        let self            = this.getElementPosition(this),
-            subjectPosition = subject ? this.getElementPosition(subject) : this.getElementPosition(this.props.subject),
-            subjectCenter   = subjectPosition.left + (subjectPosition.width / 2),
-            viewportStartX  = this.props.viewportStartX,
-            viewportStartY  = this.props.viewportStartY,
-            viewportWidth   = this.props.viewportWidth || jQuery(window).outerWidth(),
-            viewportHeight  = this.props.viewportHeight || jQuery(window).outerHeight(),
-            top             = viewportStartY + subjectPosition.top + subjectPosition.height
+        let self = this.getElementPosition(this),
+            subjectPosition = subject
+                ? this.getElementPosition(subject)
+                : this.getElementPosition(this.props.subject),
+            subjectCenter = subjectPosition.left + (subjectPosition.width / 2),
+            viewportStartX = this.props.viewportStartX,
+            viewportStartY = this.props.viewportStartY,
+            viewportWidth = this.props.viewportWidth || jQuery(window).outerWidth(),
+            viewportHeight = this.props.viewportHeight || jQuery(window).outerHeight(),
+            top = viewportStartY + subjectPosition.top + subjectPosition.height
 
         this.setState({
             // Don't let it overlap at the bottom
-            top : top + self.height >= viewportHeight ? (viewportHeight - self.height) - (viewportHeight - subjectPosition.top) : top,
+            top: top + self.height >= viewportHeight
+                ? (viewportHeight - self.height) - (viewportHeight - subjectPosition.top)
+                : top,
             // Make it center
             left: Math.max(viewportStartX, Math.min(viewportWidth - self.width, subjectCenter - (self.width / 2)))
         })
     }
 
     getElementPosition(element) {
-        let $element   = jQuery(ReactDOM.findDOMNode(element)),
+        let $element = jQuery(ReactDOM.findDOMNode(element)),
             nodeOffset = $element.offset(),
-            info       = {
-                width : $element.outerWidth(),
+            info = {
+                width: $element.outerWidth(),
                 height: $element.outerHeight(),
-                top   : nodeOffset.top - jQuery(window).scrollTop(),
-                left  : nodeOffset.left
+                top: nodeOffset.top - jQuery(window).scrollTop(),
+                left: nodeOffset.left
             }
 
         return info
@@ -64,13 +75,13 @@ export default class DropDown extends Component {
 DropDown.propTypes = {
     viewportStartX: React.PropTypes.number,
     viewportStartY: React.PropTypes.number,
-    viewportWidth : React.PropTypes.number,
+    viewportWidth: React.PropTypes.number,
     viewportHeight: React.PropTypes.number
 }
 
 DropDown.defaultProps = {
     viewportStartX: 0,
     viewportStartY: 0,
-    viewportWidth : undefined,
+    viewportWidth: undefined,
     viewportHeight: undefined
 }

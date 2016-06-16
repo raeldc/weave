@@ -82,9 +82,7 @@ export default class TextShadow extends Component {
                                 type='checkbox'
                                 className='checkbox'
                                 checked={true}
-                                onClick={() => {
-                                this.toggleActive(true, textShadowParsed)
-                            }}/>
+                                onClick={e => this.toggleActive(true, textShadowParsed)}/>
                         </li>
                         <li className='color-picker'>
                             <span className='label'>
@@ -105,17 +103,15 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.pos}
                                     value={textShadowParsed.x}
-                                    onInput={e => {
-                                    this.changeX(e, textShadowParsed)
-                                }}/>
+                                    onInput={e => this.changeX(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.x}
-                                    onInput={e => {
-                                    this.changeX(e, textShadowParsed)
-                                }}/>
+                                    onInput={e => this.changeX(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
                         <li className='display-inline'>
@@ -128,17 +124,15 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onInput={e => {
-                                    this.changeY(e, textShadowParsed)
-                                }}/>
+                                    onInput={e => this.changeY(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onInput={e => {
-                                    this.changeY(e, textShadowParsed)
-                                }}/>
+                                    onInput={e => this.changeY(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
                         <li className='display-inline'>
@@ -153,7 +147,8 @@ export default class TextShadow extends Component {
                                     value={textShadowParsed.blur}
                                     onInput={e => {
                                     this.changeBlur(e, textShadowParsed)
-                                }}/>
+                                }}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
@@ -161,7 +156,8 @@ export default class TextShadow extends Component {
                                     value={textShadowParsed.blur}
                                     onInput={e => {
                                     this.changeBlur(e, textShadowParsed)
-                                }}/>
+                                }}
+                                    onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
                     </ul>

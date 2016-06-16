@@ -37,9 +37,7 @@ export default class Typography extends CSSConfig {
                             <Alignment {...this.props} className="alignment"/>
                             <Transform {...this.props} className="transform"/>
                         </li>
-                        <li className='formatting'>
-                            <TextShadow {...this.props}/>
-                        </li>
+                        <li className='formatting'></li>
                     </ul>
                 </div>
             </div>

@@ -400,16 +400,56 @@
         margin: 10px auto;
     }
 
-    .box-shadow {
-        .btn-wrapper,
-        .float-left,
-        .float-right {
-            width  : 50%;
-            margin : 0;
-            display: inline-block;
+    .box-shadow-config {
+        .box-shadow {
+            .btn-wrapper {
+                width  : 50%;
+                margin : 0;
+                display: inline-block;
 
-            .btn {
+                .btn {
+                    width: 100%;
+                }
+            }
+        }
+
+        .dropdown-box {
+            width: 300px;
+
+            [type='checkbox'] {
+                position: absolute;
+                top     : 0;
+                right   : 0;
+            }
+
+            .dropdown-container {
                 width: 100%;
+            }
+
+            .form-field-group {
+                width: 100%;
+
+                .label,
+                input[type='number'],
+                input[type='range'] {
+                    display: inline-block;
+                }
+
+                .label {
+                    width: 30%;
+                }
+
+                input[type='number'] {
+                    width                    : 20%;
+                    border-top-left-radius   : 0;
+                    border-bottom-left-radius: 0;
+                }
+
+                input[type='range'] {
+                    width         : 50%;
+                    vertical-align: middle;
+                    border        : solid thin #ccc;
+                }
             }
         }
     }
