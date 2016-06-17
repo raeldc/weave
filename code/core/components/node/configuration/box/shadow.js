@@ -103,14 +103,31 @@ class BoxShadowManip extends Component {
         var style = this.getParsedStyle()
         var status = this.status
 
+        var activeButton
+        var noneButton
+        if (status.isValid) {
+            activeButton = (
+                <a className='btn active'>Active</a>
+            )
+            noneButton = (
+                <a className='btn' onClick={e => this.deactivateStyle(status, style)}>None</a>
+            )
+        } else {
+            activeButton = (
+                <a className='btn' onClick={e => this.activateStyle(status, style)}>Active</a>
+            )
+            noneButton = (
+                <a className='btn active'>None</a>
+            )
+        }
+
         return (
             <div>
-                <input
-                    type='checkbox'
-                    className='input'
-                    checked={status.isValid}
-                    onChange={e => this.toggleStyle(status, style)}/>
                 <ul>
+                    <li className='form-field-group'>
+                        {activeButton}
+                        {noneButton}
+                    </li>
                     <li className='form-field-group'>
                         <span className='label'>
                             Horizontal
@@ -191,8 +208,13 @@ class BoxShadowManip extends Component {
         )
     }
 
-    toggleStyle(status, style) {
-        status.isValid = !status.isValid
+    activateStyle(status, style) {
+        status.isValid = true
+        this.applyShadow(style)
+    }
+
+    deactivateStyle(status, style) {
+        status.isValid = false
         this.applyShadow(style)
     }
 
@@ -259,14 +281,8 @@ class BoxShadowManip extends Component {
                 } else if (status.hasOutset && !status.hasInset) {
                     this.shadow(string + ', ' + newStyle)
                 } else {
-                    var replaceString = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6} inset/i)[0]
-                    if (!replaceString) {
-                        replaceString = ''
-                    } else {
-                        replaceString = replaceString[0]
-                    }
-                    string = string.replace(replaceString, newStyle)
-                    this.shadow(string)
+                    var replaceString = string.match(/, (-?[0-9]+(px)?\s?){4} #[0-9a-f]{6} inset/i)[0]
+                    this.shadow(string.replace(replaceString, ', ' + newStyle))
                 }
             }
         } else {
@@ -289,7 +305,8 @@ class BoxShadowManip extends Component {
     }
 
     shadow(boxShadow) {
-        console.log({boxShadow})
+        // console.log({boxShadow})
+        console.log(boxShadow.replace(', ', '\n'))
         mergeStyle(this.props.node, {
             boxShadow
         }, this.props.device)
@@ -340,6 +357,7 @@ export default class BoxShadow extends BoxConfig {
                             : '')}
                             onClick={e => this.toggleOutset()}>
                             Outset
+                            <i className='fa fa-caret-down'/>
                         </a>
                     </li>
                     <li className='btn-wrapper'>
@@ -350,6 +368,7 @@ export default class BoxShadow extends BoxConfig {
                             : '')}
                             onClick={e => this.toggleInset()}>
                             Inset
+                            <i className='fa fa-caret-down'/>
                         </a>
                     </li>
                 </ul>
