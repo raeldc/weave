@@ -137,6 +137,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.position}
                             value={style.x}
+                            disabled={!status.isValid}
                             onInput={e => this.changeX(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                         <input
@@ -144,6 +145,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.position}
                             value={style.x}
+                            disabled={!status.isValid}
                             onInput={e => this.changeX(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                     </li>
@@ -156,6 +158,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.position}
                             value={style.y}
+                            disabled={!status.isValid}
                             onInput={e => this.changeY(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                         <input
@@ -163,6 +166,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.position}
                             value={style.y}
+                            disabled={!status.isValid}
                             onInput={e => this.changeY(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                     </li>
@@ -175,12 +179,15 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.blur}
                             value={style.blur}
+                            disabled={!status.isValid}
                             onInput={e => this.changeBlur(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                         <input
                             type='range'
                             className='input'
                             {...range.blur}
+                            value={style.blur}
+                            disabled={!status.isValid}
                             onInput={e => this.changeBlur(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                     </li>
@@ -193,6 +200,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.spread}
                             value={style.spread}
+                            disabled={!status.isValid}
                             onInput={e => this.changeSpread(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                         <input
@@ -200,6 +208,7 @@ class BoxShadowManip extends Component {
                             className='input'
                             {...range.spread}
                             value={style.spread}
+                            disabled={!status.isValid}
                             onInput={e => this.changeSpread(e.target.value, style)}
                             onMouseDown={e => e.stopPropagation()}/>
                     </li>
@@ -264,14 +273,8 @@ class BoxShadowManip extends Component {
                 } else if (status.hasOutset && !status.hasInset) {
                     this.shadow(newStyle)
                 } else {
-                    var replaceString = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6},/i)
-                    if (!replaceString) {
-                        replaceString = ''
-                    } else {
-                        replaceString = replaceString[0]
-                    }
-                    string = string.replace(replaceString, newStyle + ',')
-                    this.shadow(string)
+                    var replaceString = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6},/i)[0]
+                    this.shadow(string.replace(replaceString, newStyle + ','))
                 }
             } else {
                 if (!status.hasOutset && !status.hasInset) {
@@ -305,8 +308,7 @@ class BoxShadowManip extends Component {
     }
 
     shadow(boxShadow) {
-        // console.log({boxShadow})
-        console.log(boxShadow.replace(', ', '\n'))
+        // console.log({boxShadow}) console.log(boxShadow.replace(', ', '\n'))
         mergeStyle(this.props.node, {
             boxShadow
         }, this.props.device)
