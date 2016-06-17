@@ -12,10 +12,6 @@ import $ from 'jquery'
 // Actions
 import {replaceStyle, toggleStyle, getStyle, getCascade, mergeStyle} from 'core/actions/styling.js'
 
-for (var a = 0; a < 8; a++) {
-    var pos = getPos(a * 45, 10)
-}
-
 export default class TextShadow extends Component {
     initialState() {
         return {colorPickerOpen: false}
@@ -33,6 +29,12 @@ export default class TextShadow extends Component {
         ret.color = color
 
         return ret
+    }
+
+    stopEvent(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        console.log(event.target)
     }
 
     render() {
@@ -55,35 +57,46 @@ export default class TextShadow extends Component {
             ? textShadowString
             : '2px -2px 2px #000000')
 
+        var buttons = (
+            <li className='form-field-group'>
+                <a
+                    className={'btn' + (textShadowString
+                    ? ' active'
+                    : '')}
+                    onClick={e => this.activate(textShadowParsed)}
+                    onMouseDown={e => this.stopEvent(e)}>
+                    Text Shadow
+                </a>
+                <a
+                    className={'btn' + (textShadowString
+                    ? ''
+                    : ' active')}
+                    onClick={e => this.deactivate()}
+                    onMouseDown={e => this.stopEvent(e)}>
+                    None
+                </a>
+            </li>
+        )
+
         if (!textShadowString) {
             return (
                 <div {...props} className='text-shadow'>
                     <ul>
                         <li className='title'>
                             Text Shadow
-                            <input
-                                type='checkbox'
-                                className='checkbox'
-                                checked={false}
-                                onChange={() => {
-                                this.toggleActive(false, textShadowParsed)
-                            }}/>
                         </li>
+                        {buttons}
                     </ul>
                 </div>
             )
         } else {
             return (
-                <div {...props} className='text-shadow'>
+                <div {...props} className='text-shadow' onMouseDown={e => e.stopPropagation()}>
                     <ul>
                         <li className='title'>
                             Text Shadow
-                            <input
-                                type='checkbox'
-                                className='checkbox'
-                                checked={true}
-                                onClick={e => this.toggleActive(true, textShadowParsed)}/>
                         </li>
+                        {buttons}
                         <li className='color-picker'>
                             <span className='label'>
                                 Color
@@ -145,18 +158,14 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onInput={e => {
-                                    this.changeBlur(e, textShadowParsed)
-                                }}
+                                    onInput={e => this.changeBlur(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onInput={e => {
-                                    this.changeBlur(e, textShadowParsed)
-                                }}
+                                    onInput={e => this.changeBlur(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
@@ -178,7 +187,20 @@ export default class TextShadow extends Component {
         }
     }
 
+    activate(data) {
+        mergeStyle(this.props.node, {
+            textShadow: sprintf('%dpx %dpx %dpx %s', data.x, data.y, data.blur, data.color)
+        }, this.props.device)
+    }
+
+    deactivate() {
+        mergeStyle(this.props.node, {
+            textShadow: null
+        }, this.props.device)
+    }
+
     changeX(event, orig) {
+        this.stopEvent(event)
         console.log('event x')
         var x = parseInt(event.target.value)
         orig.x = x
@@ -186,6 +208,7 @@ export default class TextShadow extends Component {
     }
 
     changeY(event, orig) {
+        this.stopEvent(event)
         console.log('event y')
         var y = parseInt(event.target.value)
         orig.y = y
@@ -193,12 +216,14 @@ export default class TextShadow extends Component {
     }
 
     changeBlur(event, orig) {
+        this.stopEvent(event)
         var blur = parseInt(event.target.value)
         orig.blur = blur
         this.reStyle(orig)
     }
 
     changeColor(event, orig) {
+        this.stopEvent(event)
         var color = event.target.value
         orig.color = color
         this.reStyle(orig)

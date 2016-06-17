@@ -3,6 +3,7 @@
 import Component from 'core/component.js'
 import BoxConfig from 'core/components/node/configuration/box/config.js'
 import DropDown from 'core/ui/elements/dropdown.js'
+import ReactColorPicker from 'react-color-picker'
 
 // Actions
 import {mergeStyle, getStyle} from 'core/actions/styling.js'
@@ -128,6 +129,15 @@ class BoxShadowManip extends Component {
                         {activeButton}
                         {noneButton}
                     </li>
+                    <li>
+                        <ReactColorPicker
+                            saturationWidth={200}
+                            saturationHeight={200}
+                            hueWidth={30}
+                            value={style.color}
+                            onChange={e => this.changeColor(e, style)}
+                            onDrag={e => this.changeColor(e, style)}/>
+                    </li>
                     <li className='form-field-group'>
                         <span className='label'>
                             Horizontal
@@ -225,6 +235,14 @@ class BoxShadowManip extends Component {
     deactivateStyle(status, style) {
         status.isValid = false
         this.applyShadow(style)
+    }
+
+    changeColor(value, orig) {
+        if (!this.status.isValid) {
+            return
+        }
+        orig.color = value
+        this.applyShadow(orig)
     }
 
     changeX(value, orig) {
@@ -338,18 +356,7 @@ export default class BoxShadow extends BoxConfig {
             <div className='box-shadow-config'>
                 <ul className='box-shadow'>
                     <li className='title'>
-                        Box Shadows {' '}
-                        <span>
-                            [Outset: {state.openOutset
-                                ? 'true'
-                                : 'false'}]
-                        </span>
-                        {' '}
-                        <span>
-                            [Inset: {state.openInset
-                                ? 'true'
-                                : 'false'}]
-                        </span>
+                        Box Shadows
                     </li>
                     <li className='btn-wrapper'>
                         <a
