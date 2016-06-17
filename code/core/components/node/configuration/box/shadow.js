@@ -14,6 +14,7 @@ const parseStyle = (string) => {
     var match = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6}( inset)?/ig)
     if (match) {
         return match.map(style => {
+            var string = style
             var configs = style.match(/-?[0-9]+(px)?/g).map(e => {
                 var a = e.match(/-?[0-9]+/)[0]
                 return parseInt(a, 10)
@@ -33,18 +34,12 @@ const parseStyle = (string) => {
                 blur: configs[2],
                 spread: configs[3],
                 color,
-                inset,
-                type
+                type,
+                style
             }
         })
     }
     return []
-}
-
-const boxShadowString = (args) => {
-    return args.map(e => sprintf('%dpx %dpx %dpx %dpx %s%s', e.x, e.y, e.blur, e.spread, e.color, e.inset
-        ? ' inset'
-        : '')).join(', ')
 }
 
 class BoxShadowManip extends Component {
@@ -53,10 +48,39 @@ class BoxShadowManip extends Component {
             props = this.props,
             style = getStyle(props.node, props.device)
         var get = style.get('boxShadow')
-
-        return parseStyle(get
+        var parsedStyle = parseStyle(get
             ? get
             : '')
+        var filteredStyle = parsedStyle.filter(e => (e.type == props.type))
+
+        var hasOutset = (parsedStyle.filter(e => (e.type == 'outset')).length > 0
+            ? true
+            : false)
+        var hasInset = (parsedStyle.filter(e => (e.type == 'inset')).length > 0
+            ? true
+            : false)
+        var isValid = (filteredStyle.length > 0)
+        this.status = {
+            hasOutset,
+            hasInset,
+            isValid
+        }
+
+        if (filteredStyle.length > 0) {
+            return filteredStyle[0]
+        } else {
+            return {
+                x: 0,
+                y: 0,
+                blur: 0,
+                spread: 0,
+                color: '#000000',
+                type: props.type,
+                style: '0 0 0 0 #000000' + ((props.type == 'inset')
+                    ? ' inset'
+                    : '')
+            }
+        }
     }
 
     render() {
@@ -76,26 +100,16 @@ class BoxShadowManip extends Component {
                     max: 50
                 }
             }
-        var filteredStyle = this.getParsedStyle().filter(e => {
-            return (e.type == props.type)
-        })
-        var style = null
-        if (filteredStyle.length > 0) {
-            style = filteredStyle[0]
-        } else {
-            style = {
-                x: 0,
-                y: 0,
-                blur: 0,
-                spread: 0,
-                color: '#000000',
-                type: props.type
-            }
-        }
+        var style = this.getParsedStyle()
+        var status = this.status
 
         return (
             <div>
-                <input type='checkbox'/>
+                <input
+                    type='checkbox'
+                    className='input'
+                    checked={status.isValid}
+                    onChange={e => this.toggleStyle(status, style)}/>
                 <ul>
                     <li className='form-field-group'>
                         <span className='label'>
@@ -177,25 +191,115 @@ class BoxShadowManip extends Component {
         )
     }
 
+    toggleStyle(status, style) {
+        status.isValid = !status.isValid
+        this.applyShadow(style)
+    }
+
     changeX(value, orig) {
         value = parseInt(value)
-        console.log(value)
+        orig.x = value
+        this.applyShadow(orig)
     }
 
     changeY(value, orig) {
         value = parseInt(value)
-        console.log(value)
+        orig.y = value
+        this.applyShadow(orig)
     }
 
     changeBlur(value, orig) {
         value = parseInt(value)
+        orig.blur = value
+        this.applyShadow(orig)
     }
 
     changeSpread(value, orig) {
         value = parseInt(value)
+        orig.spread = value
+        this.applyShadow(orig)
+    }
+
+    applyShadow(values) {
+        const props = this.props,
+            style = getStyle(props.node, props.device),
+            status = this.status,
+            newStyle = sprintf('%dpx %dpx %dpx %dpx %s%s', values.x, values.y, values.blur, values.spread, values.color, ((values.type == 'inset')
+                ? ' inset'
+                : ''))
+
+        var string = style.get('boxShadow')
+        if (!string) {
+            string = ''
+        }
+        if (status.isValid) {
+            // this particular box shadow is on and should be turned on
+            if (props.type == 'outset') {
+                if (!status.hasOutset && !status.hasInset) {
+                    this.shadow(newStyle)
+                } else if (!status.hasOutset && status.hasInset) {
+                    this.shadow(newStyle + ', ' + string)
+                } else if (status.hasOutset && !status.hasInset) {
+                    this.shadow(newStyle)
+                } else {
+                    var replaceString = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6},/i)
+                    if (!replaceString) {
+                        replaceString = ''
+                    } else {
+                        replaceString = replaceString[0]
+                    }
+                    string = string.replace(replaceString, newStyle + ',')
+                    this.shadow(string)
+                }
+            } else {
+                if (!status.hasOutset && !status.hasInset) {
+                    this.shadow(newStyle)
+                } else if (!status.hasOutset && status.hasInset) {
+                    this.shadow(newStyle)
+                } else if (status.hasOutset && !status.hasInset) {
+                    this.shadow(string + ', ' + newStyle)
+                } else {
+                    var replaceString = string.match(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6} inset/i)[0]
+                    if (!replaceString) {
+                        replaceString = ''
+                    } else {
+                        replaceString = replaceString[0]
+                    }
+                    string = string.replace(replaceString, newStyle)
+                    this.shadow(string)
+                }
+            }
+        } else {
+            // this particular box shadow is off and should be turned off. working on
+            // turning it off here
+            if (props.type == 'outset') {
+                if (status.hasOutset && !status.hasInset) {
+                    this.shadow(null)
+                } else if (status.hasOutset && status.hasInset) {
+                    this.shadow(string.replace(/(-?[0-9]+(px)?\s?){4} #[0-9a-f]{6},\s/i, ''))
+                }
+            } else {
+                if (status.hasOutset && status.hasInset) {
+                    this.shadow(string.replace(/, (-?[0-9]+(px)?\s?){4} #[0-9a-f]{6} inset/i, ''))
+                } else if (!status.hasOutset && status.hasInset) {
+                    this.shadow(null)
+                }
+            }
+        }
+    }
+
+    shadow(boxShadow) {
+        console.log({boxShadow})
+        mergeStyle(this.props.node, {
+            boxShadow
+        }, this.props.device)
     }
 }
 
+/**
+ * BoxShadow
+ * @author Wayne Dela Cruz
+ */
 export default class BoxShadow extends BoxConfig {
     initialState() {
         const state = this.state,
