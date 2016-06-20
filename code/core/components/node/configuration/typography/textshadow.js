@@ -2,9 +2,8 @@
 
 import Component from 'core/component.js'
 import TextShadowColorPicker from 'core/components/node/configuration/inputs/textshadowcolorpicker.js'
-
+import ReactColorPicker from 'react-color-picker'
 import {sprintf} from 'sprintf-js'
-
 import {getPos} from 'core/components/node/utilities/angles.js'
 
 import $ from 'jquery'
@@ -29,12 +28,6 @@ export default class TextShadow extends Component {
         ret.color = color
 
         return ret
-    }
-
-    stopEvent(event) {
-        event.preventDefault()
-        event.stopPropagation()
-        console.log(event.target)
     }
 
     render() {
@@ -97,14 +90,13 @@ export default class TextShadow extends Component {
                             Text Shadow
                         </li>
                         {buttons}
-                        <li className='color-picker'>
-                            <span className='label'>
-                                Color
-                            </span>
-                            <TextShadowColorPicker
-                                {...props}
-                                className='color display-inline-block'
-                                value={textShadowParsed.color}/>
+                        <li>
+                            <ReactColorPicker
+                                saturationWidth={200}
+                                saturationHeight={200}
+                                value={textShadowParsed.color}
+                                onChange={e => this.changeColor(e, textShadowParsed)}
+                                onDrag={e => this.changeColor(e, textShadowParsed)}/>
                         </li>
                         <li className='display-inline'>
                             <div className='form-field-group'>
@@ -116,14 +108,14 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.pos}
                                     value={textShadowParsed.x}
-                                    onInput={e => this.changeX(e, textShadowParsed)}
+                                    onChange={e => this.changeX(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.x}
-                                    onInput={e => this.changeX(e, textShadowParsed)}
+                                    onChange={e => this.changeX(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
@@ -137,14 +129,14 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onInput={e => this.changeY(e, textShadowParsed)}
+                                    onChange={e => this.changeY(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onInput={e => this.changeY(e, textShadowParsed)}
+                                    onChange={e => this.changeY(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
@@ -158,14 +150,14 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onInput={e => this.changeBlur(e, textShadowParsed)}
+                                    onChange={e => this.changeBlur(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onInput={e => this.changeBlur(e, textShadowParsed)}
+                                    onChange={e => this.changeBlur(e, textShadowParsed)}
                                     onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
@@ -173,6 +165,12 @@ export default class TextShadow extends Component {
                 </div>
             )
         }
+    }
+
+    stopEvent(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        console.log(event.isDefaultPrevented(), event.isPropagationStopped(), event)
     }
 
     toggleActive(active, data) {
@@ -200,31 +198,31 @@ export default class TextShadow extends Component {
     }
 
     changeX(event, orig) {
-        this.stopEvent(event)
-        console.log('event x')
+        event.stopPropagation()
         var x = parseInt(event.target.value)
+        console.log('event [%s] x: %d', event.type, x)
         orig.x = x
         this.reStyle(orig)
     }
 
     changeY(event, orig) {
-        this.stopEvent(event)
-        console.log('event y')
+        event.stopPropagation()
         var y = parseInt(event.target.value)
+        console.log('event [%s] y: %d', event.type, y)
         orig.y = y
         this.reStyle(orig)
     }
 
     changeBlur(event, orig) {
-        this.stopEvent(event)
+        // this.stopEvent(event)
+        event.stopPropagation()
         var blur = parseInt(event.target.value)
+        console.log('event [%s] blur: %d', event.type, blur)
         orig.blur = blur
         this.reStyle(orig)
     }
 
-    changeColor(event, orig) {
-        this.stopEvent(event)
-        var color = event.target.value
+    changeColor(color, orig) {
         orig.color = color
         this.reStyle(orig)
     }
@@ -236,3 +234,4 @@ export default class TextShadow extends Component {
         }, this.props.device)
     }
 }
+// --- END OF FILE ---

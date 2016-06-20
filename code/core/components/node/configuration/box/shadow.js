@@ -71,13 +71,13 @@ class BoxShadowManip extends Component {
             return filteredStyle[0]
         } else {
             return {
-                x: 0,
-                y: 0,
-                blur: 0,
+                x: 2,
+                y: -2,
+                blur: 2,
                 spread: 0,
                 color: '#000000',
                 type: props.type,
-                style: '0 0 0 0 #000000' + ((props.type == 'inset')
+                style: '2px -2px 2px 0 #000000' + ((props.type == 'inset')
                     ? ' inset'
                     : '')
             }
