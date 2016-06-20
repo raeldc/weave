@@ -70,16 +70,26 @@ class BoxShadowManip extends Component {
         if (filteredStyle.length > 0) {
             return filteredStyle[0]
         } else {
-            return {
-                x: 2,
-                y: -2,
-                blur: 2,
-                spread: 0,
-                color: '#000000',
-                type: props.type,
-                style: '2px -2px 2px 0 #000000' + ((props.type == 'inset')
-                    ? ' inset'
-                    : '')
+            if (props.type == 'inset') {
+                return {
+                    x: 2,
+                    y: 2,
+                    blur: 2,
+                    spread: 0,
+                    color: '#000000',
+                    type: props.type,
+                    style: '2px 2px 2px 0 #000000 inset'
+                }
+            } else {
+                return {
+                    x: 2,
+                    y: -2,
+                    blur: 2,
+                    spread: 0,
+                    color: '#000000',
+                    type: props.type,
+                    style: '2px -2px 2px 0 #000000'
+                }
             }
         }
     }

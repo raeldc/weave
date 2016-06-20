@@ -84,7 +84,7 @@ export default class TextShadow extends Component {
             )
         } else {
             return (
-                <div {...props} className='text-shadow' onMouseDown={e => e.stopPropagation()}>
+                <div {...props} className='text-shadow' onMouseDown={e => this.stopEvent(e)}>
                     <ul>
                         <li className='title'>
                             Text Shadow
@@ -116,7 +116,8 @@ export default class TextShadow extends Component {
                                     {...range.pos}
                                     value={textShadowParsed.x}
                                     onChange={e => this.changeX(e, textShadowParsed)}
-                                    onMouseDown={e => e.stopPropagation()}/>
+                                    onMouseDown={e => e.stopPropagation()}
+                                    onBlur={e => console.log(e)}/>
                             </div>
                         </li>
                         <li className='display-inline'>
