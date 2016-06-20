@@ -3,10 +3,7 @@
 import BoxConfig from 'core/components/node/configuration/box/config.js'
 
 // Actions
-import {
-    mergeStyle,
-    getStyle,
-} from 'core/actions/styling.js'
+import {mergeStyle, getStyle} from 'core/actions/styling.js'
 
 export default class Dimensions extends BoxConfig {
     render() {
@@ -17,11 +14,13 @@ export default class Dimensions extends BoxConfig {
                 <ul>
                     <li className="title">Dimensions</li>
                     <li className="form-field-group width">
-                        <span className="label">Width <i className="fa fa-arrows-v" /></span>
+                        <span className="label">Width
+                            <i className="fa fa-arrows-v"/></span>
                         {this.renderClickField('width')}
                     </li>
                     <li className="form-field-group height">
-                        <span className="label">Height <i className="fa fa-arrows-v" /></span>
+                        <span className="label">Height
+                            <i className="fa fa-arrows-v"/></span>
                         {this.renderClickField('height')}
                     </li>
                 </ul>
@@ -33,26 +32,23 @@ export default class Dimensions extends BoxConfig {
     renderClickField(subject = 'width') {
         const style = getStyle(this.props.node, this.props.device)
 
-        return (
-            <input
-                type="text"
-                name={subject}
-                value={style.get(subject)}
-                placeholder="auto"
-                ref={subject}
-                className="input input-xs"
-                onFocus={event => this.openDropdown(subject)}
-                onBlur={event => this.closeDropDown()}
-                onChange={event => this.setStyle(subject, event.target.value)}
-                onMouseDown={event => event.stopPropagation()}
-            />
-        )
+        return (<input
+            type="text"
+            name={subject}
+            value={style.get(subject)}
+            placeholder="auto"
+            ref={subject}
+            className="input input-xs"
+            onFocus={event => this.openDropdown(subject)}
+            onBlur={event => this.closeDropDown()}
+            onChange={event => this.setStyle(subject, event.target.value)}
+            onMouseDown={event => event.stopPropagation()}/>)
     }
 
     renderDropDown() {
         const style = getStyle(this.props.node, this.props.device)
 
-        if(this.state.open) {
+        if (this.state.open) {
             return (
                 <BoxConfig.DropDown subject={this.refs[this.state.subject]}>
                     <div className={"form-field min-" + this.state.subject}>
@@ -65,8 +61,7 @@ export default class Dimensions extends BoxConfig {
                             className="input input-xs"
                             onBlur={event => this.closeDropDown()}
                             onChange={event => this.setStyle('min' + _.toWords(this.state.subject), event.target.value)}
-                            onMouseDown={event => event.stopPropagation()}
-                        />
+                            onMouseDown={event => event.stopPropagation()}/>
                     </div>
                     <div className={"form-field max-" + this.state.subject}>
                         <span className="label">Maximum {_.toWords(this.state.subject)}</span>
@@ -78,8 +73,7 @@ export default class Dimensions extends BoxConfig {
                             className="input input-xs"
                             onBlur={event => this.closeDropDown()}
                             onChange={event => this.setStyle('max' + _.toWords(this.state.subject), event.target.value)}
-                            onMouseDown={event => event.stopPropagation()}
-                        />
+                            onMouseDown={event => event.stopPropagation()}/>
                     </div>
                 </BoxConfig.DropDown>
             )
