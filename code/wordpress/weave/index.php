@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <?php wp_head(); ?>
+        <?php
+        wp_head();
+        corebuilder_factory_render_css(did_action('customize_preview_init'));
+        ?>
     </head>
     <body <?php body_class(); ?>>
         <?php if(did_action('customize_preview_init')): ?>
