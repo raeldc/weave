@@ -91,3 +91,76 @@
         }
     }
 }
+    .text-shadow {
+        .title {
+            position  : relative;
+            text-align: center;
+        }
+
+        .checkbox {
+            height  : 15px;
+            width   : 15px;
+            position: absolute;
+            top     : 0;
+            right   : 0;
+        }
+
+        .display-inline {
+            margin: 0;
+
+            .form-field-group {
+                margin: 0;
+                width : 100%;
+            }
+
+            .label,
+            input[type='number'] {
+                width: 25%;
+            }
+
+            input[type='number'] {
+                border-top-left-radius   : 0;
+                border-bottom-left-radius: 0;
+            }
+
+            input[type='range'] {
+                display       : inline;
+                vertical-align: middle;
+                width         : 50%;
+                border        : solid thin #ccc;
+            }
+        }
+
+        .color-picker {
+            .color,
+            .label {
+                display: inline-block;
+            }
+
+            .label {
+                width                     : 25%;
+                border-top-right-radius   : 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .color {
+                width: 75%;
+
+                .btn,
+                input {
+                    display: inline-block;
+                }
+
+                input {
+                    width        : 85%;
+                    border-radius: 0;
+                    border-left  : none;
+                    border-right : none;
+                }
+
+                .btn {
+                    width: 15%;
+                }
+            }
+        }
+    }

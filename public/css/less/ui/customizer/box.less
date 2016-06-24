@@ -405,3 +405,60 @@
         margin: 10px auto;
     }
 }
+    .box-shadow-config {
+        .box-shadow {
+            .btn-wrapper {
+                width  : 50%;
+                margin : 0;
+                display: inline-block;
+
+                .btn {
+                    width: 100%;
+                }
+            }
+        }
+
+        .dropdown-box {
+            width: 300px;
+
+            [type='checkbox'] {
+                position: absolute;
+                top     : 15px;
+                right   : 15px;
+                width   : 10px;
+                height  : 15px;
+                border  : solid thin #ccc;
+            }
+
+            .dropdown-container {
+                width: 100%;
+            }
+
+            .form-field-group {
+                width: 100%;
+
+                .label,
+                input[type='number'],
+                input[type='range'] {
+                    display: inline-block;
+                }
+
+                .label {
+                    width: 30%;
+                }
+
+                input[type='number'] {
+                    width                    : 20%;
+                    border-top-left-radius   : 0;
+                    border-bottom-left-radius: 0;
+                }
+
+                input[type='range'] {
+                    width         : 50%;
+                    vertical-align: middle;
+                    border        : solid thin #ccc;
+                }
+            }
+        }
+    }
+// end of file
