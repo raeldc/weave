@@ -197,4 +197,10 @@ CoreBuilder.ThemeBuilder = function(config) {
     CoreBuilder.Nodes.listen(function(){
         wp.customize.trigger('change')
     });
+    /**
+     * Trigger a change when a Node's style is updated
+     */
+    CoreBuilder.Styling.listen(function() {
+        wp.customize.trigger('change')
+    })
 }

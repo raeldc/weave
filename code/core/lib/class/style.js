@@ -108,6 +108,20 @@ export default class Style {
         return result
     }
 
+    toObject() {
+        var obj = {
+            properties: {},
+            backgrounds: {}
+        }
+        for(let [key, value] of this[key.properties]) {
+            obj.properties[key] = value
+        }
+        for(let [key, value] of this[key.backgrounds]) {
+            obj.backgrounds[key] = value
+        }
+        return obj
+    }
+
     toString() {
         let css = `${this[key.selector]} {\n`
 
