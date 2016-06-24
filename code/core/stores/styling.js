@@ -40,6 +40,10 @@ export class Styling {
         LayoutActions.nodeTouched()
         return this[key.store].trigger()
     }
+
+    toObject() {
+        return this[ key.stylesheets ].toObject()
+    }
 }
 
 export default new Styling()

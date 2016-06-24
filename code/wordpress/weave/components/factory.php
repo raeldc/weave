@@ -61,6 +61,9 @@ function corebuilder_factory_render_css($init) {
         return;
     }
     $css = get_option(get_stylesheet() . '_css', array());
+    if (empty($css)) {
+        $css = array();
+    }
     $media_queries = array(
         'all' => 'all',
         'desktop' => 'screen',
