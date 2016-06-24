@@ -1,42 +1,43 @@
 {
-  "name": "Alchemy",
-  "version": "0.1.0",
-  "private": true,
-  "main": "code/core/index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "scriptPreprocessor": "node_modules/babel-jest",
-    "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"],
-    "setupEnvScriptFile": "jestEnvironment.js"
-  },
-  "dependencies": {
-    "react": "0.14.x",
-    "react-bootstrap": "0.x",
-    "underscore": "1.8.x",
-    "jquery": "2.1.x",
-    "reflux": "0.x",
-    "keymirror": "0.1.0",
-    "interact.js": "1.2.x",
-    "tinycolor2": "1.1.x",
-    "react-color-picker": "2.x",
-    "react-dnd": "2.x",
-    "react-dnd-html5-backend": "2.x",
-    "react-input-autosize": "^0.6.10"
-  },
-  "devDependencies": {
-    "babelify": "^6.1.1",
-    "font-awesome": "*",
-    "grunt": "~0.4.2",
-    "grunt-contrib-copy": "~0.5.x",
-    "grunt-contrib-cssmin": "~0.9.0",
-    "grunt-contrib-less": "~0.11.0",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-watchify": "*",
-    "jest-cli": "*",
-    "babel-jest": "*"
-  }
+    "name": "Alchemy",
+    "version": "0.1.0",
+    "private": true,
+    "main": "code/core/index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "jest": {
+        "scriptPreprocessor": "node_modules/babel-jest",
+        "testFileExtensions": ["es6", "js"],
+        "moduleFileExtensions": ["js", "json", "es6"],
+        "setupEnvScriptFile": "jestEnvironment.js"
+    },
+    "dependencies": {
+        "react": "0.14.x",
+        "react-bootstrap": "0.x",
+        "react-dom": "0.14.x",
+        "underscore": "1.8.x",
+        "jquery": "2.1.x",
+        "reflux": "0.x",
+        "keymirror": "0.1.0",
+        "interact.js": "1.2.x",
+        "tinycolor2": "1.1.x",
+        "react-color-picker": "2.x",
+        "react-dnd": "2.x",
+        "react-dnd-html5-backend": "2.x",
+        "react-input-autosize": "^0.6.10"
+    },
+    "devDependencies": {
+        "babelify": "^6.1.1",
+        "font-awesome": "*",
+        "grunt": "~0.4.2",
+        "grunt-contrib-copy": "~0.5.x",
+        "grunt-contrib-cssmin": "~0.9.0",
+        "grunt-contrib-less": "~0.11.0",
+        "grunt-contrib-uglify": "~0.2.7",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-watchify": "*",
+        "jest-cli": "*",
+        "babel-jest": "*"
+    }
 }
