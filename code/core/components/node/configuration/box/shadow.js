@@ -8,7 +8,10 @@ import ReactColorPicker from 'react-color-picker'
 import Styling from 'core/stores/styling.js' // temporary fix
 
 // Actions
-import {mergeStyle, getStyle} from 'core/actions/styling.js'
+import {
+    mergeStyle,
+    getStyle
+} from 'core/actions/styling.js'
 
 // Functions
 import {sprintf} from 'sprintf-js'

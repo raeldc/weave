@@ -4,7 +4,6 @@ import Component from 'core/component.js'
 import TextShadowColorPicker from 'core/components/node/configuration/inputs/textshadowcolorpicker.js'
 import ReactColorPicker from 'react-color-picker'
 import {sprintf} from 'sprintf-js'
-import {getPos} from 'core/components/node/utilities/angles.js'
 
 import $ from 'jquery'
 

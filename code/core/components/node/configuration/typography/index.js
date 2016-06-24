@@ -5,7 +5,7 @@ import Size        from 'core/components/node/configuration/typography/size'
 import Alignment   from 'core/components/node/configuration/typography/alignment.js'
 import Transform   from 'core/components/node/configuration/typography/transform.js'
 import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
-import Font from 'core/components/node/configuration/typography/font.js'
+import Font        from 'core/components/node/configuration/typography/font.js'
 
 // Actions
 import {
@@ -17,7 +17,7 @@ import {
 
 export default class Typography extends CSSConfig {
     render() {
-        const style   = getStyle(this.props.node, this.props.device)
+        const style = getStyle(this.props.node, this.props.device)
         const cascade = getCascade(this.props.node, this.props.device)
 
         return (
@@ -26,16 +26,20 @@ export default class Typography extends CSSConfig {
                 <div className="wrapper">
                     <ul className="typography">
                         <li className="font clearfix form-field">
-                            <span className="family"><Font {...this.props} /></span>
+                            <span className="family"><Font {...this.props}/></span>
 
                             <span className="style">
-                                <Size {...this.props} className="font-size" />
-                                <ColorPicker {...this.props} className="color" property="color" value={style.get('color')} />
+                                <Size {...this.props} className="font-size"/>
+                                <ColorPicker
+                                    {...this.props}
+                                    className="color"
+                                    property="color"
+                                    value={style.get('color')}/>
                             </span>
                         </li>
                         <li className="formatting clearfix">
-                            <Alignment {...this.props} className="alignment" />
-                            <Transform {...this.props} className="transform" />
+                            <Alignment {...this.props} className="alignment"/>
+                            <Transform {...this.props} className="transform"/>
                         </li>
                     </ul>
                 </div>

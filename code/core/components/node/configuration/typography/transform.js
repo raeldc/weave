@@ -1,6 +1,7 @@
 'use strict'
 
-import BoxConfig from 'core/components/node/configuration/box/config.js'
+import BoxConfig  from 'core/components/node/configuration/box/config.js'
+import TextShadow from 'core/components/node/configuration/typography/textshadow.js'
 
 // Actions
 import {
@@ -145,6 +146,9 @@ export default class Transform extends BoxConfig {
                                 }, this.props.device)
                             }}
                         >Uppercase</a>
+                    </div>
+                    <div className="form-field">
+                        <TextShadow {...this.props} />
                     </div>
                 </BoxConfig.DropDown>
             )
