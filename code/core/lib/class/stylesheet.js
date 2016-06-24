@@ -154,7 +154,6 @@ export default class Stylesheet {
 
         return inline ? `@media ${this[key.query]} {\n${css.replace(/^(.*)$/gm, "\t$1")}\n}\n` : css
     }
-}
     toObject() {
         var obj = {}
         for(let [key, value] of this[key.stylesheet]) {
@@ -177,3 +176,4 @@ export default class Stylesheet {
             this.replaceStyle(selector, props.properties)
         })
     }
+}

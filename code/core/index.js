@@ -4,6 +4,7 @@ import React           from 'react'
 import ReactDOM        from 'react-dom'
 import Reflux          from 'reflux'
 import Nodes           from 'core/stores/nodes.js'
+import Styling          from 'core/stores/styling.js'
 import UIConfig        from 'core/stores/uiconfig.js'
 import * as Components from 'core/stores/components.js'
 
@@ -14,7 +15,8 @@ window.Reflux      = Reflux
 window.CoreBuilder = {
     Nodes     : Nodes,
     Components: Components,
-    UIConfig  : UIConfig
+    UIConfig  : UIConfig,
+    Styling   : Styling
 }
 
 export default window.CoreBuilder
