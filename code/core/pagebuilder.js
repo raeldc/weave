@@ -12,7 +12,6 @@ CoreBuilder.Components.register(require('core/components/row'));
 CoreBuilder.Components.register(require('core/components/column'));
 CoreBuilder.Components.register(require('core/components/text'));
 CoreBuilder.Components.register(require('core/components/title'));
-CoreBuilder.Components.register(require('core/components/image'))
 
 CoreBuilder.PageBuilder = function(config) {
     var page      = config.page      || null,
