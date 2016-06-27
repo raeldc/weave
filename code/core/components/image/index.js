@@ -10,6 +10,7 @@ import Image from 'core/components/node/configuration/image'
 
 module.exports = {
     name: 'image',
+    group: 'content',
     title: 'Image',
     description: 'Individual images',
     icon: 'fa fa-header',
