@@ -15,6 +15,7 @@
     "dependencies": {
         "react": "0.14.x",
         "react-bootstrap": "0.x",
+        "react-dom": "0.14.x",
         "underscore": "1.8.x",
         "jquery": "2.1.x",
         "reflux": "0.x",
@@ -24,8 +25,7 @@
         "react-color-picker": "2.x",
         "react-dnd": "2.x",
         "react-dnd-html5-backend": "2.x",
-        "react-input-autosize": "^0.6.10",
-        "sprintf-js": "*"
+        "react-input-autosize": "^0.6.10"
     },
     "devDependencies": {
         "babelify": "^6.1.1",
