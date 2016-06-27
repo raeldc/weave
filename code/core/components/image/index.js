@@ -13,7 +13,7 @@ module.exports = {
     group: 'content',
     title: 'Image',
     description: 'Individual images',
-    icon: 'fa fa-header',
+    icon: 'fa fa-picture-o',
     node: Node,
     layout: Layout,
     paneview: PaneView,
