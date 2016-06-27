@@ -45,10 +45,13 @@ export default class Image extends CSSConfig {
 
     selectImage(data) {
         const node = this.props.node
-        const properties = {
-            src: data.get('url')
+        const attr = {
+            attributes: {
+                src: data.get('url')
+            }
         }
-        Node.updateNode(node, properties)
+
+        Node.updateNode(node, attr)
     }
 
 }

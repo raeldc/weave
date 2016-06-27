@@ -25,6 +25,9 @@ module.exports = {
     configurables: {},
     defaults: {
         element: 'img',
+        attributes: {
+            src: '/#',
+        },
         classes: [
             'img'
         ]
