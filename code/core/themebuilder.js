@@ -44,7 +44,8 @@ CoreBuilder.ThemeBuilder = function(config) {
         wp.customize.previewer.query = function() {
             var values = query.call(wp.customize.previewer);
             return jQuery.extend(values, {
-                nodes: CoreBuilder.Nodes.toObject()
+                nodes: CoreBuilder.Nodes.toObject(),
+                css  : CoreBuilder.Styling.toObject()
             });
         };
     }

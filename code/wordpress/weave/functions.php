@@ -63,7 +63,7 @@ jQuery(document).ready(function(){
             preview: this.targetWindow()
         });
 
-        CoreBuilder.Styling.loadStyle(css)
+        CoreBuilder.Styling.loadStylesheets(css)
     });
 });
 </script>
