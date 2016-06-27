@@ -48,4 +48,20 @@ export default class Stylesheets {
 
         return this[key.cascades].get(selector)
     }
+
+    toObject() {
+        var obj = {}
+
+        for (let [key, value] of this[key.stylesheets]) {
+            obj[key] = value.toObject()
+        }
+
+        return obj
+    }
+
+    loadStylesheet(stylesheet) {
+        _.each(stylesheet, (declaration, device) => {
+            this[key.stylesheets].get(device).addStyles(declaration)
+        })
+    }
 }

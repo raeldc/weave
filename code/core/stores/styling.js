@@ -23,6 +23,11 @@ export class Styling {
         throw new Error('Cannot set document more than once')
     }
 
+    loadStylesheets( styles ) {
+        this[key.stylesheets].loadStylesheet(styles)
+        return this
+    }
+
     getStylesheets() {
         return this[key.stylesheets]
     }
@@ -34,6 +39,10 @@ export class Styling {
     trigger() {
         LayoutActions.nodeTouched()
         return this[key.store].trigger()
+    }
+
+    toObject() {
+        return this[key.stylesheets].toObject()
     }
 }
 

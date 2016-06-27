@@ -1,4 +1,7 @@
 <?php
+if(empty($node['classes'])) {
+    $node['classes'] = array();
+}
 $classes = array_unique(array_merge($node['classes'], array('row', $node['id'])));
 ?>
 <<?= $node['element'] ?> class="<?= implode(' ', $classes) ?>">

@@ -52,6 +52,7 @@ jQuery(document).ready(function(){
     wp.customize.previewer.loading.done(function(){
         var data = <?php echo json_encode(get_option(get_stylesheet().'_nodes', array()))?>;
 
+        var css = <?php echo json_encode(get_option(get_stylesheet() . '_css', array())) ?>;
         if(_.isEmpty(data)) {
             data = {root: {component: 'root', id: 'root'}};
         }
@@ -61,6 +62,8 @@ jQuery(document).ready(function(){
         CoreBuilder.ThemeBuilder({
             preview: this.targetWindow()
         });
+
+        CoreBuilder.Styling.loadStylesheets(css)
     });
 });
 </script>
@@ -109,6 +112,7 @@ add_action('customize_controls_print_footer_scripts', function() {
 add_action('customize_save', function() {
     if(isset($_POST['nodes']) && is_array($_POST['nodes'])) {
         update_option(get_stylesheet().'_nodes', $_POST['nodes']);
+        update_option(get_stylesheet().'_css', $_POST['css']);
     }
 });
 
