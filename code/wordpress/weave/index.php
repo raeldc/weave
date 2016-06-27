@@ -6,7 +6,9 @@
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <?php
         wp_head();
-        corebuilder_factory_render_css(did_action('customize_preview_init'));
+        if (!did_action('customize_preview_init')) {
+            corebuilder_factory_render_css();
+        }
         ?>
     </head>
     <body <?php body_class(); ?>>
