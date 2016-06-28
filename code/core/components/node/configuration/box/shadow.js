@@ -5,8 +5,6 @@ import BoxConfig from 'core/components/node/configuration/box/config.js'
 import DropDown from 'core/ui/elements/dropdown.js'
 import ReactColorPicker from 'react-color-picker'
 
-import Styling from 'core/stores/styling.js' // temporary fix
-
 // Actions
 import {
     mergeStyle,
@@ -118,20 +116,22 @@ class BoxShadowManip extends Component {
             }
         var style = this.getParsedStyle()
         var status = this.status
-        var buttons
+
+        var activeButton
+        var noneButton
         if (status.isValid) {
-            buttons = (
-                <li className='form-field-group'>
-                    <a className='btn active'>Active</a>
-                    <a className='btn' onClick={e => this.deactivateStyle(status, style)}>None</a>
-                </li>
+            activeButton = (
+                <a className='btn active'>Active</a>
+            )
+            noneButton = (
+                <a className='btn' onClick={e => this.deactivateStyle(status, style)}>None</a>
             )
         } else {
-            buttons = (
-                <li className='form-field-group'>
-                    <a className='btn' onClick={e => this.activateStyle(status, style)}>Active</a>
-                    <a className='btn active'>None</a>
-                </li>
+            activeButton = (
+                <a className='btn' onClick={e => this.activateStyle(status, style)}>Active</a>
+            )
+            noneButton = (
+                <a className='btn active'>None</a>
             )
         }
 
@@ -139,7 +139,8 @@ class BoxShadowManip extends Component {
             <div>
                 <ul>
                     <li className='form-field-group'>
-                        {buttons}
+                        {activeButton}
+                        {noneButton}
                     </li>
                     <li>
                         <ReactColorPicker
@@ -423,23 +424,13 @@ export default class BoxShadow extends BoxConfig {
         })
     }
 
-    hideOutset() {
-        console.log('hideOutset called')
-        this.setState({openOutset: false})
-    }
-
-    hideInset() {
-        console.log('hideInset called')
-        this.setState({openInset: false})
-    }
-
     getOutsetDropdown() {
         const state = this.state
         const props = this.props
         // const style = getStyle(props.node, props.device)
         if (state.openOutset) {
             return (
-                <DropDown subject={this.refs.outsetBtn} onBlur={e => console.log(e)}>
+                <DropDown subject={this.refs.outsetBtn}>
                     <BoxShadowManip {...props} inset={false} type='outset'/>
                 </DropDown>
             )
@@ -452,7 +443,7 @@ export default class BoxShadow extends BoxConfig {
         // const style = getStyle(props.node, props.device)
         if (state.openInset) {
             return (
-                <DropDown subject={this.refs.insetBtn} onBlur={e => console.log(e)}>
+                <DropDown subject={this.refs.insetBtn}>
                     <BoxShadowManip {...props} inset={true} type='inset'/>
                 </DropDown>
             )

@@ -11,15 +11,15 @@
 
     .font {
         .family {
-            display: block;
-            font-size: 1.2em;
+            display         : block;
+            font-size       : 1.2em;
             background-color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-            margin-bottom: 10px;
+            cursor          : pointer;
+            border-radius   : 3px;
+            margin-bottom   : 10px;
 
             i.fa {
-                color: #d0d5dd;
+                color     : #d0d5dd;
                 margin-top: 2px;
             }
         }
@@ -27,7 +27,7 @@
         .font-family-options {
             max-height: 300px;
             overflow-y: auto;
-            margin: 0 !important;
+            margin    : 0 !important;
         }
 
         .select-value {
@@ -35,7 +35,7 @@
         }
 
         .select-option {
-            margin: 0!important;
+            margin : 0 !important;
             padding: 7px;
         }
 
@@ -45,8 +45,8 @@
 
         .font-input {
             input {
-                padding: 3px 0;
-                border: none !important;
+                padding  : 3px 0;
+                border   : none !important;
                 font-size: 15px;
             }
         }
@@ -55,16 +55,16 @@
             float: left;
 
             .preset-size {
-                color: #3e4652;
-                min-width: 80px;
+                color     : #3e4652;
+                min-width : 80px;
                 text-align: left;
             }
 
             input {
-                width: 45px;
-                border-top-left-radius: 0;
+                width                    : 45px;
+                border-top-left-radius   : 0;
                 border-bottom-left-radius: 0;
-                border-left: 1px solid #d0d5dd;
+                border-left              : 1px solid #d0d5dd;
             }
         }
 
@@ -72,8 +72,8 @@
             float: right;
 
             input {
-                width: 102px;
-                border-top-right-radius: 0;
+                width                     : 102px;
+                border-top-right-radius   : 0;
                 border-bottom-right-radius: 0;
             }
         }
@@ -88,6 +88,80 @@
 
         .transform {
             float: right;
+        }
+    }
+
+    .text-shadow {
+        .title {
+            position  : relative;
+            text-align: center;
+        }
+
+        .checkbox {
+            height  : 15px;
+            width   : 15px;
+            position: absolute;
+            top     : 0;
+            right   : 0;
+        }
+
+        .display-inline {
+            margin: 0;
+
+            .form-field-group {
+                margin: 0;
+                width : 100%;
+            }
+
+            .label,
+            input[type='number'] {
+                width: 25%;
+            }
+
+            input[type='number'] {
+                border-top-left-radius   : 0;
+                border-bottom-left-radius: 0;
+            }
+
+            input[type='range'] {
+                display       : inline;
+                vertical-align: middle;
+                width         : 50%;
+                border        : solid thin #ccc;
+            }
+        }
+
+        .color-picker {
+            .color,
+            .label {
+                display: inline-block;
+            }
+
+            .label {
+                width                     : 25%;
+                border-top-right-radius   : 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .color {
+                width: 75%;
+
+                .btn,
+                input {
+                    display: inline-block;
+                }
+
+                input {
+                    width        : 85%;
+                    border-radius: 0;
+                    border-left  : none;
+                    border-right : none;
+                }
+
+                .btn {
+                    width: 15%;
+                }
+            }
         }
     }
 }

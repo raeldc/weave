@@ -23,8 +23,8 @@ export class Styling {
         throw new Error('Cannot set document more than once')
     }
 
-    loadStyle( styles ) {
-        this[key.stylesheets].loadStyle(styles)
+    loadStylesheets( styles ) {
+        this[key.stylesheets].loadStylesheet(styles)
         return this
     }
 
@@ -42,7 +42,7 @@ export class Styling {
     }
 
     toObject() {
-        return this[ key.stylesheets ].toObject()
+        return this[key.stylesheets].toObject()
     }
 }
 

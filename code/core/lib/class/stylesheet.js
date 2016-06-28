@@ -154,25 +154,32 @@ export default class Stylesheet {
 
         return inline ? `@media ${this[key.query]} {\n${css.replace(/^(.*)$/gm, "\t$1")}\n}\n` : css
     }
+
     toObject() {
         var obj = {}
+
         for(let [key, value] of this[key.stylesheet]) {
             obj[key] = value.toObject()
         }
+
         return obj
     }
-    loadStyle(styles) {
+
+    addStyles(styles) {
         _.each(styles, (props, selector) => {
             if(_.isObject(props.properties) && props.properties.fontFamily){
                 props.properties.fontFamily = props.properties.fontFamily.replace(/(\\)+/g, '')
             }
+
             this.replaceStyle(selector, {})
+
             _.each(props.backgrounds, (backgroundProperties, backgroundId) => {
                 this[key.stylesheet].get(selector).set('background', backgroundProperties)
                 this.replaceStyle(selector, {
                     background: backgroundProperties
                 })
             })
+
             this.replaceStyle(selector, props.properties)
         })
     }

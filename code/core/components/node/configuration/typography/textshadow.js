@@ -4,6 +4,7 @@ import Component from 'core/component.js'
 import TextShadowColorPicker from 'core/components/node/configuration/inputs/textshadowcolorpicker.js'
 import ReactColorPicker from 'react-color-picker'
 import {sprintf} from 'sprintf-js'
+import {getPos} from 'core/components/node/utilities/angles.js'
 
 import $ from 'jquery'
 
@@ -55,16 +56,16 @@ export default class TextShadow extends Component {
                     className={'btn' + (textShadowString
                     ? ' active'
                     : '')}
-                    onClick={event => this.activate(textShadowParsed)}
-                    onMouseDown={event => this.stopEvent(event)}>
+                    onClick={e => this.activate(textShadowParsed)}
+                    onMouseDown={e => this.stopEvent(e)}>
                     Text Shadow
                 </a>
                 <a
                     className={'btn' + (textShadowString
                     ? ''
                     : ' active')}
-                    onClick={event => this.deactivate()}
-                    onMouseDown={event => this.stopEvent(event)}>
+                    onClick={e => this.deactivate()}
+                    onMouseDown={e => this.stopEvent(e)}>
                     None
                 </a>
             </li>
@@ -83,10 +84,7 @@ export default class TextShadow extends Component {
             )
         } else {
             return (
-                <div
-                    {...props}
-                    className='text-shadow'
-                    onMouseDown={event => this.stopEvent(event)}>
+                <div {...props} className='text-shadow' onMouseDown={e => this.stopEvent(e)}>
                     <ul>
                         <li className='title'>
                             Text Shadow
@@ -97,8 +95,8 @@ export default class TextShadow extends Component {
                                 saturationWidth={200}
                                 saturationHeight={200}
                                 value={textShadowParsed.color}
-                                onChange={event => this.changeColor(event, textShadowParsed)}
-                                onDrag={event => this.changeColor(event, textShadowParsed)}/>
+                                onChange={e => this.changeColor(e, textShadowParsed)}
+                                onDrag={e => this.changeColor(e, textShadowParsed)}/>
                         </li>
                         <li className='display-inline'>
                             <div className='form-field-group'>
@@ -109,18 +107,17 @@ export default class TextShadow extends Component {
                                     type='number'
                                     className='input input-xs'
                                     {...range.pos}
-                                    ref="horizontalInput"
                                     value={textShadowParsed.x}
-                                    onBlur={event => this.closeDropDown()}
-                                    onChange={event => this.changeX(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeX(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.x}
-                                    onChange={event => this.changeX(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeX(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}
+                                    onBlur={e => console.log(e)}/>
                             </div>
                         </li>
                         <li className='display-inline'>
@@ -133,15 +130,15 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onChange={event => this.changeY(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeY(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.pos}
                                     value={textShadowParsed.y}
-                                    onChange={event => this.changeY(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeY(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
                         <li className='display-inline'>
@@ -154,15 +151,15 @@ export default class TextShadow extends Component {
                                     className='input input-xs'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onChange={event => this.changeBlur(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeBlur(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                                 <input
                                     type='range'
                                     className='input'
                                     {...range.blur}
                                     value={textShadowParsed.blur}
-                                    onChange={event => this.changeBlur(event, textShadowParsed)}
-                                    onMouseDown={event => event.stopPropagation()}/>
+                                    onChange={e => this.changeBlur(e, textShadowParsed)}
+                                    onMouseDown={e => e.stopPropagation()}/>
                             </div>
                         </li>
                     </ul>
@@ -202,9 +199,9 @@ export default class TextShadow extends Component {
     }
 
     changeX(event, orig) {
-        event.preventDefault()
         event.stopPropagation()
         var x = parseInt(event.target.value)
+        console.log('event [%s] x: %d', event.type, x)
         orig.x = x
         this.reStyle(orig)
     }
@@ -212,6 +209,7 @@ export default class TextShadow extends Component {
     changeY(event, orig) {
         event.stopPropagation()
         var y = parseInt(event.target.value)
+        console.log('event [%s] y: %d', event.type, y)
         orig.y = y
         this.reStyle(orig)
     }
@@ -237,5 +235,4 @@ export default class TextShadow extends Component {
         }, this.props.device)
     }
 }
-
 // --- END OF FILE ---

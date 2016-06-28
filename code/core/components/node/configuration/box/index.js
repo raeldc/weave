@@ -1,14 +1,14 @@
 'use strict'
 
-import CSSConfig        from 'core/components/node/configuration/cssconfig.js'
-import DropDown         from 'core/ui/elements/dropdown.js'
+import CSSConfig from 'core/components/node/configuration/cssconfig.js'
+import DropDown from 'core/ui/elements/dropdown.js'
 import ReactColorPicker from 'react-color-picker'
 
 // Components
-import Margin       from 'core/components/node/configuration/box/margin.js'
-import Padding      from 'core/components/node/configuration/box/padding.js'
-import Border       from 'core/components/node/configuration/box/border.js'
-import Dimensions   from 'core/components/node/configuration/box/dimensions.js'
+import Margin from 'core/components/node/configuration/box/margin.js'
+import Padding from 'core/components/node/configuration/box/padding.js'
+import Border from 'core/components/node/configuration/box/border.js'
+import Dimensions from 'core/components/node/configuration/box/dimensions.js'
 import BorderRadius from 'core/components/node/configuration/box/radius.js'
 import BoxShadow    from 'core/components/node/configuration/box/shadow.js'
 // Actions
@@ -21,7 +21,7 @@ import {
 
 export default class Box extends CSSConfig {
     render() {
-        const style   = getStyle(this.props.node, this.props.device)
+        const style = getStyle(this.props.node, this.props.device)
         const cascade = getCascade(this.props.node, this.props.device)
 
         return (

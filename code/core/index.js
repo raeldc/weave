@@ -7,6 +7,7 @@ import Nodes           from 'core/stores/nodes.js'
 import Styling          from 'core/stores/styling.js'
 import UIConfig        from 'core/stores/uiconfig.js'
 import * as Components from 'core/stores/components.js'
+import Styling         from 'core/stores/styling.js'
 
 // Declare global variables
 window.React       = React

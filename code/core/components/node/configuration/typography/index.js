@@ -1,19 +1,15 @@
 'use strict'
 
-import CSSConfig   from 'core/components/node/configuration/cssconfig.js'
-import Size        from 'core/components/node/configuration/typography/size'
-import Alignment   from 'core/components/node/configuration/typography/alignment.js'
-import Transform   from 'core/components/node/configuration/typography/transform.js'
+import CSSConfig from 'core/components/node/configuration/cssconfig.js'
+import Size from 'core/components/node/configuration/typography/size'
+import Alignment from 'core/components/node/configuration/typography/alignment.js'
+import Transform from 'core/components/node/configuration/typography/transform.js'
 import ColorPicker from 'core/components/node/configuration/inputs/colorpicker.js'
-import Font        from 'core/components/node/configuration/typography/font.js'
+import Font from 'core/components/node/configuration/typography/font.js'
+import TextShadow from 'core/components/node/configuration/typography/textshadow.js'
 
 // Actions
-import {
-    mergeStyle,
-    toggleStyle,
-    getStyle,
-    getCascade
-} from 'core/actions/styling.js'
+import {mergeStyle, toggleStyle, getStyle, getCascade} from 'core/actions/styling.js'
 
 export default class Typography extends CSSConfig {
     render() {
@@ -41,6 +37,7 @@ export default class Typography extends CSSConfig {
                             <Alignment {...this.props} className="alignment"/>
                             <Transform {...this.props} className="transform"/>
                         </li>
+                        <li className='formatting'></li>
                     </ul>
                 </div>
             </div>

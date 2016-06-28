@@ -113,12 +113,15 @@ export default class Style {
             properties: {},
             backgrounds: {}
         }
+
         for(let [key, value] of this[key.properties]) {
             obj.properties[key] = value
         }
+
         for(let [key, value] of this[key.backgrounds]) {
             obj.backgrounds[key] = value
         }
+
         return obj
     }
 
