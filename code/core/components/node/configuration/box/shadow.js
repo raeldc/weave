@@ -6,7 +6,10 @@ import DropDown from 'core/ui/elements/dropdown.js'
 import ReactColorPicker from 'react-color-picker'
 
 // Actions
-import {mergeStyle, getStyle} from 'core/actions/styling.js'
+import {
+    mergeStyle,
+    getStyle
+} from 'core/actions/styling.js'
 
 // Functions
 import {sprintf} from 'sprintf-js'

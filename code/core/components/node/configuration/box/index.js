@@ -10,10 +10,14 @@ import Padding from 'core/components/node/configuration/box/padding.js'
 import Border from 'core/components/node/configuration/box/border.js'
 import Dimensions from 'core/components/node/configuration/box/dimensions.js'
 import BorderRadius from 'core/components/node/configuration/box/radius.js'
-import BoxShadow from 'core/components/node/configuration/box/shadow.js'
-
+import BoxShadow    from 'core/components/node/configuration/box/shadow.js'
 // Actions
-import {mergeStyle, toggleStyle, getStyle, getCascade} from 'core/actions/styling.js'
+import {
+    mergeStyle,
+    toggleStyle,
+    getStyle,
+    getCascade
+} from 'core/actions/styling.js'
 
 export default class Box extends CSSConfig {
     render() {
