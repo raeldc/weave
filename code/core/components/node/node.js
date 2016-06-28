@@ -2,6 +2,7 @@
 
 import Component  from 'core/component.js'
 import Nodes      from 'core/stores/nodes.js'
+import Attributable from 'core/components/node/behaviors/attributable.js'
 import Changeable from 'core/components/node/behaviors/changeable.js'
 import Eventable  from 'core/components/node/behaviors/eventable.js'
 import Editable   from 'core/components/node/behaviors/editable.js'
@@ -14,7 +15,7 @@ export default class Node extends Component {
     constructor(props, context) {
         super(props, context)
 
-        this.addBehavior(Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable)
+        this.addBehavior(Attributable, Eventable, Changeable, Editable, Stylable, Classable, Selectable, Hoverable)
     }
 
     initialState(props) {

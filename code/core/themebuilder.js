@@ -21,6 +21,7 @@ import Row    from 'core/components/row'
 import Column from 'core/components/column'
 import Text   from 'core/components/text'
 import Title  from 'core/components/title'
+import Image  from 'core/components/image'
 
 // Register Node Components
 CoreBuilder.Components.register(Root)
@@ -28,6 +29,7 @@ CoreBuilder.Components.register(Row)
 CoreBuilder.Components.register(Column)
 CoreBuilder.Components.register(Text)
 CoreBuilder.Components.register(Title)
+CoreBuilder.Components.register(Image)
 
 CoreBuilder.ThemeBuilder = function(config) {
     var frame = config.preview || wp.customize.previewer.loading.targetWindow()
