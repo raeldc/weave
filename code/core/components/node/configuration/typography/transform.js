@@ -3,8 +3,6 @@
 import BoxConfig  from 'core/components/node/configuration/box/config.js'
 import TextShadow from 'core/components/node/configuration/typography/textshadow.js'
 
-import TextShadow from 'core/components/node/configuration/typography/textshadow.js'
-
 // Actions
 import {replaceStyle, toggleStyle, getStyle, getCascade} from 'core/actions/styling.js'
 
