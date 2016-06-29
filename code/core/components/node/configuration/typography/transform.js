@@ -1,6 +1,7 @@
 'use strict'
 
 import BoxConfig from 'core/components/node/configuration/box/config.js'
+
 import TextShadow from 'core/components/node/configuration/typography/textshadow.js'
 
 // Actions
