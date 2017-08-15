@@ -2,9 +2,10 @@
     "name": "Alchemy",
     "version": "0.1.0",
     "private": true,
-    "main": "code/core/index.js",
+    "main": "code/desktop/main.js",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "start": "electron ./code/desktop/main.js"
     },
     "jest": {
         "scriptPreprocessor": "node_modules/babel-jest",
@@ -38,6 +39,7 @@
         "grunt-contrib-watch": "~0.5.3",
         "grunt-watchify": "*",
         "jest-cli": "*",
-        "babel-jest": "*"
+        "babel-jest": "*",
+        "electron": "~1.6.2"
     }
 }

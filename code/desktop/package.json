@@ -1,0 +1,9 @@
+{
+    "name"      : "Weave Builder",
+    "version"   : "0.1.0",
+    "private"   : true,
+    "main"      : "main.js",
+    "browserify": {
+        "transform": ["babelify"]
+    }
+}

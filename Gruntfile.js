@@ -48,9 +48,20 @@ module.exports = function(grunt) {
         'copy:pagebuilder_dist',
     ];
 
+    var desktop_watch = [
+        'watchify:desktop',
+        'watch:desktop',
+    ];
+
+    var desktop_build = [
+        'watchify:desktop'
+    ];
+
     // Shortcuts
     grunt.registerTask('default',              wp_themebuilder_watch);
     grunt.registerTask('dist' ,                wp_themebuilder_dist);
+    grunt.registerTask('desktop',              desktop_watch);
+    grunt.registerTask('desktop_build',        desktop_build);
 
     // Specifics
     grunt.registerTask('wp_pagebuilder_watch', wp_pagebuilder_watch);

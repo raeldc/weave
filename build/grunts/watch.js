@@ -7,6 +7,13 @@ module.exports = {
         tasks: ['less', 'copy:wp_themebuilder_watch']
     },
 
+    desktop: {
+        files: [
+            './code/desktop/build/main.js',
+            './code/desktop/css/less/**/*.less',
+        ],
+    },
+
     css_livereload: {
         options: {
             livereload: true
