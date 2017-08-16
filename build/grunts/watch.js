@@ -1,3 +1,4 @@
+
 module.exports = {
     wp_themebuilder: {
         files: [
@@ -9,9 +10,9 @@ module.exports = {
 
     desktop: {
         files: [
-            './code/desktop/build/main.js',
-            './code/desktop/css/less/**/*.less',
+            './code/desktop/css/less/**/*.less'
         ],
+        tasks: ['less:desktop']
     },
 
     css_livereload: {

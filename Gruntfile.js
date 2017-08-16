@@ -11,6 +11,7 @@ module.exports = function(grunt) {
         less    : config('less'),
         watch   : config('watch'),
         watchify: config('watchify'),
+        exec    : config('exec')
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -19,6 +20,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-watchify');
+    grunt.loadNpmTasks('grunt-exec');
 
     var wp_pagebuilder_watch = [
         'watchify:pagebuilder',
@@ -50,7 +52,8 @@ module.exports = function(grunt) {
 
     var desktop_watch = [
         'watchify:desktop',
-        'watch:desktop',
+        'less:desktop',
+        'exec:electron'
     ];
 
     var desktop_build = [

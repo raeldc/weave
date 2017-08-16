@@ -5,7 +5,7 @@
     "main": "code/desktop/main.js",
     "scripts": {
         "test": "jest",
-        "start": "electron ./code/desktop/main.js"
+        "start": "electron ."
     },
     "jest": {
         "scriptPreprocessor": "node_modules/babel-jest",
@@ -40,6 +40,8 @@
         "grunt-watchify": "*",
         "jest-cli": "*",
         "babel-jest": "*",
-        "electron": "~1.6.2"
+        "electron": "~1.6.2",
+        "electron-reload": "^1.2.1",
+        "grunt-exec": "^3.0.0"
     }
 }
