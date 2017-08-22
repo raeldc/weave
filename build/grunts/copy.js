@@ -29,6 +29,23 @@ module.exports = {
         ]
     },
 
+    desktop: {
+        files: [
+            {
+                cwd   : 'node_modules/font-awesome/fonts',
+                src   : '**/*',
+                dest  : 'code/desktop/fonts/',
+                expand: true
+            },
+            {
+                cwd : 'node_modules/font-awesome/css',
+                src : '**/*',
+                dest: 'code/desktop/css/',
+                expand: true
+            }
+        ]
+    },
+
     pagebuilder_dist: {
         files: [
             {
