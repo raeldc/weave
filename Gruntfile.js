@@ -54,7 +54,8 @@ module.exports = function(grunt) {
         'watchify:desktop',
         'less:desktop',
         'copy:desktop',
-        'exec:electron'
+        'exec:electron',
+        'watch:desktop'
     ];
 
     var desktop_build = [
