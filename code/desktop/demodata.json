@@ -1,0 +1,279 @@
+{
+   "root": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mdyagz-row",
+         "i9mxkzhs-row"
+      ],
+      "element": "div",
+      "classes": "container-fluid",
+      "id": "root",
+      "component": "root"
+   },
+   "i9mdyagz-row": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxmvp9-column",
+         "i9my1tqg-column"
+      ],
+      "element": "div",
+      "columns": "4",
+      "classes": [
+         "row"
+      ],
+      "component": "row",
+      "parent": "root",
+      "id": "i9mdyagz-row"
+   },
+   "i9mxmvp9-column": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxuyu9-text",
+         "i9mxwt12-text"
+      ],
+      "element": "div",
+      "colspan": {
+         "desktop": 1,
+         "laptop": 1,
+         "tablet": 2,
+         "phone": 4
+      },
+      "component": "column",
+      "parent": "i9mdyagz-row",
+      "id": "i9mxmvp9-column"
+   },
+   "i9my1tqg-column": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxys9k-title",
+         "i9mxwq1r-text"
+      ],
+      "element": "div",
+      "colspan": {
+         "desktop": 3,
+         "laptop": 1,
+         "tablet": 2,
+         "phone": 4
+      },
+      "component": "column",
+      "parent": "i9mdyagz-row",
+      "id": "i9my1tqg-column"
+   },
+   "i9mxkzhs-row": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxtluf-column",
+         "i9mxwxdl-column",
+         "i9mxld23-column"
+      ],
+      "element": "div",
+      "columns": 3,
+      "classes": [
+         "row"
+      ],
+      "component": "row",
+      "parent": "root",
+      "id": "i9mxkzhs-row"
+   },
+   "i9mxuyu9-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxuyu9-text",
+      "parent": "i9mxmvp9-column"
+   },
+   "i9mxwt12-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxwt12-text",
+      "parent": "i9mxmvp9-column"
+   },
+   "i9mxys9k-title": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "h1",
+      "text": "Title (click here to edit)",
+      "component": "title",
+      "id": "i9mxys9k-title",
+      "parent": "i9my1tqg-column"
+   },
+   "i9mxwq1r-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxwq1r-text",
+      "parent": "i9my1tqg-column"
+   },
+   "i9mxtluf-column": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxvw9i-text"
+      ],
+      "element": "div",
+      "colspan": {
+         "desktop": 1,
+         "laptop": 1,
+         "tablet": 2,
+         "phone": 3
+      },
+      "component": "column",
+      "parent": "i9mxkzhs-row",
+      "id": "i9mxtluf-column"
+   },
+   "i9mxwxdl-column": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxzurn-text"
+      ],
+      "element": "div",
+      "colspan": {
+         "desktop": 1,
+         "laptop": 1,
+         "tablet": 2,
+         "phone": 3
+      },
+      "component": "column",
+      "parent": "i9mxkzhs-row",
+      "id": "i9mxwxdl-column"
+   },
+   "i9mxld23-column": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [
+         "i9mxs93s-text"
+      ],
+      "element": "div",
+      "colspan": {
+         "desktop": 1,
+         "laptop": 1,
+         "tablet": 2,
+         "phone": 3
+      },
+      "component": "column",
+      "parent": "i9mxkzhs-row",
+      "id": "i9mxld23-column"
+   },
+   "i9mxvw9i-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxvw9i-text",
+      "parent": "i9mxtluf-column"
+   },
+   "i9mxzurn-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxzurn-text",
+      "parent": "i9mxwxdl-column"
+   },
+   "i9mxs93s-text": {
+      "css": {
+         "all": {},
+         "desktop": {},
+         "laptop": {},
+         "tablet": {},
+         "phone": {}
+      },
+      "children": [],
+      "element": "p",
+      "text": "Double click here to edit",
+      "component": "text",
+      "id": "i9mxs93s-text",
+      "parent": "i9mxld23-column"
+   }
+}

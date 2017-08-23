@@ -32,6 +32,14 @@ module.exports = {
     desktop: {
         files: [
             {
+                src : 'node_modules/jquery/dist/jquery.js',
+                dest: 'code/desktop/js/jquery.js'
+            },
+            {
+                src : 'node_modules/underscore/underscore.js',
+                dest: 'code/desktop/js/underscore.js'
+            },
+            {
                 cwd   : 'node_modules/font-awesome/fonts',
                 src   : '**/*',
                 dest  : 'code/desktop/fonts/',

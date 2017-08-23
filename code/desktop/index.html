@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Weave</title>
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/ui.css">
-    <link rel="stylesheet" href="css/overlay.css">
-    <link rel="stylesheet" href="css/desktop.css">
-  </head>
-  <body></body>
-  <script>
-    require('./js/app.js')
-  </script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Weave</title>
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/ui.css">
+        <link rel="stylesheet" href="css/desktop.css">
+    </head>
+    <body>
+        <div id="corebuilder-customizer"></div>
+        <div id="corebuilder-layout"></div>
+    </body>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/underscore.js"></script>
+    <script src="./js/app.js"></script>
+    <script>
+        CoreBuilder.Desktop({
+            page  : 'preview.html',
+            data  : 'demodata.json',
+        });
+    </script>
+    <script>if (window.module) module = window.module;</script>
 </html>
