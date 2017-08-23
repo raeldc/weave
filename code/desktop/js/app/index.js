@@ -34,7 +34,6 @@ CoreBuilder.Components.register(Image)
 CoreBuilder.Desktop = function(config) {
     /**
      * Render the Layout
-     * @type {String}
      */
     ReactDOM.render(
         <ThemeBuilderLayout />,
@@ -42,13 +41,12 @@ CoreBuilder.Desktop = function(config) {
     )
 
     /**
-     * Render the Style Settings on the Sidebar of WP Customizer
+     * Render the Style Settings on the Sidebar
      */
     ReactDOM.render(
         <Customizer />,
         document.getElementById('corebuilder-customizer')
     )
-
 }
 
 export default CoreBuilder

@@ -5234,6 +5234,24 @@ button.close {
 .btn span {
   pointer-events: none;
 }
+.parentLayout {
+  position: relative;
+  padding-left: 300px;
+  width: 100%;
+}
+.parentLayout .leftPane {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 300px;
+  background: black;
+  height: 100%;
+}
+.parentLayout .rightPane {
+  height: 100%;
+  width: auto;
+}
 #accordion-section-themebuilder_styles .accordion-section-content {
   color: #656e73;
   background-color: #fff;
@@ -6248,13 +6266,15 @@ button.close {
   overflow-y: auto;
   border-radius: 3px;
 }
+#corebuilder-layout {
+  position: relative;
+  width: 100%;
+}
 #corebuilder-layout > div {
-  position: fixed;
+  position: absolute;
   padding: 0;
   width: 100%;
-  left: 0;
   bottom: 0;
-  height: 100vh;
   background: #fff;
   transition: all .2s;
   border-top: 1px solid #d5dbdd;
@@ -6564,12 +6584,6 @@ button.close {
 }
 #corebuilder-layout .ui-layout .btn {
   border-radius: 0;
-}
-.wp-full-overlay.expanded #corebuilder-layout > div {
-  padding-left: 300px;
-}
-.wp-full-overlay.collapsed #corebuilder-layout > div {
-  padding-left: 0;
 }
 .row,
 .column {
