@@ -1,0 +1,110 @@
+.ui-editmode {
+    -webkit-touch-callout: none;
+    -webkit-user-select  : none;
+    -khtml-user-select   : none;
+    -moz-user-select     : none;
+    -ms-user-select      : none;
+    user-select          : none;
+    cursor               : default;
+
+    &.hover {
+        cursor: pointer;
+    }
+
+    &.editable {
+        cursor: text;
+        outline: none;
+        -webkit-touch-callout: text;
+        -webkit-user-select  : text;
+        -khtml-user-select   : text;
+        -moz-user-select     : text;
+        -ms-user-select      : text;
+        user-select          : text;
+    }
+}
+
+#corebuilder-overlay {
+    position        : fixed;
+    top             : 0;
+    left            : 0;
+    width           : 100%;
+    height          : 100vh;
+    pointer-events  : none;
+    z-index         : 10000;
+    background-color: none;
+
+    .hidden {
+        display   : none;
+        visibility: hidden;
+    }
+
+    svg {
+        position        : absolute;
+        top             : 0;
+        left            : 0;
+        width           : 100%;
+        height          : 100vh;
+        pointer-events  : none;
+        background-color: none;
+
+        rect {
+            stroke-width: 1px;
+            fill        : none;
+        }
+
+        .hover {
+            stroke: rgba(76, 158, 217, 1);
+        }
+
+        .select {
+            stroke: rgba(88, 161, 59, .5);
+        }
+    }
+
+    .controls {
+        position      : absolute;
+        pointer-events: none;
+
+        .btn {
+            position      : absolute;
+            z-index       : 20000;
+            bottom        : 0;
+            right         : 0;
+            cursor        : pointer;
+            pointer-events: auto;
+        }
+    }
+}
+
+#ui-preview-droparea {
+    pointer-events: none;
+    position      : fixed;
+    z-index       : 10000;
+    width         : 0;
+    height        : 0;
+
+    &.hidden {
+        display   : none;
+        visibility: none;
+    }
+
+    &.top {
+        border-top: 3px solid #FAA523;
+    }
+
+    &.bottom {
+        border-bottom: 3px solid #FAA523;
+    }
+
+    &.left {
+        border-left: 3px solid #FAA523;
+    }
+
+    &.right {
+        border-right: 3px solid #FAA523;
+    }
+
+    &.inner {
+        border: none;
+    }
+}

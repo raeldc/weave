@@ -6,10 +6,7 @@
                 "sourceMaps": "inline"
             },
             "text/less": {
-                "dumpLineNumbers": "comments",
-                "paths": [
-                    "./public/css/less"
-                ]
+                "dumpLineNumbers": "comments"
             }
         },
         "production": {
