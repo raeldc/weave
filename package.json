@@ -2,7 +2,7 @@
     "name": "Alchemy",
     "version": "0.1.0",
     "private": true,
-    "main": "code/desktop/main.js",
+    "main": "code/desktop/app.js",
     "scripts": {
         "test": "jest",
         "start": "electron ."
@@ -17,7 +17,7 @@
         "react": "0.14.x",
         "react-bootstrap": "0.x",
         "react-dom": "0.14.x",
-        "underscore": "1.8.x",
+        "underscore-node": "*",
         "jquery": "2.1.x",
         "reflux": "0.x",
         "keymirror": "0.1.0",
@@ -40,8 +40,7 @@
         "grunt-watchify": "*",
         "jest-cli": "*",
         "babel-jest": "*",
-        "electron": "~1.6.2",
-        "electron-reload": "^1.2.1",
-        "grunt-exec": "^3.0.0"
+        "grunt-exec": "^3.0.0",
+        "electron-prebuilt-compile": "*"
     }
 }

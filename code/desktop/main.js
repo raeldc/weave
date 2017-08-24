@@ -1,3 +1,4 @@
+import {enableLiveReload} from 'electron-compile'
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -12,6 +13,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
+    enableLiveReload();
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 1024, height: 800})
 
