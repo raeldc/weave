@@ -2,7 +2,7 @@
     "name": "Alchemy",
     "version": "0.1.0",
     "private": true,
-    "main": "code/desktop/app.js",
+    "main": "code/desktop/main.js",
     "scripts": {
         "test": "jest",
         "start": "electron ."

@@ -50,6 +50,9 @@ module.exports = function(grunt) {
         'copy:pagebuilder_dist',
     ];
 
+    /*    
+    // We are now using electron-compile
+
     var desktop_watch = [
         'watchify:desktop',
         'less:desktop',
@@ -61,6 +64,7 @@ module.exports = function(grunt) {
     var desktop_build = [
         'watchify:desktop'
     ];
+    */
 
     // Shortcuts
     grunt.registerTask('default',              wp_themebuilder_watch);
