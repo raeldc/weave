@@ -1,5 +1,15 @@
+var fs = require('fs');
+
 function config(name) {
     return require('./build/grunts/' + name + '.js');
+}
+
+function setup() {
+    if (!fs.existsSync('./node_modules/core')) {
+        fs.symlinkSync('../code/core', './node_modules/core');
+        console.info('Symlink to Core created 😀');
+    }
+    else console.error('Symlink to Core already exists! 😏');
 }
 
 module.exports = function(grunt) {
@@ -65,12 +75,14 @@ module.exports = function(grunt) {
         'watchify:desktop'
     ];
     */
+   
+    grunt.registerTask('setup', setup);
 
     // Shortcuts
     grunt.registerTask('default',              wp_themebuilder_watch);
     grunt.registerTask('dist' ,                wp_themebuilder_dist);
-    grunt.registerTask('desktop',              desktop_watch);
-    grunt.registerTask('desktop_build',        desktop_build);
+    //grunt.registerTask('desktop',              desktop_watch);
+    //grunt.registerTask('desktop_build',        desktop_build);
 
     // Specifics
     grunt.registerTask('wp_pagebuilder_watch', wp_pagebuilder_watch);
