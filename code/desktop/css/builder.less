@@ -1,0 +1,16 @@
+.builder {
+    display: grid;
+    height: 100vh;
+
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 100vh;
+    grid-template-areas: "sidebar content";
+}
+
+.controls {
+    grid-area: "sidebar";
+}
+
+.canvas {
+    grid-area: "content";
+}

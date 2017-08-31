@@ -44,47 +44,12 @@
 
 @import "lib/react-color-picker.less";
 
-.desktop {
-    min-width: 1200px;
-}
-
-.laptop {
-    width: 1024px;
-}
-
-.tablet {
-    width: 768px;
-}
-
-.phone {
-    width: 320px;
-}
+@import "devices.less";
+@import "builder.less";
 
 .btn i,
 .btn span {
     pointer-events: none;
-}
-
-.parentLayout {
-    position: relative;
-    padding-left: 300px;
-    width: 100%;
-
-    .leftPane {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        min-width: 300px;
-        background: #0f0f0f;
-        height: 100%;
-    }
-
-    .rightPane {
-        height: 100%;
-        width: auto;
-        overflow: hidden;
-    }
 }
 
 @import "ui/customizer.less";
