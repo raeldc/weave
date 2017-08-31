@@ -2,15 +2,21 @@
     display: grid;
     height: 100vh;
 
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: 100vh;
-    grid-template-areas: "sidebar content";
+    grid-template-columns: [sidebar] 300px [content] 1fr;
+    grid-template-rows: [upper] 50vh [lower] 50vh;
 }
 
 .controls {
-    grid-area: "sidebar";
+    grid-column: sidebar;
+    grid-row: upper / lower;
 }
 
-.canvas {
-    grid-area: "content";
+.preview {
+    grid-column: content;
+    grid-row: upper;
+}
+
+.layout {
+    grid-column: content;
+    grid-row: lower;
 }
