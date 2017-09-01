@@ -6,11 +6,13 @@ import CoreBuilder from 'core'
 import Utils       from 'core/lib/utils.js'
 import Styling     from 'core/stores/styling.js'
 
-// UI Components
+// Core UI Components
 import Customizer         from 'core/ui/controls/customizer.js'
-import ThemeBuilderLayout from 'core/ui/layout/themebuilder.js'
 import UIPreviewOverlay   from 'core/ui/preview/overlay'
 import UIPreviewFactory   from 'core/components/node/factory.js'
+
+// Desktop UI Components
+import Topbar from './ui/topbar.js'
 
 //Actions
 import LayoutActions from 'core/actions/layout.js'
@@ -33,7 +35,7 @@ CoreBuilder.Components.register(Image)
 
 CoreBuilder.Desktop = function(config) {
     // Initialize the Preview
-    jQuery('#customize-preview > iframe').ready(function() {
+    jQuery('#preview > iframe').ready(function() {
         var preview = this
 
         // Initialize the Nodes (must be replaced with saved values)
@@ -83,26 +85,34 @@ CoreBuilder.Desktop = function(config) {
         }
 
         /**
-         * Render the Layout
+         * Render the Topbar
          */
         ReactDOM.render(
-            <ThemeBuilderLayout />,
-            document.getElementById('corebuilder-layout')
+            <Topbar />,
+            document.getElementById('topbar')
         )
+
+        /**
+         * Render the Layout
+         */
+        // ReactDOM.render(
+        //     <ThemeBuilderLayout />,
+        //     document.getElementById('corebuilder-layout')
+        // )
 
         /**
          * Render the Style Settings on the Sidebar
          */
-        ReactDOM.render(
-            <Customizer />,
-            document.getElementById('corebuilder-customizer')
-        )
+        // ReactDOM.render(
+        //     <Customizer />,
+        //     document.getElementById('corebuilder-customizer')
+        // )
 
         /**
          * Set the device of the preview iFrame when it's changed
          */
         {
-            let $preview = jQuery(preview)
+            let $preview = jQuery('#preview > iframe')
 
             $preview.addClass('desktop');
             LayoutActions.setDevice.listen(function(device) {
@@ -114,32 +124,32 @@ CoreBuilder.Desktop = function(config) {
         /**
          * Set the class of #customize-preview on different screenLayouts
          */
-        {
-            let $preview = jQuery('#customize-preview')
+        // {
+        //     let $preview = jQuery('#customize-preview')
 
-            $preview.addClass('split')
+        //     $preview.addClass('split')
 
-            LayoutActions.setScreenLayout.listen(function (layout) {
-                $preview.removeClass('split full minimized');
-                $preview.addClass(layout);
-            });
+        //     LayoutActions.setScreenLayout.listen(function (layout) {
+        //         $preview.removeClass('split full minimized');
+        //         $preview.addClass(layout);
+        //     });
 
-            LayoutActions.startResize.listen(function() {
-                $preview.addClass('disable-events')
-            })
+        //     LayoutActions.startResize.listen(function() {
+        //         $preview.addClass('disable-events')
+        //     })
 
-            LayoutActions.stopResize.listen(function() {
-                $preview.removeClass('disable-events')
-            })
+        //     LayoutActions.stopResize.listen(function() {
+        //         $preview.removeClass('disable-events')
+        //     })
 
-            LayoutActions.startDrag.listen(function() {
-                $preview.addClass('disable-events')
-            })
+        //     LayoutActions.startDrag.listen(function() {
+        //         $preview.addClass('disable-events')
+        //     })
 
-            LayoutActions.stopDrag.listen(function() {
-                $preview.removeClass('disable-events')
-            })
-        }
+        //     LayoutActions.stopDrag.listen(function() {
+        //         $preview.removeClass('disable-events')
+        //     })
+        // }
     })
 }
 

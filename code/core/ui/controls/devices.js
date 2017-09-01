@@ -1,8 +1,8 @@
 'use strict'
 
-import Component      from 'core/component.js'
-import PreviewActions from 'core/actions/layout.js'
-import Config         from 'core/stores/uiconfig.js'
+import Component     from 'core/component.js'
+import LayoutActions from 'core/actions/layout.js'
+import Config        from 'core/stores/uiconfig.js'
 
 export default class Devices extends Component {
     initialState() {
@@ -26,7 +26,7 @@ export default class Devices extends Component {
     }
 
     setDevice(device) {
-        PreviewActions.setDevice(device)
+        LayoutActions.setDevice(device)
     }
 
     onDeviceChange(node){
