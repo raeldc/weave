@@ -60,13 +60,12 @@ module.exports = function(grunt) {
         'copy:pagebuilder_dist',
     ];
 
-    /*    
-    // We are now using electron-compile
 
+    // We are now using electron-compile so we only compile less because it has too many issues with it. 
     var desktop_watch = [
-        'watchify:desktop',
+        //'watchify:desktop',
         'less:desktop',
-        'copy:desktop',
+        //'copy:desktop',
         'exec:electron',
         'watch:desktop'
     ];
@@ -74,14 +73,13 @@ module.exports = function(grunt) {
     var desktop_build = [
         'watchify:desktop'
     ];
-    */
    
     grunt.registerTask('setup', setup);
 
     // Shortcuts
     grunt.registerTask('default',              wp_themebuilder_watch);
     grunt.registerTask('dist' ,                wp_themebuilder_dist);
-    //grunt.registerTask('desktop',              desktop_watch);
+    grunt.registerTask('desktop',              desktop_watch);
     //grunt.registerTask('desktop_build',        desktop_build);
 
     // Specifics

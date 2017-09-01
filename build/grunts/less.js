@@ -16,14 +16,11 @@ module.exports = {
     desktop: {
         options: {
             paths: [
-                "public/css/less"
+                "public/css"
             ],
         },
         files: {
-            "code/desktop/css/desktop.css": "code/desktop/css/less/desktop.less",
-            "code/desktop/css/ui.css"     : "public/css/less/ui.less",
-            "code/desktop/css/overlay.css": "public/css/less/overlay.less",
-            "code/desktop/css/base.css"   : "public/css/less/base.less",
+            "code/desktop/css/desktop.css": "code/desktop/css/desktop.less",
         }
     }
 };

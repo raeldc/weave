@@ -10,7 +10,7 @@ module.exports = {
 
     desktop: {
         files: [
-            './code/desktop/css/less/**/*.less'
+            './code/desktop/css/**/*.less'
         ],
         tasks: ['less:desktop']
     },
