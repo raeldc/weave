@@ -1,41 +1,28 @@
 iframe {
     width  : 100%;
+    height : 100%;
     margin : 0 auto;
     padding: 0;
     border : none;
-    overflow-y: auto;
+    display: block;
+
+    overflow-y      : auto;
+    transition      : all .2s;
     background-color: #fff;
-    transition: all .2s;
 
     &.desktop {
         .desktop;
-        height   : 100%;
     }
 
     &.laptop {
         .laptop;
-        height    : 768px;
-        display   : block;
-        margin    : 10vh auto;
-        overflow-y: auto;
-        border-radius: 3px;
     }
 
     &.tablet {
         .tablet;
-        height    : 1024px;
-        display   : block;
-        margin    : 5vh auto;
-        overflow-y: auto;
-        border-radius: 3px;
     }
 
     &.phone {
         .phone;
-        height    : 568px;
-        display   : block;
-        margin    : 15vh auto;
-        overflow-y: auto;
-        border-radius: 3px;
     }
 }

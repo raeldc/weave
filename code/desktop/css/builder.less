@@ -1,22 +1,49 @@
-.builder {
-    display: grid;
-    height: 100vh;
+@import (reference) "layout.less";
 
-    grid-template-columns: [sidebar] 300px [content] 1fr;
-    grid-template-rows: [upper] 50vh [lower] 50vh;
-}
+#builder {
+    .layout-parent;
 
-.controls {
-    grid-column: sidebar;
-    grid-row: upper / lower;
-}
+    #sidebar {
+        .layout-sidebar;
+    }
 
-.preview {
-    grid-column: content;
-    grid-row: upper;
-}
+    #topbar {
+        .layout-topbar;
+        background-color: #999
+    }
 
-.layout {
-    grid-column: content;
-    grid-row: lower;
+    #bottombar {
+        .layout-bottombar;
+    }
+
+    #canvas {
+        .layout-canvas;
+        height: 100%;
+
+        #preview {
+            height: 50%;
+            background-color: #000;
+            overflow-y: auto;
+
+            &.full {
+                height: 0%;
+            }
+
+            &.split {
+                height: 50%;
+            }
+
+            &.minimized {
+                height: 100%;
+            }
+
+            // Contains styling for the > iframe
+            @import "ui/preview.less";
+        }
+
+        #layout {
+            height: 50%;
+            background-color: #aaa;
+        }
+    }
 }

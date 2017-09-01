@@ -2,17 +2,21 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Weave</title>
+        <title>Weave - Builder</title>
         <link rel="stylesheet" href="./css/font-awesome.css" />
         <link rel="stylesheet" href="./css/desktop.css" />
     </head>
     <body>
-        <div class="builder">
-            <div id="corebuilder-customizer" class="controls"></div>
-            <div id="customize-preview" class="preview">
-                <iframe src="preview.html" />
+        <div id="builder">
+            <div id="sidebar"></div>
+            <div id="topbar"></div>
+            <div id="bottombar"></div>
+            <div id="canvas">
+                <div id="preview">
+                    <iframe src="preview.html" />
+                </div>
+                <div id="layout"></div>
             </div>
-            <div id="corebuilder-layout" class="layout"></div>
         </div>
     </body>
     <script>

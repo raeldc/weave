@@ -1,0 +1,27 @@
+.layout-parent {
+    display: grid;
+    height: 100vh;
+
+    grid-template-columns: [sidebar] 300px [content] 1fr;
+    grid-template-rows: [topbar] 30px [canvas] 1fr [bottombar] 30px;
+}
+
+.layout-sidebar {
+    grid-column: sidebar;
+    grid-row: topbar / end;
+}
+
+.layout-topbar {
+    grid-column: content;
+    grid-row: topbar;
+}
+
+.layout-bottombar {
+    grid-column: content;
+    grid-row: bottombar;
+}
+
+.layout-canvas {
+    grid-column: content;
+    grid-row: canvas;
+}
