@@ -5230,7 +5230,7 @@ button.close {
   pointer-events: none;
 }
 .desktop {
-  width: 1200px;
+  width: 100%;
   min-width: 1200px;
 }
 .laptop {
@@ -5292,7 +5292,7 @@ button.close {
   background-color: #fff;
 }
 #builder #canvas #preview iframe.desktop {
-  width: 1200px;
+  width: 100%;
   min-width: 1200px;
 }
 #builder #canvas #preview iframe.laptop {
