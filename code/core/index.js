@@ -27,4 +27,5 @@ if(typeof global === 'object') {
     _.extend(window, core)
 }
 
+// Rename CoreBuilder to Weave
 export default core.CoreBuilder
