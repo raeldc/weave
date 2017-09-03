@@ -36,14 +36,29 @@
             &.minimized {
                 height: 100%;
             }
-
-            // Contains styling for the > iframe
-            @import "ui/preview.less";
         }
 
         #layout {
             height: 50%;
-            background-color: #aaa;
+            background : #efefef;
+            box-shadow : inset 0px 7px 28px -5px rgba(50,50,50,.5);
+
+            &.full {
+                height: 100%;
+            }
+
+            &.split {
+                height: 50%;
+            }
+
+            &.minimized {
+                height  : 0;
+                overflow: hidden;
+            }
         }
     }
 }
+
+@import "ui/controls.less";
+@import "ui/preview.less";
+@import "ui/layout.less";

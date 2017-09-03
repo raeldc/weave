@@ -7,9 +7,10 @@ import Utils       from 'core/lib/utils.js'
 import Styling     from 'core/stores/styling.js'
 
 // Core UI Components
-import Customizer         from 'core/ui/controls/customizer.js'
-import UIPreviewOverlay   from 'core/ui/preview/overlay'
-import UIPreviewFactory   from 'core/components/node/factory.js'
+import Customizer       from 'core/ui/controls/customizer.js'
+import DesktopLayout    from 'core/ui/layout/desktop.js'
+import UIPreviewOverlay from 'core/ui/preview/overlay'
+import UIPreviewFactory from 'core/components/node/factory.js'
 
 // Desktop UI Components
 import Topbar from './ui/topbar.js'
@@ -36,7 +37,7 @@ CoreBuilder.Components.register(Image)
 CoreBuilder.Desktop = function(config) {
     // Initialize the Preview
     jQuery('#preview > iframe').ready(function() {
-        var preview = this
+        var preview = window.preview = this
 
         // Initialize the Nodes (must be replaced with saved values)
         CoreBuilder.Nodes.setData({root: {component: 'root', id: 'root'}})
@@ -95,10 +96,10 @@ CoreBuilder.Desktop = function(config) {
         /**
          * Render the Layout
          */
-        // ReactDOM.render(
-        //     <ThemeBuilderLayout />,
-        //     document.getElementById('corebuilder-layout')
-        // )
+        ReactDOM.render(
+            <DesktopLayout />,
+            document.getElementById('layout')
+        )
 
         /**
          * Render the Style Settings on the Sidebar

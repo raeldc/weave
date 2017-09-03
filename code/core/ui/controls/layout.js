@@ -4,7 +4,7 @@ import Component     from 'core/component.js'
 import LayoutActions from 'core/actions/layout.js'
 import LayoutStore   from 'core/stores/layout.js'
 
-export default class ScreenLayout extends Component {
+export default class LayoutControl extends Component {
     initialState() {
         return LayoutStore.toObject()
     }
@@ -49,7 +49,7 @@ export default class ScreenLayout extends Component {
         }
 
         return  (
-            <div className={"btn-group" + className}>
+            <div className={"ui-layout-control btn-group"}>
                 {buttons}
             </div>
         )
