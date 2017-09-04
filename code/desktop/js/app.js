@@ -35,9 +35,14 @@ CoreBuilder.Components.register(Title)
 CoreBuilder.Components.register(Image)
 
 CoreBuilder.Desktop = function(config) {
+    var $window          = jQuery(window)
+    var $preview         = jQuery('#preview > iframe')
+    var $previewDocument = $preview.contents()
+
     // Initialize the Preview
-    jQuery('#preview > iframe').ready(function() {
-        var preview = window.preview = this
+    jQuery($preview).load(function() {
+        var previewDocument = $previewDocument.get(0)
+        window.preview = this
 
         // Initialize the Nodes (must be replaced with saved values)
         CoreBuilder.Nodes.setData({root: {component: 'root', id: 'root'}})
@@ -46,7 +51,7 @@ CoreBuilder.Desktop = function(config) {
          * Create Stylesheets for Device Queries
          * @see https://css-tricks.com/snippets/css/media-queries-for-standard-devices/
          */
-        Styling.setDocument(preview)
+        Styling.setDocument(previewDocument)
                 .getStylesheets()
                 .create('all',     'all')
                 .create('desktop', 'screen')
@@ -57,33 +62,43 @@ CoreBuilder.Desktop = function(config) {
         /**
          * Trigger windowchange on various events
          */
-        {
-            let $window = jQuery(window)
 
-            function onWindowEvent(event) {
-                LayoutActions.windowChanged(null, event)
-                event.stopPropagation()
-            }
-
-            $window.scroll(onWindowEvent)
-            $window.resize(onWindowEvent)
+        function onWindowEvent(event) {
+            LayoutActions.windowChanged(null, event)
+            event.stopPropagation()
         }
+
+        $window.scroll(onWindowEvent)
+        $window.resize(onWindowEvent)
 
         /**
          * Trigger framechange on various events
          */
-        {
-            let $preview = jQuery(preview)
 
-            function onFrameEvent(event) {
-                LayoutActions.frameChanged(null, event);
-                event.stopPropagation()
-            }
-
-            $preview.scroll(onFrameEvent)
-            $preview.resize(onFrameEvent)
-            $preview.mouseup(onFrameEvent)
+        function onFrameEvent(event) {
+            LayoutActions.frameChanged(null, event);
+            event.stopPropagation()
         }
+
+        $previewDocument.scroll(onFrameEvent)
+        $previewDocument.resize(onFrameEvent)
+        $previewDocument.mouseup(onFrameEvent)
+
+        /**
+         * Render the Overlay Boxes
+         */
+        ReactDOM.render(
+            <UIPreviewOverlay />,
+            previewDocument.getElementById('corebuilder-overlay')
+        );
+
+        /**
+         * Render the Nodes on the Preview
+         */
+        ReactDOM.render(
+            UIPreviewFactory.createNode('root'),
+            previewDocument.getElementById('corebuilder-preview')
+        );
 
         /**
          * Render the Topbar
@@ -112,15 +127,12 @@ CoreBuilder.Desktop = function(config) {
         /**
          * Set the device of the preview iFrame when it's changed
          */
-        {
-            let $preview = jQuery('#preview > iframe')
 
-            $preview.addClass('desktop');
-            LayoutActions.setDevice.listen(function(device) {
-                $preview.removeClass('desktop laptop tablet phone')
-                $preview.addClass(device)
-            });
-        }
+        $preview.addClass('desktop');
+        LayoutActions.setDevice.listen(function(device) {
+            $preview.removeClass('desktop laptop tablet phone')
+            $preview.addClass(device)
+        });
 
         /**
          * Set the class of #customize-preview on different screenLayouts

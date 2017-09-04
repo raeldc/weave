@@ -13,7 +13,7 @@
             <div id="bottombar"></div>
             <div id="canvas">
                 <div id="preview">
-                    <iframe src="preview.html" />
+                    <iframe src="preview.html" name="preview" />
                 </div>
                 <div id="layout"></div>
             </div>
@@ -21,6 +21,8 @@
     </body>
     <script>
         require('./js/app.js')
-        CoreBuilder.Desktop()
+        jQuery(document).ready(function(){
+            CoreBuilder.Desktop()
+        })
     </script>
 </html>
