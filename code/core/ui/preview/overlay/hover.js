@@ -1,15 +1,25 @@
-var LayoutActions        = require('core/actions/layout.js'),
-    UIPreviewOverlayMixin = require('core/ui/preview/overlay/mixin.js');
+'use strict'
 
-module.exports = React.createClass({
-    mixins: [UIPreviewOverlayMixin],    
+import Component from 'core/component.js'
 
-    getInitialState: function() {
-        return {type: 'hover'};
-    },
+import LayoutActions         from 'core/actions/layout.js'
+import UIPreviewOverlayMixin from 'core/ui/preview/overlay/mixin.js'
 
-    render: function() {
-        var className = this.state.visible ? this.state.type : 'hidden';
+import {initialize, displayOverlay, hideOverlay} from 'core/ui/preview/overlay/mixin.js'
+
+export default class Hover extends Component {
+    constructor(props, context) {
+        super(props, context)
+        this.addBehavior(UIPreviewOverlayMixin)
+        initialize(this)
+    }
+
+    initialState() {
+        return {type: 'hover'}
+    }
+
+    render() {
+        var className = this.state.visible ? this.state.type : 'hidden'
 
         return (
             <rect className={className} 
@@ -17,23 +27,23 @@ module.exports = React.createClass({
                 y={this.state.top} 
                 height={this.state.height} 
                 width={this.state.width} />
-        );
-    },
-
-    componentDidMount: function() {
-        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen(this.displayOverlay);
-    },
-
-    componentWillUnmount: function() {
-        this.stopListeningToDisplayHoverOverlay();
-        this.stopListeningToMouseOutNode();
-    },
-
-    listenToReverseSelection: function() {
-        this.stopListeningToMouseOutNode  = LayoutActions.mouseOutNode.listen(this.hideOverlay);
-    },
-
-    stopListeningToReverseSelection: function() {
-        this.stopListeningToMouseOutNode();
+        )
     }
-});
+
+    afterMount() {
+        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen(() => displayOverlay(this))
+    }
+
+    beforeUnmount() {
+        this.stopListeningToDisplayHoverOverlay()
+        this.stopListeningToMouseOutNode()
+    }
+
+    listenToReverseSelection() {
+        this.stopListeningToMouseOutNode  = LayoutActions.mouseOutNode.listen(() => hideOverlay(this))
+    }
+
+    stopListeningToReverseSelection() {
+        this.stopListeningToMouseOutNode()
+    }
+}

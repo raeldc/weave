@@ -1,18 +1,22 @@
-var UIPreviewOverlayHover    = require('core/ui/preview/overlay/hover.js'),
-    UIPreviewOverlaySelect   = require('core/ui/preview/overlay/select.js'),
-    UIPreviewOverlayControls = require('core/ui/preview/overlay/controls.js');
+'use strict'
 
-module.exports = React.createClass({
-    render: function() {
+import Component from 'core/component.js'
+
+import UIPreviewOverlayHover    from 'core/ui/preview/overlay/hover.js'
+import UIPreviewOverlaySelect   from 'core/ui/preview/overlay/select.js'
+import UIPreviewOverlayControls from 'core/ui/preview/overlay/controls.js'
+
+export default class Overlay extends Component {
+    render() {
         return (
             <svg>
                 <UIPreviewOverlayHover />
                 <UIPreviewOverlaySelect />
             </svg>
         );
-    },
-
-    shouldComponentUpdate: function() {
-        return false;
     }
-});
+
+    shouldUpdate() {
+        return false
+    }
+}
