@@ -8,13 +8,11 @@ import LayoutControl from 'core/ui/controls/layout.js'
 import UIComponents  from 'core/ui/controls/components.js'
 import Eventable     from 'core/components/node/behaviors/eventable.js'
 import Classable     from 'core/components/node/behaviors/classable.js'
-import Resizable     from 'core/components/node/behaviors/resizable.js'
 
 export default class DesktopLayout extends Component {
     constructor(props, context) {
         super(props, context)
-        this.addBehavior(Eventable, Classable, Resizable)
-        Resizable.setResizeHandle(this, 'top')
+        this.addBehavior(Eventable, Classable)
     }
 
     initialState() {
@@ -32,16 +30,9 @@ export default class DesktopLayout extends Component {
         this.stopListeningToLayoutChange()
     }
 
-    beforeRender() {
-        if(!this.state.height) {
-            // Delegate layout to the parent node
-            //Classable.addClass(this, this.state.screenLayout)
-        }
-    }
-
     render() {
         return (
-            <div {...this.getProperties()}>
+            <div className="ui-layout-container" {...this.getProperties()}>
                 <LayoutControl />
                 <Layout />
             </div>

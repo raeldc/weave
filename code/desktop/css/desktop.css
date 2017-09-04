@@ -5396,6 +5396,9 @@ iframe.tablet {
 iframe.phone {
   width: 320px;
 }
+.ui-layout-container {
+  height: 100%;
+}
 .ui-layout {
   margin-right: auto;
   margin-left: auto;
