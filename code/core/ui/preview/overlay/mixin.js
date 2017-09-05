@@ -42,8 +42,7 @@ export function hideOverlay(component, node) {
 }
 
 export function adaptOverlay(component, node) {
-    var position, 
-        state = {},
+    var position,
         $dom  = jQuery(component.nextState.target || null)
 
     if($dom && component.nextState.visible) {
@@ -52,7 +51,7 @@ export function adaptOverlay(component, node) {
         component.nextState.width  = $dom.outerWidth()
         component.nextState.height = $dom.outerHeight()
         component.nextState.top    = position.top - jQuery(window.preview).scrollTop()
-        component.nextState.left   = position.left
+        component.nextState.left   = position.left - jQuery(window.preview).scrollLeft()
     }
 
     component.setState(component.nextState)

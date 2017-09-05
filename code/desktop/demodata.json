@@ -30,9 +30,6 @@
       ],
       "element": "div",
       "columns": "4",
-      "classes": [
-         "row"
-      ],
       "component": "row",
       "parent": "root",
       "id": "i9mdyagz-row"
@@ -98,9 +95,6 @@
       ],
       "element": "div",
       "columns": 3,
-      "classes": [
-         "row"
-      ],
       "component": "row",
       "parent": "root",
       "id": "i9mxkzhs-row"
@@ -256,7 +250,7 @@
       },
       "children": [],
       "element": "p",
-      "text": "Double click here to edit",
+      "text": "Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam. Double click here to edit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui corporis rerum quisquam veniam officiis et vel mollitia expedita suscipit nemo quam, esse, accusamus cum porro est ullam nesciunt modi sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit a minima possimus repudiandae quos fugit. Saepe itaque reprehenderit nesciunt consequuntur perferendis, excepturi. Laboriosam iure in hic nesciunt dolorem, error, quibusdam.",
       "component": "text",
       "id": "i9mxzurn-text",
       "parent": "i9mxwxdl-column"
@@ -271,7 +265,7 @@
       },
       "children": [],
       "element": "p",
-      "text": "Double click here to edit",
+      "text": "Double click here to edit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab voluptate eveniet facilis non distinctio, commodi inventore rem ad veniam debitis. Nesciunt nostrum nobis, iure minus totam consequuntur hic iusto, provident.",
       "component": "text",
       "id": "i9mxs93s-text",
       "parent": "i9mxld23-column"

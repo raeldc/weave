@@ -43,7 +43,7 @@ CoreBuilder.Desktop = function(config) {
     // Initialize the Preview
     jQuery($preview).load(function() {
         var previewDocument = $previewDocument.get(0)
-        window.preview = this
+        window.preview = previewDocument
 
         // Initialize the Nodes (must be replaced with saved values)
         CoreBuilder.Nodes.setData(config.data || {root: {component: 'root', id: 'root'}})
