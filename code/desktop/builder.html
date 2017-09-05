@@ -20,9 +20,16 @@
         </div>
     </body>
     <script>
+        var fs = require('fs')
         require('./js/app.js')
+
         jQuery(document).ready(function(){
-            CoreBuilder.Desktop()
+            fs.readFile(__dirname + '/demodata.json', (err, data) => {
+                if (err) throw err
+                CoreBuilder.Desktop({
+                    data: JSON.parse(data)
+                })
+            })
         })
     </script>
 </html>

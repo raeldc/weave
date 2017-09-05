@@ -1,6 +1,6 @@
 'use strict'
 
-require('babelify/polyfill');
+require('babelify/polyfill')
 
 import CoreBuilder from 'core'
 import Utils       from 'core/lib/utils.js'
@@ -9,6 +9,7 @@ import Styling     from 'core/stores/styling.js'
 // Core UI Components
 import Customizer       from 'core/ui/controls/customizer.js'
 import DesktopLayout    from 'core/ui/layout/desktop.js'
+import UIComponents     from 'core/ui/controls/components.js'
 import UIPreviewOverlay from 'core/ui/preview/overlay'
 import UIPreviewFactory from 'core/components/node/factory.js'
 
@@ -45,7 +46,7 @@ CoreBuilder.Desktop = function(config) {
         window.preview = this
 
         // Initialize the Nodes (must be replaced with saved values)
-        CoreBuilder.Nodes.setData({root: {component: 'root', id: 'root'}})
+        CoreBuilder.Nodes.setData(config.data || {root: {component: 'root', id: 'root'}})
 
         /**
          * Create Stylesheets for Device Queries
@@ -76,7 +77,7 @@ CoreBuilder.Desktop = function(config) {
          */
 
         function onFrameEvent(event) {
-            LayoutActions.frameChanged(null, event);
+            LayoutActions.frameChanged(null, event)
             event.stopPropagation()
         }
 
@@ -90,7 +91,7 @@ CoreBuilder.Desktop = function(config) {
         ReactDOM.render(
             <UIPreviewOverlay />,
             previewDocument.getElementById('corebuilder-overlay')
-        );
+        )
 
         /**
          * Render the Nodes on the Preview
@@ -98,7 +99,7 @@ CoreBuilder.Desktop = function(config) {
         ReactDOM.render(
             UIPreviewFactory.createNode('root'),
             previewDocument.getElementById('corebuilder-preview')
-        );
+        )
 
         /**
          * Render the Topbar
@@ -117,6 +118,14 @@ CoreBuilder.Desktop = function(config) {
         )
 
         /**
+         * Render the Overlay Boxes
+         */
+        ReactDOM.render(
+            <UIComponents />,
+            window.document.getElementById('sidebar')
+        )
+
+        /**
          * Render the Style Settings on the Sidebar
          */
         // ReactDOM.render(
@@ -128,11 +137,11 @@ CoreBuilder.Desktop = function(config) {
          * Set the device of the preview iFrame when it's changed
          */
 
-        $preview.addClass('desktop');
+        $preview.addClass('desktop')
         LayoutActions.setDevice.listen(function(device) {
             $preview.removeClass('desktop laptop tablet phone')
             $preview.addClass(device)
-        });
+        })
 
         /**
          * Set the class of #customize-preview on different screenLayouts
@@ -143,9 +152,9 @@ CoreBuilder.Desktop = function(config) {
         //     $preview.addClass('split')
 
         //     LayoutActions.setScreenLayout.listen(function (layout) {
-        //         $preview.removeClass('split full minimized');
-        //         $preview.addClass(layout);
-        //     });
+        //         $preview.removeClass('split full minimized')
+        //         $preview.addClass(layout)
+        //     })
 
         //     LayoutActions.startResize.listen(function() {
         //         $preview.addClass('disable-events')
