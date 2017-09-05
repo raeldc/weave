@@ -4,8 +4,8 @@ import UIConfig      from 'core/stores/uiconfig.js'
 import LayoutActions from 'core/actions/layout.js'
 
 function afterMount(component) {
-    component.stopListeningToFrameChanged = LayoutActions.frameChanged.listen(() => adaptOverlay(component))
-    component.stopListeningToNodeTouched  = LayoutActions.nodeTouched.listen(() => adaptOverlay(component))
+    component.stopListeningToFrameChanged = LayoutActions.frameChanged.listen((node) => adaptOverlay(component, node))
+    component.stopListeningToNodeTouched  = LayoutActions.nodeTouched.listen((node) => adaptOverlay(component, node))
 }
 
 function beforeUnmount(component) {
@@ -27,21 +27,21 @@ export function initialize(component) {
     return _.clone(component.nextState)
 }
 
-export function displayOverlay(component) {
+export function displayOverlay(component, node) {
     component.listenToReverseSelection()
 
     component.nextState.visible = true
-    component.nextState.target  = ReactDOM.findDOMNode(component)
+    component.nextState.target  = ReactDOM.findDOMNode(node)
 
     adaptOverlay(component)
 }
 
-export function hideOverlay(component) {
+export function hideOverlay(component, node) {
     component.stopListeningToReverseSelection()
     component.setState(initialize(component), component.forceUpdate)
 }
 
-export function adaptOverlay(component) {
+export function adaptOverlay(component, node) {
     var position, 
         state = {},
         $dom  = jQuery(component.nextState.target || null)

@@ -31,7 +31,7 @@ export default class Select extends Component {
     }
 
     afterMount() {
-        this.stopListeningToDisplaySelectOverlay = LayoutActions.displaySelectOverlay.listen(() => displayOverlay(this))
+        this.stopListeningToDisplaySelectOverlay = LayoutActions.displaySelectOverlay.listen((node) => displayOverlay(this, node))
     }
 
     beforeUnmount() {
@@ -40,7 +40,7 @@ export default class Select extends Component {
     }
 
     listenToReverseSelection() {
-        this.stopListeningToUnselectNode = LayoutActions.unSelectNode.listen(() => hideOverlay(this))
+        this.stopListeningToUnselectNode = LayoutActions.unSelectNode.listen((node) => hideOverlay(this, node))
     }
 
     stopListeningToReverseSelection() {

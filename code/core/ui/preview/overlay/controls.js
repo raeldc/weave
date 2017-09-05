@@ -38,7 +38,7 @@ export default class Control extends Component {
     }
 
     afterMount() {
-        this.stopListeningToSelectNode = LayoutActions.selectNode.listen(() => displayOverlay(this))
+        this.stopListeningToSelectNode = LayoutActions.selectNode.listen((node) => displayOverlay(this, node))
     }
 
     beforeUnmount() {
@@ -47,7 +47,7 @@ export default class Control extends Component {
     }
 
     listenToReverseSelection() {
-        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen(() => hideOverlay(this))
+        this.stopListeningToUnSelectNode = LayoutActions.unSelectNode.listen((node) => hideOverlay(this, node))
     }
 
     stopListeningToReverseSelection() {

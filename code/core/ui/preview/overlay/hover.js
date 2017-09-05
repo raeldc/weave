@@ -31,7 +31,7 @@ export default class Hover extends Component {
     }
 
     afterMount() {
-        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen(() => displayOverlay(this))
+        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen((node) => displayOverlay(this, node))
     }
 
     beforeUnmount() {
@@ -40,7 +40,7 @@ export default class Hover extends Component {
     }
 
     listenToReverseSelection() {
-        this.stopListeningToMouseOutNode  = LayoutActions.mouseOutNode.listen(() => hideOverlay(this))
+        this.stopListeningToMouseOutNode  = LayoutActions.mouseOutNode.listen((node) => hideOverlay(this, node))
     }
 
     stopListeningToReverseSelection() {
