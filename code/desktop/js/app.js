@@ -7,7 +7,7 @@ import Utils       from 'core/lib/utils.js'
 import Styling     from 'core/stores/styling.js'
 
 // Core UI Components
-import Customizer           from 'core/ui/controls/customizer.js'
+import UIControlsCustomizer from 'core/ui/controls/customizer.js'
 import DesktopLayout        from 'core/ui/layout/desktop.js'
 import UIControlsComponents from 'core/ui/controls/components.js'
 import UIPreviewOverlay     from 'core/ui/preview/overlay'
@@ -129,7 +129,7 @@ CoreBuilder.Desktop = function(config) {
          * Render the Style Settings on the Sidebar
          */
         // ReactDOM.render(
-        //     <Customizer />,
+        //     <UIControlsCustomizer />,
         //     document.getElementById('corebuilder-customizer')
         // )
 
