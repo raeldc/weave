@@ -8,10 +8,10 @@ import Styling     from 'core/stores/styling.js'
 
 // Core UI Components
 import UIControlsCustomizer from 'core/ui/controls/customizer.js'
-import UILayoutDesktop        from 'core/ui/layout/desktop.js'
+import UILayoutDesktop      from 'core/ui/layout/desktop.js'
 import UIControlsComponents from 'core/ui/controls/components.js'
 import UIPreviewOverlay     from 'core/ui/preview/overlay'
-import UIPreviewFactory     from 'core/components/node/factory.js'
+import NodeFactory          from 'core/components/node/factory.js'
 
 // Desktop UI Components
 import UIControlsTopbar from './ui/controls/topbar.js'
@@ -97,7 +97,7 @@ CoreBuilder.Desktop = function(config) {
          * Render the Nodes on the Preview
          */
         ReactDOM.render(
-            UIPreviewFactory.createNode('root'),
+            NodeFactory.createNode('root'),
             previewDocument.getElementById('corebuilder-preview')
         )
 
