@@ -8,7 +8,7 @@ import Styling     from 'core/stores/styling.js'
 
 // Core UI Components
 import UIControlsCustomizer from 'core/ui/controls/customizer.js'
-import DesktopLayout        from 'core/ui/layout/desktop.js'
+import UILayoutDesktop        from 'core/ui/layout/desktop.js'
 import UIControlsComponents from 'core/ui/controls/components.js'
 import UIPreviewOverlay     from 'core/ui/preview/overlay'
 import UIPreviewFactory     from 'core/components/node/factory.js'
@@ -113,7 +113,7 @@ CoreBuilder.Desktop = function(config) {
          * Render the Layout
          */
         ReactDOM.render(
-            <DesktopLayout />,
+            <UILayoutDesktop />,
             document.getElementById('layout')
         )
 
