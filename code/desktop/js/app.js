@@ -6,15 +6,17 @@ import CoreBuilder from 'core'
 import Utils       from 'core/lib/utils.js'
 import Styling     from 'core/stores/styling.js'
 
-// Core UI Components
+// UI Controls
 import UIControlsCustomizer from 'core/ui/controls/customizer.js'
-import UILayoutDesktop      from 'core/ui/layout/desktop.js'
 import UIControlsComponents from 'core/ui/controls/components.js'
-import UIPreviewOverlay     from 'core/ui/preview/overlay'
-import NodeFactory          from 'core/components/node/factory.js'
+import UIControlsTopbar     from './ui/controls/topbar.js'
 
-// Desktop UI Components
-import UIControlsTopbar from './ui/controls/topbar.js'
+// UI Layout and Preview
+import UILayoutDesktop  from 'core/ui/layout/desktop.js'
+import UIPreviewOverlay from 'core/ui/preview/overlay'
+
+// Factory
+import NodeFactory from 'core/components/node/factory.js'
 
 //Actions
 import LayoutActions from 'core/actions/layout.js'
