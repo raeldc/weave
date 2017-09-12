@@ -5232,9 +5232,6 @@ button.close {
 .disable-events {
   pointer-events: none;
 }
-.app {
-  /** will contain design specific styles **/
-}
 .app-builder {
   display: grid;
   height: 100vh;
@@ -5248,6 +5245,7 @@ button.close {
 .app-builder__topbar {
   grid-column: content;
   grid-row: topbar;
+  border-bottom: 1px solid #e9eeef;
 }
 .app-builder__bottombar {
   grid-column: content;
@@ -5304,56 +5302,39 @@ button.close {
   height: 0;
   overflow: hidden;
 }
-.ui-controls h5 {
-  text-transform: uppercase;
-  text-align: center;
+.controls-devices {
+  text-align: left;
 }
-.ui-controls-topbar.row div:first-child {
-  padding-left: 0;
-}
-.ui-controls-topbar.row div:last-child {
-  padding-right: 0;
-}
-.ui-controls-topbar .btn {
+.controls-devices .btn {
   font-size: 14px;
   border: none;
+  height: 30px;
   padding: 5px 20px;
   outline: none;
   color: #89949b;
+  background: none;
 }
-.ui-controls-topbar .btn.active,
-.ui-controls-topbar .btn:hover {
+.controls-devices .btn.active,
+.controls-devices .btn:hover {
   color: #000;
   background: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-.ui-controls-topbar .devices {
-  text-align: left;
-  border-right: 1px solid #e9eeef;
-}
-.ui-controls-topbar .window-controls {
-  text-align: right;
-  float: right;
-  border-left: 1px solid #e9eeef;
-}
-.ui-controls-topbar .window-controls .btn {
-  padding: 5px 10px;
-}
-.ui-controls-components {
+.controls-components {
   border-top: 1px solid #e9eeef;
   color: #fff;
   background: #35444f;
   padding: 10px;
 }
-.ui-controls-components .components-group h5 {
+.controls-components .components-group h5 {
   font-size: 12px;
   margin: 0;
   padding: 0;
   display: none;
 }
-.ui-controls-components a.btn {
+.controls-components a.btn {
   color: #cfcfcf;
   border: 1px solid #546a7a;
   background: #425360;
@@ -5368,11 +5349,11 @@ button.close {
   cursor: -moz-grab;
   cursor: grab;
 }
-.ui-controls-components a.btn i {
+.controls-components a.btn i {
   font-size: 24px;
   margin-bottom: 5px;
 }
-.ui-controls-components a.btn:hover {
+.controls-components a.btn:hover {
   color: #fff;
   background: #495b69;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
