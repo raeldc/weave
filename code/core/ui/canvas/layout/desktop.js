@@ -32,7 +32,7 @@ export default class DesktopLayout extends Component {
 
     render() {
         return (
-            <div className="ui-layout-container" {...this.getProperties()}>
+            <div className="layout__container" {...this.getProperties()}>
                 <LayoutControl />
                 <Layout />
             </div>

@@ -1,0 +1,43 @@
+.layout {
+    .container-fluid;
+
+    clear     : both;
+    overflow-y: auto;
+    height    : 100%;
+
+    &__container {
+        height: 100%;
+    }
+
+    &__drag-container {
+        height        : 100px;
+        position      : fixed;
+        z-index       : 1000;
+        pointer-events: none;
+
+        > .column {
+            width: 100% !important;
+        }
+    }
+
+    .drag-subject {
+        opacity: .5;
+        pointer-events: none;
+
+        &.unmounted {
+            pointer-events: auto;
+        }
+    }
+
+    .controls {
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+        cursor: grab;
+    }
+
+    .btn {
+        border-radius: 0;
+    }
+
+    @import 'nodes';
+}

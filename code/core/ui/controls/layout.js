@@ -3,8 +3,14 @@
 import Component     from 'core/component.js'
 import LayoutActions from 'core/actions/layout.js'
 import LayoutStore   from 'core/stores/layout.js'
+import Classable     from 'core/components/node/behaviors/classable.js'
 
 export default class LayoutControl extends Component {
+    constructor(props, context) {
+        super(props, context)
+        this.addBehavior(Classable)
+    }
+
     initialState() {
         return LayoutStore.toObject()
     }
@@ -15,6 +21,12 @@ export default class LayoutControl extends Component {
 
     beforeUnmount() {
         this.stopListeningToLayoutChange()
+    }
+
+    beforeRender() {
+        Classable.addClass(this, 'btn-group')
+        Classable.addClass(this, 'controls-layout')
+        Classable.addClass(this, this.props.className)
     }
 
     render() {
@@ -49,7 +61,7 @@ export default class LayoutControl extends Component {
         }
 
         return  (
-            <div className={"ui-layout-control btn-group"}>
+            <div {...this.getProperties()}>
                 {buttons}
             </div>
         )

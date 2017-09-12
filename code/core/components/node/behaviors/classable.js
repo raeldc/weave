@@ -22,7 +22,7 @@ function afterRender(component) {
 export function addClass(component, name) {
     let {classes = []} = component
 
-    if(classes.indexOf(name) === -1) {
+    if(typeof name ==='string' && name.length > 0 && classes.indexOf(name) === -1) {
         classes.push(name)
     }
 

@@ -8,9 +8,11 @@
 @import (reference) 'mixins/devices';
 // Import Application CSS
 @import "ui/app/builder";
-// Import UI CSS
+// Import CSS for Canvas
 @import 'ui/canvas/canvas';
+@import "ui/canvas/layout";
+// Import CSS for Controls (these are independent from their containers)
 @import "ui/controls/topbar";
 @import "ui/controls/devices";
+@import "ui/controls/layout";
 @import "ui/controls/components";
-@import "ui/layout.less";

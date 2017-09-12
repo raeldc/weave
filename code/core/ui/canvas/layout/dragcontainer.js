@@ -32,7 +32,7 @@ export default class DragContainer extends Component {
     }
 
     render() {
-        let classes = ['drag-container']
+        let classes = ['layout__drag-container']
 
         if(this.state.hidden) {
             classes.push('hidden')
