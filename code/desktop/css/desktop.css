@@ -5256,19 +5256,6 @@ button.close {
   grid-row: canvas;
   overflow: hidden;
 }
-.desktop {
-  width: 100%;
-  min-width: 1200px;
-}
-.laptop {
-  width: 1024px;
-}
-.tablet {
-  width: 768px;
-}
-.phone {
-  width: 320px;
-}
 .canvas {
   height: 100%;
 }
@@ -5301,6 +5288,30 @@ button.close {
 .canvas__layout.minimized {
   height: 0;
   overflow: hidden;
+}
+.canvas iframe {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  display: block;
+  overflow: hidden;
+  transition: all .2s;
+  background-color: #fff;
+}
+.canvas iframe.desktop {
+  width: 100%;
+  min-width: 1200px;
+}
+.canvas iframe.laptop {
+  width: 1024px;
+}
+.canvas iframe.tablet {
+  width: 768px;
+}
+.canvas iframe.phone {
+  width: 320px;
 }
 .controls-devices {
   text-align: left;
@@ -5357,30 +5368,6 @@ button.close {
   color: #fff;
   background: #495b69;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
-}
-iframe {
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-  display: block;
-  overflow: hidden;
-  transition: all .2s;
-  background-color: #fff;
-}
-iframe.desktop {
-  width: 100%;
-  min-width: 1200px;
-}
-iframe.laptop {
-  width: 1024px;
-}
-iframe.tablet {
-  width: 768px;
-}
-iframe.phone {
-  width: 320px;
 }
 .ui-layout-container {
   height: 100%;
