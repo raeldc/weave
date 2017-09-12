@@ -1,29 +1,4 @@
-.ui-editmode {
-    -webkit-touch-callout: none;
-    -webkit-user-select  : none;
-    -khtml-user-select   : none;
-    -moz-user-select     : none;
-    -ms-user-select      : none;
-    user-select          : none;
-    cursor               : default;
-
-    &.hover {
-        cursor: pointer;
-    }
-
-    &.editable {
-        cursor: text;
-        outline: none;
-        -webkit-touch-callout: text;
-        -webkit-user-select  : text;
-        -khtml-user-select   : text;
-        -moz-user-select     : text;
-        -ms-user-select      : text;
-        user-select          : text;
-    }
-}
-
-#ui-canvas-preview-overlay {
+.preview__overlay {
     position        : fixed;
     top             : 0;
     left            : 0;
@@ -73,38 +48,5 @@
             cursor        : pointer;
             pointer-events: auto;
         }
-    }
-}
-
-#ui-preview-droparea {
-    pointer-events: none;
-    position      : fixed;
-    z-index       : 10000;
-    width         : 0;
-    height        : 0;
-
-    &.hidden {
-        display   : none;
-        visibility: none;
-    }
-
-    &.top {
-        border-top: 3px solid #FAA523;
-    }
-
-    &.bottom {
-        border-bottom: 3px solid #FAA523;
-    }
-
-    &.left {
-        border-left: 3px solid #FAA523;
-    }
-
-    &.right {
-        border-right: 3px solid #FAA523;
-    }
-
-    &.inner {
-        border: none;
     }
 }
