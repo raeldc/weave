@@ -1,22 +1,32 @@
-@import (reference) "mixins/layout.less";
-
 .app {
     /** will contain design specific styles **/
 }
 
-.app--fullscreen {
-    .layout-parent;
+.app-builder {
+    display: grid;
+    height: 100vh;
+
+    grid-template-columns: [sidebar] 300px [content] 1fr;
+    grid-template-rows: [topbar] 30px [canvas] 1fr [bottombar] 30px;
 }
 
-.app__sidebar {
-    .layout-sidebar;
+.app-builder__sidebar {
+    grid-column: sidebar;
+    grid-row: topbar / end;
 }
 
-.app__topbar {
-    .layout-topbar;
-    background-color: #999;
+.app-builder__topbar {
+    grid-column: content;
+    grid-row: topbar;
 }
 
-.app__bottombar {
-    .layout-bottombar;
+.app-builder__bottombar {
+    grid-column: content;
+    grid-row: bottombar;
+}
+
+.app-builder__canvas {
+    grid-column: content;
+    grid-row: canvas;
+    overflow: hidden;
 }
