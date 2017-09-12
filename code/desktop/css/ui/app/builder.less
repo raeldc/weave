@@ -1,32 +1,28 @@
-.app {
-    /** will contain design specific styles **/
-}
-
 .app-builder {
     display: grid;
     height: 100vh;
 
     grid-template-columns: [sidebar] 300px [content] 1fr;
     grid-template-rows: [topbar] 30px [canvas] 1fr [bottombar] 30px;
-}
 
-.app-builder__sidebar {
-    grid-column: sidebar;
-    grid-row: topbar / end;
-}
+    &__sidebar {
+        grid-column: sidebar;
+        grid-row: topbar / end;
+    }
 
-.app-builder__topbar {
-    grid-column: content;
-    grid-row: topbar;
-}
+    &__topbar {
+        grid-column: content;
+        grid-row: topbar;
+    }
 
-.app-builder__bottombar {
-    grid-column: content;
-    grid-row: bottombar;
-}
+    &__bottombar {
+        grid-column: content;
+        grid-row: bottombar;
+    }
 
-.app-builder__canvas {
-    grid-column: content;
-    grid-row: canvas;
-    overflow: hidden;
+    &__canvas {
+        grid-column: content;
+        grid-row: canvas;
+        overflow: hidden;
+    }
 }
