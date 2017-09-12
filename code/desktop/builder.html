@@ -7,15 +7,15 @@
         <link rel="stylesheet" href="./css/desktop.css" />
     </head>
     <body>
-        <div id="builder">
-            <div id="sidebar"></div>
-            <div id="topbar"></div>
-            <div id="bottombar"></div>
-            <div id="canvas">
-                <div id="preview">
+        <div class="app app--fullscreen">
+            <div id="ui-app-sidebar" class="app__sidebar"></div>
+            <div id="ui-app-topbar" class="app__topbar"></div>
+            <div id="ui-app-bottombar" class="app__bottombar"></div>
+            <div class="canvas">
+                <div id="-preview" class="canvas__preview">
                     <iframe src="preview.html" name="preview" />
                 </div>
-                <div id="layout"></div>
+                <div id="ui-canvas-layout" class="canvas__layout"></div>
             </div>
         </div>
     </body>

@@ -4,7 +4,7 @@ import Component        from 'core/component.js'
 import UIPreviewFactory from 'core/components/node/factory.js'
 import UIConfig         from 'core/stores/uiconfig.js'
 import LayoutActions    from 'core/actions/layout.js'
-import UIPreviewOverlay from 'core/ui/preview/overlay'
+import UIPreviewOverlay from 'core/ui/canvas/preview/overlay'
 
 export default class Preview extends Component {
     initialState() {

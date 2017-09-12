@@ -1,6 +1,6 @@
 var Nodes           = require('core/stores/nodes.js'),
     Preview          = require('core/stores/layout.js'),
-    UIPreviewFactory = require('core/ui/preview/factory.js');
+    UIPreviewFactory = require('core/ui/canvas/preview/factory.js');
 
 module.exports = {
     getInitialState: function() {

@@ -43,8 +43,8 @@ module.exports = function(grunt) {
     ];
 
     var wp_pagebuilder_dist = [
-        'less', 
-        'watchify:pagebuilder', 
+        'less',
+        'watchify:pagebuilder',
         'uglify:pagebuilder',
         'copy:wp_pagebuilder_dist',
         // Copy files to the Standalone App also
@@ -52,8 +52,8 @@ module.exports = function(grunt) {
     ];
 
     var wp_themebuilder_dist = [
-        'less:themebuilder', 
-        'watchify:themebuilder', 
+        'less:themebuilder',
+        'watchify:themebuilder',
         'uglify:themebuilder',
         'copy:wp_themebuilder_dist',
         // Copy files to the Standalone App also
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     ];
 
 
-    // We are now using electron-compile so we only compile less because it has too many issues with it. 
+    // We are now using electron-compile so we only compile less because it has too many issues with it.
     var desktop_watch = [
         //'watchify:desktop',
         'less:desktop',
@@ -73,13 +73,13 @@ module.exports = function(grunt) {
     var desktop_build = [
         'watchify:desktop'
     ];
-   
+
     grunt.registerTask('setup', setup);
 
     // Shortcuts
-    grunt.registerTask('default',              wp_themebuilder_watch);
-    grunt.registerTask('dist' ,                wp_themebuilder_dist);
-    grunt.registerTask('desktop',              desktop_watch);
+    grunt.registerTask('default', wp_themebuilder_watch);
+    grunt.registerTask('dist' ,   wp_themebuilder_dist);
+    grunt.registerTask('desktop', desktop_watch);
     //grunt.registerTask('desktop_build',        desktop_build);
 
     // Specifics

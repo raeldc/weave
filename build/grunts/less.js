@@ -16,7 +16,7 @@ module.exports = {
     desktop: {
         options: {
             paths: [
-                "public/css"
+                "code/desktop/css"
             ],
         },
         files: {

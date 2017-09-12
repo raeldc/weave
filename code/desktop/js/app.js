@@ -7,13 +7,13 @@ import Utils       from 'core/lib/utils.js'
 import Styling     from 'core/stores/styling.js'
 
 // UI Controls
+import UIAppTopbar          from './ui/app/topbar.js'
 import UIControlsCustomizer from 'core/ui/controls/customizer.js'
 import UIControlsComponents from 'core/ui/controls/components.js'
-import UIControlsTopbar     from './ui/controls/topbar.js'
 
 // UI Layout and Preview
-import UILayoutDesktop  from 'core/ui/layout/desktop.js'
-import UIPreviewOverlay from 'core/ui/preview/overlay'
+import UICanvasLayout         from 'core/ui/canvas/layout/desktop.js'
+import UICanvasPreviewOverlay from 'core/ui/canvas/preview/overlay'
 
 // Factory
 import NodeFactory from 'core/components/node/factory.js'
@@ -39,11 +39,11 @@ CoreBuilder.Components.register(Image)
 
 CoreBuilder.Desktop = function(config) {
     var $window          = jQuery(window)
-    var $preview         = jQuery('#preview > iframe')
+    var $preview         = jQuery('#-preview > iframe')
     var $previewDocument = $preview.contents()
 
     // Initialize the Preview
-    jQuery($preview).load(function() {
+    $preview.ready(function() {
         var previewDocument = $previewDocument.get(0)
         window.preview = previewDocument
 
@@ -91,8 +91,8 @@ CoreBuilder.Desktop = function(config) {
          * Render the Overlay Boxes
          */
         ReactDOM.render(
-            <UIPreviewOverlay />,
-            previewDocument.getElementById('corebuilder-overlay')
+            <UICanvasPreviewOverlay />,
+            previewDocument.getElementById('ui-canvas-preview-overlay')
         )
 
         /**
@@ -100,23 +100,23 @@ CoreBuilder.Desktop = function(config) {
          */
         ReactDOM.render(
             NodeFactory.createNode('root'),
-            previewDocument.getElementById('corebuilder-preview')
+            previewDocument.getElementById('ui-canvas-preview')
         )
 
         /**
-         * Render the UIControlsTopbar
+         * Render the UIAppTopbar
          */
         ReactDOM.render(
-            <UIControlsTopbar />,
-            document.getElementById('topbar')
+            <UIAppTopbar />,
+            document.getElementById('ui-app-topbar')
         )
 
         /**
          * Render the Layout
          */
         ReactDOM.render(
-            <UILayoutDesktop />,
-            document.getElementById('layout')
+            <UICanvasLayout />,
+            document.getElementById('ui-canvas-layout')
         )
 
         /**
@@ -124,7 +124,7 @@ CoreBuilder.Desktop = function(config) {
          */
         ReactDOM.render(
             <UIControlsComponents />,
-            window.document.getElementById('sidebar')
+            window.document.getElementById('ui-app-sidebar')
         )
 
         /**

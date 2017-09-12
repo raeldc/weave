@@ -5,9 +5,9 @@ import Component from 'core/component.js'
 import LayoutActions         from 'core/actions/layout.js'
 import UINodeActions         from 'core/actions/node.js'
 import PreviewStore          from 'core/stores/layout.js'
-import UIPreviewOverlayMixin from 'core/ui/preview/overlay/mixin.js'
+import UIPreviewOverlayMixin from 'core/ui/canvas/preview/overlay/mixin.js'
 
-import {initialize, displayOverlay, hideOverlay} from 'core/ui/preview/overlay/mixin.js'
+import {initialize, displayOverlay, hideOverlay} from 'core/ui/canvas/preview/overlay/mixin.js'
 
 export default class Control extends Component {
     constructor(props, context) {

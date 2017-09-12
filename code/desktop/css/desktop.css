@@ -5232,6 +5232,28 @@ button.close {
 .disable-events {
   pointer-events: none;
 }
+.app {
+  /** will contain design specific styles **/
+}
+.app--fullscreen {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: [sidebar] 300px [content] 1fr;
+  grid-template-rows: [topbar] 30px [canvas] 1fr [bottombar] 30px;
+}
+.app__sidebar {
+  grid-column: sidebar;
+  grid-row: topbar / end;
+}
+.app__topbar {
+  grid-column: content;
+  grid-row: topbar;
+  background-color: #999;
+}
+.app__bottombar {
+  grid-column: content;
+  grid-row: bottombar;
+}
 .desktop {
   width: 100%;
   min-width: 1200px;
@@ -5245,58 +5267,39 @@ button.close {
 .phone {
   width: 320px;
 }
-#builder {
-  display: grid;
-  height: 100vh;
-  grid-template-columns: [sidebar] 300px [content] 1fr;
-  grid-template-rows: [topbar] 30px [canvas] 1fr [bottombar] 30px;
-}
-#builder #sidebar {
-  grid-column: sidebar;
-  grid-row: topbar / end;
-}
-#builder #topbar {
-  grid-column: content;
-  grid-row: topbar;
-  background-color: #999999;
-}
-#builder #bottombar {
-  grid-column: content;
-  grid-row: bottombar;
-}
-#builder #canvas {
+.canvas {
   grid-column: content;
   grid-row: canvas;
   overflow: hidden;
   height: 100%;
 }
-#builder #canvas #preview {
+.canvas__preview {
   height: 50%;
   background-color: #000;
   overflow-y: auto;
   overflow-x: hidden;
 }
-#builder #canvas #preview.full {
+.canvas__preview.full {
   height: 0%;
 }
-#builder #canvas #preview.split {
+.canvas__preview.split {
   height: 50%;
 }
-#builder #canvas #preview.minimized {
+.canvas__preview.minimized {
   height: 100%;
 }
-#builder #canvas #layout {
+.canvas__layout {
   height: 50%;
   background: #efefef;
   box-shadow: inset 0px 7px 28px -5px rgba(50, 50, 50, 0.5);
 }
-#builder #canvas #layout.full {
+.canvas__layout.full {
   height: 100%;
 }
-#builder #canvas #layout.split {
+.canvas__layout.split {
   height: 50%;
 }
-#builder #canvas #layout.minimized {
+.canvas__layout.minimized {
   height: 0;
   overflow: hidden;
 }
@@ -5649,76 +5652,3 @@ iframe.phone {
 .ui-layout-control .btn:last-child {
   border-left: 1px solid #e9eeef;
 }
-/*
-#customize-preview {
-    width     : 100%;
-    height    : 100vh;
-    transition: all .2s;
-
-    &.wp-full-overlay-main.iframe-ready {
-        background: #000;
-    }
-
-    &.full {
-        height: 0vh;
-    }
-
-    &.split {
-        height: 50vh;
-    }
-
-    &.minimized {
-        height        : 100vh;
-        padding-bottom: 25px;
-    }
-
-    @import "ui/preview.less";
-}
-
-#corebuilder-layout {
-    position: relative;
-    width: 100%;
-
-    > div {
-        position  : absolute;
-        padding   : 0;
-        width     : 100%;
-        bottom    : 0;
-        background: #fff;
-        transition: all .2s;
-        border-top: 1px solid #d5dbdd;
-        box-shadow: 0px 0px 50px rgba(50, 50, 50, 0.2);
-
-        &.full {
-            height: 100vh;
-        }
-
-        &.split {
-            height: 50vh;
-        }
-
-        &.minimized {
-            height  : 30px;
-            overflow: hidden;
-        }
-
-        @import "ui/controls.less";
-
-        .wrapper {
-            height     : 100%;
-            padding-top: 85px;
-            background : #efefef;
-            box-shadow : inset 0px 7px 28px -5px rgba(50,50,50,.5);
-
-            .ui-layout {
-                margin-top: -85px;
-                overflow-y: auto;
-                height    : 100%;
-                padding   : 0 30px;
-            }
-        }
-    }
-
-    @import "ui/layout.less";
-}
-*/

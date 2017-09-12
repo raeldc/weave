@@ -8,8 +8,8 @@ import Styling     from 'core/stores/styling.js'
 
 // UI Components
 import Customizer         from 'core/ui/controls/customizer.js'
-import ThemeBuilderLayout from 'core/ui/layout/themebuilder.js'
-import UIPreviewOverlay   from 'core/ui/preview/overlay'
+import ThemeBuilderLayout from 'core/ui/canvas/layout/themebuilder.js'
+import UIPreviewOverlay   from 'core/ui/canvas/preview/overlay'
 import UIPreviewFactory   from 'core/components/node/factory.js'
 
 //Actions

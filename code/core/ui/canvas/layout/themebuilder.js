@@ -1,7 +1,7 @@
 'use strict'
 
 import Component    from 'core/component.js'
-import Layout       from 'core/ui/layout'
+import Layout       from 'core/ui/canvas/layout'
 import LayoutStore  from 'core/stores/layout.js'
 import Devices      from 'core/ui/controls/devices.js'
 import ScreenLayout from 'core/ui/controls/screenlayout.js'

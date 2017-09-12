@@ -3,11 +3,11 @@
 import Component from 'core/component.js'
 
 import LayoutActions         from 'core/actions/layout.js'
-import UIPreviewOverlayMixin from 'core/ui/preview/overlay/mixin.js'
+import UIPreviewOverlayMixin from 'core/ui/canvas/preview/overlay/mixin.js'
 
-import {initialize, displayOverlay, hideOverlay} from 'core/ui/preview/overlay/mixin.js'
+import {initialize, displayOverlay, hideOverlay} from 'core/ui/canvas/preview/overlay/mixin.js'
 
-export default class Select extends Component {
+export default class Hover extends Component {
     constructor(props, context) {
         super(props, context)
         this.addBehavior(UIPreviewOverlayMixin)
@@ -15,7 +15,7 @@ export default class Select extends Component {
     }
 
     initialState() {
-        return {type: 'select'}
+        return {type: 'hover'}
     }
 
     render() {
@@ -31,19 +31,19 @@ export default class Select extends Component {
     }
 
     afterMount() {
-        this.stopListeningToDisplaySelectOverlay = LayoutActions.displaySelectOverlay.listen((node) => displayOverlay(this, node))
+        this.stopListeningToDisplayHoverOverlay = LayoutActions.displayHoverOverlay.listen((node) => displayOverlay(this, node))
     }
 
     beforeUnmount() {
-        this.stopListeningToDisplaySelectOverlay()
-        this.stopListeningToUnselectNode()
+        this.stopListeningToDisplayHoverOverlay()
+        this.stopListeningToMouseOutNode()
     }
 
     listenToReverseSelection() {
-        this.stopListeningToUnselectNode = LayoutActions.unSelectNode.listen((node) => hideOverlay(this, node))
+        this.stopListeningToMouseOutNode  = LayoutActions.mouseOutNode.listen((node) => hideOverlay(this, node))
     }
 
     stopListeningToReverseSelection() {
-        this.stopListeningToUnselectNode()
+        this.stopListeningToMouseOutNode()
     }
 }

@@ -11,7 +11,7 @@ module.exports = {
         dest: 'public/js/themebuilder.js'
     },
     desktop: {
-        src : './code/desktop/js/app/index.js',
-        dest: './code/desktop/js/app.js'
+        src : './code/desktop/js/app.js',
+        dest: './code/desktop/js/compiled.js'
     },
 }

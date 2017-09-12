@@ -1,0 +1,44 @@
+@import (reference) "mixins/layout.less";
+
+.canvas {
+    .layout-canvas;
+    height: 100%;
+}
+
+.canvas__preview {
+    height: 50%;
+    background-color: #000;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &.full {
+        height: 0%;
+    }
+
+    &.split {
+        height: 50%;
+    }
+
+    &.minimized {
+        height: 100%;
+    }
+}
+
+.canvas__layout {
+    height: 50%;
+    background : #efefef;
+    box-shadow : inset 0px 7px 28px -5px rgba(50,50,50,.5);
+
+    &.full {
+        height: 100%;
+    }
+
+    &.split {
+        height: 50%;
+    }
+
+    &.minimized {
+        height  : 0;
+        overflow: hidden;
+    }
+}

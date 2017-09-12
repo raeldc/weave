@@ -1,80 +1,15 @@
+// Import selected bootstrap components
 @import "bootstrap";
+// Import 3rd Party CSS
 @import "library";
+// Import Overrides to 3rd Party CSS
 @import "overrides";
-@import "devices";
-@import "builder";
-
-//@import "ui/customizer.less";
-/*
-#customize-preview {
-    width     : 100%;
-    height    : 100vh;
-    transition: all .2s;
-
-    &.wp-full-overlay-main.iframe-ready {
-        background: #000;
-    }
-
-    &.full {
-        height: 0vh;
-    }
-
-    &.split {
-        height: 50vh;
-    }
-
-    &.minimized {
-        height        : 100vh;
-        padding-bottom: 25px;
-    }
-
-    @import "ui/preview.less";
-}
-
-#corebuilder-layout {
-    position: relative;
-    width: 100%;
-
-    > div {
-        position  : absolute;
-        padding   : 0;
-        width     : 100%;
-        bottom    : 0;
-        background: #fff;
-        transition: all .2s;
-        border-top: 1px solid #d5dbdd;
-        box-shadow: 0px 0px 50px rgba(50, 50, 50, 0.2);
-
-        &.full {
-            height: 100vh;
-        }
-
-        &.split {
-            height: 50vh;
-        }
-
-        &.minimized {
-            height  : 30px;
-            overflow: hidden;
-        }
-
-        @import "ui/controls.less";
-
-        .wrapper {
-            height     : 100%;
-            padding-top: 85px;
-            background : #efefef;
-            box-shadow : inset 0px 7px 28px -5px rgba(50,50,50,.5);
-
-            .ui-layout {
-                margin-top: -85px;
-                overflow-y: auto;
-                height    : 100%;
-                padding   : 0 30px;
-            }
-        }
-    }
-
-    @import "ui/layout.less";
-}
-*/
+// Import Application CSS
+@import "ui/app/main";
+// Import Mixins
+@import 'mixins/devices';
+// Import UI CSS
+@import 'ui/canvas/canvas';
+@import "ui/controls.less";
+@import "ui/preview.less";
+@import "ui/layout.less";

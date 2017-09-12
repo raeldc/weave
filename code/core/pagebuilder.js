@@ -3,8 +3,8 @@ window._ = require('underscore');
 var Core     = require('core'),
     Utils    = require('core/lib/utils.js'),
     //Controls = require('core/ui/controls'),
-    Preview  = require('core/ui/preview'),
-    Layout   = require('core/ui/layout');
+    Preview  = require('core/ui/canvas/preview'),
+    Layout   = require('core/ui/canvas/layout');
 
 // Register Node Components
 CoreBuilder.Components.register(require('core/components/root'));
