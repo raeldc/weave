@@ -1,0 +1,20 @@
+.app-opening {
+    display: grid;
+    height: 400px;
+    width: 800px;
+    margin: auto;
+    border: 1px solid red;
+
+    grid-template-columns: [sidebar] 100px [content] 1fr;
+    grid-template-rows: [main] 100%;
+
+    &__options {
+        grid-column: sidebar;
+        grid-row: main / end;
+    }
+
+    &__main {
+        grid-column: content;
+        grid-row: main / end;
+    }
+}
