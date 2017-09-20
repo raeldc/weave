@@ -5256,6 +5256,56 @@ button.close {
   grid-row: canvas;
   overflow: hidden;
 }
+/* Layout */
+.app-opening {
+  display: grid;
+  height: 400px;
+  width: 800px;
+  margin: 50px auto;
+  grid-template-columns: [sidebar] 100px [content] 1fr;
+  grid-template-rows: [main] 100%;
+}
+.app-opening__options {
+  grid-column: sidebar;
+  grid-row: main / end;
+}
+.app-opening__main {
+  grid-column: content;
+  grid-row: main / end;
+}
+/* Style */
+.app-opening {
+  border: 1px solid #425360;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.app-opening__options ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: #425360;
+  color: #fff;
+  height: 100%;
+}
+li.app-opening__option {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+}
+li.app-opening__option:hover,
+li.app-opening__option:active,
+li.app-opening__option:hover *,
+li.app-opening__option:active * {
+  cursor: pointer;
+  background-color: #495b69;
+}
+li.app-opening__option label {
+  font-weight: normal;
+}
+li.app-opening__option > i.fa {
+  display: block;
+  font-size: 30px;
+}
 .canvas {
   height: 100%;
 }
