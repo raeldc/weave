@@ -57,5 +57,40 @@
         }
     }
 
+    &__main {
+        padding: 30px;
+    }
 
+    ul&__build {
+        list-style-type: none;
+        margin         : 0;
+        padding        : 0;
+    }
+
+    &__build-option {
+        clear: both;
+        margin: 0 0 40px 0;
+
+        &:hover,
+        &:active,
+        &:hover *,
+        &:active * {
+            cursor: pointer;
+        }
+
+        > h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        > i.fa {
+            display   : inline-block;
+            float     : left;
+            text-align: center;
+            margin    : 0 20px 0 0;
+            width     : 50px;
+            height    : 50px;
+            font-size : 50px;
+        }
+    }
 }
