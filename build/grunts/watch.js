@@ -9,12 +9,22 @@ module.exports = {
     },
 
     desktop: {
+        options: {
+            livereload: true
+        },
         files: [
             './code/desktop/css/**/*.less'
         ],
         tasks: ['less:desktop']
     },
-
+    desktop_livereload: {
+        options: {
+            livereload: true
+        },
+        files: [
+            './code/desktop/css/**/*.css'
+        ]
+    },
     css_livereload: {
         options: {
             livereload: true
