@@ -1,5 +1,6 @@
 {
-    "name": "Alchemy",
+    "name": "Weave Builder",
+    "productName": "Weave Builder 1",
     "version": "0.1.0",
     "private": true,
     "main": "code/desktop/main.js",

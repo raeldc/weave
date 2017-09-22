@@ -1,55 +1,35 @@
+import {app}   from 'electron'
+import path    from 'path'
+import url     from 'url'
+import fs      from 'fs'
+import start   from './windows/start.js'
+import builder from './windows/builder.js'
 import {enableLiveReload} from 'electron-compile'
-const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
 
-const path = require('path')
-const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let activeWindow
 
-function createWindow () {
-    enableLiveReload();
-    // Create the browser window.
-    mainWindow = new BrowserWindow({
-        width      : 800,
-        height     : 400,
-        center     : true,
-        resizable  : false,
-        minimizable: false,
-        maximizable: false,
-        transparent: true,
-        frame      : false,
-    })
+function initialize() {
+    let userDataPath = app.getPath('userData'),
+        projectsPath
 
-    // and load the index.html of the app.
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, '../opening.html'),
-        protocol: 'file:',
-        slashes : true
+    // Create User Data directory if it doesn't exist yet
+    if(!fs.accessSync(userDataPath, fs.constants.W_OK)) {
+        fs.mkdirSync(userDataPath)
+    }
 
-    }))
-
-    // Open the DevTools.
-    //mainWindow.webContents.openDevTools()
-
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function () {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null
-    })
+    // Create Projects directory if it doesn't exist yet
+    // Check for recently opened projects and open the latest
+    // Open Start window if there is no recently opened project
+    // Check for user's license
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', initialize)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -63,8 +43,8 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (mainWindow === null) {
-        createWindow()
+    if (activeWindow === null) {
+        initialize()
     }
 })
 
