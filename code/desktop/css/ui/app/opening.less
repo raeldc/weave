@@ -3,7 +3,7 @@
     display: grid;
     height : 400px;
     width  : 800px;
-    margin : 50px auto;
+    margin : 0 auto;
 
     grid-template-columns: [sidebar] 100px [content] 1fr;
     grid-template-rows   : [main] 100%;
@@ -21,9 +21,10 @@
 
 /* Style */
 .app-opening {
-    border: 1px solid #425360;
-    border-radius: 10px;
-    overflow: hidden;
+    border          : 1px solid #425360;
+    border-radius   : 10px;
+    overflow        : hidden;
+    background-color: #fff;
 
     &__options ul {
         list-style-type: none;

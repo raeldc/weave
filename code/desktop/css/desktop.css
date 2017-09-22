@@ -5261,7 +5261,7 @@ button.close {
   display: grid;
   height: 400px;
   width: 800px;
-  margin: 50px auto;
+  margin: 0 auto;
   grid-template-columns: [sidebar] 100px [content] 1fr;
   grid-template-rows: [main] 100%;
 }
@@ -5278,6 +5278,7 @@ button.close {
   border: 1px solid #425360;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #fff;
 }
 .app-opening__options ul {
   list-style-type: none;
@@ -5701,4 +5702,8 @@ ul.app-opening__build {
   color: #fff;
   background: #495b69;
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+}
+html,
+body {
+  background: rgba(0, 0, 0, 0);
 }
