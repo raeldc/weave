@@ -17,6 +17,8 @@
         "react": "0.14.x",
         "react-bootstrap": "0.x",
         "react-dom": "0.14.x",
+        "vue": "2.4.x",
+        "vue-electron": "1.0.x",
         "underscore-node": "*",
         "jquery": "2.1.x",
         "reflux": "0.x",
