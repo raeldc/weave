@@ -2,26 +2,32 @@ import {app}   from 'electron'
 import path    from 'path'
 import url     from 'url'
 import fs      from 'fs'
-import start   from './windows/start.js'
-import builder from './windows/builder.js'
-import {enableLiveReload} from 'electron-compile'
 
+import JSONObject from 'core/stores/jsonfile'
+// import start   from './windows/start.js'
+// import builder from './windows/builder.js'
+
+import {requireDirectory} from './tools/checks'
+import {enableLiveReload} from 'electron-compile'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let activeWindow
+let documentsFolder = app.getPath('documents')+'/Weave',
+    projectsFolder  = documentsFolder + '/Projects',
+    settingsFolder  = app.getPath('userData'),
+    projectFolder,
+    activeWindow
 
 function initialize() {
-    let userDataPath = app.getPath('userData'),
-        projectsPath
+    // Create Projects directory if it doesn't exist yet
+    requireDirectory(documentsFolder)
+    requireDirectory(projectsFolder)
 
-    // Create User Data directory if it doesn't exist yet
-    if(!fs.accessSync(userDataPath, fs.constants.W_OK)) {
-        fs.mkdirSync(userDataPath)
+    // Check for recently opened projects and open the latest
+    {
+        let recentProjects = new JSONObject(settingsFolder + '/recents')
     }
 
-    // Create Projects directory if it doesn't exist yet
-    // Check for recently opened projects and open the latest
     // Open Start window if there is no recently opened project
     // Check for user's license
 }

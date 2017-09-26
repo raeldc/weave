@@ -29,7 +29,8 @@
         "react-color-picker": "2.x",
         "react-dnd": "2.x",
         "react-dnd-html5-backend": "2.x",
-        "react-input-autosize": "^0.6.10"
+        "react-input-autosize": "^0.6.10",
+        "jsonfile": "4.x"
     },
     "devDependencies": {
         "babelify": "^6.1.1",
